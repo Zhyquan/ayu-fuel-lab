@@ -1,19 +1,15 @@
 {
-  "gate": "FAIL",
+  "gate": "PASS",
   "evidenceGate": "PASS",
   "groundingGate": "PASS",
-  "humanReviewGate": "PENDING_OR_FAIL",
-  "issues": [
-    "HUMAN_REVIEW_PENDING"
-  ],
+  "humanReviewGate": "PASS",
+  "issues": [],
   "evidenceIssues": [],
   "analysisIssues": [],
-  "humanIssues": [
-    "HUMAN_REVIEW_PENDING"
-  ],
+  "humanIssues": [],
   "evidenceHash": "0b79cc9e03e3d6291052b20865c5ccd2186bc0a2df70517b78bbb11138abad61",
   "analysisHash": "110a25cef206a54637f8cc5e619ad1b019a1ab3b0052f099845d26d763103a5d",
-  "checkedAt": "2026-09-27T13:52:58.556Z",
+  "checkedAt": "2026-09-27T14:25:31.855Z",
   "freshSignalIds": [
     "M_PRICE",
     "O_POLICY",
@@ -27,9 +23,24 @@
   "mixedPrimary": true,
   "validUntil": "2026-09-28T00:00:00.000Z",
   "forecast": {
-    "status": "UNAVAILABLE",
+    "status": "LIVE",
     "source": "AYU_INTELLIGENCE_V1",
-    "reason": "HUMAN_REVIEW_PENDING"
+    "generatedAt": "2026-09-27T13:49:43.968Z",
+    "horizonDays": 7,
+    "direction": "SIDEWAYS",
+    "label": "震荡",
+    "reasons": [
+      "中东运输风险仍在",
+      "国际原油周五回落",
+      "美国原油库存增加"
+    ],
+    "counterSignals": [
+      "美国柴油相关库存偏低",
+      "航道仍有原油运出"
+    ],
+    "evidenceUpdatedAt": "2026-09-27T13:40:55.480Z",
+    "method": "STRUCTURED_INTELLIGENCE_V1",
+    "validUntil": "2026-09-28T00:00:00.000Z"
   },
-  "historyFile": "data/forecast-history/2026-09-27T13-52-58.556Z-intelligence-51ed914ac9f0.json"
+  "historyFile": "data/forecast-history/2026-09-27T14-25-31.855Z-intelligence-a4979cb2c93f.json"
 }

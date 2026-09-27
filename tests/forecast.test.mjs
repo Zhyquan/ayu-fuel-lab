@@ -104,8 +104,8 @@ test('forecast: conflicting ton/liter signs and direction are never silently rep
  const data=raw();data.data.prediction.direction='down';data.data.prediction.estimated_change_per_ton=-2440;data.data.prediction.estimated_change_per_liter=1.808;
  assert.ok(adapt(data).issues.includes('CHANGE_UNIT_SIGN_CONFLICT'));assert.equal(data.data.prediction.estimated_change_per_liter,1.808);
 });
-test('forecast: source NONE blocks even a well-formed cached LIVE and makes no request',async context=>{
- assert.equal(activeForecastSource,'NONE');assert.equal(validateForecastCache(cache(),{now}).gate,'FAIL');
+test('forecast: unapproved APIZero blocks even a well-formed cached LIVE and makes no request',async context=>{
+ assert.notEqual(activeForecastSource,FORECAST_SOURCE);assert.equal(validateForecastCache(cache(),{now}).gate,'FAIL');
  context.mock.method(globalThis,'fetch',async()=>{throw new Error('must not call');});
  assert.equal((await getForecast()).status,'UNAVAILABLE');assert.equal(globalThis.fetch.mock.callCount(),0);
 });

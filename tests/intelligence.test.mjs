@@ -90,9 +90,9 @@ test('intelligence 15: existing price Actions and collector remain byte-identica
  assert.equal(hashText(await read('.github/workflows/update-and-deploy.yml')),'97fb43f290ad6f9e571968515e1b6e0a2b92f0516fc5e0b4ee6d685a07bd75e3');
  assert.equal(hashText(await read('scripts/update-fuel-prices.mjs')),'8f7f4394ab643e70b0c697e8a10bc4227fb7ec803d0d3d09cf90d085dba83715');
 });
-test('intelligence: actual human review remains pending and active source NONE makes no fetch',async context=>{
- const h=JSON.parse(await read('intelligence/human-review.json'));assert.equal(h.status,'PENDING');const f=fixture();f.humanReview=h;assert.ok(run(f).issues.includes('HUMAN_REVIEW_PENDING'));
- assert.equal(activeForecastSource,'NONE');context.mock.method(globalThis,'fetch',async()=>{throw new Error('must not fetch');});assert.equal((await getForecast()).status,'UNAVAILABLE');assert.equal(globalThis.fetch.mock.callCount(),0);
+test('intelligence: pending human review still fails and active-source request errors degrade safely',async context=>{
+ const f=fixture();f.humanReview.status='PENDING';assert.ok(run(f).issues.includes('HUMAN_REVIEW_PENDING'));
+ assert.equal(activeForecastSource,INTELLIGENCE_SOURCE);context.mock.method(globalThis,'fetch',async()=>{throw new Error('request failure');});assert.equal((await getForecast()).status,'UNAVAILABLE');assert.equal(globalThis.fetch.mock.callCount(),1);
 });
 test('intelligence: changed pack or forecast invalidates exact human approval',()=>{
  const f=bind(fixture());f.humanReview.evidenceHash='different';assert.ok(reviewIntelligence(f).issues.includes('HUMAN_REVIEW_INVALID_OR_UNBOUND'));

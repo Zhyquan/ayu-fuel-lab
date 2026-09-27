@@ -1,20 +1,20 @@
 {
-  "status": "PENDING",
+  "status": "APPROVED",
   "kind": "HUMAN",
-  "reviewer": null,
-  "reviewedAt": null,
+  "reviewer": "USER_APPROVED_REVIEW",
+  "reviewedAt": "2026-09-27T14:25:31.684Z",
   "evidenceHash": "0b79cc9e03e3d6291052b20865c5ccd2186bc0a2df70517b78bbb11138abad61",
   "analysisHash": "110a25cef206a54637f8cc5e619ad1b019a1ab3b0052f099845d26d763103a5d",
   "checks": {
-    "realSources": null,
-    "realDates": null,
-    "sourcesOpened": null,
-    "factVsComment": null,
-    "conflictsHandled": null,
-    "noAddedFacts": null,
-    "reasonsSupported": null,
-    "counterEvidence": null,
-    "conclusionConsistent": null,
-    "notHeadlineDriven": null
+    "realSources": true,
+    "realDates": true,
+    "sourcesOpened": true,
+    "factVsComment": true,
+    "conflictsHandled": true,
+    "noAddedFacts": true,
+    "reasonsSupported": true,
+    "counterEvidence": true,
+    "conclusionConsistent": true,
+    "notHeadlineDriven": true
   }
 }
