@@ -22,6 +22,15 @@ def sha(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def freeze_manifest(files):
+    path = DATA / 'download-manifest.json'
+    value = {'snapshotAt': CONFIG['snapshotAt'], 'files': files}
+    if path.exists():
+        assert json.loads(path.read_text()) == value, 'FROZEN_DOWNLOAD_SNAPSHOT_CHANGED'
+    else:
+        path.write_text(json.dumps(value, indent=2))
+
+
 def fetch(url, name, fields=None):
     RAW.mkdir(parents=True, exist_ok=True)
     path = RAW / name
@@ -67,7 +76,7 @@ def run():
     for i in [1, 2]:
         fetch('https://fred.stlouisfed.org/graph/fredgraph.csv?id=DDFUELNYH', f'diesel-current-access-{i}.csv')
     files = {str(p.relative_to(DATA)): sha(p) for p in sorted(DATA.rglob('*')) if p.is_file() and (RAW in p.parents or p.name.endswith('-initial.csv'))}
-    (DATA / 'download-manifest.json').write_text(json.dumps({'snapshotAt': CONFIG['snapshotAt'], 'files': files}, indent=2))
+    freeze_manifest(files)
 
 
 if __name__ == '__main__':

@@ -163,5 +163,11 @@ def current_state(series):
     state = 'STRONG' if changes['7d']['return'] >= .01 and percentile >= .6 else 'WEAK' if changes['7d']['return'] <= -.01 and percentile <= .4 else 'NEUTRAL'
     age = (pd.Timestamp(C['snapshotAt']).tz_convert('Asia/Shanghai').date() - last.date.date()).days
     obj = {'source': 'EIA / ALFRED DDFUELNYH', 'generatedAt': C['snapshotAt'], 'benchmark': {'name': 'EIA New York Harbor Ultra-Low-Sulfur No.2 Diesel Spot', 'latestDate': str(last.date.date()), 'latestValue': float(last.price), 'unit': 'USD/US gallon'}, 'releaseDate': last.releaseDate, 'availableAt': last.availableAt.isoformat(), 'observationAgeDays': age, 'freshness': 'CURRENT_FOR_WEEKLY_RELEASE' if age <= C['gate']['maxObservationAgeDays'] else 'STALE', 'validUntil': (last.date + pd.Timedelta(days=C['gate']['maxObservationAgeDays'] + 1)).tz_localize('Asia/Shanghai').isoformat(), 'changes': changes, 'percentile20Observations': percentile, 'currentState': state, 'stateRule': '7-calendar-day change >=1% and 20-observation percentile >=60% => STRONG; <=-1% and <=40% => WEAK; else NEUTRAL', 'scope': 'Latest published US regional diesel benchmark; not an observed global marine fuel index; not a prediction', 'mgoValidation': 'EXTERNAL_VALIDATION_LIMITED', 'inventories': None, 'refineryUtilization': None}
+    obj['recentObservations'] = [{'date': str(row.date.date()), 'value': float(row.price)} for _, row in f.tail(20).iterrows()]
+    obj['crudeContext'] = {}
+    for code in ['DCOILBRENTEU', 'DCOILWTICO']:
+        crude = series[code]; latest = crude.iloc[-1]
+        before = crude[crude.date <= latest.date-pd.Timedelta(days=7)].iloc[-1]
+        obj['crudeContext'][PREFIXES[code]] = {'latestDate': str(latest.date.date()), 'latestValue': float(latest.price), 'change7dUSD': float(latest.price-before.price), 'unit': 'USD/barrel'}
     dump(REPORTS / 'CURRENT_GLOBAL_DIESEL_STATE.json', obj)
     return obj

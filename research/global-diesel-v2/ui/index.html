@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ayu Fuel Lab · 柴油趋势研究 V2</title><link rel="stylesheet" href="style.css"></head>
+<body><main>
+  <header><div class="brand">AYU FUEL LAB <span>研究预览 V2</span></div><h1>沿海柴油行情</h1><p class="subtitle">看当前价格，也看懂市场变化</p></header>
+  <section class="price-card" aria-live="polite"><div class="card-top"><h2>0# 柴油参考价</h2><select id="province" aria-label="选择沿海地区"></select></div><div id="price" class="price">正在读取…</div><p id="liter"></p><p class="small" id="price-date"></p><p class="note">吨价按 0.84 kg/L 估算，实际成交价格可能不同。</p></section>
+  <section class="market-card" aria-live="polite"><div class="card-top"><h2>国际柴油行情</h2><span class="tag">已公布行情</span></div><p class="state" id="state">正在读取…</p><p class="subtitle">纽约港柴油基准 · 美国地区参考</p><p class="small" id="market-date"></p></section>
+  <section class="forecast-card" aria-live="polite"><h2>未来7天趋势</h2><div id="forecast"><p class="pending">正在读取研究结论…</p></div><details><summary>查看判断依据 <span>＋</span></summary><div class="details-body"><h3>国际柴油近期走势</h3><p id="observed-price"></p><svg id="chart" viewBox="0 0 300 92" role="img" aria-label="纽约港柴油最近20个已公布报价走势"></svg><p id="chart-dates" class="small"></p><p>走势只描述已经公布的行情，不代表未来方向。</p><h3>原油成本变化</h3><p id="crude">暂未读取</p><h3>柴油库存与炼厂供应</h3><p>本轮尚未纳入经过验证的历史数据。</p><h3>为什么暂不提供预测？</h3><p>历史测试还不能证明模型能稳定优于简单参考，概率可靠性也未达标。纽约港柴油与亚洲船用油的关系尚未得到数据验证。</p><a href="../reports/GLOBAL_DIESEL_FORECAST_V2_RESULT.md">查看完整研究记录 ↗</a></div></details></section>
+  <footer>独立研究候选 · 尚未发布<br>省级参考价格与国际柴油基准分别展示</footer>
+</main><script type="module" src="app.js"></script></body></html>

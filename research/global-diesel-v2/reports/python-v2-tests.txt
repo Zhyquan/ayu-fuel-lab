@@ -1,0 +1,24 @@
+test_calibrators_finite_and_normalized (test_v2.DieselV2Tests.test_calibrators_finite_and_normalized) ... ok
+test_cleaning_quarantines_impossible_release_date (test_v2.DieselV2Tests.test_cleaning_quarantines_impossible_release_date) ... ok
+test_crack_uses_matching_dates_and_us_barrels (test_v2.DieselV2Tests.test_crack_uses_matching_dates_and_us_barrels) ... ok
+test_dataset_availability_and_actual_horizon (test_v2.DieselV2Tests.test_dataset_availability_and_actual_horizon) ... ok
+test_deadband_includes_equal_boundaries (test_v2.DieselV2Tests.test_deadband_includes_equal_boundaries) ... ok
+test_download_manifest_cannot_silently_accept_new_snapshot (test_v2.DieselV2Tests.test_download_manifest_cannot_silently_accept_new_snapshot) ... ok
+test_empirical_distribution_and_ties (test_v2.DieselV2Tests.test_empirical_distribution_and_ties) ... ok
+test_fail_gate_has_no_current_forecast_or_artifact (test_v2.DieselV2Tests.test_fail_gate_has_no_current_forecast_or_artifact) ... ok
+test_future_prices_cannot_change_features (test_v2.DieselV2Tests.test_future_prices_cannot_change_features) ... ok
+test_holiday_rolls_forward_not_back (test_v2.DieselV2Tests.test_holiday_rolls_forward_not_back) ... ok
+test_large_gap_and_unknown_endpoint_rejected (test_v2.DieselV2Tests.test_large_gap_and_unknown_endpoint_rejected) ... ok
+test_metrics_perfect_predictions_and_empty_sixty_band (test_v2.DieselV2Tests.test_metrics_perfect_predictions_and_empty_sixty_band) ... ok
+test_negative_or_stale_price_window_is_not_fabricated (test_v2.DieselV2Tests.test_negative_or_stale_price_window_is_not_fabricated) ... ok
+test_nonoverlapping_uses_actual_endpoints (test_v2.DieselV2Tests.test_nonoverlapping_uses_actual_endpoints) ... ok
+test_only_diesel_target (test_v2.DieselV2Tests.test_only_diesel_target) ... ok
+test_purge_all_folds_and_no_date_overlap (test_v2.DieselV2Tests.test_purge_all_folds_and_no_date_overlap) ... ok
+test_release_uses_us_local_day_end_and_dst (test_v2.DieselV2Tests.test_release_uses_us_local_day_end_and_dst) ... ok
+test_routes_do_not_read_query_targets (test_v2.DieselV2Tests.test_routes_do_not_read_query_targets) ... ok
+test_threshold_cannot_see_validation_or_test (test_v2.DieselV2Tests.test_threshold_cannot_see_validation_or_test) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.705s
+
+OK

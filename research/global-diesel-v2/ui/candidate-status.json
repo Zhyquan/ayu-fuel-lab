@@ -1,0 +1,142 @@
+{
+  "gate": "FAIL",
+  "status": "VALIDATING",
+  "probabilities": null,
+  "contract": null,
+  "currentState": {
+    "source": "EIA / ALFRED DDFUELNYH",
+    "generatedAt": "2026-09-27T16:00:00Z",
+    "benchmark": {
+      "name": "EIA New York Harbor Ultra-Low-Sulfur No.2 Diesel Spot",
+      "latestDate": "2026-09-22",
+      "latestValue": 5.007,
+      "unit": "USD/US gallon"
+    },
+    "releaseDate": "2026-09-23",
+    "availableAt": "2026-09-24T05:00:00+00:00",
+    "observationAgeDays": 6,
+    "freshness": "CURRENT_FOR_WEEKLY_RELEASE",
+    "validUntil": "2026-09-30T00:00:00+08:00",
+    "changes": {
+      "1d": {
+        "return": 0.006027727546714656,
+        "fromDate": "2026-09-21",
+        "toDate": "2026-09-22"
+      },
+      "7d": {
+        "return": -0.06200824278756101,
+        "fromDate": "2026-09-15",
+        "toDate": "2026-09-22"
+      },
+      "20d": {
+        "return": 0.0730818688384054,
+        "fromDate": "2026-09-02",
+        "toDate": "2026-09-22"
+      }
+    },
+    "percentile20Observations": 0.65,
+    "currentState": "NEUTRAL",
+    "stateRule": "7-calendar-day change >=1% and 20-observation percentile >=60% => STRONG; <=-1% and <=40% => WEAK; else NEUTRAL",
+    "scope": "Latest published US regional diesel benchmark; not an observed global marine fuel index; not a prediction",
+    "mgoValidation": "EXTERNAL_VALIDATION_LIMITED",
+    "inventories": null,
+    "refineryUtilization": null,
+    "recentObservations": [
+      {
+        "date": "2026-08-25",
+        "value": 4.186
+      },
+      {
+        "date": "2026-08-26",
+        "value": 4.231
+      },
+      {
+        "date": "2026-08-27",
+        "value": 4.273
+      },
+      {
+        "date": "2026-08-28",
+        "value": 4.351
+      },
+      {
+        "date": "2026-08-31",
+        "value": 4.491
+      },
+      {
+        "date": "2026-09-01",
+        "value": 4.724
+      },
+      {
+        "date": "2026-09-02",
+        "value": 4.666
+      },
+      {
+        "date": "2026-09-03",
+        "value": 4.592
+      },
+      {
+        "date": "2026-09-04",
+        "value": 4.549
+      },
+      {
+        "date": "2026-09-08",
+        "value": 4.644
+      },
+      {
+        "date": "2026-09-09",
+        "value": 4.85
+      },
+      {
+        "date": "2026-09-10",
+        "value": 5.17
+      },
+      {
+        "date": "2026-09-11",
+        "value": 5.048
+      },
+      {
+        "date": "2026-09-14",
+        "value": 5.078
+      },
+      {
+        "date": "2026-09-15",
+        "value": 5.338
+      },
+      {
+        "date": "2026-09-16",
+        "value": 5.365
+      },
+      {
+        "date": "2026-09-17",
+        "value": 5.174
+      },
+      {
+        "date": "2026-09-18",
+        "value": 5.16
+      },
+      {
+        "date": "2026-09-21",
+        "value": 4.977
+      },
+      {
+        "date": "2026-09-22",
+        "value": 5.007
+      }
+    ],
+    "crudeContext": {
+      "brent": {
+        "latestDate": "2026-09-22",
+        "latestValue": 114.89,
+        "change7dUSD": -15.91000000000001,
+        "unit": "USD/barrel"
+      },
+      "wti": {
+        "latestDate": "2026-09-22",
+        "latestValue": 96.41,
+        "change7dUSD": -10.61,
+        "unit": "USD/barrel"
+      }
+    }
+  },
+  "reason": "Historical validation did not meet the frozen probability gate."
+}
