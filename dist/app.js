@@ -1,8 +1,8 @@
 import { coastalProvinces } from './data/coastal-provinces.js';
 import { getProvinceFuelData } from './data/fuel-service.js';
 import { getPriceDisplay } from './data/price-display.js';
-import { getForecast } from './data/forecast-service.js';
-import { forecastMarkup } from './data/forecast-view.js';
+import { getForecast } from './data/intelligence-service.js';
+import { forecastMarkup } from './data/intelligence-view.js';
 
 const content = document.querySelector('#fuel-content');
 const dialog = document.querySelector('#province-dialog');

@@ -11,7 +11,8 @@
     "sanity:trend": "node scripts/trend-sanity.mjs",
     "scan": "node scripts/scan-public-files.mjs",
     "update:forecast": "node scripts/update-apizero-forecast.mjs",
-    "gate:forecast": "node scripts/forecast-data-gate.mjs"
+    "gate:forecast": "node scripts/forecast-data-gate.mjs",
+    "intelligence:run": "node scripts/run-intelligence.mjs"
   },
   "engines": { "node": ">=22" }
 }

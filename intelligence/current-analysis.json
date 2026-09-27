@@ -1,0 +1,67 @@
+{
+  "status": "CANDIDATE",
+  "source": "AYU_INTELLIGENCE_V1",
+  "generatedAt": "2026-09-27T13:49:43.968Z",
+  "horizonDays": 7,
+  "direction": "SIDEWAYS",
+  "label": "震荡",
+  "reasons": [
+    "中东运输风险仍在",
+    "国际原油周五回落",
+    "美国原油库存增加"
+  ],
+  "counterSignals": [
+    "美国柴油相关库存偏低",
+    "航道仍有原油运出"
+  ],
+  "evidenceUpdatedAt": "2026-09-27T13:40:55.480Z",
+  "method": "STRUCTURED_INTELLIGENCE_V1",
+  "evidenceHash": "0b79cc9e03e3d6291052b20865c5ccd2186bc0a2df70517b78bbb11138abad61",
+  "reasonRefs": [
+    "G_RISK",
+    "M_PRICE",
+    "I_CRUDE"
+  ],
+  "counterSignalRefs": [
+    "I_DISTILLATE",
+    "G_FLOW"
+  ],
+  "assessments": [
+    {
+      "evidenceId": "M_PRICE",
+      "directionImpact": "DOWN",
+      "claimKind": "FACT"
+    },
+    {
+      "evidenceId": "O_POLICY",
+      "directionImpact": "NEUTRAL",
+      "claimKind": "FACT"
+    },
+    {
+      "evidenceId": "G_RISK",
+      "directionImpact": "UP",
+      "claimKind": "RISK"
+    },
+    {
+      "evidenceId": "G_FLOW",
+      "directionImpact": "DOWN",
+      "claimKind": "REPORTED_FACT"
+    },
+    {
+      "evidenceId": "I_CRUDE",
+      "directionImpact": "DOWN",
+      "claimKind": "FACT"
+    },
+    {
+      "evidenceId": "I_DISTILLATE",
+      "directionImpact": "UP",
+      "claimKind": "FACT"
+    },
+    {
+      "evidenceId": "C_POLICY",
+      "directionImpact": "NEUTRAL",
+      "claimKind": "FACT"
+    }
+  ],
+  "conclusionBasis": "MIXED_PRIMARY_SIGNALS"
+}

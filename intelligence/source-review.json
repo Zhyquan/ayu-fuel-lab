@@ -1,0 +1,59 @@
+{
+  "reviewedBy": "CODEX_SOURCE_AUDIT",
+  "reviewedAt": "2026-09-27T13:40:55.480Z",
+  "sourceChecks": [
+    {
+      "sourceId": "S_MARKET",
+      "url": "https://www.marketscreener.com/news/oil-prices-slide-about-2-as-us-iran-explore-path-out-of-war-ce785adfd180f425",
+      "status": "OPENED",
+      "note": "收盘版正文明确 Brent 104.32、WTI 92.41 美元/桶；较前日分别下跌 2.28、2.20。周变动一涨一跌，不能把单日下跌当作整周同向。未采用页面其它实时报价组件。"
+    },
+    {
+      "sourceId": "S_OPEC",
+      "url": "https://www.opec.org/pr-detail/613-6-september-2026.html",
+      "status": "OPENED",
+      "note": "七国官方公告：十月维持九月所要求的产量；下次会议十月四日。政策配额不等于实际产量。终端抓取403，但浏览工具能打开正文。"
+    },
+    {
+      "sourceId": "S_SUPPLY",
+      "url": "https://www.channelnewsasia.com/world/iran-us-trump-reject-peace-plan-wsj-report-6412236",
+      "status": "OPENED",
+      "note": "报道仍有航运与能源设施受扰风险，同时提出有条件重开航道方案。未把提议写成已达成协议，也未把转述WSJ的拒绝消息认定为核实事实。"
+    },
+    {
+      "sourceId": "S_FLOW",
+      "url": "https://www.brecorder.com/news/amp/40441372",
+      "status": "OPENED",
+      "note": "9月27日转载的船舶跟踪报道，观测截至9月25日：当周迄今33.7百万桶、前一完整周49.2百万桶，周期不同不得直接算下降幅度；只能确认仍有原油外运且估计不完整。"
+    },
+    {
+      "sourceId": "S_INVENTORY",
+      "url": "https://ir.eia.gov/wpsr/psw00.json",
+      "status": "OPENED",
+      "note": "官方JSON release_date=2026-09-23，最新统计周2026-09-18；美国商业原油库存426398千桶，前周423429千桶，增加2969千桶。"
+    },
+    {
+      "sourceId": "S_PRODUCTS",
+      "url": "https://ir.eia.gov/wpsr/summary.txt",
+      "status": "OPENED",
+      "note": "与同一期报告索引交叉确认统计周9月18日。馏分油库存减少0.4百万桶、较五年同期均值低12%；炼厂加工量16.8百万桶/日，减少0.519百万桶/日；馏分油产量5.2百万桶/日；四周产品供应量20.6百万桶/日，同比+0.5%，仅作需求代理。"
+    },
+    {
+      "sourceId": "S_CHINA",
+      "url": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260924_1407824_ext.html",
+      "status": "OPENED",
+      "note": "公告9月24日24时生效：按机制汽油/柴油应上调830/800元每吨，经调控实际上调395/385。只作国内政策背景，不据此推断下一轮幅度。"
+    },
+    {
+      "sourceId": "S_MACRO",
+      "url": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm",
+      "status": "OPENED",
+      "note": "已检查9月16日官方预测材料，较7天窗口早。未据此声称本周美元快速变化或需求急变，本轮宏观信号留空。"
+    }
+  ],
+  "criticalConflicts": [],
+  "quarantined": [
+    "YAHOO_BRENT_CONFLICT"
+  ],
+  "evidenceHash": "0b79cc9e03e3d6291052b20865c5ccd2186bc0a2df70517b78bbb11138abad61"
+}

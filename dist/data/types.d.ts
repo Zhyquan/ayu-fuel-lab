@@ -60,3 +60,10 @@ export type AyuForecast = {
   market: Record<'brent'|'wti', { value: number; changePct: null; observedAt: string; referenceValue: number; referenceDate: string }>;
   marketCheckedAt: string; reasons: string[]; nextAdjustmentDate: null;
 } | { status: 'UNAVAILABLE'; source: 'APIZERO_FORECAST_V1'; generatedAt: string; reason: string; nextAdjustmentDate: null };
+
+export type AyuIntelligenceForecast = {
+  status: 'LIVE'; source: 'AYU_INTELLIGENCE_V1'; generatedAt: string;
+  horizonDays: 7; direction: TrendDirection; label: '偏上涨' | '震荡' | '偏下跌';
+  reasons: string[]; counterSignals: string[];
+  evidenceUpdatedAt: string; validUntil: string; method: 'STRUCTURED_INTELLIGENCE_V1';
+} | { status: 'UNAVAILABLE'; source: 'AYU_INTELLIGENCE_V1'; reason: string };

@@ -1,0 +1,375 @@
+{
+  "schemaVersion": "AYU_EVIDENCE_V1",
+  "generatedAt": "2026-09-27T13:40:55.480Z",
+  "forecastHorizonDays": 7,
+  "asOfDate": "2026-09-27",
+  "sources": [
+    {
+      "id": "S_MARKET",
+      "sourceName": "Reuters / MarketScreener",
+      "tier": 2,
+      "sourceUrl": "https://www.marketscreener.com/news/oil-prices-slide-about-2-as-us-iran-explore-path-out-of-war-ce785adfd180f425",
+      "publishedAt": "2026-09-25T19:30:00Z",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "readStatus": "OPENED",
+      "captureMethod": "WEB_READER",
+      "originalPublisher": "Reuters",
+      "verificationNote": "收盘版正文明确 Brent 104.32、WTI 92.41 美元/桶；较前日分别下跌 2.28、2.20。周变动一涨一跌，不能把单日下跌当作整周同向。未采用页面其它实时报价组件。"
+    },
+    {
+      "id": "S_OPEC",
+      "sourceName": "OPEC",
+      "tier": 1,
+      "sourceUrl": "https://www.opec.org/pr-detail/613-6-september-2026.html",
+      "publishedAt": "2026-09-06",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "readStatus": "OPENED",
+      "captureMethod": "WEB_READER",
+      "originalPublisher": "OPEC",
+      "verificationNote": "七国官方公告：十月维持九月所要求的产量；下次会议十月四日。政策配额不等于实际产量。终端抓取403，但浏览工具能打开正文。"
+    },
+    {
+      "id": "S_SUPPLY",
+      "sourceName": "Reuters / CNA",
+      "tier": 2,
+      "sourceUrl": "https://www.channelnewsasia.com/world/iran-us-trump-reject-peace-plan-wsj-report-6412236",
+      "publishedAt": "2026-09-26",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "readStatus": "OPENED",
+      "captureMethod": "WEB_READER",
+      "originalPublisher": "Reuters",
+      "verificationNote": "报道仍有航运与能源设施受扰风险，同时提出有条件重开航道方案。未把提议写成已达成协议，也未把转述WSJ的拒绝消息认定为核实事实。"
+    },
+    {
+      "id": "S_FLOW",
+      "sourceName": "Reuters / Business Recorder",
+      "tier": 2,
+      "sourceUrl": "https://www.brecorder.com/news/amp/40441372",
+      "publishedAt": "2026-09-27",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "readStatus": "OPENED",
+      "captureMethod": "WEB_READER",
+      "originalPublisher": "Reuters",
+      "verificationNote": "9月27日转载的船舶跟踪报道，观测截至9月25日：当周迄今33.7百万桶、前一完整周49.2百万桶，周期不同不得直接算下降幅度；只能确认仍有原油外运且估计不完整。"
+    },
+    {
+      "id": "S_INVENTORY",
+      "sourceName": "EIA",
+      "tier": 1,
+      "sourceUrl": "https://ir.eia.gov/wpsr/psw00.json",
+      "publishedAt": "2026-09-23",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "readStatus": "OPENED",
+      "captureMethod": "HTTP_200_JSON",
+      "originalPublisher": "EIA",
+      "verificationNote": "官方JSON release_date=2026-09-23，最新统计周2026-09-18；美国商业原油库存426398千桶，前周423429千桶，增加2969千桶。"
+    },
+    {
+      "id": "S_PRODUCTS",
+      "sourceName": "EIA",
+      "tier": 1,
+      "sourceUrl": "https://ir.eia.gov/wpsr/summary.txt",
+      "publishedAt": "2026-09-23",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "readStatus": "OPENED",
+      "captureMethod": "HTTP_200_TEXT",
+      "originalPublisher": "EIA",
+      "verificationNote": "与同一期报告索引交叉确认统计周9月18日。馏分油库存减少0.4百万桶、较五年同期均值低12%；炼厂加工量16.8百万桶/日，减少0.519百万桶/日；馏分油产量5.2百万桶/日；四周产品供应量20.6百万桶/日，同比+0.5%，仅作需求代理。"
+    },
+    {
+      "id": "S_CHINA",
+      "sourceName": "国家发展改革委",
+      "tier": 1,
+      "sourceUrl": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260924_1407824_ext.html",
+      "publishedAt": "2026-09-24",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "readStatus": "OPENED",
+      "captureMethod": "HTTP_200_HTML",
+      "originalPublisher": "国家发展改革委",
+      "verificationNote": "公告9月24日24时生效：按机制汽油/柴油应上调830/800元每吨，经调控实际上调395/385。只作国内政策背景，不据此推断下一轮幅度。"
+    },
+    {
+      "id": "S_MACRO",
+      "sourceName": "Federal Reserve",
+      "tier": 1,
+      "sourceUrl": "https://www.federalreserve.gov/monetarypolicy/fomcprojtabl20260916.htm",
+      "publishedAt": "2026-09-16",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "readStatus": "OPENED",
+      "captureMethod": "WEB_READER",
+      "originalPublisher": "Federal Reserve",
+      "verificationNote": "已检查9月16日官方预测材料，较7天窗口早。未据此声称本周美元快速变化或需求急变，本轮宏观信号留空。"
+    }
+  ],
+  "categoryChecks": [
+    {
+      "category": "MARKET",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "sourceIds": [
+        "S_MARKET"
+      ],
+      "status": "CHECKED",
+      "note": "采用明确日期的收盘正文；隔离Yahoo冲突报价。"
+    },
+    {
+      "category": "OPEC_POLICY",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "sourceIds": [
+        "S_OPEC"
+      ],
+      "status": "CHECKED",
+      "note": "当前政策与下次会议已检查。"
+    },
+    {
+      "category": "SUPPLY",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "sourceIds": [
+        "S_SUPPLY",
+        "S_FLOW"
+      ],
+      "status": "CHECKED",
+      "note": "检查最近72小时报道，区分消息日期与观测日期。"
+    },
+    {
+      "category": "INVENTORY",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "sourceIds": [
+        "S_INVENTORY",
+        "S_PRODUCTS"
+      ],
+      "status": "CHECKED",
+      "note": "核对官方最新一期与统计周，未混同。"
+    },
+    {
+      "category": "MACRO",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "sourceIds": [
+        "S_MACRO"
+      ],
+      "status": "CHECKED_NO_SIGNAL",
+      "note": "未找到足够强且新鲜的直接宏观信号；不纳入方向。"
+    },
+    {
+      "category": "CHINA_ADJUSTMENT",
+      "checkedAt": "2026-09-27T13:40:55.480Z",
+      "sourceIds": [
+        "S_CHINA"
+      ],
+      "status": "CHECKED",
+      "note": "最新正式公告已核对；下一窗口未正式验证，留null。"
+    }
+  ],
+  "market": {
+    "brent": {
+      "value": 104.32,
+      "date": "2026-09-25",
+      "source": "Reuters",
+      "sourceId": "S_MARKET",
+      "unit": "USD/barrel",
+      "basis": "reported futures settlement",
+      "recentDirection": "DOWN",
+      "previousDate": "2026-09-24",
+      "previousValue": 106.6,
+      "changePerBarrel": -2.28
+    },
+    "wti": {
+      "value": 92.41,
+      "date": "2026-09-25",
+      "source": "Reuters",
+      "sourceId": "S_MARKET",
+      "unit": "USD/barrel",
+      "basis": "reported futures settlement",
+      "recentDirection": "DOWN",
+      "previousDate": "2026-09-24",
+      "previousValue": 94.61,
+      "changePerBarrel": -2.2
+    }
+  },
+  "signals": [
+    {
+      "id": "M_PRICE",
+      "category": "MARKET",
+      "title": "国际原油周五回落",
+      "summary": "Brent与WTI 9月25日收盘均较前日回落。近期一日方向为DOWN；不按周变动混合合约计算未来趋势。",
+      "displayText": "国际原油周五回落",
+      "directionImpact": "DOWN",
+      "impactIsInference": true,
+      "claimKind": "FACT",
+      "eventDate": "2026-09-25",
+      "datePrecision": "DAY",
+      "importance": "PRIMARY",
+      "sourceId": "S_MARKET",
+      "sourceName": "Reuters / MarketScreener",
+      "sourceUrl": "https://www.marketscreener.com/news/oil-prices-slide-about-2-as-us-iran-explore-path-out-of-war-ce785adfd180f425",
+      "publishedAt": "2026-09-25T19:30:00Z"
+    },
+    {
+      "id": "O_POLICY",
+      "category": "OPEC_POLICY",
+      "title": "主要产油国产量政策暂稳",
+      "summary": "官方七国产量政策保持十月要求与九月一致；未宣称实际产出已增加或减少。",
+      "displayText": "主要产油国产量政策暂稳",
+      "directionImpact": "NEUTRAL",
+      "impactIsInference": true,
+      "claimKind": "FACT",
+      "eventDate": "2026-09-06",
+      "datePrecision": "DAY",
+      "importance": "SECONDARY",
+      "sourceId": "S_OPEC",
+      "sourceName": "OPEC",
+      "sourceUrl": "https://www.opec.org/pr-detail/613-6-september-2026.html",
+      "publishedAt": "2026-09-06",
+      "effectiveUntil": "2026-10-04",
+      "currentPolicyVerifiedAt": "2026-09-27T13:40:55.480Z"
+    },
+    {
+      "id": "G_RISK",
+      "category": "SUPPLY",
+      "title": "中东运输风险仍在",
+      "summary": "截至报道时，能源设施及航道仍受冲突影响；有条件的通航提议并不证明风险已消失。",
+      "displayText": "中东运输风险仍在",
+      "directionImpact": "UP",
+      "impactIsInference": true,
+      "claimKind": "RISK",
+      "eventDate": "2026-09-26",
+      "datePrecision": "DAY",
+      "importance": "PRIMARY",
+      "sourceId": "S_SUPPLY",
+      "sourceName": "Reuters / CNA",
+      "sourceUrl": "https://www.channelnewsasia.com/world/iran-us-trump-reject-peace-plan-wsj-report-6412236",
+      "publishedAt": "2026-09-26"
+    },
+    {
+      "id": "G_FLOW",
+      "category": "SUPPLY",
+      "title": "航道仍有原油运出",
+      "summary": "9月25日披露的跟踪数据确认仍有原油通过霍尔木兹外运；统计存在未开应答器船舶遗漏。",
+      "displayText": "航道仍有原油运出",
+      "directionImpact": "DOWN",
+      "impactIsInference": true,
+      "claimKind": "REPORTED_FACT",
+      "eventDate": "2026-09-25",
+      "datePrecision": "DAY",
+      "importance": "SECONDARY",
+      "sourceId": "S_FLOW",
+      "sourceName": "Reuters / Business Recorder",
+      "sourceUrl": "https://www.brecorder.com/news/amp/40441372",
+      "publishedAt": "2026-09-27"
+    },
+    {
+      "id": "I_CRUDE",
+      "category": "INVENTORY",
+      "title": "美国原油库存增加",
+      "summary": "截至9月18日美国商业原油库存增加2969千桶，这是库存增加事实，向下价格压力为分析推论。",
+      "displayText": "美国原油库存增加",
+      "directionImpact": "DOWN",
+      "impactIsInference": true,
+      "claimKind": "FACT",
+      "eventDate": "2026-09-18",
+      "datePrecision": "DAY",
+      "importance": "PRIMARY",
+      "sourceId": "S_INVENTORY",
+      "sourceName": "EIA",
+      "sourceUrl": "https://ir.eia.gov/wpsr/psw00.json",
+      "publishedAt": "2026-09-23",
+      "releaseDate": "2026-09-23"
+    },
+    {
+      "id": "I_DISTILLATE",
+      "category": "INVENTORY",
+      "title": "美国柴油相关库存偏低",
+      "summary": "本期馏分油库存减少0.4百万桶，低于五年同期平均12%；不能直接等同中国柴油供给缺口。",
+      "displayText": "美国柴油相关库存偏低",
+      "directionImpact": "UP",
+      "impactIsInference": true,
+      "claimKind": "FACT",
+      "eventDate": "2026-09-18",
+      "datePrecision": "DAY",
+      "importance": "SECONDARY",
+      "sourceId": "S_PRODUCTS",
+      "sourceName": "EIA",
+      "sourceUrl": "https://ir.eia.gov/wpsr/summary.txt",
+      "publishedAt": "2026-09-23",
+      "releaseDate": "2026-09-23"
+    },
+    {
+      "id": "C_POLICY",
+      "category": "CHINA_ADJUSTMENT",
+      "title": "国内调价仍需看正式公告",
+      "summary": "最近官方公告实行调控，柴油实际每吨上调385元而非机制测算800元。未来政策结果未定。",
+      "displayText": "国内调价仍需看正式公告",
+      "directionImpact": "NEUTRAL",
+      "impactIsInference": true,
+      "claimKind": "FACT",
+      "eventDate": "2026-09-24",
+      "datePrecision": "DAY",
+      "importance": "SECONDARY",
+      "sourceId": "S_CHINA",
+      "sourceName": "国家发展改革委",
+      "sourceUrl": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260924_1407824_ext.html",
+      "publishedAt": "2026-09-24"
+    }
+  ],
+  "inventory": {
+    "latestReleaseDate": "2026-09-23",
+    "observationWeek": "2026-09-18",
+    "nextReleaseDate": "2026-09-30",
+    "verifiedAt": "2026-09-27T13:40:55.480Z",
+    "releaseIndexUrl": "https://www.eia.gov/petroleum/supply/weekly/"
+  },
+  "china": {
+    "latestAdjustment": {
+      "date": "2026-09-24",
+      "effectiveAt": "2026-09-25T00:00:00+08:00",
+      "dieselActualChangePerTon": 385,
+      "policyIntervention": true,
+      "sourceId": "S_CHINA"
+    },
+    "nextWindowKnown": null,
+    "source": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260924_1407824_ext.html",
+    "latestVerifiedAt": "2026-09-27T13:40:55.480Z"
+  },
+  "conflicts": [
+    {
+      "id": "YAHOO_BRENT_CONFLICT",
+      "severity": "QUARANTINED_SECONDARY",
+      "usedInAnalysis": false,
+      "values": [
+        97.44000244140625,
+        104.32
+      ],
+      "date": "2026-09-25",
+      "sourceUrls": [
+        "https://finance.yahoo.com/quote/BZ%3DF/history/",
+        "https://query1.finance.yahoo.com/v8/finance/chart/BZ=F?range=1mo&interval=1d"
+      ],
+      "disposition": "未解释报价栏/旧JSON与历史表的差异，不用于主证据。Tier2 Reuters收盘正文明确104.32，辅助EnergyNow收盘报告同值（不作为独立原始行情）。保留旧证据，不追改上轮结论。"
+    }
+  ],
+  "secondaryCrosscheck": {
+    "role": "SECONDARY_CROSSCHECK",
+    "source": "APIZERO_FORECAST_V1",
+    "rawFetchedAt": "2026-09-27T12:58:45.763869+00:00",
+    "rawSha256": "16ef3e2823e9a0804cc52a40d6c5d761e67631a5172b3eaec323abb39b6114aa",
+    "brent": 97.484,
+    "wti": 92.338,
+    "directionRaw": "下跌",
+    "forecastRaw": {
+      "direction": "下跌",
+      "direction_emoji": "📉",
+      "estimated_change_per_ton": -2440,
+      "estimated_change_per_liter": 1.808,
+      "confidence": "低",
+      "analysis": "当前国际油价布伦特约 97.5 美元/桶，近期呈下跌趋势（日均 -2.50 美元）。距调价窗口还有 18 天，当前累计变化约 -2440 元/吨，若趋势延续，预计本轮油价将下调。"
+    },
+    "usedInAnalysis": false,
+    "note": "复用本独立项目同日原始采集，无新调用；缺行情时间戳且幅度符号矛盾，不能改变Ayu结论。"
+  },
+  "limitations": [
+    "没有付费交易所逐合约数据；价格来自Reuters明确收盘报道。",
+    "先前Yahoo Brent引用存在未解释数值冲突，已隔离。",
+    "船舶跟踪有覆盖限制，外交方案尚未证明落实。",
+    "宏观仅完成检查，没有纳入弱或陈旧方向信号。",
+    "本轮是人工触发的情报候选，不是准确率验证。"
+  ]
+}
