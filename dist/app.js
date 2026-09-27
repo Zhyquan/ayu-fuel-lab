@@ -1,7 +1,8 @@
 import { coastalProvinces } from './data/coastal-provinces.js';
 import { getProvinceFuelData } from './data/fuel-service.js';
 import { getPriceDisplay } from './data/price-display.js';
-import { getMarketTrend } from './data/trend-service.js';
+import { getForecast } from './data/forecast-service.js';
+import { forecastMarkup } from './data/forecast-view.js';
 
 const content = document.querySelector('#fuel-content');
 const dialog = document.querySelector('#province-dialog');
@@ -27,23 +28,15 @@ function PriceCard(result) {
   </section>`;
 }
 
-function renderTrend(trend) {
+function renderForecast(forecast) {
   const target = document.querySelector('#trend-content');
-  const time = document.querySelector('#trend-data-date');
-  target.dataset.status = trend.status;
+  target.dataset.status = forecast.status;
   target.setAttribute('aria-busy', 'false');
-  if (trend.status !== 'LIVE') {
-    target.innerHTML = '<p class="trend-unavailable">趋势数据暂不可用</p><p class="trend-explanation">请稍后查看，不影响当前参考价。</p>';
-    time.textContent = '暂不可用';
-    time.removeAttribute('datetime');
-    return;
-  }
-  const arrow = { UP: '↗', SIDEWAYS: '↔', DOWN: '↘' }[trend.direction];
-  target.innerHTML = `<p class="trend-direction ${trend.direction.toLowerCase()}"><span aria-hidden="true">${arrow}</span>${trend.label}</p>
-    <p class="trend-explanation">${trend.basedOn.map(escapeText).join('<br>')}</p>
-    <p class="trend-asof">原油观测截至 ${trend.dataUpdatedAt} · 全国共用</p>`;
-  time.textContent = trend.dataUpdatedAt;
-  time.setAttribute('datetime', trend.dataUpdatedAt);
+  target.innerHTML = forecastMarkup(forecast);
+  const time = document.querySelector('#trend-data-date');
+  time.textContent = forecast.status === 'LIVE' ? formatTime(forecast.generatedAt) : '暂不可用';
+  if (forecast.status === 'LIVE') time.setAttribute('datetime', forecast.generatedAt);
+  else time.removeAttribute('datetime');
 }
 
 function LoadingState() {
@@ -118,5 +111,5 @@ setInterval(async () => {
 
 loadProvince(selectedProvince);
 
-getMarketTrend().then(renderTrend);
-setInterval(() => { if (!document.hidden) getMarketTrend().then(renderTrend); }, 60000);
+getForecast().then(renderForecast);
+setInterval(() => { if (!document.hidden) getForecast().then(renderForecast); }, 60000);

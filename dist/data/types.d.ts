@@ -52,3 +52,11 @@ export interface TrendFreshness {
   checkedAt: string;
   reason: string;
 }
+
+// Raw confidence and analysis are backend/history-only; public cache omits both.
+export type AyuForecast = {
+  status: 'LIVE'; source: 'APIZERO_FORECAST_V1'; generatedAt: string;
+  direction: TrendDirection; estimatedChangePerTon: number; estimatedChangePerLiter: number;
+  market: Record<'brent'|'wti', { value: number; changePct: null; observedAt: string; referenceValue: number; referenceDate: string }>;
+  marketCheckedAt: string; reasons: string[]; nextAdjustmentDate: null;
+} | { status: 'UNAVAILABLE'; source: 'APIZERO_FORECAST_V1'; generatedAt: string; reason: string; nextAdjustmentDate: null };

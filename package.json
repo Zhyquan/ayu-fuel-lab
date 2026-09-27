@@ -9,7 +9,9 @@
     "update:trend": "node scripts/update-market-trend.mjs",
     "gate:trend": "node scripts/trend-data-gate.mjs",
     "sanity:trend": "node scripts/trend-sanity.mjs",
-    "scan": "node scripts/scan-public-files.mjs"
+    "scan": "node scripts/scan-public-files.mjs",
+    "update:forecast": "node scripts/update-apizero-forecast.mjs",
+    "gate:forecast": "node scripts/forecast-data-gate.mjs"
   },
   "engines": { "node": ">=22" }
 }

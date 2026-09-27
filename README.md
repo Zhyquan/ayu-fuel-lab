@@ -106,3 +106,36 @@ also run on candidate branches. It does not merge series or choose a fallback.
 Raw research evidence stays outside public files. The branch workflow never
 uploads a Pages artifact or deploys. DataHub dataset metadata update time must
 not be confused with the CSV's last observation date.
+
+## APIZero forecast spike (not approved)
+
+The active page now reads only the independent forecast contract. The existing
+momentum baseline and freshness code remain intact for research; no model fusion
+or fallback to its old direction is performed. `activeForecastSource = NONE`.
+
+Three anonymous calls succeeded with stable structure. However, the provider
+returned Chinese `下跌` outside the requested direction allowlist, a negative
+change per ton and positive change per liter, and no observation timestamps.
+Close agreement with dated external quotes does not prove the provider date.
+The source gate is FAIL and the page intentionally shows unavailable forecast.
+
+- `scripts/apizero-forecast-adapter.mjs`: validate HTTP/business response, direction,
+  signed values, reviewed independent date/value evidence; produce Ayu contract.
+- `dist/data/forecast-contract.js`: public projection and cache validation.
+- `scripts/update-apizero-forecast.mjs`: anonymous collector, immutable timestamped
+  history, independent optional cache. It does not receive or send API keys.
+- `scripts/forecast-data-gate.mjs`: clear unavailable/unapproved forecast safely.
+- `data/forecast-history/`: raw evidence and source confidence, never Pages content.
+
+The broad sanity limits (3000 yuan/ton, 3 yuan/liter, 1% market discrepancy) are
+input-review limits, not expected moves or calibrated prediction accuracy. No
+numeric confidence is generated. Provider `*_change` has undocumented units,
+so normalized `changePct` stays null; reasons use controlled attribution text.
+All adjustment dates currently remain null until official verification. Public
+cache never includes provider analysis or confidence.
+
+The candidate-only forecast workflow runs offline tests and safe gating. Since
+the source gate failed, no live forecast updater or daily schedule is connected
+to the existing Pages workflow. No merge/deployment is authorized. Do not switch
+NONE to an enabled source without resolving source-date/basis and amount-sign
+contracts, reviewing the date calendar for that market, and rerunning the gate.

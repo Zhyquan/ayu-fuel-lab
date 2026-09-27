@@ -1,0 +1,24 @@
+name: Forecast spike offline candidate checks
+on:
+  push:
+    branches: [spike/apizero-forecast]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  check:
+    if: github.ref == 'refs/heads/spike/apizero-forecast'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '22'
+      - run: npm test
+      - run: npm run gate:forecast
+      - name: Assert source remains disabled
+        run: node --input-type=module -e "import { activeForecastSource } from './dist/data/forecast-config.js'; if (activeForecastSource !== 'NONE') process.exit(1);"
+      - run: npm run scan
+# Source gate FAIL: no forecast API update, scheduler, price mutation, Pages artifact or deploy.

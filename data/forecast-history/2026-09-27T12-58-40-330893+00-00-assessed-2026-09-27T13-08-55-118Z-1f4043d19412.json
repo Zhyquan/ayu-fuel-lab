@@ -1,0 +1,78 @@
+{
+  "assessedAt": "2026-09-27T13:08:55.118Z",
+  "assessmentVersion": "APIZERO_FORECAST_GATE_V1",
+  "forecastDate": "2026-09-27",
+  "source": "APIZERO",
+  "gate": "FAIL",
+  "issues": [
+    "UNKNOWN_DIRECTION",
+    "CHANGE_UNIT_SIGN_CONFLICT",
+    "MARKET_BASIS_UNVERIFIED",
+    "SOURCE_DATE_EVIDENCE_MISSING",
+    "BRENT_SOURCE_DATE_MISSING",
+    "WTI_SOURCE_DATE_MISSING"
+  ],
+  "direction": null,
+  "sourceDirectionRaw": "下跌",
+  "estimatedChangePerTon": -2440,
+  "estimatedChangePerLiter": 1.808,
+  "sourceConfidenceRaw": "低",
+  "brent": 97.484,
+  "wti": 92.338,
+  "rawFetchedAt": "2026-09-27T12:58:40.330893+00:00",
+  "httpStatus": 200,
+  "requestError": null,
+  "rawSha256": "1f4043d19412949b9d1d14d3c6d4d49ab87179b2d972bd5bb4c7aa02082fca48",
+  "rawText": "{\n    \"code\": 0,\n    \"msg\": \"成功\",\n    \"data\": {\n        \"crude_oil\": {\n            \"wti\": 92.338,\n            \"brent\": 97.484,\n            \"wti_change\": -2.272,\n            \"brent_change\": -2.736,\n            \"source\": \"sina_finance\"\n        },\n        \"next_adjust_date\": \"2026-10-15\",\n        \"days_remaining\": 18,\n        \"prediction\": {\n            \"direction\": \"下跌\",\n            \"direction_emoji\": \"📉\",\n            \"estimated_change_per_ton\": -2440,\n            \"estimated_change_per_liter\": 1.808,\n            \"confidence\": \"低\",\n            \"analysis\": \"当前国际油价布伦特约 97.5 美元/桶，近期呈下跌趋势（日均 -2.50 美元）。距调价窗口还有 18 天，当前累计变化约 -2440 元/吨，若趋势延续，预计本轮油价将下调。\"\n        }\n    },\n    \"tips\": \"极数本源 · https://apizero.cn\",\n    \"request_id\": \"mujtr34w8a55b29b\"\n}",
+  "crosscheck": {
+    "source": "YAHOO_FUTURES",
+    "sourceBasis": "UNVERIFIED",
+    "referenceBasis": "FUTURES",
+    "checkedAt": "2026-09-27T11:50:45.513355+00:00",
+    "sourceDates": {
+      "brent": null,
+      "wti": null
+    },
+    "reference": {
+      "brent": {
+        "date": "2026-09-25",
+        "value": 97.44000244140625
+      },
+      "wti": {
+        "date": "2026-09-25",
+        "value": 92.41000366210938
+      }
+    },
+    "rows": [
+      {
+        "market": "brent",
+        "apizeroValue": 97.484,
+        "apizeroSourceDate": null,
+        "independentValue": 97.44000244140625,
+        "independentSourceDate": "2026-09-25",
+        "difference": 0.04399755859374466,
+        "differencePct": 0.04515348675222519,
+        "independentFetchedAt": "2026-09-27T11:50:45.513355+00:00",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/BZ=F?range=1mo&interval=1d",
+        "instrumentType": "FUTURE",
+        "comparison": "NUMERICALLY_CLOSE_BUT_SOURCE_DATE_UNVERIFIED"
+      },
+      {
+        "market": "wti",
+        "apizeroValue": 92.338,
+        "apizeroSourceDate": null,
+        "independentValue": 92.41000366210938,
+        "independentSourceDate": "2026-09-25",
+        "difference": -0.07200366210938114,
+        "differencePct": -0.07791760551449922,
+        "independentFetchedAt": "2026-09-27T11:50:44.923951+00:00",
+        "url": "https://query1.finance.yahoo.com/v8/finance/chart/CL=F?range=1mo&interval=1d",
+        "instrumentType": "FUTURE",
+        "comparison": "NUMERICALLY_CLOSE_BUT_SOURCE_DATE_UNVERIFIED"
+      }
+    ],
+    "currentFetchStatus": 429,
+    "sourceDateEvidenceUrl": null,
+    "verifiedAdjustmentDates": []
+  }
+}
