@@ -15,7 +15,7 @@
     <div class="page-shell">
       <header class="site-header">
         <div class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3C9 7 6 10.5 6 14a6 6 0 0 0 12 0c0-3.5-3-7-6-11Z" fill="currentColor"/><path d="M9 14a3 3 0 0 0 3 3" stroke="#123c46" stroke-width="1.5" stroke-linecap="round"/></svg></div>
-        <div><h1>渔船柴油参考价</h1><p class="subtitle">沿海地区 0# 柴油参考行情</p></div>
+        <div><h1>渔船柴油参考价</h1><p class="subtitle">沿海地区 · 0#柴油省级参考价</p></div>
       </header>
 
       <main>
@@ -25,10 +25,21 @@
         </div>
         <p id="status-announcement" class="sr-only" role="status" aria-live="polite"></p>
         <div id="fuel-content" aria-busy="true"><div class="initial-loading" role="status">正在读取参考价。</div></div>
+        <section class="trend-card" aria-labelledby="trend-title">
+          <h2 id="trend-title">未来7天趋势</h2>
+          <div id="trend-content" aria-live="polite" aria-busy="true"><p class="trend-unavailable">正在读取趋势数据…</p></div>
+          <p class="trend-footnote">原油信号推导 · 仅供价格方向参考</p>
+        </section>
+        <section class="source-details" aria-label="数据时间与来源">
+          <div id="price-times"></div>
+          <p><span>趋势数据更新时间</span><time id="trend-data-date">—</time></p>
+          <p class="precision-note">来源与趋势保留观测日期；本站更新为北京时间。</p>
+          <p class="source-credit">价格：APIZero · 原油：EIA / <a href="https://fred.stlouisfed.org/series/DCOILBRENTEU">FRED</a></p>
+        </section>
       </main>
 
       <footer class="site-footer">
-        <p class="disclaimer">本页面展示省级公开参考价格，实际成交价格可能因地区、供应商及渠道不同而变化。</p>
+        <p class="disclaimer">本页面展示省级0#柴油参考价格。吨价由元/升按参考密度估算。实际成交价格可能因地区、供应商及渠道不同而变化。未来7天趋势仅表示价格方向参考，不代表确定调价结果。</p>
         <div class="footer-brand"><span>AYU FUEL LAB</span><span>沿海柴油参考行情</span></div>
       </footer>
     </div>

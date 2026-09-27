@@ -120,3 +120,38 @@ dialog::backdrop { background: #0c252a75; backdrop-filter: blur(3px); }
 
 .price-card.update-error { box-shadow: inset 0 0 0 2px #ef9c7e; }
 .update-error .data-status { color: #ffd0bf; font-weight: 650; line-height: 1.6; }
+
+/* V0.1: estimated tons first, optional national direction second. */
+.site-header { padding: 22px 0 16px; }
+.location-row { padding: 12px 0; }
+.price-card { padding: 21px 22px; }
+.price.ton-price { gap: 6px; margin: 15px 0 8px; white-space: nowrap; }
+.ton-price strong { font-size: clamp(2.6rem, 12vw, 3.5rem); font-weight: 600; }
+.ton-price .approx { font-size: 1.125rem; color: #dcefed; margin-right: 3px; }
+.ton-price .currency { font-size: 1.5rem; }
+.ton-price .unit { font-size: 1rem; }
+.liter-price { font-size: 1.1875rem; color: #e8f5f3; font-variant-numeric: tabular-nums; }
+.liter-price span { font-size: 1rem; color: #bcd0d4; }
+.estimate-note { margin-top: 12px; font-size: .875rem; line-height: 1.5; color: #c5dcd9; }
+.price-card .data-status { margin-top: 12px; }
+.trend-card { margin-top: 14px; padding: 18px 22px; border: 1px solid var(--border); border-radius: 16px; background: white; }
+.trend-card h2 { font-size: 1rem; }
+.trend-direction { display: flex; align-items: center; gap: 10px; font-size: 1.75rem; font-weight: 650; margin: 8px 0; }
+.trend-direction.down { color: #246963; }
+.trend-direction.up { color: #9b5b24; }
+.trend-direction.sideways { color: #51666d; }
+.trend-direction span { font-size: 2rem; line-height: 1; }
+.trend-explanation { font-size: 1rem; line-height: 1.55; color: #456167; }
+.trend-asof, .trend-footnote { font-size: .875rem; line-height: 1.5; color: #627b80; margin-top: 9px; }
+.trend-footnote { border-top: 1px solid #eef1f0; padding-top: 10px; margin-top: 11px; }
+.trend-unavailable { font-size: 1.125rem; font-weight: 600; margin: 16px 0 8px; color: #62767b; }
+.source-details { padding-top: 21px; }
+.source-details p { font-size: .875rem; margin-bottom: 9px; }
+.source-details p.precision-note, .source-details p.source-credit { display: block; font-size: .8125rem; line-height: 1.6; color: #718489; }
+.source-credit a { color: inherit; }
+.site-footer { margin-top: 12px; padding-top: 17px; }
+.disclaimer { font-size: .875rem; line-height: 1.75; color: #74888d; }
+@media (max-width: 360px) {
+  .price-card, .trend-card { padding-left: 18px; padding-right: 18px; }
+  .estimate-note { font-size: .875rem; }
+}

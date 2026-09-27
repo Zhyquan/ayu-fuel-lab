@@ -1,5 +1,7 @@
 import { coastalProvinces } from './data/coastal-provinces.js';
 import { getProvinceFuelData } from './data/fuel-service.js';
+import { getPriceDisplay } from './data/price-display.js';
+import { getMarketTrend } from './data/trend-service.js';
 
 const content = document.querySelector('#fuel-content');
 const dialog = document.querySelector('#province-dialog');
@@ -14,16 +16,34 @@ const statusText = result => result.delayLevel === 'ERROR' ? '数据更新异常
 const formatTime = value => new Date(Date.parse(value) + 8 * 3600000).toISOString().slice(0,16).replace('T',' ');
 
 function PriceCard(result) {
-  const data = result.record;
+  const data = getPriceDisplay(result.record.diesel0Price);
   const stale = result.status === 'STALE';
   return `<section class="price-card${result.delayLevel === 'ERROR' ? ' update-error' : stale ? ' stale-card' : ''}" aria-labelledby="price-title">
     <h2 id="price-title">省级0#柴油参考价</h2>
-    <div class="price"><span class="currency">¥</span><strong>${data.diesel0Price.toFixed(2)}</strong><span class="unit">/ L</span></div>
-    <p class="data-status ${stale ? 'stale' : 'live'}"><span aria-hidden="true">${stale ? '!' : '✓'}</span>${statusText(result)}</p>
-    <div class="source-date"><span>价格来源日期</span><time datetime="${data.updatedAt}">${data.updatedAt}</time></div>
-    <p class="date-precision">来源仅提供日期，不含具体时分</p>
-    ${stale ? '<p class="stale-notice">请谨慎参考，等待数据更新。</p>' : ''}
-  </section><div class="source-details"><p><span>数据来源</span><strong>APIZero · 省级公开参考价</strong></p><p><span>本站更新时间</span><time datetime="${result.generatedAt}">${formatTime(result.generatedAt)}</time></p><p class="timezone">本站更新时间为北京时间</p></div>`;
+    <div class="price ton-price"><span class="approx">约</span><span class="currency">¥</span><strong>${data.estimatedPricePerTon.toLocaleString('en-US')}</strong><span class="unit">/ 吨</span></div>
+    <p class="liter-price">¥${data.diesel0PricePerLiter.toFixed(2)} <span>/ 升</span></p>
+    <p class="estimate-note">吨价按参考密度估算 · ${data.dieselDensityKgPerLiter} kg/L</p>
+    ${stale ? `<p class="data-status stale"><span aria-hidden="true">!</span>${statusText(result)}</p>` : ''}
+  </section>`;
+}
+
+function renderTrend(trend) {
+  const target = document.querySelector('#trend-content');
+  const time = document.querySelector('#trend-data-date');
+  target.dataset.status = trend.status;
+  target.setAttribute('aria-busy', 'false');
+  if (trend.status !== 'LIVE_BASELINE') {
+    target.innerHTML = '<p class="trend-unavailable">趋势数据暂不可用</p><p class="trend-explanation">请稍后查看，不影响当前参考价。</p>';
+    time.textContent = '暂不可用';
+    time.removeAttribute('datetime');
+    return;
+  }
+  const arrow = { UP: '↗', SIDEWAYS: '↔', DOWN: '↘' }[trend.direction];
+  target.innerHTML = `<p class="trend-direction ${trend.direction.toLowerCase()}"><span aria-hidden="true">${arrow}</span>${trend.label}</p>
+    <p class="trend-explanation">${trend.basedOn.map(escapeText).join('<br>')}</p>
+    <p class="trend-asof">原油观测截至 ${trend.dataUpdatedAt} · 全国共用</p>`;
+  time.textContent = trend.dataUpdatedAt;
+  time.setAttribute('datetime', trend.dataUpdatedAt);
 }
 
 function LoadingState() {
@@ -38,6 +58,7 @@ function renderResult(result) {
   currentResult = result;
   content.setAttribute('aria-busy','false');
   content.dataset.state = result.status;
+  document.querySelector('#price-times').innerHTML = result.record ? `<p><span>价格来源日期</span><time datetime="${result.record.updatedAt}">${result.record.updatedAt}</time></p><p><span>本站更新时间</span><time datetime="${result.generatedAt}">${formatTime(result.generatedAt)}</time></p>` : '<p>价格数据暂不可用</p>'; 
   if (result.status === 'UNAVAILABLE') {
     content.innerHTML = UnavailableState();
     document.querySelector('#retry-data').addEventListener('click', () => loadProvince(selectedProvince, { refresh: true }));
@@ -46,7 +67,7 @@ function renderResult(result) {
     return;
   }
   content.innerHTML = PriceCard(result);
-  announcement.textContent = `${selectedProvince}省级0号柴油参考价${result.record.diesel0Price.toFixed(2)}元每升，${statusText(result)}`;
+  announcement.textContent = `${selectedProvince}省级0号柴油参考价，估算约${getPriceDisplay(result.record.diesel0Price).estimatedPricePerTon}元每吨，${result.record.diesel0Price.toFixed(2)}元每升，${statusText(result)}`;
 }
 
 async function loadProvince(province, options = {}) {
@@ -56,6 +77,7 @@ async function loadProvince(province, options = {}) {
   document.querySelectorAll('[data-province]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.province === province)));
   content.setAttribute('aria-busy','true');
   content.dataset.state = 'LOADING';
+  document.querySelector('#price-times').innerHTML = '';
   content.innerHTML = LoadingState();
   announcement.textContent = '正在读取参考价。';
   const result = await getProvinceFuelData(province, options);
@@ -95,3 +117,6 @@ setInterval(async () => {
 }, 60000);
 
 loadProvince(selectedProvince);
+
+getMarketTrend().then(renderTrend);
+setInterval(() => { if (!document.hidden) getMarketTrend().then(renderTrend); }, 60000);

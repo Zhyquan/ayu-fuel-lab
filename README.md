@@ -1,7 +1,7 @@
 # Ayu Fuel Lab · 渔船柴油参考价
 
 独立公开测试 V0。界面提供 11 个沿海省级地区的 0# 柴油参考价，数据层保留大陆 31 个省级行政区。
-无登录、无付费服务、无预测或历史图表。
+无登录、无付费服务、无历史图表。V0.1 加入明确标为估算的吨价，以及可降级的真实原油趋势规则。
 
 ## 数据更新与部署
 
@@ -9,7 +9,7 @@
 - GitHub Actions 使用 Node 22、免费标准 Ubuntu 运行器，匿名请求 APIZero。
 - 北京时间 01:17、07:17、13:17、19:17 更新；UTC cron 为 `17 5,11,17,23 * * *`。
 - 每轮 31 次串行请求，间隔至少 2 秒；每天计划 124 次，低于当前匿名 500 次/天、3 QPS 限制。手动运行也占用额度。
-- 更新 → 独立 PUBLIC_DATA_GATE → 静态 artifact → GitHub Pages。Gate 要求全部 31 省成功（包含 11 沿海地区）。任何失败都阻止部署，已有线上版本继续服务。
+- 更新油价 → 更新原油数据 → TREND_DATA_GATE（可降级）→ 独立 PUBLIC_DATA_GATE → 静态 artifact → GitHub Pages。Gate 要求全部 31 省成功（包含 11 沿海地区）。任何价格失败都阻止部署，已有线上版本继续服务。趋势失败只显示暂不可用，不阻止通过价格 Gate 的版本。
 - `workflow_dispatch` 默认正常更新；勾选 `simulate_failure` 会模拟 API 503，不发出真实请求，必须导致 Gate 失败和部署跳过。
 - `generatedAt` 必须晚于工作流本轮开始时间；工作流在请求前删除旧缓存，缓存不提交到仓库。
 - Artifact 保留 1 天，仅上传 `dist/`；原始响应留在运行器临时 `evidence/`，不发布。
@@ -51,3 +51,27 @@ APIZero 是第三方公开参考价，匿名配额和服务可用性可能变化
 - [GitHub Pages 自定义工作流](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
 
 源代码为本实验独立实现，未复制第三方开源抓取项目代码。数据归其原始提供方所有。
+
+## V0.1 吨价与未来 7 天方向参考
+
+- `dist/data/fuel-config.js` 集中设置参考密度 0.84 kg/L。
+- `price-display.js` 使用 `round(元/升 × 1000 / 密度)`，保持原价格数据合同，显示“约”和“按参考密度估算”。例如 8.29 元/升换算为约 9,869 元/吨。
+- `scripts/update-market-trend.mjs` 匿名下载 [FRED Brent + WTI CSV](https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU,DCOILWTICO)，原始来源为 EIA，单位美元/桶。浏览器只读取静态 `trend-cache.json`。
+- 两项原油共同最新观测日为基准，使用 1/3/7 个自然日之前最近有效观测；基准日期最多回退 4 天，绝不使用目标日之后的观测。
+- 两项 7 日变化均 ≥ +2%，且两项 3 日变化均 > −1%：偏上涨。两项 7 日变化均 ≤ −2%，且两项 3 日变化均 < +1%：偏下跌。有效数据的其他组合：震荡。
+- ±2% 来自一年样本绝对周变化下四分位数约 2% 的粗粒度选择；1% 反转门槛是方向门槛的一半。没有针对未来国内柴油结果拟合阈值。
+- 原油观测超过 7 个自然日、缓存超过 24 小时、任一关键序列/日期/数值异常，均为 UNAVAILABLE。页面始终显示观测截至日期。
+- `TREND_DATA_GATE` 重新计算百分比、标签和方向，拒绝篡改或无效值；这是观测变化百分比，不是上涨/下跌概率。
+- APIZero 原始 forecast 缺少独立有效期、next_adjustment 已发现过期，因此两字段完全不进入本规则；第一版不加入汇率。
+- 这是国际原油动量对国内柴油价格压力的简单参考，没有重建完整国内调价计价篮子、税费、汇率及 10 工作日窗口，不能承诺未来 7 天发生调价。
+- [Brent 元数据](https://fred.stlouisfed.org/series/DCOILBRENTEU)和 [WTI 元数据](https://fred.stlouisfed.org/series/DCOILWTICO)标为 Public Domain: Citation Requested；保留 EIA/FRED 归属。数据可能修订。
+
+```sh
+npm run update:trend
+npm run gate:trend
+npm run sanity:trend
+```
+
+sanity 使用最近一年历史窗口排查明显方向错误，产出临时 evidence/trend-sanity.json。它不是预测回测，不输出准确率，不证明未来收益或预测能力。
+
+工作流额外支持 `simulate_trend_failure`；此时油价仍真实请求，趋势写 UNAVAILABLE，价格 Gate 仍必须通过。feature 分支手动运行只验证，不上传 Pages artifact，也不部署。只有合并 main 才会进入原有发布链路。

@@ -6,6 +6,9 @@
     "test": "node --test tests/*.test.mjs",
     "update": "node scripts/update-fuel-prices.mjs",
     "gate": "node scripts/public-data-gate.mjs",
+    "update:trend": "node scripts/update-market-trend.mjs",
+    "gate:trend": "node scripts/trend-data-gate.mjs",
+    "sanity:trend": "node scripts/trend-sanity.mjs",
     "scan": "node scripts/scan-public-files.mjs"
   },
   "engines": { "node": ">=22" }

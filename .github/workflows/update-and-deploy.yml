@@ -10,6 +10,10 @@ on:
         description: 'Failure drill: simulate API HTTP 503; deployment must be skipped'
         type: boolean
         default: false
+      simulate_trend_failure:
+        description: 'Optional trend failure drill; current fuel prices must still pass'
+        type: boolean
+        default: false
   push:
     branches: [main]
 
@@ -17,7 +21,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: fuel-pages
+  group: fuel-pages-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -41,25 +45,36 @@ jobs:
         id: start
         run: |
           rm -f dist/data/normalized-live-cache.json
+          rm -f dist/data/trend-cache.json
           node --input-type=module -e 'import fs from "node:fs"; fs.appendFileSync(process.env.GITHUB_ENV, `RUN_STARTED_AT=${new Date().toISOString()}\n`);'
       - name: Fetch 31 provinces anonymously
         id: update
         env:
           SIMULATE_API_FAILURE: ${{ inputs.simulate_failure && '1' || '0' }}
         run: npm run update
+      - name: Fetch optional Brent and WTI data
+        continue-on-error: true
+        env:
+          SIMULATE_TREND_FAILURE: ${{ inputs.simulate_trend_failure && '1' || '0' }}
+        run: npm run update:trend
+      - name: TREND_DATA_GATE and safe degradation
+        run: npm run gate:trend
       - name: PUBLIC_DATA_GATE
         if: ${{ !cancelled() && steps.start.outcome == 'success' }}
         run: npm run gate
       - name: Scan generated public files
         run: npm run scan
       - name: Prepare Pages
+        if: github.ref == 'refs/heads/main'
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload validated static site
+        if: github.ref == 'refs/heads/main'
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
           path: dist
           retention-days: 1
   deploy:
+    if: github.ref == 'refs/heads/main'
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 10
