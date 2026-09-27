@@ -1,0 +1,12 @@
+{
+  "name": "ayu-fuel-lab",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "update": "node scripts/update-fuel-prices.mjs",
+    "gate": "node scripts/public-data-gate.mjs",
+    "scan": "node scripts/scan-public-files.mjs"
+  },
+  "engines": { "node": ">=22" }
+}
