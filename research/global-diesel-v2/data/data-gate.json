@@ -1,0 +1,86 @@
+{
+  "gate": "PASS",
+  "checks": {
+    "minimumFiveYears": true,
+    "dailyUsableObservations": true,
+    "twoAnonymousReadsAgree": true,
+    "latestMatchesOfficialEIA": true,
+    "latestMatchesFRED": true,
+    "freshForWeeklyRelease": true,
+    "publicDomainNoKeyOrPayment": true
+  },
+  "scope": "Delayed EIA New York Harbor diesel benchmark research; not global/MGO representativeness certification",
+  "snapshotAt": "2026-09-27T16:00:00Z",
+  "latestObservation": "2026-09-22",
+  "latestPrice": 5.007,
+  "latestRelease": "2026-09-23",
+  "latestAvailableAt": "2026-09-24T05:00:00+00:00",
+  "observationAgeDays": 6,
+  "unit": "USD/US gallon",
+  "seriesAudit": {
+    "DDFUELNYH": {
+      "rawRows": 4011,
+      "validRows": 3881,
+      "missingFirstRelease": 129,
+      "releaseBeforeObservation": [
+        {
+          "date": "2012-12-27",
+          "price": 3.129,
+          "releaseDate": "2012-12-26"
+        }
+      ],
+      "nonpositive": 0,
+      "start": "2011-04-06",
+      "end": "2026-09-22",
+      "releaseLagDays": {
+        "min": 0,
+        "median": 6.0,
+        "p95": 8.0,
+        "max": 36
+      }
+    },
+    "DCOILBRENTEU": {
+      "rawRows": 4007,
+      "validRows": 3934,
+      "missingFirstRelease": 72,
+      "releaseBeforeObservation": [
+        {
+          "date": "2012-12-27",
+          "price": 110.04,
+          "releaseDate": "2012-12-26"
+        }
+      ],
+      "nonpositive": 0,
+      "start": "2011-04-06",
+      "end": "2026-09-22",
+      "releaseLagDays": {
+        "min": 0,
+        "median": 6.0,
+        "p95": 8.0,
+        "max": 15
+      }
+    },
+    "DCOILWTICO": {
+      "rawRows": 4013,
+      "validRows": 3876,
+      "missingFirstRelease": 136,
+      "releaseBeforeObservation": [
+        {
+          "date": "2012-12-27",
+          "price": 90.91,
+          "releaseDate": "2012-12-26"
+        }
+      ],
+      "nonpositive": 1,
+      "start": "2011-04-06",
+      "end": "2026-09-22",
+      "releaseLagDays": {
+        "min": 0,
+        "median": 6.0,
+        "p95": 8.0,
+        "max": 15
+      }
+    }
+  },
+  "crossCheckEiaColumn": "New York Harbor Ultra-Low Sulfur No 2 Diesel Spot Price (Dollars per Gallon)"
+}

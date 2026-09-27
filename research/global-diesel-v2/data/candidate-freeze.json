@@ -1,0 +1,5975 @@
+{
+  "candidate": "vol_historical_platt",
+  "threshold": 0.015,
+  "selectionYears": [
+    2018,
+    2019
+  ],
+  "formalTestStartYear": 2020,
+  "configSHA256": "0aff7e1a89eda7707ee3a2ec316f46a5f6edd7ee0f9f810b50939d288b200847",
+  "dataManifestSHA256": "f4871adc07e4260f4ce9c58e2d8ad14a2dccd52a365e6038d6397927dfe1718d",
+  "results": {
+    "frequency": {
+      "n": 409,
+      "brier": 0.6691074986017215,
+      "logLoss": 1.102057662203412,
+      "meanECE": 0.07278824944418756,
+      "classECE": {
+        "DOWN": 0.10917055311338017,
+        "FLAT": 0.09683382620224668,
+        "UP": 0.012360369016935824
+      },
+      "accuracy": 0.24938875305623473,
+      "macroF1": 0.13307240704500978,
+      "confusionMatrix": [
+        [
+          102,
+          0,
+          0
+        ],
+        [
+          180,
+          0,
+          0
+        ],
+        [
+          127,
+          0,
+          0
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.24938875305623473,
+          "recall": 1.0,
+          "f1": 0.39921722113502933,
+          "support": 102,
+          "predictedN": 409
+        },
+        "FLAT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 180,
+          "predictedN": 0
+        },
+        "UP": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 127,
+          "predictedN": 0
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 409,
+          "meanPredicted": 0.3585593061696149,
+          "observedFrequency": 0.24938875305623473
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 409,
+          "meanPredicted": 0.34326397330875574,
+          "observedFrequency": 0.4400977995110024
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 212,
+          "meanPredicted": 0.29221435793731043,
+          "observedFrequency": 0.3160377358490566
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 197,
+          "meanPredicted": 0.30459307010475417,
+          "observedFrequency": 0.30456852791878175
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    },
+    "no_change": {
+      "n": 409,
+      "brier": 1.016335777543415,
+      "logLoss": 1.950664904584653,
+      "meanECE": 0.3294857318799155,
+      "classECE": {
+        "DOWN": 0.21353282243927324,
+        "FLAT": 0.4942285978198733,
+        "UP": 0.28069577538059987
+      },
+      "accuracy": 0.4400977995110024,
+      "macroF1": 0.2037351443123939,
+      "confusionMatrix": [
+        [
+          0,
+          102,
+          0
+        ],
+        [
+          0,
+          180,
+          0
+        ],
+        [
+          0,
+          127,
+          0
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 102,
+          "predictedN": 0
+        },
+        "FLAT": {
+          "precision": 0.4400977995110024,
+          "recall": 1.0,
+          "f1": 0.6112054329371817,
+          "support": 180,
+          "predictedN": 409
+        },
+        "UP": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 127,
+          "predictedN": 0
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 409,
+          "meanPredicted": 0.03585593061696149,
+          "observedFrequency": 0.24938875305623473
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 409,
+          "meanPredicted": 0.9343263973308757,
+          "observedFrequency": 0.4400977995110024
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 409,
+          "meanPredicted": 0.029817672052162934,
+          "observedFrequency": 0.3105134474327628
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    },
+    "momentum": {
+      "n": 409,
+      "brier": 1.1859955071810344,
+      "logLoss": 2.258010083478425,
+      "meanECE": 0.3923226687827374,
+      "classECE": {
+        "DOWN": 0.3207053221856355,
+        "FLAT": 0.4297932010383537,
+        "UP": 0.42646948312422284
+      },
+      "accuracy": 0.34474327628361856,
+      "macroF1": 0.33226351793406295,
+      "confusionMatrix": [
+        [
+          32,
+          27,
+          43
+        ],
+        [
+          49,
+          75,
+          56
+        ],
+        [
+          30,
+          63,
+          34
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.2882882882882883,
+          "recall": 0.3137254901960784,
+          "f1": 0.3004694835680751,
+          "support": 102,
+          "predictedN": 111
+        },
+        "FLAT": {
+          "precision": 0.45454545454545453,
+          "recall": 0.4166666666666667,
+          "f1": 0.43478260869565216,
+          "support": 180,
+          "predictedN": 165
+        },
+        "UP": {
+          "precision": 0.2556390977443609,
+          "recall": 0.2677165354330709,
+          "f1": 0.26153846153846155,
+          "support": 127,
+          "predictedN": 133
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 298,
+          "meanPredicted": 0.03590033363827569,
+          "observedFrequency": 0.2348993288590604
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 111,
+          "meanPredicted": 0.9357367225056855,
+          "observedFrequency": 0.2882882882882883
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 244,
+          "meanPredicted": 0.0343321255812324,
+          "observedFrequency": 0.430327868852459
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 165,
+          "meanPredicted": 0.9343179264636812,
+          "observedFrequency": 0.45454545454545453
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 276,
+          "meanPredicted": 0.029835886361462855,
+          "observedFrequency": 0.33695652173913043
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 133,
+          "meanPredicted": 0.9297798739366233,
+          "observedFrequency": 0.2556390977443609
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    },
+    "mean_reversion": {
+      "n": 409,
+      "brier": 1.1559278604587742,
+      "logLoss": 2.2033270761328043,
+      "meanECE": 0.38118650333004833,
+      "classECE": {
+        "DOWN": 0.31927920159787954,
+        "FLAT": 0.4297932010383537,
+        "UP": 0.3944871073539119
+      },
+      "accuracy": 0.36185819070904646,
+      "macroF1": 0.3509469652800991,
+      "confusionMatrix": [
+        [
+          43,
+          27,
+          32
+        ],
+        [
+          56,
+          75,
+          49
+        ],
+        [
+          34,
+          63,
+          30
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.3233082706766917,
+          "recall": 0.4215686274509804,
+          "f1": 0.3659574468085106,
+          "support": 102,
+          "predictedN": 133
+        },
+        "FLAT": {
+          "precision": 0.45454545454545453,
+          "recall": 0.4166666666666667,
+          "f1": 0.43478260869565216,
+          "support": 180,
+          "predictedN": 165
+        },
+        "UP": {
+          "precision": 0.2702702702702703,
+          "recall": 0.23622047244094488,
+          "f1": 0.25210084033613445,
+          "support": 127,
+          "predictedN": 111
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 276,
+          "meanPredicted": 0.03583311987102259,
+          "observedFrequency": 0.213768115942029
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 133,
+          "meanPredicted": 0.9359032672025186,
+          "observedFrequency": 0.3233082706766917
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 244,
+          "meanPredicted": 0.0343321255812324,
+          "observedFrequency": 0.430327868852459
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 165,
+          "meanPredicted": 0.9343179264636812,
+          "observedFrequency": 0.45454545454545453
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 298,
+          "meanPredicted": 0.02978221637849779,
+          "observedFrequency": 0.32550335570469796
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 111,
+          "meanPredicted": 0.9299128593562371,
+          "observedFrequency": 0.2702702702702703
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    },
+    "logistic_raw": {
+      "n": 409,
+      "brier": 0.672974750384931,
+      "logLoss": 1.1151041025764665,
+      "meanECE": 0.07805611495353486,
+      "classECE": {
+        "DOWN": 0.10824571441420328,
+        "FLAT": 0.07675693649676543,
+        "UP": 0.04916569394963589
+      },
+      "accuracy": 0.3740831295843521,
+      "macroF1": 0.32906306703687777,
+      "confusionMatrix": [
+        [
+          26,
+          58,
+          18
+        ],
+        [
+          51,
+          104,
+          25
+        ],
+        [
+          27,
+          77,
+          23
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.25,
+          "recall": 0.2549019607843137,
+          "f1": 0.2524271844660194,
+          "support": 102,
+          "predictedN": 104
+        },
+        "FLAT": {
+          "precision": 0.4351464435146444,
+          "recall": 0.5777777777777777,
+          "f1": 0.4964200477326969,
+          "support": 180,
+          "predictedN": 239
+        },
+        "UP": {
+          "precision": 0.3484848484848485,
+          "recall": 0.18110236220472442,
+          "f1": 0.23834196891191708,
+          "support": 127,
+          "predictedN": 66
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 5,
+          "meanPredicted": 0.04507514060641182,
+          "observedFrequency": 1.0
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 18,
+          "meanPredicted": 0.1746541512982219,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 148,
+          "meanPredicted": 0.25794388429629056,
+          "observedFrequency": 0.24324324324324326
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 147,
+          "meanPredicted": 0.34229056711825523,
+          "observedFrequency": 0.2857142857142857
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 71,
+          "meanPredicted": 0.4397422781134509,
+          "observedFrequency": 0.16901408450704225
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 16,
+          "meanPredicted": 0.5204607470712007,
+          "observedFrequency": 0.1875
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 4,
+          "meanPredicted": 0.6718459415888878,
+          "observedFrequency": 1.0
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 18,
+          "meanPredicted": 0.1591725921253854,
+          "observedFrequency": 0.5
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 54,
+          "meanPredicted": 0.24994879689016453,
+          "observedFrequency": 0.37037037037037035
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 166,
+          "meanPredicted": 0.35886341609744205,
+          "observedFrequency": 0.4578313253012048
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 145,
+          "meanPredicted": 0.4373212879753977,
+          "observedFrequency": 0.42758620689655175
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 26,
+          "meanPredicted": 0.5352180397402152,
+          "observedFrequency": 0.5
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 3,
+          "meanPredicted": 0.08385170057165392,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 53,
+          "meanPredicted": 0.17162105674670225,
+          "observedFrequency": 0.1509433962264151
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 170,
+          "meanPredicted": 0.2524001150027915,
+          "observedFrequency": 0.3
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 135,
+          "meanPredicted": 0.3433935236566148,
+          "observedFrequency": 0.37777777777777777
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 36,
+          "meanPredicted": 0.43370358231115536,
+          "observedFrequency": 0.4166666666666667
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 7,
+          "meanPredicted": 0.5453196576615111,
+          "observedFrequency": 0.2857142857142857
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 1,
+          "meanPredicted": 0.6952915117706651,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 4,
+          "meanPredicted": 0.7253962204064048,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 7,
+          "meanPredicted": 0.5811015564836091,
+          "observedFrequency": 0.5714285714285714
+        },
+        "UP": {
+          "n": 2,
+          "meanPredicted": 0.5865868898401005,
+          "observedFrequency": 0.0
+        }
+      }
+    },
+    "logistic_platt": {
+      "n": 409,
+      "brier": 0.7056761575314149,
+      "logLoss": 1.1807247597764505,
+      "meanECE": 0.10517458911640563,
+      "classECE": {
+        "DOWN": 0.04988508302307017,
+        "FLAT": 0.10943046375804248,
+        "UP": 0.15620822056810424
+      },
+      "accuracy": 0.39364303178484106,
+      "macroF1": 0.28669242539326084,
+      "confusionMatrix": [
+        [
+          0,
+          55,
+          47
+        ],
+        [
+          0,
+          116,
+          64
+        ],
+        [
+          5,
+          77,
+          45
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 102,
+          "predictedN": 5
+        },
+        "FLAT": {
+          "precision": 0.46774193548387094,
+          "recall": 0.6444444444444445,
+          "f1": 0.5420560747663551,
+          "support": 180,
+          "predictedN": 248
+        },
+        "UP": {
+          "precision": 0.28846153846153844,
+          "recall": 0.3543307086614173,
+          "f1": 0.31802120141342755,
+          "support": 127,
+          "predictedN": 156
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 6,
+          "meanPredicted": 0.04060758238858584,
+          "observedFrequency": 0.8333333333333334
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 69,
+          "meanPredicted": 0.167961789382552,
+          "observedFrequency": 0.2318840579710145
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 257,
+          "meanPredicted": 0.2569577724302901,
+          "observedFrequency": 0.2529182879377432
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 73,
+          "meanPredicted": 0.3360691603609581,
+          "observedFrequency": 0.2054794520547945
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 4,
+          "meanPredicted": 0.4162029243072001,
+          "observedFrequency": 0.25
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 5,
+          "meanPredicted": 0.15955284817004092,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 31,
+          "meanPredicted": 0.25094505169883813,
+          "observedFrequency": 0.7741935483870968
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 209,
+          "meanPredicted": 0.35668919400085203,
+          "observedFrequency": 0.36363636363636365
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 112,
+          "meanPredicted": 0.43141310581319525,
+          "observedFrequency": 0.5535714285714286
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 27,
+          "meanPredicted": 0.540714239362052,
+          "observedFrequency": 0.2962962962962963
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 22,
+          "meanPredicted": 0.6313062169920438,
+          "observedFrequency": 0.45454545454545453
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 3,
+          "meanPredicted": 0.7056267331695728,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 25,
+          "meanPredicted": 0.07850684916750886,
+          "observedFrequency": 0.56
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 17,
+          "meanPredicted": 0.15252291766742876,
+          "observedFrequency": 0.17647058823529413
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 65,
+          "meanPredicted": 0.2529417505523633,
+          "observedFrequency": 0.4307692307692308
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 193,
+          "meanPredicted": 0.34749629620813655,
+          "observedFrequency": 0.27461139896373055
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 68,
+          "meanPredicted": 0.43905835096954543,
+          "observedFrequency": 0.29411764705882354
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 22,
+          "meanPredicted": 0.5340716239503503,
+          "observedFrequency": 0.2727272727272727
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 14,
+          "meanPredicted": 0.6540431153703884,
+          "observedFrequency": 0.21428571428571427
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 5,
+          "meanPredicted": 0.811400890319935,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 30,
+          "meanPredicted": 0.5997991904905735,
+          "observedFrequency": 0.3
+        },
+        "UP": {
+          "n": 10,
+          "meanPredicted": 0.5972344350265641,
+          "observedFrequency": 0.1
+        }
+      }
+    },
+    "logistic_isotonic": {
+      "n": 409,
+      "brier": 0.6626067965377817,
+      "logLoss": 1.3636777557043698,
+      "meanECE": 0.07551206511427352,
+      "classECE": {
+        "DOWN": 0.08156211539603465,
+        "FLAT": 0.05688604521182002,
+        "UP": 0.0880880347349659
+      },
+      "accuracy": 0.39853300733496333,
+      "macroF1": 0.3237833673195758,
+      "confusionMatrix": [
+        [
+          4,
+          38,
+          60
+        ],
+        [
+          1,
+          79,
+          100
+        ],
+        [
+          2,
+          45,
+          80
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.5714285714285714,
+          "recall": 0.0392156862745098,
+          "f1": 0.07339449541284404,
+          "support": 102,
+          "predictedN": 7
+        },
+        "FLAT": {
+          "precision": 0.4876543209876543,
+          "recall": 0.4388888888888889,
+          "f1": 0.4619883040935672,
+          "support": 180,
+          "predictedN": 162
+        },
+        "UP": {
+          "precision": 0.3333333333333333,
+          "recall": 0.6299212598425197,
+          "f1": 0.4359673024523161,
+          "support": 127,
+          "predictedN": 240
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 15,
+          "meanPredicted": 0.006581737889914621,
+          "observedFrequency": 0.3333333333333333
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 100,
+          "meanPredicted": 0.1682326486745127,
+          "observedFrequency": 0.25
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 193,
+          "meanPredicted": 0.2684473343289875,
+          "observedFrequency": 0.23834196891191708
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 81,
+          "meanPredicted": 0.3549774555186206,
+          "observedFrequency": 0.2222222222222222
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 16,
+          "meanPredicted": 0.4279888431095982,
+          "observedFrequency": 0.25
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 4,
+          "meanPredicted": 0.7826086948695651,
+          "observedFrequency": 1.0
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 18,
+          "meanPredicted": 0.2707150229056013,
+          "observedFrequency": 0.5
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 216,
+          "meanPredicted": 0.34915009279749476,
+          "observedFrequency": 0.4027777777777778
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 144,
+          "meanPredicted": 0.4525412969344176,
+          "observedFrequency": 0.4791666666666667
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 26,
+          "meanPredicted": 0.5473611790695011,
+          "observedFrequency": 0.46153846153846156
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 3,
+          "meanPredicted": 0.6397323666568105,
+          "observedFrequency": 0.3333333333333333
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 2,
+          "meanPredicted": 0.7144790245136268,
+          "observedFrequency": 1.0
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 22,
+          "meanPredicted": 0.015915936873833504,
+          "observedFrequency": 0.13636363636363635
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 55,
+          "meanPredicted": 0.13065769891793882,
+          "observedFrequency": 0.2545454545454545
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 32,
+          "meanPredicted": 0.287512594414403,
+          "observedFrequency": 0.375
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 183,
+          "meanPredicted": 0.3747720593517802,
+          "observedFrequency": 0.3114754098360656
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 103,
+          "meanPredicted": 0.442162446430101,
+          "observedFrequency": 0.3786407766990291
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 14,
+          "meanPredicted": 0.5456224597069106,
+          "observedFrequency": 0.14285714285714285
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 19,
+          "meanPredicted": 0.5719760695386524,
+          "observedFrequency": 0.42105263157894735
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    },
+    "hist_classifier_raw": {
+      "n": 409,
+      "brier": 0.7338005600386505,
+      "logLoss": 1.2069402606456037,
+      "meanECE": 0.15399921855234625,
+      "classECE": {
+        "DOWN": 0.16674512690002039,
+        "FLAT": 0.20317871049779046,
+        "UP": 0.09207381825922782
+      },
+      "accuracy": 0.3545232273838631,
+      "macroF1": 0.33136648896446136,
+      "confusionMatrix": [
+        [
+          29,
+          57,
+          16
+        ],
+        [
+          63,
+          86,
+          31
+        ],
+        [
+          34,
+          63,
+          30
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.23015873015873015,
+          "recall": 0.28431372549019607,
+          "f1": 0.2543859649122807,
+          "support": 102,
+          "predictedN": 126
+        },
+        "FLAT": {
+          "precision": 0.4174757281553398,
+          "recall": 0.4777777777777778,
+          "f1": 0.44559585492227977,
+          "support": 180,
+          "predictedN": 206
+        },
+        "UP": {
+          "precision": 0.38961038961038963,
+          "recall": 0.23622047244094488,
+          "f1": 0.29411764705882354,
+          "support": 127,
+          "predictedN": 77
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 13,
+          "meanPredicted": 0.07999007985496286,
+          "observedFrequency": 0.46153846153846156
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 100,
+          "meanPredicted": 0.15277999591767508,
+          "observedFrequency": 0.31
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 86,
+          "meanPredicted": 0.2476201852393238,
+          "observedFrequency": 0.22093023255813954
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 90,
+          "meanPredicted": 0.3482691126435876,
+          "observedFrequency": 0.2222222222222222
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 74,
+          "meanPredicted": 0.44963314149624345,
+          "observedFrequency": 0.25675675675675674
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 31,
+          "meanPredicted": 0.5409846086125749,
+          "observedFrequency": 0.1935483870967742
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 13,
+          "meanPredicted": 0.6462773457523898,
+          "observedFrequency": 0.07692307692307693
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 2,
+          "meanPredicted": 0.7160453154963626,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 3,
+          "meanPredicted": 0.08596021853745468,
+          "observedFrequency": 0.3333333333333333
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 35,
+          "meanPredicted": 0.15211530846857377,
+          "observedFrequency": 0.3142857142857143
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 48,
+          "meanPredicted": 0.2494967962069247,
+          "observedFrequency": 0.4791666666666667
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 110,
+          "meanPredicted": 0.35341312901289934,
+          "observedFrequency": 0.5272727272727272
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 77,
+          "meanPredicted": 0.4450641824921834,
+          "observedFrequency": 0.5454545454545454
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 61,
+          "meanPredicted": 0.5460723203652756,
+          "observedFrequency": 0.32786885245901637
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 52,
+          "meanPredicted": 0.6467656170181626,
+          "observedFrequency": 0.3076923076923077
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 23,
+          "meanPredicted": 0.7330877338970396,
+          "observedFrequency": 0.391304347826087
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 37,
+          "meanPredicted": 0.08211465650772065,
+          "observedFrequency": 0.2972972972972973
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 122,
+          "meanPredicted": 0.1517918163616159,
+          "observedFrequency": 0.22131147540983606
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 128,
+          "meanPredicted": 0.24132006073948117,
+          "observedFrequency": 0.328125
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 50,
+          "meanPredicted": 0.34109296426870606,
+          "observedFrequency": 0.38
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 45,
+          "meanPredicted": 0.45361484701179766,
+          "observedFrequency": 0.4444444444444444
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 17,
+          "meanPredicted": 0.5419539755966549,
+          "observedFrequency": 0.35294117647058826
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 9,
+          "meanPredicted": 0.6464999180442121,
+          "observedFrequency": 0.2222222222222222
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 1,
+          "meanPredicted": 0.7142665799439352,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 14,
+          "meanPredicted": 0.594123229044657,
+          "observedFrequency": 0.2857142857142857
+        },
+        "FLAT": {
+          "n": 57,
+          "meanPredicted": 0.600558496009565,
+          "observedFrequency": 0.3684210526315789
+        },
+        "UP": {
+          "n": 11,
+          "meanPredicted": 0.5958434562484203,
+          "observedFrequency": 0.36363636363636365
+        }
+      }
+    },
+    "hist_classifier_platt": {
+      "n": 409,
+      "brier": 0.6577065576855943,
+      "logLoss": 1.0800478917773197,
+      "meanECE": 0.08413144095983245,
+      "classECE": {
+        "DOWN": 0.04684869923292902,
+        "FLAT": 0.08474936990784453,
+        "UP": 0.1207962537387238
+      },
+      "accuracy": 0.3863080684596577,
+      "macroF1": 0.3481378576938343,
+      "confusionMatrix": [
+        [
+          24,
+          45,
+          33
+        ],
+        [
+          24,
+          103,
+          53
+        ],
+        [
+          26,
+          70,
+          31
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.32432432432432434,
+          "recall": 0.23529411764705882,
+          "f1": 0.2727272727272727,
+          "support": 102,
+          "predictedN": 74
+        },
+        "FLAT": {
+          "precision": 0.4724770642201835,
+          "recall": 0.5722222222222222,
+          "f1": 0.5175879396984925,
+          "support": 180,
+          "predictedN": 218
+        },
+        "UP": {
+          "precision": 0.26495726495726496,
+          "recall": 0.2440944881889764,
+          "f1": 0.2540983606557377,
+          "support": 127,
+          "predictedN": 117
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 61,
+          "meanPredicted": 0.17539085313662361,
+          "observedFrequency": 0.13114754098360656
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 246,
+          "meanPredicted": 0.2531828586515774,
+          "observedFrequency": 0.23577235772357724
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 51,
+          "meanPredicted": 0.33936942536683806,
+          "observedFrequency": 0.4117647058823529
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 37,
+          "meanPredicted": 0.4377768220462882,
+          "observedFrequency": 0.2972972972972973
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 14,
+          "meanPredicted": 0.520670785331569,
+          "observedFrequency": 0.2857142857142857
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 42,
+          "meanPredicted": 0.2764136566677306,
+          "observedFrequency": 0.3333333333333333
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 214,
+          "meanPredicted": 0.3575527776087066,
+          "observedFrequency": 0.4205607476635514
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 95,
+          "meanPredicted": 0.4475427675372856,
+          "observedFrequency": 0.5578947368421052
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 58,
+          "meanPredicted": 0.5397366068389386,
+          "observedFrequency": 0.39655172413793105
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 7,
+          "meanPredicted": 0.19167360584805332,
+          "observedFrequency": 0.2857142857142857
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 171,
+          "meanPredicted": 0.26370511188390444,
+          "observedFrequency": 0.38596491228070173
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 160,
+          "meanPredicted": 0.3503569214418034,
+          "observedFrequency": 0.2125
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 67,
+          "meanPredicted": 0.42891068908269325,
+          "observedFrequency": 0.373134328358209
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 4,
+          "meanPredicted": 0.5117083882482686,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 1,
+          "meanPredicted": 0.556194614503357,
+          "observedFrequency": 0.0
+        },
+        "FLAT": {
+          "n": 20,
+          "meanPredicted": 0.5640603617880605,
+          "observedFrequency": 0.25
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    },
+    "hist_classifier_isotonic": {
+      "n": 409,
+      "brier": 0.6741904088664474,
+      "logLoss": 1.4984119257630428,
+      "meanECE": 0.06955765037686654,
+      "classECE": {
+        "DOWN": 0.07290688676722579,
+        "FLAT": 0.08349322288202983,
+        "UP": 0.052272841481344014
+      },
+      "accuracy": 0.3863080684596577,
+      "macroF1": 0.31910481829922993,
+      "confusionMatrix": [
+        [
+          6,
+          63,
+          33
+        ],
+        [
+          9,
+          96,
+          75
+        ],
+        [
+          5,
+          66,
+          56
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.3,
+          "recall": 0.058823529411764705,
+          "f1": 0.09836065573770492,
+          "support": 102,
+          "predictedN": 20
+        },
+        "FLAT": {
+          "precision": 0.4266666666666667,
+          "recall": 0.5333333333333333,
+          "f1": 0.4740740740740741,
+          "support": 180,
+          "predictedN": 225
+        },
+        "UP": {
+          "precision": 0.34146341463414637,
+          "recall": 0.4409448818897638,
+          "f1": 0.3848797250859107,
+          "support": 127,
+          "predictedN": 164
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 4,
+          "meanPredicted": 0.09132996632996634,
+          "observedFrequency": 0.5
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 7,
+          "meanPredicted": 0.18103032626478768,
+          "observedFrequency": 0.8571428571428571
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 250,
+          "meanPredicted": 0.25709820885588547,
+          "observedFrequency": 0.208
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 117,
+          "meanPredicted": 0.3292786113652907,
+          "observedFrequency": 0.3162393162393162
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 23,
+          "meanPredicted": 0.4457086565442759,
+          "observedFrequency": 0.21739130434782608
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 8,
+          "meanPredicted": 0.5499999990925,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 21,
+          "meanPredicted": 0.009947130993089874,
+          "observedFrequency": 0.2857142857142857
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 1,
+          "meanPredicted": 0.1354070470113493,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 17,
+          "meanPredicted": 0.26089461812392867,
+          "observedFrequency": 0.5882352941176471
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 162,
+          "meanPredicted": 0.3612426187260008,
+          "observedFrequency": 0.47530864197530864
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 199,
+          "meanPredicted": 0.43213901422116574,
+          "observedFrequency": 0.4221105527638191
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 9,
+          "meanPredicted": 0.5758955304778522,
+          "observedFrequency": 0.3333333333333333
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 9,
+          "meanPredicted": 1.4772972303562296e-09,
+          "observedFrequency": 0.3333333333333333
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 156,
+          "meanPredicted": 0.263500645694279,
+          "observedFrequency": 0.2692307692307692
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 205,
+          "meanPredicted": 0.364618918985602,
+          "observedFrequency": 0.3073170731707317
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 19,
+          "meanPredicted": 0.44287123314511273,
+          "observedFrequency": 0.47368421052631576
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 15,
+          "meanPredicted": 0.5338528453789915,
+          "observedFrequency": 0.6666666666666666
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 5,
+          "meanPredicted": 0.6322321251733016,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 9,
+          "meanPredicted": 0.5758955304778522,
+          "observedFrequency": 0.3333333333333333
+        },
+        "UP": {
+          "n": 9,
+          "meanPredicted": 0.6081058476002248,
+          "observedFrequency": 0.3333333333333333
+        }
+      }
+    },
+    "residual_raw": {
+      "n": 409,
+      "brier": 0.7158257190773034,
+      "logLoss": 1.390364947343674,
+      "meanECE": 0.1358419923242679,
+      "classECE": {
+        "DOWN": 0.07570974733690954,
+        "FLAT": 0.19284730114098025,
+        "UP": 0.13896892849491393
+      },
+      "accuracy": 0.33985330073349634,
+      "macroF1": 0.24897119341563786,
+      "confusionMatrix": [
+        [
+          20,
+          0,
+          82
+        ],
+        [
+          32,
+          0,
+          148
+        ],
+        [
+          8,
+          0,
+          119
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.3333333333333333,
+          "recall": 0.19607843137254902,
+          "f1": 0.24691358024691357,
+          "support": 102,
+          "predictedN": 60
+        },
+        "FLAT": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 180,
+          "predictedN": 0
+        },
+        "UP": {
+          "precision": 0.34097421203438394,
+          "recall": 0.937007874015748,
+          "f1": 0.5,
+          "support": 127,
+          "predictedN": 349
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 8,
+          "meanPredicted": 0.03629032320564516,
+          "observedFrequency": 0.625
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 42,
+          "meanPredicted": 0.16342997692743028,
+          "observedFrequency": 0.11904761904761904
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 134,
+          "meanPredicted": 0.2518203029517425,
+          "observedFrequency": 0.208955223880597
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 181,
+          "meanPredicted": 0.342710061280726,
+          "observedFrequency": 0.287292817679558
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 36,
+          "meanPredicted": 0.4543326368029254,
+          "observedFrequency": 0.2222222222222222
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 8,
+          "meanPredicted": 0.5326417004048583,
+          "observedFrequency": 0.5
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 5,
+          "meanPredicted": 0.049032258015483866,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 104,
+          "meanPredicted": 0.1863905325443787,
+          "observedFrequency": 0.41346153846153844
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 154,
+          "meanPredicted": 0.23778089482673526,
+          "observedFrequency": 0.461038961038961
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 146,
+          "meanPredicted": 0.31073795846221824,
+          "observedFrequency": 0.4520547945205479
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 31,
+          "meanPredicted": 0.24796665079813118,
+          "observedFrequency": 0.12903225806451613
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 73,
+          "meanPredicted": 0.36662325278507807,
+          "observedFrequency": 0.3013698630136986
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 197,
+          "meanPredicted": 0.4494333508570838,
+          "observedFrequency": 0.29441624365482233
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 92,
+          "meanPredicted": 0.5334054942621416,
+          "observedFrequency": 0.44565217391304346
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 11,
+          "meanPredicted": 0.6383012573165375,
+          "observedFrequency": 0.18181818181818182
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 5,
+          "meanPredicted": 0.9509677409845162,
+          "observedFrequency": 0.0
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 3,
+          "meanPredicted": 0.562753036437247,
+          "observedFrequency": 1.0
+        },
+        "FLAT": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "UP": {
+          "n": 28,
+          "meanPredicted": 0.5746464486277728,
+          "observedFrequency": 0.39285714285714285
+        }
+      }
+    },
+    "residual_platt": {
+      "n": 409,
+      "brier": 0.6577492477640061,
+      "logLoss": 1.1219516621382257,
+      "meanECE": 0.04351512118889683,
+      "classECE": {
+        "DOWN": 0.03837037022009866,
+        "FLAT": 0.06509090990445139,
+        "UP": 0.027084083442140455
+      },
+      "accuracy": 0.44254278728606355,
+      "macroF1": 0.2968627602059817,
+      "confusionMatrix": [
+        [
+          0,
+          88,
+          14
+        ],
+        [
+          0,
+          150,
+          30
+        ],
+        [
+          0,
+          96,
+          31
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 102,
+          "predictedN": 0
+        },
+        "FLAT": {
+          "precision": 0.4491017964071856,
+          "recall": 0.8333333333333334,
+          "f1": 0.5836575875486382,
+          "support": 180,
+          "predictedN": 334
+        },
+        "UP": {
+          "precision": 0.41333333333333333,
+          "recall": 0.2440944881889764,
+          "f1": 0.3069306930693069,
+          "support": 127,
+          "predictedN": 75
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 5,
+          "meanPredicted": 0.002072557726516938,
+          "observedFrequency": 1.0
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 7,
+          "meanPredicted": 0.1887126249219599,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 337,
+          "meanPredicted": 0.2592417132541933,
+          "observedFrequency": 0.2433234421364985
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 60,
+          "meanPredicted": 0.3169733077922678,
+          "observedFrequency": 0.25
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 243,
+          "meanPredicted": 0.36951273499592974,
+          "observedFrequency": 0.41975308641975306
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 161,
+          "meanPredicted": 0.42547525315508256,
+          "observedFrequency": 0.484472049689441
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 5,
+          "meanPredicted": 0.9830585025799676,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 5,
+          "meanPredicted": 0.014868939693515576,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 16,
+          "meanPredicted": 0.18826731416308579,
+          "observedFrequency": 0.1875
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 36,
+          "meanPredicted": 0.25640537708100736,
+          "observedFrequency": 0.1388888888888889
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 306,
+          "meanPredicted": 0.3495108448996804,
+          "observedFrequency": 0.3333333333333333
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 46,
+          "meanPredicted": 0.4089099193160876,
+          "observedFrequency": 0.3695652173913043
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    },
+    "residual_isotonic": {
+      "n": 409,
+      "brier": 0.6604368412856985,
+      "logLoss": 1.5201629547238276,
+      "meanECE": 0.06178091616602547,
+      "classECE": {
+        "DOWN": 0.052089159837736355,
+        "FLAT": 0.04039812095292611,
+        "UP": 0.09285546770741396
+      },
+      "accuracy": 0.4180929095354523,
+      "macroF1": 0.3298363921931428,
+      "confusionMatrix": [
+        [
+          4,
+          58,
+          40
+        ],
+        [
+          3,
+          111,
+          66
+        ],
+        [
+          0,
+          71,
+          56
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.5714285714285714,
+          "recall": 0.0392156862745098,
+          "f1": 0.07339449541284404,
+          "support": 102,
+          "predictedN": 7
+        },
+        "FLAT": {
+          "precision": 0.4625,
+          "recall": 0.6166666666666667,
+          "f1": 0.5285714285714286,
+          "support": 180,
+          "predictedN": 240
+        },
+        "UP": {
+          "precision": 0.345679012345679,
+          "recall": 0.4409448818897638,
+          "f1": 0.3875432525951557,
+          "support": 127,
+          "predictedN": 162
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 39,
+          "meanPredicted": 0.058084748729582324,
+          "observedFrequency": 0.2564102564102564
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 50,
+          "meanPredicted": 0.18017624121171832,
+          "observedFrequency": 0.2
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 244,
+          "meanPredicted": 0.26143814692387923,
+          "observedFrequency": 0.23770491803278687
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 40,
+          "meanPredicted": 0.3227644829776528,
+          "observedFrequency": 0.325
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 29,
+          "meanPredicted": 0.42643976821320845,
+          "observedFrequency": 0.2413793103448276
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 7,
+          "meanPredicted": 0.7616431180243328,
+          "observedFrequency": 0.5714285714285714
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 14,
+          "meanPredicted": 0.25532204678069376,
+          "observedFrequency": 0.42857142857142855
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 244,
+          "meanPredicted": 0.36902970679185887,
+          "observedFrequency": 0.4180327868852459
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 110,
+          "meanPredicted": 0.4266002752660755,
+          "observedFrequency": 0.43636363636363634
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 41,
+          "meanPredicted": 0.5593507594839423,
+          "observedFrequency": 0.5853658536585366
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 46,
+          "meanPredicted": 0.019233785938005777,
+          "observedFrequency": 0.13043478260869565
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 68,
+          "meanPredicted": 0.28477001291476034,
+          "observedFrequency": 0.35294117647058826
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 192,
+          "meanPredicted": 0.3624037143436969,
+          "observedFrequency": 0.2916666666666667
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 58,
+          "meanPredicted": 0.43424875500676646,
+          "observedFrequency": 0.4827586206896552
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 40,
+          "meanPredicted": 0.5436295317635065,
+          "observedFrequency": 0.325
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 5,
+          "meanPredicted": 0.6173469379093347,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 29,
+          "meanPredicted": 0.5730504017824439,
+          "observedFrequency": 0.5517241379310345
+        },
+        "UP": {
+          "n": 10,
+          "meanPredicted": 0.6055166458396766,
+          "observedFrequency": 0.0
+        }
+      }
+    },
+    "quantile_raw": {
+      "n": 409,
+      "brier": 0.7111738696616053,
+      "logLoss": 1.166155355390554,
+      "meanECE": 0.12684407546460755,
+      "classECE": {
+        "DOWN": 0.14055939178780777,
+        "FLAT": 0.12760890686031542,
+        "UP": 0.11236392774569948
+      },
+      "accuracy": 0.36185819070904646,
+      "macroF1": 0.29114010562286424,
+      "confusionMatrix": [
+        [
+          16,
+          70,
+          16
+        ],
+        [
+          51,
+          115,
+          14
+        ],
+        [
+          31,
+          79,
+          17
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.16326530612244897,
+          "recall": 0.1568627450980392,
+          "f1": 0.16,
+          "support": 102,
+          "predictedN": 98
+        },
+        "FLAT": {
+          "precision": 0.4356060606060606,
+          "recall": 0.6388888888888888,
+          "f1": 0.5180180180180181,
+          "support": 180,
+          "predictedN": 264
+        },
+        "UP": {
+          "precision": 0.3617021276595745,
+          "recall": 0.13385826771653545,
+          "f1": 0.19540229885057472,
+          "support": 127,
+          "predictedN": 47
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 48,
+          "meanPredicted": 0.16596805685072308,
+          "observedFrequency": 0.4791666666666667
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 169,
+          "meanPredicted": 0.24688492504771492,
+          "observedFrequency": 0.1893491124260355
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 98,
+          "meanPredicted": 0.34981524647384704,
+          "observedFrequency": 0.25510204081632654
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 56,
+          "meanPredicted": 0.42441155833317845,
+          "observedFrequency": 0.26785714285714285
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 25,
+          "meanPredicted": 0.5312913797493778,
+          "observedFrequency": 0.12
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 10,
+          "meanPredicted": 0.6186037398248583,
+          "observedFrequency": 0.4
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 3,
+          "meanPredicted": 0.7381474413020775,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 20,
+          "meanPredicted": 0.17004930231606313,
+          "observedFrequency": 0.3
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 42,
+          "meanPredicted": 0.264535353950777,
+          "observedFrequency": 0.40476190476190477
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 98,
+          "meanPredicted": 0.35351524822598424,
+          "observedFrequency": 0.5408163265306123
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 117,
+          "meanPredicted": 0.44437495315867315,
+          "observedFrequency": 0.4358974358974359
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 85,
+          "meanPredicted": 0.5448289335856984,
+          "observedFrequency": 0.4117647058823529
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 37,
+          "meanPredicted": 0.6393547574721599,
+          "observedFrequency": 0.3783783783783784
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 10,
+          "meanPredicted": 0.7389553243450321,
+          "observedFrequency": 0.4
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 22,
+          "meanPredicted": 0.0964482330359198,
+          "observedFrequency": 0.045454545454545456
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 151,
+          "meanPredicted": 0.15876918186213226,
+          "observedFrequency": 0.36423841059602646
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 130,
+          "meanPredicted": 0.25414378112512054,
+          "observedFrequency": 0.23846153846153847
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 68,
+          "meanPredicted": 0.33947913638303256,
+          "observedFrequency": 0.4117647058823529
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 18,
+          "meanPredicted": 0.41167117317300206,
+          "observedFrequency": 0.3888888888888889
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 15,
+          "meanPredicted": 0.5340548169251454,
+          "observedFrequency": 0.3333333333333333
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 5,
+          "meanPredicted": 0.6868236278344325,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 10,
+          "meanPredicted": 0.6186037398248583,
+          "observedFrequency": 0.4
+        },
+        "FLAT": {
+          "n": 65,
+          "meanPredicted": 0.6019692641778723,
+          "observedFrequency": 0.35384615384615387
+        },
+        "UP": {
+          "n": 5,
+          "meanPredicted": 0.5713357783715363,
+          "observedFrequency": 0.0
+        }
+      }
+    },
+    "quantile_platt": {
+      "n": 409,
+      "brier": 0.6702746377677247,
+      "logLoss": 1.113901497792028,
+      "meanECE": 0.08882973555144809,
+      "classECE": {
+        "DOWN": 0.12558707219993143,
+        "FLAT": 0.06089923509487077,
+        "UP": 0.08000289935954205
+      },
+      "accuracy": 0.4156479217603912,
+      "macroF1": 0.3470013416540502,
+      "confusionMatrix": [
+        [
+          37,
+          45,
+          20
+        ],
+        [
+          39,
+          122,
+          19
+        ],
+        [
+          38,
+          78,
+          11
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.32456140350877194,
+          "recall": 0.3627450980392157,
+          "f1": 0.3425925925925926,
+          "support": 102,
+          "predictedN": 114
+        },
+        "FLAT": {
+          "precision": 0.49795918367346936,
+          "recall": 0.6777777777777778,
+          "f1": 0.5741176470588235,
+          "support": 180,
+          "predictedN": 245
+        },
+        "UP": {
+          "precision": 0.22,
+          "recall": 0.08661417322834646,
+          "f1": 0.12429378531073447,
+          "support": 127,
+          "predictedN": 50
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 8,
+          "meanPredicted": 0.07107570301365582,
+          "observedFrequency": 0.25
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 47,
+          "meanPredicted": 0.15233960426560175,
+          "observedFrequency": 0.3404255319148936
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 158,
+          "meanPredicted": 0.248951973517943,
+          "observedFrequency": 0.25949367088607594
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 105,
+          "meanPredicted": 0.3431454504885754,
+          "observedFrequency": 0.12380952380952381
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 56,
+          "meanPredicted": 0.4418998882855112,
+          "observedFrequency": 0.25
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 29,
+          "meanPredicted": 0.5363147377503916,
+          "observedFrequency": 0.3793103448275862
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 6,
+          "meanPredicted": 0.650283678308487,
+          "observedFrequency": 0.8333333333333334
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 38,
+          "meanPredicted": 0.26710206138540865,
+          "observedFrequency": 0.2631578947368421
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 205,
+          "meanPredicted": 0.3595015411113938,
+          "observedFrequency": 0.4
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 166,
+          "meanPredicted": 0.4309896099458293,
+          "observedFrequency": 0.5301204819277109
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 27,
+          "meanPredicted": 0.15695382222133183,
+          "observedFrequency": 0.2962962962962963
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 172,
+          "meanPredicted": 0.25615367412842327,
+          "observedFrequency": 0.3313953488372093
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 167,
+          "meanPredicted": 0.349921226944919,
+          "observedFrequency": 0.31137724550898205
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 35,
+          "meanPredicted": 0.4415192437146444,
+          "observedFrequency": 0.2571428571428571
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 8,
+          "meanPredicted": 0.5159190697879291,
+          "observedFrequency": 0.125
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 11,
+          "meanPredicted": 0.584022591837269,
+          "observedFrequency": 0.18181818181818182
+        },
+        "FLAT": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    },
+    "quantile_isotonic": {
+      "n": 409,
+      "brier": 0.6885036248663307,
+      "logLoss": 1.4819356307663054,
+      "meanECE": 0.08860336573740046,
+      "classECE": {
+        "DOWN": 0.10585471613496808,
+        "FLAT": 0.07582588694805932,
+        "UP": 0.08412949412917398
+      },
+      "accuracy": 0.3740831295843521,
+      "macroF1": 0.2723767209697768,
+      "confusionMatrix": [
+        [
+          7,
+          64,
+          31
+        ],
+        [
+          22,
+          128,
+          30
+        ],
+        [
+          9,
+          100,
+          18
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.18421052631578946,
+          "recall": 0.06862745098039216,
+          "f1": 0.1,
+          "support": 102,
+          "predictedN": 38
+        },
+        "FLAT": {
+          "precision": 0.4383561643835616,
+          "recall": 0.7111111111111111,
+          "f1": 0.5423728813559322,
+          "support": 180,
+          "predictedN": 292
+        },
+        "UP": {
+          "precision": 0.22784810126582278,
+          "recall": 0.14173228346456693,
+          "f1": 0.17475728155339806,
+          "support": 127,
+          "predictedN": 79
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 11,
+          "meanPredicted": 0.005014804708262534,
+          "observedFrequency": 0.8181818181818182
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 18,
+          "meanPredicted": 0.1351522692244884,
+          "observedFrequency": 0.6111111111111112
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 298,
+          "meanPredicted": 0.26051069833044677,
+          "observedFrequency": 0.2348993288590604
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 68,
+          "meanPredicted": 0.34336090382541923,
+          "observedFrequency": 0.1323529411764706
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 5,
+          "meanPredicted": 0.41920794733415645,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 9,
+          "meanPredicted": 0.522857033084578,
+          "observedFrequency": 0.3333333333333333
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 11,
+          "meanPredicted": 1.4276899373864724e-09,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 27,
+          "meanPredicted": 0.2698805802349007,
+          "observedFrequency": 0.4074074074074074
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 223,
+          "meanPredicted": 0.3761470313341873,
+          "observedFrequency": 0.47533632286995514
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 126,
+          "meanPredicted": 0.4366942853089255,
+          "observedFrequency": 0.4444444444444444
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 22,
+          "meanPredicted": 0.5092650613110173,
+          "observedFrequency": 0.3181818181818182
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 6,
+          "meanPredicted": 0.014181162347001966,
+          "observedFrequency": 0.16666666666666666
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 58,
+          "meanPredicted": 0.28251239718333454,
+          "observedFrequency": 0.20689655172413793
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 282,
+          "meanPredicted": 0.33110042282104263,
+          "observedFrequency": 0.3617021276595745
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 45,
+          "meanPredicted": 0.4138605406470672,
+          "observedFrequency": 0.15555555555555556
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 8,
+          "meanPredicted": 0.563435201233299,
+          "observedFrequency": 0.625
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 3,
+          "meanPredicted": 0.6404103644720304,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 2,
+          "meanPredicted": 0.7205882345735294,
+          "observedFrequency": 0.0
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 5,
+          "meanPredicted": 0.9999999980000001,
+          "observedFrequency": 0.0
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 1,
+          "meanPredicted": 0.5724299057556337,
+          "observedFrequency": 1.0
+        },
+        "FLAT": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "UP": {
+          "n": 7,
+          "meanPredicted": 0.5920504009295635,
+          "observedFrequency": 0.7142857142857143
+        }
+      }
+    },
+    "vol_historical_raw": {
+      "n": 409,
+      "brier": 0.6840005476772616,
+      "logLoss": 1.127293478074363,
+      "meanECE": 0.09686715566422167,
+      "classECE": {
+        "DOWN": 0.1377701711491442,
+        "FLAT": 0.0798435207823961,
+        "UP": 0.07298777506112475
+      },
+      "accuracy": 0.34474327628361856,
+      "macroF1": 0.27199424499719077,
+      "confusionMatrix": [
+        [
+          40,
+          59,
+          3
+        ],
+        [
+          68,
+          99,
+          13
+        ],
+        [
+          65,
+          60,
+          2
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.23121387283236994,
+          "recall": 0.39215686274509803,
+          "f1": 0.2909090909090909,
+          "support": 102,
+          "predictedN": 173
+        },
+        "FLAT": {
+          "precision": 0.4541284403669725,
+          "recall": 0.55,
+          "f1": 0.49748743718592964,
+          "support": 180,
+          "predictedN": 218
+        },
+        "UP": {
+          "precision": 0.1111111111111111,
+          "recall": 0.015748031496062992,
+          "f1": 0.027586206896551724,
+          "support": 127,
+          "predictedN": 18
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 129,
+          "meanPredicted": 0.27066666666666667,
+          "observedFrequency": 0.34108527131782945
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 168,
+          "meanPredicted": 0.34364285714285703,
+          "observedFrequency": 0.17857142857142858
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 112,
+          "meanPredicted": 0.4243928571428571,
+          "observedFrequency": 0.25
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 10,
+          "meanPredicted": 0.188,
+          "observedFrequency": 0.4
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 62,
+          "meanPredicted": 0.2813548387096775,
+          "observedFrequency": 0.46774193548387094
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 161,
+          "meanPredicted": 0.33552795031055893,
+          "observedFrequency": 0.42857142857142855
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 161,
+          "meanPredicted": 0.45664596273291924,
+          "observedFrequency": 0.45962732919254656
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 15,
+          "meanPredicted": 0.5013333333333332,
+          "observedFrequency": 0.26666666666666666
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 29,
+          "meanPredicted": 0.19655172413793104,
+          "observedFrequency": 0.3103448275862069
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 266,
+          "meanPredicted": 0.2635037593984962,
+          "observedFrequency": 0.3308270676691729
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 114,
+          "meanPredicted": 0.33898245614035094,
+          "observedFrequency": 0.2631578947368421
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    },
+    "vol_historical_platt": {
+      "n": 409,
+      "brier": 0.6500639386406658,
+      "logLoss": 1.0734052704252712,
+      "meanECE": 0.03231214118397322,
+      "classECE": {
+        "DOWN": 0.022829416999333642,
+        "FLAT": 0.04630635403795022,
+        "UP": 0.027800652514635798
+      },
+      "accuracy": 0.38875305623471884,
+      "macroF1": 0.2470617283950617,
+      "confusionMatrix": [
+        [
+          0,
+          74,
+          28
+        ],
+        [
+          0,
+          139,
+          41
+        ],
+        [
+          0,
+          107,
+          20
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.0,
+          "recall": 0.0,
+          "f1": 0.0,
+          "support": 102,
+          "predictedN": 0
+        },
+        "FLAT": {
+          "precision": 0.434375,
+          "recall": 0.7722222222222223,
+          "f1": 0.556,
+          "support": 180,
+          "predictedN": 320
+        },
+        "UP": {
+          "precision": 0.2247191011235955,
+          "recall": 0.15748031496062992,
+          "f1": 0.18518518518518517,
+          "support": 127,
+          "predictedN": 89
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 336,
+          "meanPredicted": 0.2640671401581732,
+          "observedFrequency": 0.23809523809523808
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 73,
+          "meanPredicted": 0.30973523917234613,
+          "observedFrequency": 0.3013698630136986
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 233,
+          "meanPredicted": 0.36466968068601924,
+          "observedFrequency": 0.4034334763948498
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 176,
+          "meanPredicted": 0.4323446909013402,
+          "observedFrequency": 0.48863636363636365
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 24,
+          "meanPredicted": 0.2964916743814202,
+          "observedFrequency": 0.3333333333333333
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 385,
+          "meanPredicted": 0.33632796639906526,
+          "observedFrequency": 0.3090909090909091
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    },
+    "vol_historical_isotonic": {
+      "n": 409,
+      "brier": 0.672466667735061,
+      "logLoss": 1.113312961851269,
+      "meanECE": 0.07811395242819993,
+      "classECE": {
+        "DOWN": 0.056469864871332674,
+        "FLAT": 0.08194393344528056,
+        "UP": 0.09592805896798656
+      },
+      "accuracy": 0.4254278728606357,
+      "macroF1": 0.3104546907958768,
+      "confusionMatrix": [
+        [
+          9,
+          80,
+          13
+        ],
+        [
+          14,
+          145,
+          21
+        ],
+        [
+          3,
+          104,
+          20
+        ]
+      ],
+      "classes": {
+        "DOWN": {
+          "precision": 0.34615384615384615,
+          "recall": 0.08823529411764706,
+          "f1": 0.140625,
+          "support": 102,
+          "predictedN": 26
+        },
+        "FLAT": {
+          "precision": 0.44072948328267475,
+          "recall": 0.8055555555555556,
+          "f1": 0.5697445972495089,
+          "support": 180,
+          "predictedN": 329
+        },
+        "UP": {
+          "precision": 0.37037037037037035,
+          "recall": 0.15748031496062992,
+          "f1": 0.22099447513812154,
+          "support": 127,
+          "predictedN": 54
+        }
+      },
+      "buckets": [
+        {
+          "class": "DOWN",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 236,
+          "meanPredicted": 0.25700166478004083,
+          "observedFrequency": 0.2711864406779661
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 163,
+          "meanPredicted": 0.3260798833720635,
+          "observedFrequency": 0.2147239263803681
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 10,
+          "meanPredicted": 0.4597546630818351,
+          "observedFrequency": 0.3
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "DOWN",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 32,
+          "meanPredicted": 0.2769528081547601,
+          "observedFrequency": 0.28125
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 177,
+          "meanPredicted": 0.37473469988037583,
+          "observedFrequency": 0.5028248587570622
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 142,
+          "meanPredicted": 0.4312040160128929,
+          "observedFrequency": 0.4295774647887324
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 58,
+          "meanPredicted": 0.5426660387080655,
+          "observedFrequency": 0.3620689655172414
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "FLAT",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.0,
+          "upper": 0.1,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.1,
+          "upper": 0.2,
+          "n": 68,
+          "meanPredicted": 0.15752774349669801,
+          "observedFrequency": 0.38235294117647056
+        },
+        {
+          "class": "UP",
+          "lower": 0.2,
+          "upper": 0.3,
+          "n": 128,
+          "meanPredicted": 0.27751780468480786,
+          "observedFrequency": 0.328125
+        },
+        {
+          "class": "UP",
+          "lower": 0.3,
+          "upper": 0.4,
+          "n": 192,
+          "meanPredicted": 0.3487662285582333,
+          "observedFrequency": 0.265625
+        },
+        {
+          "class": "UP",
+          "lower": 0.4,
+          "upper": 0.5,
+          "n": 21,
+          "meanPredicted": 0.4526488472455516,
+          "observedFrequency": 0.38095238095238093
+        },
+        {
+          "class": "UP",
+          "lower": 0.5,
+          "upper": 0.6,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.6,
+          "upper": 0.7,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.7,
+          "upper": 0.8,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.8,
+          "upper": 0.9,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        {
+          "class": "UP",
+          "lower": 0.9,
+          "upper": 1.0,
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      ],
+      "sixtyBand": {
+        "DOWN": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        },
+        "FLAT": {
+          "n": 15,
+          "meanPredicted": 0.5995475113122171,
+          "observedFrequency": 0.4
+        },
+        "UP": {
+          "n": 0,
+          "meanPredicted": null,
+          "observedFrequency": null
+        }
+      }
+    }
+  },
+  "audits": [
+    {
+      "testYear": 2018,
+      "trainN": 986,
+      "calibrationN": 245,
+      "testN": 212,
+      "purgedTrain": 7,
+      "purgedCalibration": 7,
+      "trainMaxLabelKnownAt": "2016-12-30T06:00:00+00:00",
+      "calibrationStart": "2017-01-04T04:59:59+00:00",
+      "calibrationMaxLabelKnownAt": "2017-12-29T06:00:00+00:00",
+      "testStart": "2018-01-03T04:59:59+00:00",
+      "trainLastEndpoint": "2016-12-27",
+      "calibrationFirstAnchor": "2017-01-03",
+      "calibrationLastEndpoint": "2017-12-26",
+      "testFirstAnchor": "2018-01-02"
+    },
+    {
+      "testYear": 2019,
+      "trainN": 1238,
+      "calibrationN": 212,
+      "testN": 197,
+      "purgedTrain": 7,
+      "purgedCalibration": 0,
+      "trainMaxLabelKnownAt": "2017-12-29T06:00:00+00:00",
+      "calibrationStart": "2018-01-03T04:59:59+00:00",
+      "calibrationMaxLabelKnownAt": "2018-12-13T06:00:00+00:00",
+      "testStart": "2019-01-03T04:59:59+00:00",
+      "trainLastEndpoint": "2017-12-26",
+      "calibrationFirstAnchor": "2018-01-02",
+      "calibrationLastEndpoint": "2018-12-05",
+      "testFirstAnchor": "2019-01-02"
+    }
+  ]
+}

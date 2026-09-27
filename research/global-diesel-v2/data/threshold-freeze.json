@@ -1,0 +1,54 @@
+{
+  "threshold": 0.015,
+  "designN": 986,
+  "designStart": "2013-01-25",
+  "designEnd": "2016-12-20",
+  "designMaxLabelKnownAt": "2016-12-30T06:00:00+00:00",
+  "absoluteReturnQuantiles": {
+    "0.25": 0.010598546539153542,
+    "0.5": 0.02367952109442284,
+    "0.75": 0.04326809744230781,
+    "0.9": 0.0718628973755952,
+    "0.95": 0.09603759272384244
+  },
+  "candidates": [
+    {
+      "threshold": 0.0075,
+      "shares": {
+        "DOWN": 0.46247464503042596,
+        "FLAT": 0.16531440162271804,
+        "UP": 0.372210953346856
+      },
+      "balanced": false
+    },
+    {
+      "threshold": 0.01,
+      "shares": {
+        "DOWN": 0.4290060851926978,
+        "FLAT": 0.2332657200811359,
+        "UP": 0.33772819472616633
+      },
+      "balanced": false
+    },
+    {
+      "threshold": 0.015,
+      "shares": {
+        "DOWN": 0.3661257606490872,
+        "FLAT": 0.34178498985801214,
+        "UP": 0.2920892494929006
+      },
+      "balanced": true
+    },
+    {
+      "threshold": 0.02,
+      "shares": {
+        "DOWN": 0.3093306288032454,
+        "FLAT": 0.4381338742393509,
+        "UP": 0.2525354969574036
+      },
+      "balanced": true
+    }
+  ],
+  "rule": "Smallest deadband with FLAT share >= 0.25, each class >= 0.20 and <= 0.50 in 2013-2016 only; otherwise closest FLAT share to 1/3. Product floor 0.75%, cap 2%.",
+  "configSHA256": "0aff7e1a89eda7707ee3a2ec316f46a5f6edd7ee0f9f810b50939d288b200847"
+}
