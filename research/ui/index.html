@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ayu Fuel Lab · 概率研究候选</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<main>
+  <header><p class="eyebrow">AYU FUEL LAB <span>研究候选</span></p><h1>沿海柴油参考价</h1><p class="sub">0# 柴油 · 省级公开参考</p></header>
+  <label class="region">查看地区 <select id="province" aria-label="选择沿海地区"></select></label>
+  <section class="card price-card" aria-live="polite"><p class="caption">0# 柴油参考价</p><div id="price">正在读取价格快照…</div><p id="source-date" class="sub"></p><p class="note">吨价按 0.84 kg/L 估算，实际成交价格可能不同。</p></section>
+  <section class="card trend-card" aria-live="polite"><div class="section-title"><h2>未来7天油价趋势</h2><span class="badge">研究中</span></div><p class="sub">原油人民币成本压力参考</p><div id="probability"><p class="unavailable">正在读取研究结论…</p></div>
+    <details id="reason"><summary>查看判断依据 <span>＋</span></summary><div class="details-body"><h3>本轮尚未达到展示条件</h3><p>历史测试尚未证明模型能稳定优于简单基线，因此暂不提供趋势方向与概率。</p><p>研究目标是未来7个自然日的 Brent 原油价格 × 人民币汇率变化。它不等于国内柴油最终调价；变动在 ±2% 以内归为“基本不变”。</p><p>已比较历史频率、7日动量、多分类回归，以及两种过去数据校准方法。新闻判断未参与概率模型。</p><a href="../reports/PROBABILITY_MODEL_V1_RESULT.md" target="_blank" rel="noopener">查看完整研究报告 ↗</a></div></details>
+  </section>
+  <footer><p>独立研究预览 · 尚未公开发布</p><p>本页价格来自候选快照，实际成交价可能不同。</p></footer>
+</main><script type="module" src="app.js"></script>
+</body></html>

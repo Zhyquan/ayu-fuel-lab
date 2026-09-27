@@ -1,0 +1,18 @@
+test_all_feature_inputs_available_at_prediction (test_research.ResearchTests.test_all_feature_inputs_available_at_prediction) ... ok
+test_bootstrap_and_report_use_same_scoring_convention (test_research.ResearchTests.test_bootstrap_and_report_use_same_scoring_convention) ... ok
+test_cycle_integrity_and_purged_label_availability (test_research.ResearchTests.test_cycle_integrity_and_purged_label_availability) ... ok
+test_frozen_deadband_boundaries_missing_not_flat (test_research.ResearchTests.test_frozen_deadband_boundaries_missing_not_flat) ... ok
+test_future_poison_does_not_change_features (test_research.ResearchTests.test_future_poison_does_not_change_features) ... ok
+test_label_is_seven_calendar_days_not_future_filled (test_research.ResearchTests.test_label_is_seven_calendar_days_not_future_filled) ... ok
+test_negative_wti_kept_and_finite (test_research.ResearchTests.test_negative_wti_kept_and_finite) ... ok
+test_official_actual_overrides_mechanism (test_research.ResearchTests.test_official_actual_overrides_mechanism) ... ok
+test_official_equal_amount_and_missing_unit (test_research.ResearchTests.test_official_equal_amount_and_missing_unit) ... ok
+test_same_day_release_is_not_available_early (test_research.ResearchTests.test_same_day_release_is_not_available_early) ... ok
+test_saved_gate_fails_and_scores_are_recomputable (test_research.ResearchTests.test_saved_gate_fails_and_scores_are_recomputable) ... ok
+test_scoring_uses_all_three_classes (test_research.ResearchTests.test_scoring_uses_all_three_classes) ... ok
+test_tax_effective_date_and_policy_not_zero (test_research.ResearchTests.test_tax_effective_date_and_policy_not_zero) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.544s
+
+OK
