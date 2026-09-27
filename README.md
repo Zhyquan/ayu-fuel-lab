@@ -75,3 +75,34 @@ npm run sanity:trend
 sanity 使用最近一年历史窗口排查明显方向错误，产出临时 evidence/trend-sanity.json。它不是预测回测，不输出准确率，不证明未来收益或预测能力。
 
 工作流额外支持 `simulate_trend_failure`；此时油价仍真实请求，趋势写 UNAVAILABLE，价格 Gate 仍必须通过。feature 分支手动运行只验证，不上传 Pages artifact，也不部署。只有合并 main 才会进入原有发布链路。
+
+
+## Trend freshness integration candidate
+
+The freshness policy now requires the latest completed common EIA spot day.
+`dist/data/trend-freshness.js` uses America/New_York at 18:00, weekends and a small
+reviewed US/England holiday table (2025–2026). Unknown years fail closed and
+require calendar review. This is a spot-observation calendar, not an exchange
+futures calendar; emergency closures need review. No reporting-lag allowance
+or fallback to an older direction is permitted. Browser reads revalidate dates
+and refresh the optional trend cache once per minute to permit recovery.
+
+`checkTrendFreshness()` returns LIVE / STALE / UNAVAILABLE plus both observation
+dates, the expected completed date, check time and reason. Any failure creates
+an UNAVAILABLE cache without direction. The mandatory price gate is unchanged.
+The momentum thresholds and density remain unchanged. LIVE cache now includes
+`marketData`, `method: MOMENTUM_BASELINE_V1`, and recomputed freshness evidence.
+
+Current source research (2026-09-27): FRED and DataHub CSV observations end on
+2026-09-22; EIA Daily Prices ends on 2026-09-24. Expected date: 2026-09-25.
+Therefore this candidate intentionally displays unavailable trend and its
+release freshness gate is FAIL. Yahoo futures were investigated but not adopted:
+they differ from the EIA spot basis and reuse rights remain unconfirmed.
+No fresh eligible source has been established; do not merge or deploy this
+candidate as a completed freshness solution.
+
+`node scripts/check-market-sources.mjs` is a read-only source availability audit
+also run on candidate branches. It does not merge series or choose a fallback.
+Raw research evidence stays outside public files. The branch workflow never
+uploads a Pages artifact or deploys. DataHub dataset metadata update time must
+not be confused with the CSV's last observation date.

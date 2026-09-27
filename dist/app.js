@@ -32,7 +32,7 @@ function renderTrend(trend) {
   const time = document.querySelector('#trend-data-date');
   target.dataset.status = trend.status;
   target.setAttribute('aria-busy', 'false');
-  if (trend.status !== 'LIVE_BASELINE') {
+  if (trend.status !== 'LIVE') {
     target.innerHTML = '<p class="trend-unavailable">趋势数据暂不可用</p><p class="trend-explanation">请稍后查看，不影响当前参考价。</p>';
     time.textContent = '暂不可用';
     time.removeAttribute('datetime');

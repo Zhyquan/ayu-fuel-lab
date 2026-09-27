@@ -52,12 +52,16 @@ jobs:
         env:
           SIMULATE_API_FAILURE: ${{ inputs.simulate_failure && '1' || '0' }}
         run: npm run update
+      - name: Candidate source availability audit
+        if: github.ref != 'refs/heads/main'
+        continue-on-error: true
+        run: node scripts/check-market-sources.mjs
       - name: Fetch optional Brent and WTI data
         continue-on-error: true
         env:
           SIMULATE_TREND_FAILURE: ${{ inputs.simulate_trend_failure && '1' || '0' }}
         run: npm run update:trend
-      - name: TREND_DATA_GATE and safe degradation
+      - name: TREND_FRESHNESS_GATE and safe degradation
         run: npm run gate:trend
       - name: PUBLIC_DATA_GATE
         if: ${{ !cancelled() && steps.start.outcome == 'success' }}

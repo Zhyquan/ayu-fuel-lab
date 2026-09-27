@@ -12,6 +12,7 @@ try {
 const temporary = new URL('../dist/data/trend-cache.json.tmp', import.meta.url);
 await writeFile(temporary, JSON.stringify(result.trend, null, 2) + '\n');
 await rename(temporary, path);
+console.log(`TREND_FRESHNESS_GATE = ${result.gate}`);
 console.log(`TREND_DATA_GATE = ${result.gate}`);
 console.log(JSON.stringify({ status: result.trend.status, reason: result.trend.reason, direction: result.trend.direction, dataUpdatedAt: result.trend.dataUpdatedAt }));
 // Optional capability: a rejected trend becomes UNAVAILABLE; price gating stays mandatory.

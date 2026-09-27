@@ -7,7 +7,7 @@ import { parseMarketCsv, fetchMarketData } from '../scripts/market-source.mjs';
 
 const now = new Date('2026-09-27T12:00:00Z');
 // Clearly synthetic fixtures: tests only, never written into the site cache.
-const series = slope => Array.from({ length: 20 }, (_, i) => ({ date: `2026-09-${String(i + 3).padStart(2,'0')}`, price: 100 + i * slope }));
+const series = slope => Array.from({ length: 20 }, (_, i) => ({ date: `2026-09-${String(i + 6).padStart(2,'0')}`, price: 100 + i * slope }));
 const input = slope => ({ Brent: series(slope), WTI: series(slope) });
 const good = () => buildTrend(input(1), { now });
 const check = data => validateTrendCache(data, { now });
@@ -41,12 +41,12 @@ test('significant recent reversal suppresses an otherwise rising 7d signal', () 
 test('percentage and calendar anchors are recomputable, not 7 trading sessions', () => {
   assert.equal(percentChange(110,100),10.000000000000009);
   const trend=good();
-  assert.equal(trend.metrics.Brent.changes.day7.fromDate,'2026-09-15');
+  assert.equal(trend.metrics.Brent.changes.day7.fromDate,'2026-09-18');
   const values=input(1);
-  for (const rows of Object.values(values)) rows.splice(rows.findIndex(r=>r.date==='2026-09-19'),1);
+  for (const rows of Object.values(values)) rows.splice(rows.findIndex(r=>r.date==='2026-09-22'),1);
   const holiday=buildTrend(values,{now});
-  assert.equal(holiday.metrics.Brent.changes.day3.fromDate,'2026-09-18');
-  assert.equal(holiday.metrics.Brent.changes.day3.toDate,'2026-09-22');
+  assert.equal(holiday.metrics.Brent.changes.day3.fromDate,'2026-09-21');
+  assert.equal(holiday.metrics.Brent.changes.day3.toDate,'2026-09-25');
 });
 test('each source date is validated; future, stale, duplicate and missing series fail', () => {
   for (const mutate of [v=>v.Brent=[], v=>delete v.WTI, v=>v.Brent.at(-1).date='2026-09-28', v=>v.WTI.at(-1).date='2026-02-30', v=>v.Brent.at(-1).date=v.Brent.at(-2).date, v=>v.WTI.at(-1).price='bad', v=>v.WTI.at(-1).price=0]) {
@@ -54,8 +54,9 @@ test('each source date is validated; future, stale, duplicate and missing series
   }
   assert.throws(()=>buildTrend(input(1),{now:new Date('2026-09-30T12:00:00Z')}),/STALE/);
 });
-test('freshness boundaries: 7 source days allowed, older source and 24h+ cache unavailable', () => {
-  assert.equal(buildTrend(input(1),{now:new Date('2026-09-29T12:00:00Z')}).status,'LIVE_BASELINE');
+test('freshness boundaries: completed market day required, 24h+ cache unavailable', () => {
+  assert.equal(buildTrend(input(1),{now:new Date('2026-09-28T12:00:00Z')}).status,'LIVE');
+  assert.throws(()=>buildTrend(input(1),{now:new Date('2026-09-28T23:00:00Z')}),/STALE/);
   const trend=good();
   assert.equal(validateTrendCache(trend,{now:new Date('2026-09-28T12:00:01Z')}).trend.status,'UNAVAILABLE');
   assert.equal(validateTrendCache(trend,{now,startedAt:'2026-09-27T12:00:01Z'}).gate,'FAIL');

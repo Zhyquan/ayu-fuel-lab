@@ -1,5 +1,7 @@
-import { validDate, validTimestamp } from './validation.js';
+import { validTimestamp } from './validation.js';
 import { trendConfig, TREND_RULE_VERSION } from './trend-config.js';
+
+import { checkTrendFreshness, normalizeObservations } from './trend-freshness.js';
 
 const DAY = 86400000;
 const labels = { UP: '偏上涨', SIDEWAYS: '震荡', DOWN: '偏下跌' };
@@ -16,25 +18,16 @@ export function directionFor(metrics) {
 }
 
 export function buildTrend(observations, { now = new Date(), generatedAt = new Date(now).toISOString() } = {}) {
-  const today = new Date(now).toISOString().slice(0, 10);
   if (!validTimestamp(generatedAt) || Date.parse(generatedAt) > new Date(now).getTime() + 300000) fail('INVALID_FETCH_TIME');
   if (new Date(now).getTime() - Date.parse(generatedAt) > trendConfig.maxCacheAgeHours * 3600000) fail('STALE_TREND_CACHE');
-  if (!observations || Object.keys(observations).sort().join(',') !== 'Brent,WTI') fail('INVALID_SERIES');
-  for (const name of ['Brent', 'WTI']) {
-    const rows = observations?.[name];
-    if (!Array.isArray(rows) || rows.length < 8) fail('INSUFFICIENT_OBSERVATIONS');
-    let previous = '';
-    for (const row of rows) {
-      if (!row || Object.keys(row).sort().join(',') !== 'date,price' || !validDate(row.date) || row.date <= previous) fail('INVALID_OBSERVATION_DATE');
-      if (row.date > today) fail('FUTURE_OBSERVATION');
-      if (row.date > new Date(generatedAt).toISOString().slice(0,10)) fail('OBSERVATION_AFTER_FETCH');
-      if (typeof row.price !== 'number' || !Number.isFinite(row.price) || row.price < 1 || row.price > 1000) fail('INVALID_MARKET_PRICE');
-      previous = row.date;
-    }
+  const freshness = checkTrendFreshness(observations, { now });
+  if (freshness.status !== 'LIVE') fail(freshness.reason);
+  observations = normalizeObservations(observations);
+  for (const rows of Object.values(observations)) {
+    if (rows.at(-1).date > new Date(generatedAt).toISOString().slice(0,10)) fail('OBSERVATION_AFTER_FETCH');
   }
   const wtiDates = new Set(observations.WTI.map(row => row.date));
   const asOf = observations.Brent.filter(row => wtiDates.has(row.date)).at(-1)?.date;
-  if (!asOf || (Date.parse(today) - Date.parse(asOf)) / DAY > trendConfig.maxSourceAgeDays) fail('STALE_OR_UNALIGNED_SOURCE');
   const metrics = {};
   for (const name of ['Brent', 'WTI']) {
     const rows = observations[name].filter(row => row.date <= asOf);
@@ -50,9 +43,14 @@ export function buildTrend(observations, { now = new Date(), generatedAt = new D
   }
   const direction = directionFor(metrics);
   return {
-    status: 'LIVE_BASELINE', ruleVersion: TREND_RULE_VERSION, source: 'FRED/EIA',
+    status: 'LIVE', ruleVersion: TREND_RULE_VERSION, source: 'FRED/EIA',
     generatedAt, dataUpdatedAt: asOf, direction, label: labels[direction],
     basedOn: ['Brent', 'WTI'].map(name => `${name} 近7日 ${formatChange(metrics[name].changes.day7.pct)}`),
+    method: 'MOMENTUM_BASELINE_V1', freshness,
+    marketData: Object.fromEntries(['Brent','WTI'].map(name => [name.toLowerCase(), {
+      latestDate: metrics[name].observedAt, latestClose: metrics[name].price,
+      change3dPct: metrics[name].changes.day3.pct, change7dPct: metrics[name].changes.day7.pct,
+    }])),
     metrics, observations,
   };
 }
@@ -60,12 +58,12 @@ export function buildTrend(observations, { now = new Date(), generatedAt = new D
 // Recompute from observations; never trust cached direction, labels or percentages.
 export function validateTrendCache(cache, { now = new Date(), startedAt } = {}) {
   try {
-    if (!cache || cache.status !== 'LIVE_BASELINE') fail(cache?.reason ?? 'TREND_UNAVAILABLE');
-    const expectedKeys = ['status','ruleVersion','source','generatedAt','dataUpdatedAt','direction','label','basedOn','metrics','observations'];
-    if (Object.keys(cache).some(key => !expectedKeys.includes(key)) || cache.source !== 'FRED/EIA' || cache.ruleVersion !== TREND_RULE_VERSION) fail('INVALID_TREND_SCHEMA');
+    if (!cache || cache.status !== 'LIVE') fail(cache?.reason ?? 'TREND_UNAVAILABLE');
+    const expectedKeys = ['status','ruleVersion','source','generatedAt','dataUpdatedAt','direction','label','basedOn','metrics','observations','method','marketData','freshness'];
+    if (Object.keys(cache).some(key => !expectedKeys.includes(key)) || cache.source !== 'FRED/EIA' || cache.ruleVersion !== TREND_RULE_VERSION || cache.method !== 'MOMENTUM_BASELINE_V1') fail('INVALID_TREND_SCHEMA');
     if (startedAt !== undefined && (!validTimestamp(startedAt) || Date.parse(cache.generatedAt) < Date.parse(startedAt))) fail('TREND_NOT_FROM_CURRENT_RUN');
     const computed = buildTrend(cache.observations, { now, generatedAt: cache.generatedAt });
-    for (const key of ['direction','label','basedOn','metrics','dataUpdatedAt']) if (JSON.stringify(cache[key]) !== JSON.stringify(computed[key])) fail('TREND_CALCULATION_MISMATCH');
+    for (const key of ['direction','label','basedOn','metrics','dataUpdatedAt','marketData']) if (JSON.stringify(cache[key]) !== JSON.stringify(computed[key])) fail('TREND_CALCULATION_MISMATCH');
     return { gate: 'PASS', trend: computed };
   } catch (error) {
     return { gate: 'FAIL', trend: unavailableTrend(error.message, now) };

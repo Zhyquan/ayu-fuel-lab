@@ -2,6 +2,8 @@ import { mkdir, writeFile, rename } from 'node:fs/promises';
 import { fetchMarketData } from './market-source.mjs';
 import { buildTrend, unavailableTrend } from '../dist/data/trend-baseline.js';
 
+import { checkTrendFreshness } from '../dist/data/trend-freshness.js';
+
 const site = new URL('../', import.meta.url);
 let trend;
 try {
@@ -10,6 +12,9 @@ try {
   await mkdir(new URL('evidence/', site), { recursive: true });
   await writeFile(new URL('evidence/fred-crude.csv', site), rawCsv);
   const recent = Object.fromEntries(Object.entries(observations).map(([name, rows]) => [name, rows.slice(-20)]));
+  const freshness = checkTrendFreshness(recent);
+  await writeFile(new URL('evidence/trend-freshness.json', site), JSON.stringify(freshness, null, 2) + '\n');
+  console.log(JSON.stringify({ TREND_FRESHNESS_GATE: freshness.status === 'LIVE' ? 'PASS' : 'FAIL', ...freshness }));
   trend = buildTrend(recent);
 } catch (error) {
   trend = unavailableTrend(error.name === 'TimeoutError' ? 'MARKET_TIMEOUT' : error.message);

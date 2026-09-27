@@ -29,7 +29,10 @@ export interface TrendWindow {
 }
 export type MarketName = 'Brent' | 'WTI';
 export type MarketTrend = {
-  status: 'LIVE_BASELINE';
+  status: 'LIVE';
+  method: 'MOMENTUM_BASELINE_V1';
+  freshness: TrendFreshness;
+  marketData: Record<'brent'|'wti', { latestDate: string; latestClose: number; change3dPct: number; change7dPct: number }>;
   ruleVersion: 'TREND_BASELINE_V1';
   source: 'FRED/EIA';
   generatedAt: string;
@@ -40,3 +43,12 @@ export type MarketTrend = {
   metrics: Record<MarketName, { observedAt: string; price: number; unit: 'USD/barrel'; changes: Record<'day1'|'day3'|'day7', TrendWindow> }>;
   observations: Record<MarketName, { date: string; price: number }[]>;
 } | { status: 'UNAVAILABLE'; generatedAt: string; reason: string };
+
+export interface TrendFreshness {
+  status: 'LIVE' | 'STALE' | 'UNAVAILABLE';
+  brentLatestDate: string | null;
+  wtiLatestDate: string | null;
+  expectedLatestTradingDate: string | null;
+  checkedAt: string;
+  reason: string;
+}
