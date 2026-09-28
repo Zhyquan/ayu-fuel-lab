@@ -15,7 +15,6 @@ let requestVersion = 0;
 let currentResult = null;
 const escapeText = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 const statusText = result => result.delayLevel === 'ERROR' ? '数据更新异常，请稍后查看' : result.status === 'STALE' ? '数据更新可能延迟' : '参考数据已更新';
-const formatTime = value => new Date(Date.parse(value) + 8 * 3600000).toISOString().slice(0,16).replace('T',' ');
 
 function PriceCard(result) {
   const data = getPriceDisplay(result.record.diesel0Price);
@@ -35,10 +34,6 @@ function renderForecast(forecast) {
   target.setAttribute('aria-busy', 'false');
   target.innerHTML = forecastMarkup(forecast);
   renderEvidence(forecast);
-  const time = document.querySelector('#trend-data-date');
-  time.textContent = forecast.status === 'LIVE' ? formatTime(forecast.generatedAt) : '暂不可用';
-  if (forecast.status === 'LIVE') time.setAttribute('datetime', forecast.generatedAt);
-  else time.removeAttribute('datetime');
 }
 
 function renderEvidence(forecast) {
@@ -63,7 +58,6 @@ function renderResult(result) {
   currentResult = result;
   content.setAttribute('aria-busy','false');
   content.dataset.state = result.status;
-  document.querySelector('#price-times').innerHTML = result.record ? `<p><span>价格来源日期</span><time datetime="${result.record.updatedAt}">${result.record.updatedAt}</time></p><p><span>本站更新时间</span><time datetime="${result.generatedAt}">${formatTime(result.generatedAt)}</time></p>` : '<p>价格数据暂不可用</p>'; 
   if (result.status === 'UNAVAILABLE') {
     content.innerHTML = UnavailableState();
     document.querySelector('#retry-data').addEventListener('click', () => loadProvince(selectedProvince, { refresh: true }));
@@ -82,7 +76,6 @@ async function loadProvince(province, options = {}) {
   document.querySelectorAll('[data-province]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.province === province)));
   content.setAttribute('aria-busy','true');
   content.dataset.state = 'LOADING';
-  document.querySelector('#price-times').innerHTML = '';
   content.innerHTML = LoadingState();
   announcement.textContent = '正在读取参考价。';
   const result = await getProvinceFuelData(province, options);

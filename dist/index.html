@@ -9,7 +9,7 @@
     <title>渔船柴油参考价 · Ayu Fuel Lab</title>
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%23123c46'/%3E%3Cpath d='M16 6C13 11 9 15 9 19a7 7 0 0 0 14 0c0-4-4-8-7-13Z' fill='%239aecd2'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="./styles.css" />
-    <script type="module" src="./app.js"></script>
+    <script type="module" src="./app.js?v=footer-cleanup"></script>
   </head>
   <body>
     <div class="page-shell">
@@ -32,17 +32,9 @@
         <section class="evidence-section" aria-label="判断依据">
           <div id="evidence-content" aria-busy="true"><p class="evidence-unavailable">正在读取判断依据…</p></div>
         </section>
-        <section class="source-details" aria-label="数据时间与来源">
-          <div id="price-times"></div>
-          <p><span>AI判断更新时间</span><time id="trend-data-date">—</time></p>
-          <p class="precision-note">价格来源保留观测日期；本站更新为北京时间。</p>
-          <p class="source-credit">价格：APIZero · 趋势：公开能源信息综合判断</p>
-        </section>
       </main>
 
       <footer class="site-footer">
-        <p class="disclaimer">趋势由AI根据公开国际油价、供需和能源市场信息综合判断，仅供参考。</p>
-        <p class="disclaimer price-disclaimer">省级价格为公开参考价，吨价按参考密度估算。</p>
         <div class="footer-brand"><span>AYU FUEL LAB</span><span>沿海柴油参考行情</span></div>
       </footer>
     </div>
