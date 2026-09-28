@@ -1,0 +1,24 @@
+{
+  "asOf": "2026-09-28T03:21:40Z",
+  "indexName": "GLOBAL_DIESEL_COMPOSITE_INDEX",
+  "status": "UNAVAILABLE",
+  "currentState": null,
+  "isForecast": false,
+  "returns": {
+    "1d": null,
+    "3d": null,
+    "7d": null,
+    "20d": null
+  },
+  "volatility": null,
+  "trendPosition": null,
+  "activeLegs": [],
+  "missingLegs": [
+    "US_NYH",
+    "USGC",
+    "SG_NZ_IMPORT_PROXY"
+  ],
+  "coverageRatio": 0,
+  "reason": "NON_US_5_YEAR_POINT_IN_TIME_HISTORY_NOT_VERIFIED",
+  "note": "No admitted global composite. The weekly import proxy is not a direct Asian MGO quote; do not substitute US state."
+}

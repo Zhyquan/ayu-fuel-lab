@@ -1,0 +1,24 @@
+{
+  "verifiedAt": "2026-09-28T03:58:24.035485+00:00",
+  "command": "python -B research/global-diesel-v3/run.py",
+  "completedFullRuns": 2,
+  "secondRunExitCode": 0,
+  "frozenArtifactCount": 10,
+  "allHashesIdentical": true,
+  "frozenHashManifestSHA256": "0114c69da7310785568c008e2b45c39a1ae241dc5f19955f0e8dcd89b2786bd8",
+  "python": "3.12.14",
+  "node": "v25.9.0",
+  "npm": "11.12.1",
+  "pythonTests": {
+    "pass": 15,
+    "fail": 0
+  },
+  "existingNodeTests": {
+    "pass": 102,
+    "fail": 0,
+    "skip": 0
+  },
+  "GLOBAL_DIESEL_DATA_GATE_V3": "FAIL",
+  "GLOBAL_DIESEL_MODEL_GATE_V3": "FAIL",
+  "modelExecutionStatus": "NOT_RUN_DATA_GATE_FAILED"
+}

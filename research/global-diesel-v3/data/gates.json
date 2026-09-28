@@ -1,0 +1,15 @@
+{
+  "sourceCoverageGate": "PASS",
+  "sourceCoverageScope": "US + Singapore-linked NZ import-cost proxy; not Europe or direct Asian MGO",
+  "historicalPublicationGate": "FAIL",
+  "GLOBAL_DIESEL_DATA_GATE_V3": "FAIL",
+  "GLOBAL_DIESEL_MODEL_GATE_V3": "FAIL",
+  "admittedPITRegions": [
+    "US"
+  ],
+  "nonUSAdmittedPITYears": 0,
+  "modelExecutionStatus": "NOT_RUN_DATA_GATE_FAILED",
+  "reason": "NON_US_5_YEAR_POINT_IN_TIME_HISTORY_NOT_VERIFIED",
+  "retrospectiveCorrelationIsPredictiveEvidence": false,
+  "forecastDisplayAuthorized": false
+}

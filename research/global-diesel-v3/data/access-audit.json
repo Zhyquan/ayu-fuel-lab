@@ -1,0 +1,36 @@
+{
+  "accessDate": "2026-09-28",
+  "requests": [
+    {
+      "source": "MBIE direct weekly page",
+      "httpStatus": 403,
+      "result": "ACCESS_BLOCKED_NO_BYPASS"
+    },
+    {
+      "source": "MBIE direct weekly-table.csv",
+      "httpStatus": 403,
+      "result": "ACCESS_BLOCKED_NO_BYPASS"
+    },
+    {
+      "source": "Figure.NZ original-source download",
+      "httpStatus": 200,
+      "result": "COMPLETE_OPEN_LICENSED_CSV",
+      "bytes": 2888957
+    },
+    {
+      "source": "Figure.NZ formatted-table download (not used)",
+      "httpStatus": 200,
+      "transportExitCode": 28,
+      "result": "PARTIAL_RESPONSE_TIMEOUT_EXCLUDED",
+      "receivedBytes": 2104431
+    },
+    {
+      "source": "Internet Archive CDX monthly status-200 CSV URL query",
+      "httpStatus": 200,
+      "result": "ZERO_CAPTURE_RECORDS_IN_SCOPED_QUERY",
+      "captureCount": 0,
+      "scope": "MBIE Weekly-fuel-price-monitoring/*weekly-table.csv; 200 status, month collapse; queries with and without CSV mime filter"
+    }
+  ],
+  "note": "No authenticated requests, paid data, anti-access circumvention, or licensed price feed ingestion."
+}

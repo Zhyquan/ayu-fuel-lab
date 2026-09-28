@@ -1,0 +1,8110 @@
+{
+  "purpose": "RETROSPECTIVE_COMOVEMENT_ONLY_NOT_FORECAST_EVALUATION",
+  "vintage": "LATEST_REVISED_NOT_PIT",
+  "nonUSProxy": "SG_NZ_IMPORT_PROXY",
+  "proxyFormula": "MBIE diesel importer cost [NZD c/L] * MBIE FX [USD/NZD] / 100 = USD/L",
+  "weeklyWindow": "Friday-labelled averages; minimum 3 real US observations; no forward-fill",
+  "weeklyReturnStart": "2006-06-23",
+  "weeklyReturnEnd": "2026-09-18",
+  "weeklyCommonN": 1057,
+  "usOnly1CalendarDay": {
+    "n": 3977,
+    "correlation": 0.88992847,
+    "directionN": 3906,
+    "directionAgreement": 0.91628264
+  },
+  "usOnly7CalendarDays": {
+    "n": 4890,
+    "correlation": 0.92455551,
+    "directionN": 4840,
+    "directionAgreement": 0.92334711
+  },
+  "nonUS1CalendarDay": {
+    "status": "UNAVAILABLE_WEEKLY_SOURCE",
+    "correlation": null,
+    "n": 0
+  },
+  "weeklyPairs": {
+    "DDFUELNYH": {
+      "n": 1057,
+      "correlation": 0.76265141,
+      "directionN": 1057,
+      "directionAgreement": 0.82024598,
+      "rolling52wN": 1006,
+      "rolling52wQuantiles": {
+        "0.0": 0.39931269,
+        "0.1": 0.70317908,
+        "0.5": 0.85240253,
+        "0.9": 0.9140098,
+        "1.0": 0.96614456
+      },
+      "rollingSeries": [
+        {
+          "date": "2007-06-15",
+          "correlation": 0.70529417
+        },
+        {
+          "date": "2007-06-22",
+          "correlation": 0.71225322
+        },
+        {
+          "date": "2007-06-29",
+          "correlation": 0.71234867
+        },
+        {
+          "date": "2007-07-06",
+          "correlation": 0.7089528
+        },
+        {
+          "date": "2007-07-13",
+          "correlation": 0.69487027
+        },
+        {
+          "date": "2007-07-20",
+          "correlation": 0.68606342
+        },
+        {
+          "date": "2007-07-27",
+          "correlation": 0.69788717
+        },
+        {
+          "date": "2007-08-03",
+          "correlation": 0.69246529
+        },
+        {
+          "date": "2007-08-10",
+          "correlation": 0.72857224
+        },
+        {
+          "date": "2007-08-17",
+          "correlation": 0.71564829
+        },
+        {
+          "date": "2007-08-24",
+          "correlation": 0.72343115
+        },
+        {
+          "date": "2007-08-31",
+          "correlation": 0.73978271
+        },
+        {
+          "date": "2007-09-07",
+          "correlation": 0.74864101
+        },
+        {
+          "date": "2007-09-14",
+          "correlation": 0.68383258
+        },
+        {
+          "date": "2007-09-21",
+          "correlation": 0.67826369
+        },
+        {
+          "date": "2007-09-28",
+          "correlation": 0.70493458
+        },
+        {
+          "date": "2007-10-05",
+          "correlation": 0.70551991
+        },
+        {
+          "date": "2007-10-12",
+          "correlation": 0.72819323
+        },
+        {
+          "date": "2007-10-19",
+          "correlation": 0.76201389
+        },
+        {
+          "date": "2007-10-26",
+          "correlation": 0.75959395
+        },
+        {
+          "date": "2007-11-02",
+          "correlation": 0.75070734
+        },
+        {
+          "date": "2007-11-09",
+          "correlation": 0.77164456
+        },
+        {
+          "date": "2007-11-16",
+          "correlation": 0.77774987
+        },
+        {
+          "date": "2007-11-23",
+          "correlation": 0.78838963
+        },
+        {
+          "date": "2007-11-30",
+          "correlation": 0.79503011
+        },
+        {
+          "date": "2007-12-07",
+          "correlation": 0.80406006
+        },
+        {
+          "date": "2007-12-14",
+          "correlation": 0.82770891
+        },
+        {
+          "date": "2007-12-21",
+          "correlation": 0.82915124
+        },
+        {
+          "date": "2007-12-28",
+          "correlation": 0.82025267
+        },
+        {
+          "date": "2008-01-04",
+          "correlation": 0.81727985
+        },
+        {
+          "date": "2008-01-11",
+          "correlation": 0.82916711
+        },
+        {
+          "date": "2008-01-18",
+          "correlation": 0.81947597
+        },
+        {
+          "date": "2008-01-25",
+          "correlation": 0.8320802
+        },
+        {
+          "date": "2008-02-01",
+          "correlation": 0.82101827
+        },
+        {
+          "date": "2008-02-08",
+          "correlation": 0.81984099
+        },
+        {
+          "date": "2008-02-15",
+          "correlation": 0.82753593
+        },
+        {
+          "date": "2008-02-22",
+          "correlation": 0.66030218
+        },
+        {
+          "date": "2008-02-29",
+          "correlation": 0.62089746
+        },
+        {
+          "date": "2008-03-07",
+          "correlation": 0.62518437
+        },
+        {
+          "date": "2008-03-14",
+          "correlation": 0.64876227
+        },
+        {
+          "date": "2008-03-21",
+          "correlation": 0.63248753
+        },
+        {
+          "date": "2008-03-28",
+          "correlation": 0.61369115
+        },
+        {
+          "date": "2008-04-04",
+          "correlation": 0.60912714
+        },
+        {
+          "date": "2008-04-11",
+          "correlation": 0.63795696
+        },
+        {
+          "date": "2008-04-18",
+          "correlation": 0.6411903
+        },
+        {
+          "date": "2008-04-25",
+          "correlation": 0.62435187
+        },
+        {
+          "date": "2008-05-02",
+          "correlation": 0.63170247
+        },
+        {
+          "date": "2008-05-09",
+          "correlation": 0.62894022
+        },
+        {
+          "date": "2008-05-16",
+          "correlation": 0.64275261
+        },
+        {
+          "date": "2008-05-23",
+          "correlation": 0.65569544
+        },
+        {
+          "date": "2008-05-30",
+          "correlation": 0.65873288
+        },
+        {
+          "date": "2008-06-06",
+          "correlation": 0.66856655
+        },
+        {
+          "date": "2008-06-13",
+          "correlation": 0.67309147
+        },
+        {
+          "date": "2008-06-20",
+          "correlation": 0.68104671
+        },
+        {
+          "date": "2008-06-27",
+          "correlation": 0.67804418
+        },
+        {
+          "date": "2008-07-04",
+          "correlation": 0.68065883
+        },
+        {
+          "date": "2008-07-11",
+          "correlation": 0.69138597
+        },
+        {
+          "date": "2008-07-18",
+          "correlation": 0.7020208
+        },
+        {
+          "date": "2008-07-25",
+          "correlation": 0.72733085
+        },
+        {
+          "date": "2008-08-01",
+          "correlation": 0.73781063
+        },
+        {
+          "date": "2008-08-08",
+          "correlation": 0.75294893
+        },
+        {
+          "date": "2008-08-15",
+          "correlation": 0.77155501
+        },
+        {
+          "date": "2008-08-22",
+          "correlation": 0.7668304
+        },
+        {
+          "date": "2008-08-29",
+          "correlation": 0.76617875
+        },
+        {
+          "date": "2008-09-05",
+          "correlation": 0.77397072
+        },
+        {
+          "date": "2008-09-12",
+          "correlation": 0.7779875
+        },
+        {
+          "date": "2008-09-19",
+          "correlation": 0.78080645
+        },
+        {
+          "date": "2008-09-26",
+          "correlation": 0.79190705
+        },
+        {
+          "date": "2008-10-03",
+          "correlation": 0.80595238
+        },
+        {
+          "date": "2008-10-10",
+          "correlation": 0.8361544
+        },
+        {
+          "date": "2008-10-17",
+          "correlation": 0.84735176
+        },
+        {
+          "date": "2008-10-24",
+          "correlation": 0.85041302
+        },
+        {
+          "date": "2008-10-31",
+          "correlation": 0.84804289
+        },
+        {
+          "date": "2008-11-07",
+          "correlation": 0.84532458
+        },
+        {
+          "date": "2008-11-14",
+          "correlation": 0.85059827
+        },
+        {
+          "date": "2008-11-21",
+          "correlation": 0.85553911
+        },
+        {
+          "date": "2008-11-28",
+          "correlation": 0.8573
+        },
+        {
+          "date": "2008-12-05",
+          "correlation": 0.84073513
+        },
+        {
+          "date": "2008-12-12",
+          "correlation": 0.83696885
+        },
+        {
+          "date": "2008-12-19",
+          "correlation": 0.83414028
+        },
+        {
+          "date": "2008-12-26",
+          "correlation": 0.83611351
+        },
+        {
+          "date": "2009-01-02",
+          "correlation": 0.81951634
+        },
+        {
+          "date": "2009-01-09",
+          "correlation": 0.83915643
+        },
+        {
+          "date": "2009-01-16",
+          "correlation": 0.84167959
+        },
+        {
+          "date": "2009-01-23",
+          "correlation": 0.84507426
+        },
+        {
+          "date": "2009-01-30",
+          "correlation": 0.84542357
+        },
+        {
+          "date": "2009-02-06",
+          "correlation": 0.84338782
+        },
+        {
+          "date": "2009-02-13",
+          "correlation": 0.83524271
+        },
+        {
+          "date": "2009-02-20",
+          "correlation": 0.87541323
+        },
+        {
+          "date": "2009-02-27",
+          "correlation": 0.87777924
+        },
+        {
+          "date": "2009-03-06",
+          "correlation": 0.87595197
+        },
+        {
+          "date": "2009-03-13",
+          "correlation": 0.87014252
+        },
+        {
+          "date": "2009-03-20",
+          "correlation": 0.88007839
+        },
+        {
+          "date": "2009-03-27",
+          "correlation": 0.89366039
+        },
+        {
+          "date": "2009-04-03",
+          "correlation": 0.89511031
+        },
+        {
+          "date": "2009-04-10",
+          "correlation": 0.89181621
+        },
+        {
+          "date": "2009-04-17",
+          "correlation": 0.89050268
+        },
+        {
+          "date": "2009-04-24",
+          "correlation": 0.89786049
+        },
+        {
+          "date": "2009-05-01",
+          "correlation": 0.89792729
+        },
+        {
+          "date": "2009-05-08",
+          "correlation": 0.90221882
+        },
+        {
+          "date": "2009-05-15",
+          "correlation": 0.90277979
+        },
+        {
+          "date": "2009-05-22",
+          "correlation": 0.89835624
+        },
+        {
+          "date": "2009-05-29",
+          "correlation": 0.90049042
+        },
+        {
+          "date": "2009-06-05",
+          "correlation": 0.90777738
+        },
+        {
+          "date": "2009-06-12",
+          "correlation": 0.90829481
+        },
+        {
+          "date": "2009-06-19",
+          "correlation": 0.90860068
+        },
+        {
+          "date": "2009-06-26",
+          "correlation": 0.90860801
+        },
+        {
+          "date": "2009-07-03",
+          "correlation": 0.90707961
+        },
+        {
+          "date": "2009-07-10",
+          "correlation": 0.91027962
+        },
+        {
+          "date": "2009-07-17",
+          "correlation": 0.90809162
+        },
+        {
+          "date": "2009-07-24",
+          "correlation": 0.91235726
+        },
+        {
+          "date": "2009-07-31",
+          "correlation": 0.91279582
+        },
+        {
+          "date": "2009-08-07",
+          "correlation": 0.91355847
+        },
+        {
+          "date": "2009-08-14",
+          "correlation": 0.91195506
+        },
+        {
+          "date": "2009-08-21",
+          "correlation": 0.91250026
+        },
+        {
+          "date": "2009-08-28",
+          "correlation": 0.9116729
+        },
+        {
+          "date": "2009-09-04",
+          "correlation": 0.91037679
+        },
+        {
+          "date": "2009-09-11",
+          "correlation": 0.90958355
+        },
+        {
+          "date": "2009-09-18",
+          "correlation": 0.90907809
+        },
+        {
+          "date": "2009-09-25",
+          "correlation": 0.90506719
+        },
+        {
+          "date": "2009-10-02",
+          "correlation": 0.89935216
+        },
+        {
+          "date": "2009-10-09",
+          "correlation": 0.89675587
+        },
+        {
+          "date": "2009-10-16",
+          "correlation": 0.89563479
+        },
+        {
+          "date": "2009-10-23",
+          "correlation": 0.89472869
+        },
+        {
+          "date": "2009-10-30",
+          "correlation": 0.89258711
+        },
+        {
+          "date": "2009-11-06",
+          "correlation": 0.89245459
+        },
+        {
+          "date": "2009-11-13",
+          "correlation": 0.89100992
+        },
+        {
+          "date": "2009-11-20",
+          "correlation": 0.88637521
+        },
+        {
+          "date": "2009-11-27",
+          "correlation": 0.88604184
+        },
+        {
+          "date": "2009-12-04",
+          "correlation": 0.89283275
+        },
+        {
+          "date": "2009-12-11",
+          "correlation": 0.89445687
+        },
+        {
+          "date": "2009-12-18",
+          "correlation": 0.89656659
+        },
+        {
+          "date": "2009-12-25",
+          "correlation": 0.89317757
+        },
+        {
+          "date": "2010-01-01",
+          "correlation": 0.90942905
+        },
+        {
+          "date": "2010-01-08",
+          "correlation": 0.89999922
+        },
+        {
+          "date": "2010-01-15",
+          "correlation": 0.89705571
+        },
+        {
+          "date": "2010-01-22",
+          "correlation": 0.89587
+        },
+        {
+          "date": "2010-01-29",
+          "correlation": 0.89377747
+        },
+        {
+          "date": "2010-02-05",
+          "correlation": 0.89480747
+        },
+        {
+          "date": "2010-02-12",
+          "correlation": 0.90099471
+        },
+        {
+          "date": "2010-02-19",
+          "correlation": 0.90040118
+        },
+        {
+          "date": "2010-02-26",
+          "correlation": 0.91731098
+        },
+        {
+          "date": "2010-03-05",
+          "correlation": 0.9160692
+        },
+        {
+          "date": "2010-03-12",
+          "correlation": 0.91511261
+        },
+        {
+          "date": "2010-03-19",
+          "correlation": 0.91815521
+        },
+        {
+          "date": "2010-03-26",
+          "correlation": 0.90363896
+        },
+        {
+          "date": "2010-04-02",
+          "correlation": 0.90092643
+        },
+        {
+          "date": "2010-04-09",
+          "correlation": 0.89522409
+        },
+        {
+          "date": "2010-04-16",
+          "correlation": 0.89502859
+        },
+        {
+          "date": "2010-04-23",
+          "correlation": 0.88859653
+        },
+        {
+          "date": "2010-04-30",
+          "correlation": 0.88800559
+        },
+        {
+          "date": "2010-05-07",
+          "correlation": 0.88489772
+        },
+        {
+          "date": "2010-05-14",
+          "correlation": 0.8874301
+        },
+        {
+          "date": "2010-05-21",
+          "correlation": 0.90338863
+        },
+        {
+          "date": "2010-05-28",
+          "correlation": 0.89382826
+        },
+        {
+          "date": "2010-06-04",
+          "correlation": 0.87719368
+        },
+        {
+          "date": "2010-06-11",
+          "correlation": 0.87461438
+        },
+        {
+          "date": "2010-06-18",
+          "correlation": 0.87736491
+        },
+        {
+          "date": "2010-06-25",
+          "correlation": 0.8727326
+        },
+        {
+          "date": "2010-07-02",
+          "correlation": 0.87765799
+        },
+        {
+          "date": "2010-07-09",
+          "correlation": 0.8525017
+        },
+        {
+          "date": "2010-07-16",
+          "correlation": 0.86160797
+        },
+        {
+          "date": "2010-07-23",
+          "correlation": 0.8447868
+        },
+        {
+          "date": "2010-07-30",
+          "correlation": 0.84268686
+        },
+        {
+          "date": "2010-08-06",
+          "correlation": 0.83823088
+        },
+        {
+          "date": "2010-08-13",
+          "correlation": 0.84764251
+        },
+        {
+          "date": "2010-08-20",
+          "correlation": 0.85161723
+        },
+        {
+          "date": "2010-08-27",
+          "correlation": 0.85289137
+        },
+        {
+          "date": "2010-09-03",
+          "correlation": 0.8508639
+        },
+        {
+          "date": "2010-09-10",
+          "correlation": 0.85349769
+        },
+        {
+          "date": "2010-09-17",
+          "correlation": 0.85688981
+        },
+        {
+          "date": "2010-09-24",
+          "correlation": 0.86101748
+        },
+        {
+          "date": "2010-10-01",
+          "correlation": 0.87541608
+        },
+        {
+          "date": "2010-10-08",
+          "correlation": 0.87556374
+        },
+        {
+          "date": "2010-10-15",
+          "correlation": 0.86302985
+        },
+        {
+          "date": "2010-10-22",
+          "correlation": 0.85648969
+        },
+        {
+          "date": "2010-10-29",
+          "correlation": 0.85916707
+        },
+        {
+          "date": "2010-11-05",
+          "correlation": 0.8581279
+        },
+        {
+          "date": "2010-11-12",
+          "correlation": 0.85891379
+        },
+        {
+          "date": "2010-11-19",
+          "correlation": 0.86031081
+        },
+        {
+          "date": "2010-11-26",
+          "correlation": 0.85741749
+        },
+        {
+          "date": "2010-12-03",
+          "correlation": 0.86179668
+        },
+        {
+          "date": "2010-12-10",
+          "correlation": 0.85460068
+        },
+        {
+          "date": "2010-12-17",
+          "correlation": 0.85971613
+        },
+        {
+          "date": "2010-12-24",
+          "correlation": 0.85898877
+        },
+        {
+          "date": "2010-12-31",
+          "correlation": 0.85589909
+        },
+        {
+          "date": "2011-01-07",
+          "correlation": 0.85494076
+        },
+        {
+          "date": "2011-01-14",
+          "correlation": 0.86058857
+        },
+        {
+          "date": "2011-01-21",
+          "correlation": 0.85159187
+        },
+        {
+          "date": "2011-01-28",
+          "correlation": 0.85605924
+        },
+        {
+          "date": "2011-02-04",
+          "correlation": 0.858183
+        },
+        {
+          "date": "2011-02-11",
+          "correlation": 0.85063487
+        },
+        {
+          "date": "2011-02-18",
+          "correlation": 0.84796738
+        },
+        {
+          "date": "2011-02-25",
+          "correlation": 0.85524376
+        },
+        {
+          "date": "2011-03-04",
+          "correlation": 0.86134571
+        },
+        {
+          "date": "2011-03-11",
+          "correlation": 0.86139826
+        },
+        {
+          "date": "2011-03-18",
+          "correlation": 0.85796782
+        },
+        {
+          "date": "2011-03-25",
+          "correlation": 0.85706017
+        },
+        {
+          "date": "2011-04-01",
+          "correlation": 0.85865076
+        },
+        {
+          "date": "2011-04-08",
+          "correlation": 0.86730586
+        },
+        {
+          "date": "2011-04-15",
+          "correlation": 0.86813288
+        },
+        {
+          "date": "2011-04-22",
+          "correlation": 0.8678505
+        },
+        {
+          "date": "2011-04-29",
+          "correlation": 0.8667447
+        },
+        {
+          "date": "2011-05-06",
+          "correlation": 0.87453564
+        },
+        {
+          "date": "2011-05-13",
+          "correlation": 0.87399445
+        },
+        {
+          "date": "2011-05-20",
+          "correlation": 0.84605462
+        },
+        {
+          "date": "2011-05-27",
+          "correlation": 0.86605106
+        },
+        {
+          "date": "2011-06-03",
+          "correlation": 0.87307353
+        },
+        {
+          "date": "2011-06-10",
+          "correlation": 0.87597801
+        },
+        {
+          "date": "2011-06-17",
+          "correlation": 0.87196636
+        },
+        {
+          "date": "2011-06-24",
+          "correlation": 0.88874077
+        },
+        {
+          "date": "2011-07-01",
+          "correlation": 0.8730467
+        },
+        {
+          "date": "2011-07-08",
+          "correlation": 0.88131747
+        },
+        {
+          "date": "2011-07-15",
+          "correlation": 0.88395989
+        },
+        {
+          "date": "2011-07-22",
+          "correlation": 0.88326809
+        },
+        {
+          "date": "2011-07-29",
+          "correlation": 0.88561042
+        },
+        {
+          "date": "2011-08-05",
+          "correlation": 0.88073713
+        },
+        {
+          "date": "2011-08-12",
+          "correlation": 0.88661557
+        },
+        {
+          "date": "2011-08-19",
+          "correlation": 0.88106574
+        },
+        {
+          "date": "2011-08-26",
+          "correlation": 0.88225995
+        },
+        {
+          "date": "2011-09-02",
+          "correlation": 0.88345851
+        },
+        {
+          "date": "2011-09-09",
+          "correlation": 0.88536816
+        },
+        {
+          "date": "2011-09-16",
+          "correlation": 0.88817292
+        },
+        {
+          "date": "2011-09-23",
+          "correlation": 0.88888945
+        },
+        {
+          "date": "2011-09-30",
+          "correlation": 0.89181039
+        },
+        {
+          "date": "2011-10-07",
+          "correlation": 0.88933996
+        },
+        {
+          "date": "2011-10-14",
+          "correlation": 0.89279087
+        },
+        {
+          "date": "2011-10-21",
+          "correlation": 0.88958638
+        },
+        {
+          "date": "2011-10-28",
+          "correlation": 0.88763585
+        },
+        {
+          "date": "2011-11-04",
+          "correlation": 0.89152025
+        },
+        {
+          "date": "2011-11-11",
+          "correlation": 0.8930885
+        },
+        {
+          "date": "2011-11-18",
+          "correlation": 0.89036166
+        },
+        {
+          "date": "2011-11-25",
+          "correlation": 0.90194622
+        },
+        {
+          "date": "2011-12-02",
+          "correlation": 0.89899688
+        },
+        {
+          "date": "2011-12-09",
+          "correlation": 0.90786982
+        },
+        {
+          "date": "2011-12-16",
+          "correlation": 0.91190918
+        },
+        {
+          "date": "2011-12-23",
+          "correlation": 0.90568031
+        },
+        {
+          "date": "2011-12-30",
+          "correlation": 0.90556805
+        },
+        {
+          "date": "2012-01-06",
+          "correlation": 0.91027769
+        },
+        {
+          "date": "2012-01-13",
+          "correlation": 0.90716945
+        },
+        {
+          "date": "2012-01-20",
+          "correlation": 0.90778679
+        },
+        {
+          "date": "2012-01-27",
+          "correlation": 0.90291286
+        },
+        {
+          "date": "2012-02-03",
+          "correlation": 0.90110059
+        },
+        {
+          "date": "2012-02-10",
+          "correlation": 0.91056138
+        },
+        {
+          "date": "2012-02-17",
+          "correlation": 0.91011863
+        },
+        {
+          "date": "2012-02-24",
+          "correlation": 0.90239525
+        },
+        {
+          "date": "2012-03-02",
+          "correlation": 0.89418413
+        },
+        {
+          "date": "2012-03-09",
+          "correlation": 0.89706449
+        },
+        {
+          "date": "2012-03-16",
+          "correlation": 0.902942
+        },
+        {
+          "date": "2012-03-23",
+          "correlation": 0.9033785
+        },
+        {
+          "date": "2012-03-30",
+          "correlation": 0.90338736
+        },
+        {
+          "date": "2012-04-06",
+          "correlation": 0.89829348
+        },
+        {
+          "date": "2012-04-13",
+          "correlation": 0.90002693
+        },
+        {
+          "date": "2012-04-20",
+          "correlation": 0.9006293
+        },
+        {
+          "date": "2012-04-27",
+          "correlation": 0.9002217
+        },
+        {
+          "date": "2012-05-04",
+          "correlation": 0.8938471
+        },
+        {
+          "date": "2012-05-11",
+          "correlation": 0.90527661
+        },
+        {
+          "date": "2012-05-18",
+          "correlation": 0.90574836
+        },
+        {
+          "date": "2012-05-25",
+          "correlation": 0.90855222
+        },
+        {
+          "date": "2012-06-01",
+          "correlation": 0.90624469
+        },
+        {
+          "date": "2012-06-08",
+          "correlation": 0.89608845
+        },
+        {
+          "date": "2012-06-15",
+          "correlation": 0.89723518
+        },
+        {
+          "date": "2012-06-22",
+          "correlation": 0.88534459
+        },
+        {
+          "date": "2012-06-29",
+          "correlation": 0.88704921
+        },
+        {
+          "date": "2012-07-06",
+          "correlation": 0.89459505
+        },
+        {
+          "date": "2012-07-13",
+          "correlation": 0.89293374
+        },
+        {
+          "date": "2012-07-20",
+          "correlation": 0.89830498
+        },
+        {
+          "date": "2012-07-27",
+          "correlation": 0.89693533
+        },
+        {
+          "date": "2012-08-03",
+          "correlation": 0.90030689
+        },
+        {
+          "date": "2012-08-10",
+          "correlation": 0.89503433
+        },
+        {
+          "date": "2012-08-17",
+          "correlation": 0.8986257
+        },
+        {
+          "date": "2012-08-24",
+          "correlation": 0.89966254
+        },
+        {
+          "date": "2012-08-31",
+          "correlation": 0.89371194
+        },
+        {
+          "date": "2012-09-07",
+          "correlation": 0.89234035
+        },
+        {
+          "date": "2012-09-14",
+          "correlation": 0.89098326
+        },
+        {
+          "date": "2012-09-21",
+          "correlation": 0.89044863
+        },
+        {
+          "date": "2012-09-28",
+          "correlation": 0.88329746
+        },
+        {
+          "date": "2012-10-05",
+          "correlation": 0.88458099
+        },
+        {
+          "date": "2012-10-12",
+          "correlation": 0.88559813
+        },
+        {
+          "date": "2012-10-19",
+          "correlation": 0.88390635
+        },
+        {
+          "date": "2012-10-26",
+          "correlation": 0.89301252
+        },
+        {
+          "date": "2012-11-02",
+          "correlation": 0.89276382
+        },
+        {
+          "date": "2012-11-09",
+          "correlation": 0.88486895
+        },
+        {
+          "date": "2012-11-16",
+          "correlation": 0.88694184
+        },
+        {
+          "date": "2012-11-23",
+          "correlation": 0.88167909
+        },
+        {
+          "date": "2012-11-30",
+          "correlation": 0.86588815
+        },
+        {
+          "date": "2012-12-07",
+          "correlation": 0.84463515
+        },
+        {
+          "date": "2012-12-14",
+          "correlation": 0.82466859
+        },
+        {
+          "date": "2012-12-21",
+          "correlation": 0.8315159
+        },
+        {
+          "date": "2012-12-28",
+          "correlation": 0.83151045
+        },
+        {
+          "date": "2013-01-04",
+          "correlation": 0.81264634
+        },
+        {
+          "date": "2013-01-11",
+          "correlation": 0.82140646
+        },
+        {
+          "date": "2013-01-18",
+          "correlation": 0.82077052
+        },
+        {
+          "date": "2013-01-25",
+          "correlation": 0.82833608
+        },
+        {
+          "date": "2013-02-01",
+          "correlation": 0.83036403
+        },
+        {
+          "date": "2013-02-08",
+          "correlation": 0.82706488
+        },
+        {
+          "date": "2013-02-15",
+          "correlation": 0.82920266
+        },
+        {
+          "date": "2013-02-22",
+          "correlation": 0.83128701
+        },
+        {
+          "date": "2013-03-01",
+          "correlation": 0.84220417
+        },
+        {
+          "date": "2013-03-08",
+          "correlation": 0.83937812
+        },
+        {
+          "date": "2013-03-15",
+          "correlation": 0.83886984
+        },
+        {
+          "date": "2013-03-22",
+          "correlation": 0.83701319
+        },
+        {
+          "date": "2013-03-29",
+          "correlation": 0.824347
+        },
+        {
+          "date": "2013-04-05",
+          "correlation": 0.82476005
+        },
+        {
+          "date": "2013-04-12",
+          "correlation": 0.82768519
+        },
+        {
+          "date": "2013-04-19",
+          "correlation": 0.84522427
+        },
+        {
+          "date": "2013-04-26",
+          "correlation": 0.84275544
+        },
+        {
+          "date": "2013-05-03",
+          "correlation": 0.84334062
+        },
+        {
+          "date": "2013-05-10",
+          "correlation": 0.83427476
+        },
+        {
+          "date": "2013-05-17",
+          "correlation": 0.83102902
+        },
+        {
+          "date": "2013-05-24",
+          "correlation": 0.82896394
+        },
+        {
+          "date": "2013-05-31",
+          "correlation": 0.82559913
+        },
+        {
+          "date": "2013-06-07",
+          "correlation": 0.82748842
+        },
+        {
+          "date": "2013-06-14",
+          "correlation": 0.82773764
+        },
+        {
+          "date": "2013-06-21",
+          "correlation": 0.82737561
+        },
+        {
+          "date": "2013-06-28",
+          "correlation": 0.83779554
+        },
+        {
+          "date": "2013-07-05",
+          "correlation": 0.81982505
+        },
+        {
+          "date": "2013-07-12",
+          "correlation": 0.82156696
+        },
+        {
+          "date": "2013-07-19",
+          "correlation": 0.81522595
+        },
+        {
+          "date": "2013-07-26",
+          "correlation": 0.81741711
+        },
+        {
+          "date": "2013-08-02",
+          "correlation": 0.81610254
+        },
+        {
+          "date": "2013-08-09",
+          "correlation": 0.7812144
+        },
+        {
+          "date": "2013-08-16",
+          "correlation": 0.76740494
+        },
+        {
+          "date": "2013-08-23",
+          "correlation": 0.76446133
+        },
+        {
+          "date": "2013-08-30",
+          "correlation": 0.77355552
+        },
+        {
+          "date": "2013-09-06",
+          "correlation": 0.7741334
+        },
+        {
+          "date": "2013-09-13",
+          "correlation": 0.7750444
+        },
+        {
+          "date": "2013-09-20",
+          "correlation": 0.77151126
+        },
+        {
+          "date": "2013-09-27",
+          "correlation": 0.75205551
+        },
+        {
+          "date": "2013-10-04",
+          "correlation": 0.72743138
+        },
+        {
+          "date": "2013-10-11",
+          "correlation": 0.7243157
+        },
+        {
+          "date": "2013-10-18",
+          "correlation": 0.7277963
+        },
+        {
+          "date": "2013-10-25",
+          "correlation": 0.70562624
+        },
+        {
+          "date": "2013-11-01",
+          "correlation": 0.70547459
+        },
+        {
+          "date": "2013-11-08",
+          "correlation": 0.72038421
+        },
+        {
+          "date": "2013-11-15",
+          "correlation": 0.71490649
+        },
+        {
+          "date": "2013-11-22",
+          "correlation": 0.70962858
+        },
+        {
+          "date": "2013-11-29",
+          "correlation": 0.73672728
+        },
+        {
+          "date": "2013-12-06",
+          "correlation": 0.76923128
+        },
+        {
+          "date": "2013-12-13",
+          "correlation": 0.79487391
+        },
+        {
+          "date": "2013-12-20",
+          "correlation": 0.79259017
+        },
+        {
+          "date": "2013-12-27",
+          "correlation": 0.78659422
+        },
+        {
+          "date": "2014-01-03",
+          "correlation": 0.7767221
+        },
+        {
+          "date": "2014-01-10",
+          "correlation": 0.78059655
+        },
+        {
+          "date": "2014-01-17",
+          "correlation": 0.76146153
+        },
+        {
+          "date": "2014-01-24",
+          "correlation": 0.71191434
+        },
+        {
+          "date": "2014-01-31",
+          "correlation": 0.7033568
+        },
+        {
+          "date": "2014-02-07",
+          "correlation": 0.67806284
+        },
+        {
+          "date": "2014-02-14",
+          "correlation": 0.51848766
+        },
+        {
+          "date": "2014-02-21",
+          "correlation": 0.51995543
+        },
+        {
+          "date": "2014-02-28",
+          "correlation": 0.49262097
+        },
+        {
+          "date": "2014-03-07",
+          "correlation": 0.49325476
+        },
+        {
+          "date": "2014-03-14",
+          "correlation": 0.50270069
+        },
+        {
+          "date": "2014-03-21",
+          "correlation": 0.49845776
+        },
+        {
+          "date": "2014-03-28",
+          "correlation": 0.51183566
+        },
+        {
+          "date": "2014-04-04",
+          "correlation": 0.51336742
+        },
+        {
+          "date": "2014-04-11",
+          "correlation": 0.49191456
+        },
+        {
+          "date": "2014-04-18",
+          "correlation": 0.41080765
+        },
+        {
+          "date": "2014-04-25",
+          "correlation": 0.40603116
+        },
+        {
+          "date": "2014-05-02",
+          "correlation": 0.41758707
+        },
+        {
+          "date": "2014-05-09",
+          "correlation": 0.40560994
+        },
+        {
+          "date": "2014-05-16",
+          "correlation": 0.40235827
+        },
+        {
+          "date": "2014-05-23",
+          "correlation": 0.40240809
+        },
+        {
+          "date": "2014-05-30",
+          "correlation": 0.39931269
+        },
+        {
+          "date": "2014-06-06",
+          "correlation": 0.41612766
+        },
+        {
+          "date": "2014-06-13",
+          "correlation": 0.41834579
+        },
+        {
+          "date": "2014-06-20",
+          "correlation": 0.45182092
+        },
+        {
+          "date": "2014-06-27",
+          "correlation": 0.43707689
+        },
+        {
+          "date": "2014-07-04",
+          "correlation": 0.4397316
+        },
+        {
+          "date": "2014-07-11",
+          "correlation": 0.44216604
+        },
+        {
+          "date": "2014-07-18",
+          "correlation": 0.43164611
+        },
+        {
+          "date": "2014-07-25",
+          "correlation": 0.42913236
+        },
+        {
+          "date": "2014-08-01",
+          "correlation": 0.42982962
+        },
+        {
+          "date": "2014-08-08",
+          "correlation": 0.44047007
+        },
+        {
+          "date": "2014-08-15",
+          "correlation": 0.43933284
+        },
+        {
+          "date": "2014-08-22",
+          "correlation": 0.44214228
+        },
+        {
+          "date": "2014-08-29",
+          "correlation": 0.42928303
+        },
+        {
+          "date": "2014-09-05",
+          "correlation": 0.43052503
+        },
+        {
+          "date": "2014-09-12",
+          "correlation": 0.43998242
+        },
+        {
+          "date": "2014-09-19",
+          "correlation": 0.4381461
+        },
+        {
+          "date": "2014-09-26",
+          "correlation": 0.47514359
+        },
+        {
+          "date": "2014-10-03",
+          "correlation": 0.50311265
+        },
+        {
+          "date": "2014-10-10",
+          "correlation": 0.51289706
+        },
+        {
+          "date": "2014-10-17",
+          "correlation": 0.53740308
+        },
+        {
+          "date": "2014-10-24",
+          "correlation": 0.53403234
+        },
+        {
+          "date": "2014-10-31",
+          "correlation": 0.53561419
+        },
+        {
+          "date": "2014-11-07",
+          "correlation": 0.53013654
+        },
+        {
+          "date": "2014-11-14",
+          "correlation": 0.5317337
+        },
+        {
+          "date": "2014-11-21",
+          "correlation": 0.52222007
+        },
+        {
+          "date": "2014-11-28",
+          "correlation": 0.50729484
+        },
+        {
+          "date": "2014-12-05",
+          "correlation": 0.62431541
+        },
+        {
+          "date": "2014-12-12",
+          "correlation": 0.63481294
+        },
+        {
+          "date": "2014-12-19",
+          "correlation": 0.64914116
+        },
+        {
+          "date": "2014-12-26",
+          "correlation": 0.6305988
+        },
+        {
+          "date": "2015-01-02",
+          "correlation": 0.66366212
+        },
+        {
+          "date": "2015-01-09",
+          "correlation": 0.69190993
+        },
+        {
+          "date": "2015-01-16",
+          "correlation": 0.70568055
+        },
+        {
+          "date": "2015-01-23",
+          "correlation": 0.72790332
+        },
+        {
+          "date": "2015-01-30",
+          "correlation": 0.7255505
+        },
+        {
+          "date": "2015-02-06",
+          "correlation": 0.81394893
+        },
+        {
+          "date": "2015-02-13",
+          "correlation": 0.93025598
+        },
+        {
+          "date": "2015-02-20",
+          "correlation": 0.91754747
+        },
+        {
+          "date": "2015-02-27",
+          "correlation": 0.86620266
+        },
+        {
+          "date": "2015-03-06",
+          "correlation": 0.82761312
+        },
+        {
+          "date": "2015-03-13",
+          "correlation": 0.79102233
+        },
+        {
+          "date": "2015-03-20",
+          "correlation": 0.79508754
+        },
+        {
+          "date": "2015-03-27",
+          "correlation": 0.78646757
+        },
+        {
+          "date": "2015-04-03",
+          "correlation": 0.78658148
+        },
+        {
+          "date": "2015-04-10",
+          "correlation": 0.78327049
+        },
+        {
+          "date": "2015-04-17",
+          "correlation": 0.79262356
+        },
+        {
+          "date": "2015-04-24",
+          "correlation": 0.79528137
+        },
+        {
+          "date": "2015-05-01",
+          "correlation": 0.79961439
+        },
+        {
+          "date": "2015-05-08",
+          "correlation": 0.80012145
+        },
+        {
+          "date": "2015-05-15",
+          "correlation": 0.80046533
+        },
+        {
+          "date": "2015-05-22",
+          "correlation": 0.79991577
+        },
+        {
+          "date": "2015-05-29",
+          "correlation": 0.80151407
+        },
+        {
+          "date": "2015-06-05",
+          "correlation": 0.80110271
+        },
+        {
+          "date": "2015-06-12",
+          "correlation": 0.79978694
+        },
+        {
+          "date": "2015-06-19",
+          "correlation": 0.79460741
+        },
+        {
+          "date": "2015-06-26",
+          "correlation": 0.79460841
+        },
+        {
+          "date": "2015-07-03",
+          "correlation": 0.7944691
+        },
+        {
+          "date": "2015-07-10",
+          "correlation": 0.8050889
+        },
+        {
+          "date": "2015-07-17",
+          "correlation": 0.80488625
+        },
+        {
+          "date": "2015-07-24",
+          "correlation": 0.80403973
+        },
+        {
+          "date": "2015-07-31",
+          "correlation": 0.8057589
+        },
+        {
+          "date": "2015-08-07",
+          "correlation": 0.80528832
+        },
+        {
+          "date": "2015-08-14",
+          "correlation": 0.80811909
+        },
+        {
+          "date": "2015-08-21",
+          "correlation": 0.80966915
+        },
+        {
+          "date": "2015-08-28",
+          "correlation": 0.81108266
+        },
+        {
+          "date": "2015-09-04",
+          "correlation": 0.83729485
+        },
+        {
+          "date": "2015-09-11",
+          "correlation": 0.83397577
+        },
+        {
+          "date": "2015-09-18",
+          "correlation": 0.83423172
+        },
+        {
+          "date": "2015-09-25",
+          "correlation": 0.83449743
+        },
+        {
+          "date": "2015-10-02",
+          "correlation": 0.83374556
+        },
+        {
+          "date": "2015-10-09",
+          "correlation": 0.83842012
+        },
+        {
+          "date": "2015-10-16",
+          "correlation": 0.83426303
+        },
+        {
+          "date": "2015-10-23",
+          "correlation": 0.83235455
+        },
+        {
+          "date": "2015-10-30",
+          "correlation": 0.82945191
+        },
+        {
+          "date": "2015-11-06",
+          "correlation": 0.83357568
+        },
+        {
+          "date": "2015-11-13",
+          "correlation": 0.83305651
+        },
+        {
+          "date": "2015-11-20",
+          "correlation": 0.8356602
+        },
+        {
+          "date": "2015-11-27",
+          "correlation": 0.83582862
+        },
+        {
+          "date": "2015-12-04",
+          "correlation": 0.82781119
+        },
+        {
+          "date": "2015-12-11",
+          "correlation": 0.84276972
+        },
+        {
+          "date": "2015-12-18",
+          "correlation": 0.85389437
+        },
+        {
+          "date": "2015-12-25",
+          "correlation": 0.85664354
+        },
+        {
+          "date": "2016-01-01",
+          "correlation": 0.8542125
+        },
+        {
+          "date": "2016-01-08",
+          "correlation": 0.82103628
+        },
+        {
+          "date": "2016-01-15",
+          "correlation": 0.84076824
+        },
+        {
+          "date": "2016-01-22",
+          "correlation": 0.83247192
+        },
+        {
+          "date": "2016-01-29",
+          "correlation": 0.84812098
+        },
+        {
+          "date": "2016-02-05",
+          "correlation": 0.83599653
+        },
+        {
+          "date": "2016-02-12",
+          "correlation": 0.83238286
+        },
+        {
+          "date": "2016-02-19",
+          "correlation": 0.82784698
+        },
+        {
+          "date": "2016-02-26",
+          "correlation": 0.85162844
+        },
+        {
+          "date": "2016-03-04",
+          "correlation": 0.87256583
+        },
+        {
+          "date": "2016-03-11",
+          "correlation": 0.90846133
+        },
+        {
+          "date": "2016-03-18",
+          "correlation": 0.91097561
+        },
+        {
+          "date": "2016-03-25",
+          "correlation": 0.91490494
+        },
+        {
+          "date": "2016-04-01",
+          "correlation": 0.91547722
+        },
+        {
+          "date": "2016-04-08",
+          "correlation": 0.91826625
+        },
+        {
+          "date": "2016-04-15",
+          "correlation": 0.92379574
+        },
+        {
+          "date": "2016-04-22",
+          "correlation": 0.92365339
+        },
+        {
+          "date": "2016-04-29",
+          "correlation": 0.92455157
+        },
+        {
+          "date": "2016-05-06",
+          "correlation": 0.92489076
+        },
+        {
+          "date": "2016-05-13",
+          "correlation": 0.92487044
+        },
+        {
+          "date": "2016-05-20",
+          "correlation": 0.92712273
+        },
+        {
+          "date": "2016-05-27",
+          "correlation": 0.92721425
+        },
+        {
+          "date": "2016-06-03",
+          "correlation": 0.92656848
+        },
+        {
+          "date": "2016-06-10",
+          "correlation": 0.92704988
+        },
+        {
+          "date": "2016-06-17",
+          "correlation": 0.92769204
+        },
+        {
+          "date": "2016-06-24",
+          "correlation": 0.92791379
+        },
+        {
+          "date": "2016-07-01",
+          "correlation": 0.92811735
+        },
+        {
+          "date": "2016-07-08",
+          "correlation": 0.92113558
+        },
+        {
+          "date": "2016-07-15",
+          "correlation": 0.91644127
+        },
+        {
+          "date": "2016-07-22",
+          "correlation": 0.91556004
+        },
+        {
+          "date": "2016-07-29",
+          "correlation": 0.91663239
+        },
+        {
+          "date": "2016-08-05",
+          "correlation": 0.91156135
+        },
+        {
+          "date": "2016-08-12",
+          "correlation": 0.91323032
+        },
+        {
+          "date": "2016-08-19",
+          "correlation": 0.9183684
+        },
+        {
+          "date": "2016-08-26",
+          "correlation": 0.91715775
+        },
+        {
+          "date": "2016-09-02",
+          "correlation": 0.91323393
+        },
+        {
+          "date": "2016-09-09",
+          "correlation": 0.91497353
+        },
+        {
+          "date": "2016-09-16",
+          "correlation": 0.91493149
+        },
+        {
+          "date": "2016-09-23",
+          "correlation": 0.91501764
+        },
+        {
+          "date": "2016-09-30",
+          "correlation": 0.9148607
+        },
+        {
+          "date": "2016-10-07",
+          "correlation": 0.91712979
+        },
+        {
+          "date": "2016-10-14",
+          "correlation": 0.91973581
+        },
+        {
+          "date": "2016-10-21",
+          "correlation": 0.920315
+        },
+        {
+          "date": "2016-10-28",
+          "correlation": 0.92212868
+        },
+        {
+          "date": "2016-11-04",
+          "correlation": 0.92265274
+        },
+        {
+          "date": "2016-11-11",
+          "correlation": 0.92530212
+        },
+        {
+          "date": "2016-11-18",
+          "correlation": 0.92403267
+        },
+        {
+          "date": "2016-11-25",
+          "correlation": 0.92503286
+        },
+        {
+          "date": "2016-12-02",
+          "correlation": 0.92197162
+        },
+        {
+          "date": "2016-12-09",
+          "correlation": 0.91025832
+        },
+        {
+          "date": "2016-12-16",
+          "correlation": 0.90068395
+        },
+        {
+          "date": "2016-12-23",
+          "correlation": 0.90010186
+        },
+        {
+          "date": "2016-12-30",
+          "correlation": 0.9009926
+        },
+        {
+          "date": "2017-01-06",
+          "correlation": 0.91997009
+        },
+        {
+          "date": "2017-01-13",
+          "correlation": 0.90780041
+        },
+        {
+          "date": "2017-01-20",
+          "correlation": 0.91423166
+        },
+        {
+          "date": "2017-01-27",
+          "correlation": 0.90899523
+        },
+        {
+          "date": "2017-02-03",
+          "correlation": 0.90837019
+        },
+        {
+          "date": "2017-02-10",
+          "correlation": 0.9052638
+        },
+        {
+          "date": "2017-02-17",
+          "correlation": 0.91570003
+        },
+        {
+          "date": "2017-02-24",
+          "correlation": 0.91441161
+        },
+        {
+          "date": "2017-03-03",
+          "correlation": 0.91324276
+        },
+        {
+          "date": "2017-03-10",
+          "correlation": 0.90574265
+        },
+        {
+          "date": "2017-03-17",
+          "correlation": 0.90643949
+        },
+        {
+          "date": "2017-03-24",
+          "correlation": 0.90659361
+        },
+        {
+          "date": "2017-03-31",
+          "correlation": 0.90296923
+        },
+        {
+          "date": "2017-04-07",
+          "correlation": 0.90060922
+        },
+        {
+          "date": "2017-04-14",
+          "correlation": 0.88909344
+        },
+        {
+          "date": "2017-04-21",
+          "correlation": 0.88934094
+        },
+        {
+          "date": "2017-04-28",
+          "correlation": 0.8882485
+        },
+        {
+          "date": "2017-05-05",
+          "correlation": 0.89193677
+        },
+        {
+          "date": "2017-05-12",
+          "correlation": 0.89102867
+        },
+        {
+          "date": "2017-05-19",
+          "correlation": 0.88783323
+        },
+        {
+          "date": "2017-05-26",
+          "correlation": 0.88891965
+        },
+        {
+          "date": "2017-06-02",
+          "correlation": 0.89415571
+        },
+        {
+          "date": "2017-06-09",
+          "correlation": 0.89635307
+        },
+        {
+          "date": "2017-06-16",
+          "correlation": 0.89373702
+        },
+        {
+          "date": "2017-06-23",
+          "correlation": 0.89403816
+        },
+        {
+          "date": "2017-06-30",
+          "correlation": 0.89505817
+        },
+        {
+          "date": "2017-07-07",
+          "correlation": 0.90206174
+        },
+        {
+          "date": "2017-07-14",
+          "correlation": 0.89573
+        },
+        {
+          "date": "2017-07-21",
+          "correlation": 0.89841283
+        },
+        {
+          "date": "2017-07-28",
+          "correlation": 0.89134707
+        },
+        {
+          "date": "2017-08-04",
+          "correlation": 0.90561922
+        },
+        {
+          "date": "2017-08-11",
+          "correlation": 0.90267636
+        },
+        {
+          "date": "2017-08-18",
+          "correlation": 0.88810301
+        },
+        {
+          "date": "2017-08-25",
+          "correlation": 0.8882243
+        },
+        {
+          "date": "2017-09-01",
+          "correlation": 0.86565917
+        },
+        {
+          "date": "2017-09-08",
+          "correlation": 0.8702765
+        },
+        {
+          "date": "2017-09-15",
+          "correlation": 0.86116201
+        },
+        {
+          "date": "2017-09-22",
+          "correlation": 0.86052443
+        },
+        {
+          "date": "2017-09-29",
+          "correlation": 0.86281871
+        },
+        {
+          "date": "2017-10-06",
+          "correlation": 0.85230337
+        },
+        {
+          "date": "2017-10-13",
+          "correlation": 0.85585454
+        },
+        {
+          "date": "2017-10-20",
+          "correlation": 0.8558263
+        },
+        {
+          "date": "2017-10-27",
+          "correlation": 0.85498644
+        },
+        {
+          "date": "2017-11-03",
+          "correlation": 0.84648855
+        },
+        {
+          "date": "2017-11-10",
+          "correlation": 0.84308507
+        },
+        {
+          "date": "2017-11-17",
+          "correlation": 0.84569896
+        },
+        {
+          "date": "2017-11-24",
+          "correlation": 0.83753153
+        },
+        {
+          "date": "2017-12-01",
+          "correlation": 0.84640155
+        },
+        {
+          "date": "2017-12-08",
+          "correlation": 0.86961477
+        },
+        {
+          "date": "2017-12-15",
+          "correlation": 0.86955163
+        },
+        {
+          "date": "2017-12-22",
+          "correlation": 0.86968611
+        },
+        {
+          "date": "2017-12-29",
+          "correlation": 0.86381153
+        },
+        {
+          "date": "2018-01-05",
+          "correlation": 0.85823715
+        },
+        {
+          "date": "2018-01-12",
+          "correlation": 0.85445971
+        },
+        {
+          "date": "2018-01-19",
+          "correlation": 0.85092128
+        },
+        {
+          "date": "2018-01-26",
+          "correlation": 0.85494363
+        },
+        {
+          "date": "2018-02-02",
+          "correlation": 0.85379729
+        },
+        {
+          "date": "2018-02-09",
+          "correlation": 0.86599967
+        },
+        {
+          "date": "2018-02-16",
+          "correlation": 0.867613
+        },
+        {
+          "date": "2018-02-23",
+          "correlation": 0.87083331
+        },
+        {
+          "date": "2018-03-02",
+          "correlation": 0.86409311
+        },
+        {
+          "date": "2018-03-09",
+          "correlation": 0.86220534
+        },
+        {
+          "date": "2018-03-16",
+          "correlation": 0.85904523
+        },
+        {
+          "date": "2018-03-23",
+          "correlation": 0.86392364
+        },
+        {
+          "date": "2018-03-30",
+          "correlation": 0.86370637
+        },
+        {
+          "date": "2018-04-06",
+          "correlation": 0.85588611
+        },
+        {
+          "date": "2018-04-13",
+          "correlation": 0.85195872
+        },
+        {
+          "date": "2018-04-20",
+          "correlation": 0.84980291
+        },
+        {
+          "date": "2018-04-27",
+          "correlation": 0.84293823
+        },
+        {
+          "date": "2018-05-04",
+          "correlation": 0.8331872
+        },
+        {
+          "date": "2018-05-11",
+          "correlation": 0.83731718
+        },
+        {
+          "date": "2018-05-18",
+          "correlation": 0.83564157
+        },
+        {
+          "date": "2018-05-25",
+          "correlation": 0.8314851
+        },
+        {
+          "date": "2018-06-01",
+          "correlation": 0.82199977
+        },
+        {
+          "date": "2018-06-08",
+          "correlation": 0.81044084
+        },
+        {
+          "date": "2018-06-15",
+          "correlation": 0.80927465
+        },
+        {
+          "date": "2018-06-22",
+          "correlation": 0.80204994
+        },
+        {
+          "date": "2018-06-29",
+          "correlation": 0.79952709
+        },
+        {
+          "date": "2018-07-06",
+          "correlation": 0.80369274
+        },
+        {
+          "date": "2018-07-13",
+          "correlation": 0.83839917
+        },
+        {
+          "date": "2018-07-20",
+          "correlation": 0.84346907
+        },
+        {
+          "date": "2018-07-27",
+          "correlation": 0.84597361
+        },
+        {
+          "date": "2018-08-03",
+          "correlation": 0.84114364
+        },
+        {
+          "date": "2018-08-10",
+          "correlation": 0.83981716
+        },
+        {
+          "date": "2018-08-17",
+          "correlation": 0.83713427
+        },
+        {
+          "date": "2018-08-24",
+          "correlation": 0.83780163
+        },
+        {
+          "date": "2018-08-31",
+          "correlation": 0.87026089
+        },
+        {
+          "date": "2018-09-07",
+          "correlation": 0.86045924
+        },
+        {
+          "date": "2018-09-14",
+          "correlation": 0.87180436
+        },
+        {
+          "date": "2018-09-21",
+          "correlation": 0.87284181
+        },
+        {
+          "date": "2018-09-28",
+          "correlation": 0.87652455
+        },
+        {
+          "date": "2018-10-05",
+          "correlation": 0.87681787
+        },
+        {
+          "date": "2018-10-12",
+          "correlation": 0.88266883
+        },
+        {
+          "date": "2018-10-19",
+          "correlation": 0.88640197
+        },
+        {
+          "date": "2018-10-26",
+          "correlation": 0.89010848
+        },
+        {
+          "date": "2018-11-02",
+          "correlation": 0.89046479
+        },
+        {
+          "date": "2018-11-09",
+          "correlation": 0.87623556
+        },
+        {
+          "date": "2018-11-16",
+          "correlation": 0.88243049
+        },
+        {
+          "date": "2018-11-23",
+          "correlation": 0.87798025
+        },
+        {
+          "date": "2018-11-30",
+          "correlation": 0.89863791
+        },
+        {
+          "date": "2018-12-07",
+          "correlation": 0.894841
+        },
+        {
+          "date": "2018-12-14",
+          "correlation": 0.89467422
+        },
+        {
+          "date": "2018-12-21",
+          "correlation": 0.89843782
+        },
+        {
+          "date": "2018-12-28",
+          "correlation": 0.90368775
+        },
+        {
+          "date": "2019-01-04",
+          "correlation": 0.88379343
+        },
+        {
+          "date": "2019-01-11",
+          "correlation": 0.89422064
+        },
+        {
+          "date": "2019-01-18",
+          "correlation": 0.89688098
+        },
+        {
+          "date": "2019-01-25",
+          "correlation": 0.89659546
+        },
+        {
+          "date": "2019-02-01",
+          "correlation": 0.89714378
+        },
+        {
+          "date": "2019-02-08",
+          "correlation": 0.89440791
+        },
+        {
+          "date": "2019-02-15",
+          "correlation": 0.89320557
+        },
+        {
+          "date": "2019-02-22",
+          "correlation": 0.89434226
+        },
+        {
+          "date": "2019-03-01",
+          "correlation": 0.90083468
+        },
+        {
+          "date": "2019-03-08",
+          "correlation": 0.89867029
+        },
+        {
+          "date": "2019-03-15",
+          "correlation": 0.89621827
+        },
+        {
+          "date": "2019-03-22",
+          "correlation": 0.89462313
+        },
+        {
+          "date": "2019-03-29",
+          "correlation": 0.89452954
+        },
+        {
+          "date": "2019-04-05",
+          "correlation": 0.90035356
+        },
+        {
+          "date": "2019-04-12",
+          "correlation": 0.90718635
+        },
+        {
+          "date": "2019-04-19",
+          "correlation": 0.906748
+        },
+        {
+          "date": "2019-04-26",
+          "correlation": 0.90596794
+        },
+        {
+          "date": "2019-05-03",
+          "correlation": 0.90488178
+        },
+        {
+          "date": "2019-05-10",
+          "correlation": 0.90136342
+        },
+        {
+          "date": "2019-05-17",
+          "correlation": 0.90003508
+        },
+        {
+          "date": "2019-05-24",
+          "correlation": 0.90229419
+        },
+        {
+          "date": "2019-05-31",
+          "correlation": 0.89888688
+        },
+        {
+          "date": "2019-06-07",
+          "correlation": 0.90872133
+        },
+        {
+          "date": "2019-06-14",
+          "correlation": 0.90868519
+        },
+        {
+          "date": "2019-06-21",
+          "correlation": 0.91138905
+        },
+        {
+          "date": "2019-06-28",
+          "correlation": 0.91435132
+        },
+        {
+          "date": "2019-07-05",
+          "correlation": 0.91553214
+        },
+        {
+          "date": "2019-07-12",
+          "correlation": 0.91625795
+        },
+        {
+          "date": "2019-07-19",
+          "correlation": 0.90968169
+        },
+        {
+          "date": "2019-07-26",
+          "correlation": 0.90762925
+        },
+        {
+          "date": "2019-08-02",
+          "correlation": 0.90812077
+        },
+        {
+          "date": "2019-08-09",
+          "correlation": 0.91452195
+        },
+        {
+          "date": "2019-08-16",
+          "correlation": 0.91474349
+        },
+        {
+          "date": "2019-08-23",
+          "correlation": 0.91259941
+        },
+        {
+          "date": "2019-08-30",
+          "correlation": 0.91004797
+        },
+        {
+          "date": "2019-09-06",
+          "correlation": 0.90933746
+        },
+        {
+          "date": "2019-09-13",
+          "correlation": 0.91131667
+        },
+        {
+          "date": "2019-09-20",
+          "correlation": 0.91782008
+        },
+        {
+          "date": "2019-09-27",
+          "correlation": 0.91634548
+        },
+        {
+          "date": "2019-10-04",
+          "correlation": 0.91378794
+        },
+        {
+          "date": "2019-10-11",
+          "correlation": 0.90807558
+        },
+        {
+          "date": "2019-10-18",
+          "correlation": 0.90768885
+        },
+        {
+          "date": "2019-10-25",
+          "correlation": 0.90719419
+        },
+        {
+          "date": "2019-11-01",
+          "correlation": 0.90314056
+        },
+        {
+          "date": "2019-11-08",
+          "correlation": 0.90748591
+        },
+        {
+          "date": "2019-11-15",
+          "correlation": 0.90647407
+        },
+        {
+          "date": "2019-11-22",
+          "correlation": 0.90872828
+        },
+        {
+          "date": "2019-11-29",
+          "correlation": 0.89486432
+        },
+        {
+          "date": "2019-12-06",
+          "correlation": 0.89769564
+        },
+        {
+          "date": "2019-12-13",
+          "correlation": 0.8986432
+        },
+        {
+          "date": "2019-12-20",
+          "correlation": 0.89841361
+        },
+        {
+          "date": "2019-12-27",
+          "correlation": 0.89901064
+        },
+        {
+          "date": "2020-01-03",
+          "correlation": 0.92040501
+        },
+        {
+          "date": "2020-01-10",
+          "correlation": 0.90855138
+        },
+        {
+          "date": "2020-01-17",
+          "correlation": 0.9154194
+        },
+        {
+          "date": "2020-01-24",
+          "correlation": 0.90310639
+        },
+        {
+          "date": "2020-01-31",
+          "correlation": 0.9160007
+        },
+        {
+          "date": "2020-02-07",
+          "correlation": 0.91652377
+        },
+        {
+          "date": "2020-02-14",
+          "correlation": 0.90772842
+        },
+        {
+          "date": "2020-02-21",
+          "correlation": 0.90447476
+        },
+        {
+          "date": "2020-02-28",
+          "correlation": 0.91851366
+        },
+        {
+          "date": "2020-03-06",
+          "correlation": 0.91685266
+        },
+        {
+          "date": "2020-03-13",
+          "correlation": 0.96062653
+        },
+        {
+          "date": "2020-03-20",
+          "correlation": 0.96614456
+        },
+        {
+          "date": "2020-03-27",
+          "correlation": 0.94674362
+        },
+        {
+          "date": "2020-04-03",
+          "correlation": 0.94584843
+        },
+        {
+          "date": "2020-04-10",
+          "correlation": 0.93929683
+        },
+        {
+          "date": "2020-04-17",
+          "correlation": 0.93770347
+        },
+        {
+          "date": "2020-04-24",
+          "correlation": 0.85600281
+        },
+        {
+          "date": "2020-05-01",
+          "correlation": 0.76490636
+        },
+        {
+          "date": "2020-05-08",
+          "correlation": 0.80228169
+        },
+        {
+          "date": "2020-05-15",
+          "correlation": 0.77879697
+        },
+        {
+          "date": "2020-05-22",
+          "correlation": 0.79371717
+        },
+        {
+          "date": "2020-05-29",
+          "correlation": 0.7906079
+        },
+        {
+          "date": "2020-06-05",
+          "correlation": 0.79893399
+        },
+        {
+          "date": "2020-06-12",
+          "correlation": 0.8033453
+        },
+        {
+          "date": "2020-06-19",
+          "correlation": 0.80197761
+        },
+        {
+          "date": "2020-06-26",
+          "correlation": 0.79871712
+        },
+        {
+          "date": "2020-07-03",
+          "correlation": 0.79849983
+        },
+        {
+          "date": "2020-07-10",
+          "correlation": 0.79888648
+        },
+        {
+          "date": "2020-07-17",
+          "correlation": 0.79976003
+        },
+        {
+          "date": "2020-07-24",
+          "correlation": 0.80036671
+        },
+        {
+          "date": "2020-07-31",
+          "correlation": 0.80014296
+        },
+        {
+          "date": "2020-08-07",
+          "correlation": 0.79760422
+        },
+        {
+          "date": "2020-08-14",
+          "correlation": 0.79678408
+        },
+        {
+          "date": "2020-08-21",
+          "correlation": 0.79690698
+        },
+        {
+          "date": "2020-08-28",
+          "correlation": 0.79690653
+        },
+        {
+          "date": "2020-09-04",
+          "correlation": 0.79778861
+        },
+        {
+          "date": "2020-09-11",
+          "correlation": 0.79991725
+        },
+        {
+          "date": "2020-09-18",
+          "correlation": 0.79571754
+        },
+        {
+          "date": "2020-09-25",
+          "correlation": 0.79534813
+        },
+        {
+          "date": "2020-10-02",
+          "correlation": 0.79499979
+        },
+        {
+          "date": "2020-10-09",
+          "correlation": 0.79742796
+        },
+        {
+          "date": "2020-10-16",
+          "correlation": 0.79668907
+        },
+        {
+          "date": "2020-10-23",
+          "correlation": 0.7965326
+        },
+        {
+          "date": "2020-10-30",
+          "correlation": 0.79588335
+        },
+        {
+          "date": "2020-11-06",
+          "correlation": 0.79596723
+        },
+        {
+          "date": "2020-11-13",
+          "correlation": 0.79883186
+        },
+        {
+          "date": "2020-11-20",
+          "correlation": 0.79985355
+        },
+        {
+          "date": "2020-11-27",
+          "correlation": 0.80511527
+        },
+        {
+          "date": "2020-12-04",
+          "correlation": 0.80514245
+        },
+        {
+          "date": "2020-12-11",
+          "correlation": 0.80578093
+        },
+        {
+          "date": "2020-12-18",
+          "correlation": 0.80667445
+        },
+        {
+          "date": "2020-12-25",
+          "correlation": 0.80629381
+        },
+        {
+          "date": "2021-01-01",
+          "correlation": 0.80676885
+        },
+        {
+          "date": "2021-01-08",
+          "correlation": 0.80583973
+        },
+        {
+          "date": "2021-01-15",
+          "correlation": 0.80606072
+        },
+        {
+          "date": "2021-01-22",
+          "correlation": 0.80694504
+        },
+        {
+          "date": "2021-01-29",
+          "correlation": 0.80294434
+        },
+        {
+          "date": "2021-02-05",
+          "correlation": 0.80480057
+        },
+        {
+          "date": "2021-02-12",
+          "correlation": 0.80615693
+        },
+        {
+          "date": "2021-02-19",
+          "correlation": 0.8071597
+        },
+        {
+          "date": "2021-02-26",
+          "correlation": 0.8001591
+        },
+        {
+          "date": "2021-03-05",
+          "correlation": 0.80063687
+        },
+        {
+          "date": "2021-03-12",
+          "correlation": 0.74076871
+        },
+        {
+          "date": "2021-03-19",
+          "correlation": 0.69774847
+        },
+        {
+          "date": "2021-03-26",
+          "correlation": 0.71912215
+        },
+        {
+          "date": "2021-04-02",
+          "correlation": 0.71414805
+        },
+        {
+          "date": "2021-04-09",
+          "correlation": 0.71963148
+        },
+        {
+          "date": "2021-04-16",
+          "correlation": 0.71162895
+        },
+        {
+          "date": "2021-04-23",
+          "correlation": 0.72809219
+        },
+        {
+          "date": "2021-04-30",
+          "correlation": 0.86387402
+        },
+        {
+          "date": "2021-05-07",
+          "correlation": 0.84853536
+        },
+        {
+          "date": "2021-05-14",
+          "correlation": 0.8900046
+        },
+        {
+          "date": "2021-05-21",
+          "correlation": 0.87673403
+        },
+        {
+          "date": "2021-05-28",
+          "correlation": 0.8865708
+        },
+        {
+          "date": "2021-06-04",
+          "correlation": 0.88137243
+        },
+        {
+          "date": "2021-06-11",
+          "correlation": 0.87599704
+        },
+        {
+          "date": "2021-06-18",
+          "correlation": 0.89034693
+        },
+        {
+          "date": "2021-06-25",
+          "correlation": 0.8917626
+        },
+        {
+          "date": "2021-07-02",
+          "correlation": 0.89405593
+        },
+        {
+          "date": "2021-07-09",
+          "correlation": 0.89431375
+        },
+        {
+          "date": "2021-07-16",
+          "correlation": 0.89401269
+        },
+        {
+          "date": "2021-07-23",
+          "correlation": 0.89917285
+        },
+        {
+          "date": "2021-07-30",
+          "correlation": 0.89743798
+        },
+        {
+          "date": "2021-08-06",
+          "correlation": 0.89687757
+        },
+        {
+          "date": "2021-08-13",
+          "correlation": 0.90034288
+        },
+        {
+          "date": "2021-08-20",
+          "correlation": 0.89971067
+        },
+        {
+          "date": "2021-08-27",
+          "correlation": 0.89932117
+        },
+        {
+          "date": "2021-09-03",
+          "correlation": 0.89965316
+        },
+        {
+          "date": "2021-09-10",
+          "correlation": 0.87565256
+        },
+        {
+          "date": "2021-09-17",
+          "correlation": 0.88942669
+        },
+        {
+          "date": "2021-09-24",
+          "correlation": 0.88874429
+        },
+        {
+          "date": "2021-10-01",
+          "correlation": 0.89228787
+        },
+        {
+          "date": "2021-10-08",
+          "correlation": 0.89905291
+        },
+        {
+          "date": "2021-10-15",
+          "correlation": 0.90309967
+        },
+        {
+          "date": "2021-10-22",
+          "correlation": 0.90061314
+        },
+        {
+          "date": "2021-10-29",
+          "correlation": 0.90133347
+        },
+        {
+          "date": "2021-11-05",
+          "correlation": 0.90876993
+        },
+        {
+          "date": "2021-11-12",
+          "correlation": 0.91457149
+        },
+        {
+          "date": "2021-11-19",
+          "correlation": 0.91805901
+        },
+        {
+          "date": "2021-11-26",
+          "correlation": 0.90192807
+        },
+        {
+          "date": "2021-12-03",
+          "correlation": 0.92536003
+        },
+        {
+          "date": "2021-12-10",
+          "correlation": 0.92573272
+        },
+        {
+          "date": "2021-12-17",
+          "correlation": 0.91897522
+        },
+        {
+          "date": "2021-12-24",
+          "correlation": 0.90162504
+        },
+        {
+          "date": "2021-12-31",
+          "correlation": 0.89426755
+        },
+        {
+          "date": "2022-01-07",
+          "correlation": 0.90399834
+        },
+        {
+          "date": "2022-01-14",
+          "correlation": 0.90580042
+        },
+        {
+          "date": "2022-01-21",
+          "correlation": 0.9055174
+        },
+        {
+          "date": "2022-01-28",
+          "correlation": 0.90769949
+        },
+        {
+          "date": "2022-02-04",
+          "correlation": 0.90452179
+        },
+        {
+          "date": "2022-02-11",
+          "correlation": 0.90172232
+        },
+        {
+          "date": "2022-02-18",
+          "correlation": 0.89535688
+        },
+        {
+          "date": "2022-02-25",
+          "correlation": 0.88831948
+        },
+        {
+          "date": "2022-03-04",
+          "correlation": 0.91553849
+        },
+        {
+          "date": "2022-03-11",
+          "correlation": 0.83600586
+        },
+        {
+          "date": "2022-03-18",
+          "correlation": 0.85468201
+        },
+        {
+          "date": "2022-03-25",
+          "correlation": 0.86603959
+        },
+        {
+          "date": "2022-04-01",
+          "correlation": 0.86212647
+        },
+        {
+          "date": "2022-04-08",
+          "correlation": 0.86111049
+        },
+        {
+          "date": "2022-04-15",
+          "correlation": 0.8592769
+        },
+        {
+          "date": "2022-04-22",
+          "correlation": 0.85569489
+        },
+        {
+          "date": "2022-04-29",
+          "correlation": 0.7978653
+        },
+        {
+          "date": "2022-05-06",
+          "correlation": 0.79948554
+        },
+        {
+          "date": "2022-05-13",
+          "correlation": 0.77371174
+        },
+        {
+          "date": "2022-05-20",
+          "correlation": 0.76804917
+        },
+        {
+          "date": "2022-05-27",
+          "correlation": 0.74456053
+        },
+        {
+          "date": "2022-06-03",
+          "correlation": 0.74148808
+        },
+        {
+          "date": "2022-06-10",
+          "correlation": 0.74257059
+        },
+        {
+          "date": "2022-06-17",
+          "correlation": 0.74279291
+        },
+        {
+          "date": "2022-06-24",
+          "correlation": 0.74367595
+        },
+        {
+          "date": "2022-07-01",
+          "correlation": 0.75071919
+        },
+        {
+          "date": "2022-07-08",
+          "correlation": 0.76593712
+        },
+        {
+          "date": "2022-07-15",
+          "correlation": 0.75339085
+        },
+        {
+          "date": "2022-07-22",
+          "correlation": 0.75387782
+        },
+        {
+          "date": "2022-07-29",
+          "correlation": 0.75412529
+        },
+        {
+          "date": "2022-08-05",
+          "correlation": 0.75607302
+        },
+        {
+          "date": "2022-08-12",
+          "correlation": 0.75453682
+        },
+        {
+          "date": "2022-08-19",
+          "correlation": 0.75375296
+        },
+        {
+          "date": "2022-08-26",
+          "correlation": 0.76005948
+        },
+        {
+          "date": "2022-09-02",
+          "correlation": 0.76171663
+        },
+        {
+          "date": "2022-09-09",
+          "correlation": 0.76362868
+        },
+        {
+          "date": "2022-09-16",
+          "correlation": 0.76708698
+        },
+        {
+          "date": "2022-09-23",
+          "correlation": 0.76807357
+        },
+        {
+          "date": "2022-09-30",
+          "correlation": 0.76485065
+        },
+        {
+          "date": "2022-10-07",
+          "correlation": 0.76793325
+        },
+        {
+          "date": "2022-10-14",
+          "correlation": 0.75903868
+        },
+        {
+          "date": "2022-10-21",
+          "correlation": 0.7594942
+        },
+        {
+          "date": "2022-10-28",
+          "correlation": 0.75852538
+        },
+        {
+          "date": "2022-11-04",
+          "correlation": 0.75791283
+        },
+        {
+          "date": "2022-11-11",
+          "correlation": 0.75644407
+        },
+        {
+          "date": "2022-11-18",
+          "correlation": 0.74837688
+        },
+        {
+          "date": "2022-11-25",
+          "correlation": 0.74955987
+        },
+        {
+          "date": "2022-12-02",
+          "correlation": 0.74053401
+        },
+        {
+          "date": "2022-12-09",
+          "correlation": 0.74304651
+        },
+        {
+          "date": "2022-12-16",
+          "correlation": 0.74514091
+        },
+        {
+          "date": "2022-12-23",
+          "correlation": 0.74733513
+        },
+        {
+          "date": "2022-12-30",
+          "correlation": 0.747122
+        },
+        {
+          "date": "2023-01-06",
+          "correlation": 0.75048569
+        },
+        {
+          "date": "2023-01-13",
+          "correlation": 0.74767786
+        },
+        {
+          "date": "2023-01-20",
+          "correlation": 0.74860515
+        },
+        {
+          "date": "2023-01-27",
+          "correlation": 0.74833719
+        },
+        {
+          "date": "2023-02-03",
+          "correlation": 0.74911959
+        },
+        {
+          "date": "2023-02-10",
+          "correlation": 0.75097156
+        },
+        {
+          "date": "2023-02-17",
+          "correlation": 0.75148719
+        },
+        {
+          "date": "2023-02-24",
+          "correlation": 0.75304135
+        },
+        {
+          "date": "2023-03-03",
+          "correlation": 0.73258008
+        },
+        {
+          "date": "2023-03-10",
+          "correlation": 0.74711521
+        },
+        {
+          "date": "2023-03-17",
+          "correlation": 0.75665062
+        },
+        {
+          "date": "2023-03-24",
+          "correlation": 0.71377285
+        },
+        {
+          "date": "2023-03-31",
+          "correlation": 0.70602785
+        },
+        {
+          "date": "2023-04-07",
+          "correlation": 0.70594329
+        },
+        {
+          "date": "2023-04-14",
+          "correlation": 0.70792369
+        },
+        {
+          "date": "2023-04-21",
+          "correlation": 0.70300136
+        },
+        {
+          "date": "2023-04-28",
+          "correlation": 0.74358226
+        },
+        {
+          "date": "2023-05-05",
+          "correlation": 0.73787206
+        },
+        {
+          "date": "2023-05-12",
+          "correlation": 0.77499634
+        },
+        {
+          "date": "2023-05-19",
+          "correlation": 0.77649546
+        },
+        {
+          "date": "2023-05-26",
+          "correlation": 0.8058241
+        },
+        {
+          "date": "2023-06-02",
+          "correlation": 0.82679203
+        },
+        {
+          "date": "2023-06-09",
+          "correlation": 0.82998474
+        },
+        {
+          "date": "2023-06-16",
+          "correlation": 0.83254447
+        },
+        {
+          "date": "2023-06-23",
+          "correlation": 0.83548152
+        },
+        {
+          "date": "2023-06-30",
+          "correlation": 0.83203395
+        },
+        {
+          "date": "2023-07-07",
+          "correlation": 0.81625438
+        },
+        {
+          "date": "2023-07-14",
+          "correlation": 0.8430427
+        },
+        {
+          "date": "2023-07-21",
+          "correlation": 0.83645644
+        },
+        {
+          "date": "2023-07-28",
+          "correlation": 0.84146022
+        },
+        {
+          "date": "2023-08-04",
+          "correlation": 0.84282616
+        },
+        {
+          "date": "2023-08-11",
+          "correlation": 0.84666624
+        },
+        {
+          "date": "2023-08-18",
+          "correlation": 0.84387536
+        },
+        {
+          "date": "2023-08-25",
+          "correlation": 0.84051619
+        },
+        {
+          "date": "2023-09-01",
+          "correlation": 0.83628987
+        },
+        {
+          "date": "2023-09-08",
+          "correlation": 0.83594044
+        },
+        {
+          "date": "2023-09-15",
+          "correlation": 0.83900574
+        },
+        {
+          "date": "2023-09-22",
+          "correlation": 0.84109189
+        },
+        {
+          "date": "2023-09-29",
+          "correlation": 0.84946507
+        },
+        {
+          "date": "2023-10-06",
+          "correlation": 0.83027312
+        },
+        {
+          "date": "2023-10-13",
+          "correlation": 0.82961134
+        },
+        {
+          "date": "2023-10-20",
+          "correlation": 0.83229401
+        },
+        {
+          "date": "2023-10-27",
+          "correlation": 0.83759514
+        },
+        {
+          "date": "2023-11-03",
+          "correlation": 0.83746996
+        },
+        {
+          "date": "2023-11-10",
+          "correlation": 0.83765901
+        },
+        {
+          "date": "2023-11-17",
+          "correlation": 0.84614498
+        },
+        {
+          "date": "2023-11-24",
+          "correlation": 0.84852993
+        },
+        {
+          "date": "2023-12-01",
+          "correlation": 0.85083193
+        },
+        {
+          "date": "2023-12-08",
+          "correlation": 0.85220902
+        },
+        {
+          "date": "2023-12-15",
+          "correlation": 0.84219584
+        },
+        {
+          "date": "2023-12-22",
+          "correlation": 0.84267379
+        },
+        {
+          "date": "2023-12-29",
+          "correlation": 0.83179965
+        },
+        {
+          "date": "2024-01-05",
+          "correlation": 0.82212352
+        },
+        {
+          "date": "2024-01-12",
+          "correlation": 0.82664565
+        },
+        {
+          "date": "2024-01-19",
+          "correlation": 0.8186905
+        },
+        {
+          "date": "2024-01-26",
+          "correlation": 0.82141912
+        },
+        {
+          "date": "2024-02-02",
+          "correlation": 0.83161554
+        },
+        {
+          "date": "2024-02-09",
+          "correlation": 0.81806348
+        },
+        {
+          "date": "2024-02-16",
+          "correlation": 0.81933959
+        },
+        {
+          "date": "2024-02-23",
+          "correlation": 0.81824809
+        },
+        {
+          "date": "2024-03-01",
+          "correlation": 0.81544396
+        },
+        {
+          "date": "2024-03-08",
+          "correlation": 0.81461808
+        },
+        {
+          "date": "2024-03-15",
+          "correlation": 0.81650628
+        },
+        {
+          "date": "2024-03-22",
+          "correlation": 0.81602157
+        },
+        {
+          "date": "2024-03-29",
+          "correlation": 0.82460387
+        },
+        {
+          "date": "2024-04-05",
+          "correlation": 0.83090484
+        },
+        {
+          "date": "2024-04-12",
+          "correlation": 0.83024327
+        },
+        {
+          "date": "2024-04-19",
+          "correlation": 0.82939603
+        },
+        {
+          "date": "2024-04-26",
+          "correlation": 0.8230266
+        },
+        {
+          "date": "2024-05-03",
+          "correlation": 0.81664057
+        },
+        {
+          "date": "2024-05-10",
+          "correlation": 0.81354943
+        },
+        {
+          "date": "2024-05-17",
+          "correlation": 0.81359307
+        },
+        {
+          "date": "2024-05-24",
+          "correlation": 0.81368942
+        },
+        {
+          "date": "2024-05-31",
+          "correlation": 0.80767215
+        },
+        {
+          "date": "2024-06-07",
+          "correlation": 0.81101321
+        },
+        {
+          "date": "2024-06-14",
+          "correlation": 0.82749537
+        },
+        {
+          "date": "2024-06-21",
+          "correlation": 0.82647566
+        },
+        {
+          "date": "2024-06-28",
+          "correlation": 0.82529635
+        },
+        {
+          "date": "2024-07-05",
+          "correlation": 0.82829735
+        },
+        {
+          "date": "2024-07-12",
+          "correlation": 0.82718955
+        },
+        {
+          "date": "2024-07-19",
+          "correlation": 0.8387368
+        },
+        {
+          "date": "2024-07-26",
+          "correlation": 0.82455303
+        },
+        {
+          "date": "2024-08-02",
+          "correlation": 0.81308063
+        },
+        {
+          "date": "2024-08-09",
+          "correlation": 0.8126836
+        },
+        {
+          "date": "2024-08-16",
+          "correlation": 0.81266267
+        },
+        {
+          "date": "2024-08-23",
+          "correlation": 0.82048123
+        },
+        {
+          "date": "2024-08-30",
+          "correlation": 0.82652862
+        },
+        {
+          "date": "2024-09-06",
+          "correlation": 0.83472741
+        },
+        {
+          "date": "2024-09-13",
+          "correlation": 0.81744103
+        },
+        {
+          "date": "2024-09-20",
+          "correlation": 0.81800248
+        },
+        {
+          "date": "2024-09-27",
+          "correlation": 0.82133426
+        },
+        {
+          "date": "2024-10-04",
+          "correlation": 0.81192793
+        },
+        {
+          "date": "2024-10-11",
+          "correlation": 0.83781679
+        },
+        {
+          "date": "2024-10-18",
+          "correlation": 0.84208093
+        },
+        {
+          "date": "2024-10-25",
+          "correlation": 0.83459208
+        },
+        {
+          "date": "2024-11-01",
+          "correlation": 0.8347031
+        },
+        {
+          "date": "2024-11-08",
+          "correlation": 0.83635715
+        },
+        {
+          "date": "2024-11-15",
+          "correlation": 0.84841047
+        },
+        {
+          "date": "2024-11-22",
+          "correlation": 0.85042717
+        },
+        {
+          "date": "2024-11-29",
+          "correlation": 0.85038596
+        },
+        {
+          "date": "2024-12-06",
+          "correlation": 0.84893506
+        },
+        {
+          "date": "2024-12-13",
+          "correlation": 0.85790744
+        },
+        {
+          "date": "2024-12-20",
+          "correlation": 0.86365221
+        },
+        {
+          "date": "2024-12-27",
+          "correlation": 0.88799783
+        },
+        {
+          "date": "2025-01-03",
+          "correlation": 0.89200544
+        },
+        {
+          "date": "2025-01-10",
+          "correlation": 0.88879174
+        },
+        {
+          "date": "2025-01-17",
+          "correlation": 0.90353128
+        },
+        {
+          "date": "2025-01-24",
+          "correlation": 0.90240999
+        },
+        {
+          "date": "2025-01-31",
+          "correlation": 0.90329608
+        },
+        {
+          "date": "2025-02-07",
+          "correlation": 0.90824784
+        },
+        {
+          "date": "2025-02-14",
+          "correlation": 0.90645257
+        },
+        {
+          "date": "2025-02-21",
+          "correlation": 0.88831921
+        },
+        {
+          "date": "2025-02-28",
+          "correlation": 0.89291682
+        },
+        {
+          "date": "2025-03-07",
+          "correlation": 0.89025906
+        },
+        {
+          "date": "2025-03-14",
+          "correlation": 0.89172326
+        },
+        {
+          "date": "2025-03-21",
+          "correlation": 0.89541398
+        },
+        {
+          "date": "2025-03-28",
+          "correlation": 0.89509296
+        },
+        {
+          "date": "2025-04-04",
+          "correlation": 0.89217867
+        },
+        {
+          "date": "2025-04-11",
+          "correlation": 0.8996749
+        },
+        {
+          "date": "2025-04-18",
+          "correlation": 0.89726864
+        },
+        {
+          "date": "2025-04-25",
+          "correlation": 0.89772421
+        },
+        {
+          "date": "2025-05-02",
+          "correlation": 0.89911399
+        },
+        {
+          "date": "2025-05-09",
+          "correlation": 0.89926472
+        },
+        {
+          "date": "2025-05-16",
+          "correlation": 0.90472508
+        },
+        {
+          "date": "2025-05-23",
+          "correlation": 0.90487432
+        },
+        {
+          "date": "2025-05-30",
+          "correlation": 0.9030402
+        },
+        {
+          "date": "2025-06-06",
+          "correlation": 0.90133718
+        },
+        {
+          "date": "2025-06-13",
+          "correlation": 0.90051482
+        },
+        {
+          "date": "2025-06-20",
+          "correlation": 0.92034735
+        },
+        {
+          "date": "2025-06-27",
+          "correlation": 0.92426592
+        },
+        {
+          "date": "2025-07-04",
+          "correlation": 0.92779799
+        },
+        {
+          "date": "2025-07-11",
+          "correlation": 0.92809566
+        },
+        {
+          "date": "2025-07-18",
+          "correlation": 0.92745448
+        },
+        {
+          "date": "2025-07-25",
+          "correlation": 0.92814461
+        },
+        {
+          "date": "2025-08-01",
+          "correlation": 0.92486481
+        },
+        {
+          "date": "2025-08-08",
+          "correlation": 0.92893052
+        },
+        {
+          "date": "2025-08-15",
+          "correlation": 0.92841471
+        },
+        {
+          "date": "2025-08-22",
+          "correlation": 0.92653072
+        },
+        {
+          "date": "2025-08-29",
+          "correlation": 0.92474477
+        },
+        {
+          "date": "2025-09-05",
+          "correlation": 0.92179341
+        },
+        {
+          "date": "2025-09-12",
+          "correlation": 0.92270788
+        },
+        {
+          "date": "2025-09-19",
+          "correlation": 0.92332659
+        },
+        {
+          "date": "2025-09-26",
+          "correlation": 0.92375156
+        },
+        {
+          "date": "2025-10-03",
+          "correlation": 0.91539768
+        },
+        {
+          "date": "2025-10-10",
+          "correlation": 0.91268278
+        },
+        {
+          "date": "2025-10-17",
+          "correlation": 0.91075955
+        },
+        {
+          "date": "2025-10-24",
+          "correlation": 0.91455135
+        },
+        {
+          "date": "2025-10-31",
+          "correlation": 0.91748363
+        },
+        {
+          "date": "2025-11-07",
+          "correlation": 0.91619541
+        },
+        {
+          "date": "2025-11-14",
+          "correlation": 0.91472164
+        },
+        {
+          "date": "2025-11-21",
+          "correlation": 0.90942246
+        },
+        {
+          "date": "2025-11-28",
+          "correlation": 0.91841834
+        },
+        {
+          "date": "2025-12-05",
+          "correlation": 0.91708963
+        },
+        {
+          "date": "2025-12-12",
+          "correlation": 0.91839574
+        },
+        {
+          "date": "2025-12-19",
+          "correlation": 0.92139763
+        },
+        {
+          "date": "2025-12-26",
+          "correlation": 0.92129601
+        },
+        {
+          "date": "2026-01-02",
+          "correlation": 0.91930782
+        },
+        {
+          "date": "2026-01-09",
+          "correlation": 0.92072868
+        },
+        {
+          "date": "2026-01-16",
+          "correlation": 0.91691186
+        },
+        {
+          "date": "2026-01-23",
+          "correlation": 0.91725077
+        },
+        {
+          "date": "2026-01-30",
+          "correlation": 0.92299214
+        },
+        {
+          "date": "2026-02-06",
+          "correlation": 0.91715999
+        },
+        {
+          "date": "2026-02-13",
+          "correlation": 0.91890131
+        },
+        {
+          "date": "2026-02-20",
+          "correlation": 0.9119656
+        },
+        {
+          "date": "2026-02-27",
+          "correlation": 0.90877516
+        },
+        {
+          "date": "2026-03-06",
+          "correlation": 0.85944912
+        },
+        {
+          "date": "2026-03-13",
+          "correlation": 0.85483458
+        },
+        {
+          "date": "2026-03-20",
+          "correlation": 0.86164458
+        },
+        {
+          "date": "2026-03-27",
+          "correlation": 0.84469015
+        },
+        {
+          "date": "2026-04-03",
+          "correlation": 0.82948929
+        },
+        {
+          "date": "2026-04-10",
+          "correlation": 0.82485998
+        },
+        {
+          "date": "2026-04-17",
+          "correlation": 0.81758376
+        },
+        {
+          "date": "2026-04-24",
+          "correlation": 0.59891821
+        },
+        {
+          "date": "2026-05-01",
+          "correlation": 0.59409055
+        },
+        {
+          "date": "2026-05-08",
+          "correlation": 0.59910924
+        },
+        {
+          "date": "2026-05-15",
+          "correlation": 0.60000306
+        },
+        {
+          "date": "2026-05-22",
+          "correlation": 0.59988759
+        },
+        {
+          "date": "2026-05-29",
+          "correlation": 0.61828641
+        },
+        {
+          "date": "2026-06-05",
+          "correlation": 0.61751244
+        },
+        {
+          "date": "2026-06-12",
+          "correlation": 0.62516964
+        },
+        {
+          "date": "2026-06-19",
+          "correlation": 0.63657093
+        },
+        {
+          "date": "2026-06-26",
+          "correlation": 0.63537473
+        },
+        {
+          "date": "2026-07-03",
+          "correlation": 0.63651229
+        },
+        {
+          "date": "2026-07-10",
+          "correlation": 0.63613447
+        },
+        {
+          "date": "2026-07-17",
+          "correlation": 0.65697629
+        },
+        {
+          "date": "2026-07-24",
+          "correlation": 0.66009118
+        },
+        {
+          "date": "2026-07-31",
+          "correlation": 0.66079761
+        },
+        {
+          "date": "2026-08-07",
+          "correlation": 0.66002807
+        },
+        {
+          "date": "2026-08-14",
+          "correlation": 0.65583283
+        },
+        {
+          "date": "2026-08-21",
+          "correlation": 0.65401351
+        },
+        {
+          "date": "2026-08-28",
+          "correlation": 0.65640086
+        },
+        {
+          "date": "2026-09-04",
+          "correlation": 0.65791804
+        },
+        {
+          "date": "2026-09-11",
+          "correlation": 0.65933095
+        },
+        {
+          "date": "2026-09-18",
+          "correlation": 0.66319217
+        }
+      ]
+    },
+    "DDFUELUSGULF": {
+      "n": 1057,
+      "correlation": 0.75206019,
+      "directionN": 1056,
+      "directionAgreement": 0.82670455,
+      "rolling52wN": 1006,
+      "rolling52wQuantiles": {
+        "0.0": 0.52260124,
+        "0.1": 0.69999609,
+        "0.5": 0.86701811,
+        "0.9": 0.91003196,
+        "1.0": 0.96315231
+      },
+      "rollingSeries": [
+        {
+          "date": "2007-06-15",
+          "correlation": 0.62963637
+        },
+        {
+          "date": "2007-06-22",
+          "correlation": 0.62743085
+        },
+        {
+          "date": "2007-06-29",
+          "correlation": 0.62928275
+        },
+        {
+          "date": "2007-07-06",
+          "correlation": 0.62784399
+        },
+        {
+          "date": "2007-07-13",
+          "correlation": 0.62499142
+        },
+        {
+          "date": "2007-07-20",
+          "correlation": 0.6206045
+        },
+        {
+          "date": "2007-07-27",
+          "correlation": 0.62114614
+        },
+        {
+          "date": "2007-08-03",
+          "correlation": 0.61471567
+        },
+        {
+          "date": "2007-08-10",
+          "correlation": 0.65870458
+        },
+        {
+          "date": "2007-08-17",
+          "correlation": 0.63967383
+        },
+        {
+          "date": "2007-08-24",
+          "correlation": 0.64374062
+        },
+        {
+          "date": "2007-08-31",
+          "correlation": 0.65354209
+        },
+        {
+          "date": "2007-09-07",
+          "correlation": 0.65061785
+        },
+        {
+          "date": "2007-09-14",
+          "correlation": 0.53753979
+        },
+        {
+          "date": "2007-09-21",
+          "correlation": 0.576487
+        },
+        {
+          "date": "2007-09-28",
+          "correlation": 0.61538412
+        },
+        {
+          "date": "2007-10-05",
+          "correlation": 0.61890758
+        },
+        {
+          "date": "2007-10-12",
+          "correlation": 0.64508346
+        },
+        {
+          "date": "2007-10-19",
+          "correlation": 0.6711995
+        },
+        {
+          "date": "2007-10-26",
+          "correlation": 0.66733102
+        },
+        {
+          "date": "2007-11-02",
+          "correlation": 0.67265218
+        },
+        {
+          "date": "2007-11-09",
+          "correlation": 0.69935206
+        },
+        {
+          "date": "2007-11-16",
+          "correlation": 0.72326199
+        },
+        {
+          "date": "2007-11-23",
+          "correlation": 0.72330287
+        },
+        {
+          "date": "2007-11-30",
+          "correlation": 0.72358746
+        },
+        {
+          "date": "2007-12-07",
+          "correlation": 0.74011734
+        },
+        {
+          "date": "2007-12-14",
+          "correlation": 0.74075829
+        },
+        {
+          "date": "2007-12-21",
+          "correlation": 0.74252582
+        },
+        {
+          "date": "2007-12-28",
+          "correlation": 0.74429939
+        },
+        {
+          "date": "2008-01-04",
+          "correlation": 0.73232615
+        },
+        {
+          "date": "2008-01-11",
+          "correlation": 0.74295565
+        },
+        {
+          "date": "2008-01-18",
+          "correlation": 0.73244214
+        },
+        {
+          "date": "2008-01-25",
+          "correlation": 0.72803908
+        },
+        {
+          "date": "2008-02-01",
+          "correlation": 0.72346838
+        },
+        {
+          "date": "2008-02-08",
+          "correlation": 0.72552259
+        },
+        {
+          "date": "2008-02-15",
+          "correlation": 0.76129427
+        },
+        {
+          "date": "2008-02-22",
+          "correlation": 0.60954986
+        },
+        {
+          "date": "2008-02-29",
+          "correlation": 0.52750433
+        },
+        {
+          "date": "2008-03-07",
+          "correlation": 0.54075864
+        },
+        {
+          "date": "2008-03-14",
+          "correlation": 0.56001768
+        },
+        {
+          "date": "2008-03-21",
+          "correlation": 0.54575224
+        },
+        {
+          "date": "2008-03-28",
+          "correlation": 0.52260124
+        },
+        {
+          "date": "2008-04-04",
+          "correlation": 0.526781
+        },
+        {
+          "date": "2008-04-11",
+          "correlation": 0.5524328
+        },
+        {
+          "date": "2008-04-18",
+          "correlation": 0.56814666
+        },
+        {
+          "date": "2008-04-25",
+          "correlation": 0.56749432
+        },
+        {
+          "date": "2008-05-02",
+          "correlation": 0.57394472
+        },
+        {
+          "date": "2008-05-09",
+          "correlation": 0.57443337
+        },
+        {
+          "date": "2008-05-16",
+          "correlation": 0.58991535
+        },
+        {
+          "date": "2008-05-23",
+          "correlation": 0.60480567
+        },
+        {
+          "date": "2008-05-30",
+          "correlation": 0.60814807
+        },
+        {
+          "date": "2008-06-06",
+          "correlation": 0.6154046
+        },
+        {
+          "date": "2008-06-13",
+          "correlation": 0.62329845
+        },
+        {
+          "date": "2008-06-20",
+          "correlation": 0.63045637
+        },
+        {
+          "date": "2008-06-27",
+          "correlation": 0.62613833
+        },
+        {
+          "date": "2008-07-04",
+          "correlation": 0.6288665
+        },
+        {
+          "date": "2008-07-11",
+          "correlation": 0.63285729
+        },
+        {
+          "date": "2008-07-18",
+          "correlation": 0.64516502
+        },
+        {
+          "date": "2008-07-25",
+          "correlation": 0.68166214
+        },
+        {
+          "date": "2008-08-01",
+          "correlation": 0.69514544
+        },
+        {
+          "date": "2008-08-08",
+          "correlation": 0.71289869
+        },
+        {
+          "date": "2008-08-15",
+          "correlation": 0.73696935
+        },
+        {
+          "date": "2008-08-22",
+          "correlation": 0.73133578
+        },
+        {
+          "date": "2008-08-29",
+          "correlation": 0.72847568
+        },
+        {
+          "date": "2008-09-05",
+          "correlation": 0.73919392
+        },
+        {
+          "date": "2008-09-12",
+          "correlation": 0.73825746
+        },
+        {
+          "date": "2008-09-19",
+          "correlation": 0.74218206
+        },
+        {
+          "date": "2008-09-26",
+          "correlation": 0.74679974
+        },
+        {
+          "date": "2008-10-03",
+          "correlation": 0.76670195
+        },
+        {
+          "date": "2008-10-10",
+          "correlation": 0.81277882
+        },
+        {
+          "date": "2008-10-17",
+          "correlation": 0.82508078
+        },
+        {
+          "date": "2008-10-24",
+          "correlation": 0.82819555
+        },
+        {
+          "date": "2008-10-31",
+          "correlation": 0.82571854
+        },
+        {
+          "date": "2008-11-07",
+          "correlation": 0.82226013
+        },
+        {
+          "date": "2008-11-14",
+          "correlation": 0.82860415
+        },
+        {
+          "date": "2008-11-21",
+          "correlation": 0.83473725
+        },
+        {
+          "date": "2008-11-28",
+          "correlation": 0.83739923
+        },
+        {
+          "date": "2008-12-05",
+          "correlation": 0.81909327
+        },
+        {
+          "date": "2008-12-12",
+          "correlation": 0.81274799
+        },
+        {
+          "date": "2008-12-19",
+          "correlation": 0.81301573
+        },
+        {
+          "date": "2008-12-26",
+          "correlation": 0.81635515
+        },
+        {
+          "date": "2009-01-02",
+          "correlation": 0.80302914
+        },
+        {
+          "date": "2009-01-09",
+          "correlation": 0.82488567
+        },
+        {
+          "date": "2009-01-16",
+          "correlation": 0.82419312
+        },
+        {
+          "date": "2009-01-23",
+          "correlation": 0.83131587
+        },
+        {
+          "date": "2009-01-30",
+          "correlation": 0.82825907
+        },
+        {
+          "date": "2009-02-06",
+          "correlation": 0.82815923
+        },
+        {
+          "date": "2009-02-13",
+          "correlation": 0.81572271
+        },
+        {
+          "date": "2009-02-20",
+          "correlation": 0.86244401
+        },
+        {
+          "date": "2009-02-27",
+          "correlation": 0.87836181
+        },
+        {
+          "date": "2009-03-06",
+          "correlation": 0.87582377
+        },
+        {
+          "date": "2009-03-13",
+          "correlation": 0.87175497
+        },
+        {
+          "date": "2009-03-20",
+          "correlation": 0.8826255
+        },
+        {
+          "date": "2009-03-27",
+          "correlation": 0.89704182
+        },
+        {
+          "date": "2009-04-03",
+          "correlation": 0.89791965
+        },
+        {
+          "date": "2009-04-10",
+          "correlation": 0.89603197
+        },
+        {
+          "date": "2009-04-17",
+          "correlation": 0.89515277
+        },
+        {
+          "date": "2009-04-24",
+          "correlation": 0.89527484
+        },
+        {
+          "date": "2009-05-01",
+          "correlation": 0.89540462
+        },
+        {
+          "date": "2009-05-08",
+          "correlation": 0.89786663
+        },
+        {
+          "date": "2009-05-15",
+          "correlation": 0.89952466
+        },
+        {
+          "date": "2009-05-22",
+          "correlation": 0.89480287
+        },
+        {
+          "date": "2009-05-29",
+          "correlation": 0.89691865
+        },
+        {
+          "date": "2009-06-05",
+          "correlation": 0.90668872
+        },
+        {
+          "date": "2009-06-12",
+          "correlation": 0.90734338
+        },
+        {
+          "date": "2009-06-19",
+          "correlation": 0.90766558
+        },
+        {
+          "date": "2009-06-26",
+          "correlation": 0.90797583
+        },
+        {
+          "date": "2009-07-03",
+          "correlation": 0.90687628
+        },
+        {
+          "date": "2009-07-10",
+          "correlation": 0.90997922
+        },
+        {
+          "date": "2009-07-17",
+          "correlation": 0.90859205
+        },
+        {
+          "date": "2009-07-24",
+          "correlation": 0.91266954
+        },
+        {
+          "date": "2009-07-31",
+          "correlation": 0.91217488
+        },
+        {
+          "date": "2009-08-07",
+          "correlation": 0.91286074
+        },
+        {
+          "date": "2009-08-14",
+          "correlation": 0.91285764
+        },
+        {
+          "date": "2009-08-21",
+          "correlation": 0.91359362
+        },
+        {
+          "date": "2009-08-28",
+          "correlation": 0.91320525
+        },
+        {
+          "date": "2009-09-04",
+          "correlation": 0.91216117
+        },
+        {
+          "date": "2009-09-11",
+          "correlation": 0.91431667
+        },
+        {
+          "date": "2009-09-18",
+          "correlation": 0.91430597
+        },
+        {
+          "date": "2009-09-25",
+          "correlation": 0.915654
+        },
+        {
+          "date": "2009-10-02",
+          "correlation": 0.91220526
+        },
+        {
+          "date": "2009-10-09",
+          "correlation": 0.9053031
+        },
+        {
+          "date": "2009-10-16",
+          "correlation": 0.90538964
+        },
+        {
+          "date": "2009-10-23",
+          "correlation": 0.90442259
+        },
+        {
+          "date": "2009-10-30",
+          "correlation": 0.90254603
+        },
+        {
+          "date": "2009-11-06",
+          "correlation": 0.90240039
+        },
+        {
+          "date": "2009-11-13",
+          "correlation": 0.90130229
+        },
+        {
+          "date": "2009-11-20",
+          "correlation": 0.8962309
+        },
+        {
+          "date": "2009-11-27",
+          "correlation": 0.89669229
+        },
+        {
+          "date": "2009-12-04",
+          "correlation": 0.90637574
+        },
+        {
+          "date": "2009-12-11",
+          "correlation": 0.91114569
+        },
+        {
+          "date": "2009-12-18",
+          "correlation": 0.9098566
+        },
+        {
+          "date": "2009-12-25",
+          "correlation": 0.90625258
+        },
+        {
+          "date": "2010-01-01",
+          "correlation": 0.91954537
+        },
+        {
+          "date": "2010-01-08",
+          "correlation": 0.91013784
+        },
+        {
+          "date": "2010-01-15",
+          "correlation": 0.91341997
+        },
+        {
+          "date": "2010-01-22",
+          "correlation": 0.908779
+        },
+        {
+          "date": "2010-01-29",
+          "correlation": 0.91008469
+        },
+        {
+          "date": "2010-02-05",
+          "correlation": 0.90942105
+        },
+        {
+          "date": "2010-02-12",
+          "correlation": 0.92084206
+        },
+        {
+          "date": "2010-02-19",
+          "correlation": 0.9185781
+        },
+        {
+          "date": "2010-02-26",
+          "correlation": 0.93448882
+        },
+        {
+          "date": "2010-03-05",
+          "correlation": 0.93532318
+        },
+        {
+          "date": "2010-03-12",
+          "correlation": 0.93450015
+        },
+        {
+          "date": "2010-03-19",
+          "correlation": 0.93787639
+        },
+        {
+          "date": "2010-03-26",
+          "correlation": 0.92570809
+        },
+        {
+          "date": "2010-04-02",
+          "correlation": 0.91973505
+        },
+        {
+          "date": "2010-04-09",
+          "correlation": 0.91415281
+        },
+        {
+          "date": "2010-04-16",
+          "correlation": 0.91341603
+        },
+        {
+          "date": "2010-04-23",
+          "correlation": 0.90919356
+        },
+        {
+          "date": "2010-04-30",
+          "correlation": 0.90922059
+        },
+        {
+          "date": "2010-05-07",
+          "correlation": 0.90558259
+        },
+        {
+          "date": "2010-05-14",
+          "correlation": 0.90972388
+        },
+        {
+          "date": "2010-05-21",
+          "correlation": 0.92546763
+        },
+        {
+          "date": "2010-05-28",
+          "correlation": 0.91475245
+        },
+        {
+          "date": "2010-06-04",
+          "correlation": 0.89537848
+        },
+        {
+          "date": "2010-06-11",
+          "correlation": 0.89352268
+        },
+        {
+          "date": "2010-06-18",
+          "correlation": 0.89653255
+        },
+        {
+          "date": "2010-06-25",
+          "correlation": 0.89321779
+        },
+        {
+          "date": "2010-07-02",
+          "correlation": 0.89680943
+        },
+        {
+          "date": "2010-07-09",
+          "correlation": 0.87637426
+        },
+        {
+          "date": "2010-07-16",
+          "correlation": 0.88396159
+        },
+        {
+          "date": "2010-07-23",
+          "correlation": 0.87044359
+        },
+        {
+          "date": "2010-07-30",
+          "correlation": 0.87095543
+        },
+        {
+          "date": "2010-08-06",
+          "correlation": 0.86744785
+        },
+        {
+          "date": "2010-08-13",
+          "correlation": 0.874187
+        },
+        {
+          "date": "2010-08-20",
+          "correlation": 0.87678219
+        },
+        {
+          "date": "2010-08-27",
+          "correlation": 0.87881101
+        },
+        {
+          "date": "2010-09-03",
+          "correlation": 0.8786088
+        },
+        {
+          "date": "2010-09-10",
+          "correlation": 0.8796679
+        },
+        {
+          "date": "2010-09-17",
+          "correlation": 0.88411802
+        },
+        {
+          "date": "2010-09-24",
+          "correlation": 0.88545656
+        },
+        {
+          "date": "2010-10-01",
+          "correlation": 0.88921292
+        },
+        {
+          "date": "2010-10-08",
+          "correlation": 0.88816371
+        },
+        {
+          "date": "2010-10-15",
+          "correlation": 0.87457992
+        },
+        {
+          "date": "2010-10-22",
+          "correlation": 0.86614334
+        },
+        {
+          "date": "2010-10-29",
+          "correlation": 0.86858308
+        },
+        {
+          "date": "2010-11-05",
+          "correlation": 0.86893994
+        },
+        {
+          "date": "2010-11-12",
+          "correlation": 0.87075992
+        },
+        {
+          "date": "2010-11-19",
+          "correlation": 0.87090978
+        },
+        {
+          "date": "2010-11-26",
+          "correlation": 0.86716777
+        },
+        {
+          "date": "2010-12-03",
+          "correlation": 0.86989002
+        },
+        {
+          "date": "2010-12-10",
+          "correlation": 0.86445908
+        },
+        {
+          "date": "2010-12-17",
+          "correlation": 0.86802717
+        },
+        {
+          "date": "2010-12-24",
+          "correlation": 0.8672453
+        },
+        {
+          "date": "2010-12-31",
+          "correlation": 0.86247896
+        },
+        {
+          "date": "2011-01-07",
+          "correlation": 0.86459283
+        },
+        {
+          "date": "2011-01-14",
+          "correlation": 0.86705329
+        },
+        {
+          "date": "2011-01-21",
+          "correlation": 0.85848347
+        },
+        {
+          "date": "2011-01-28",
+          "correlation": 0.86236815
+        },
+        {
+          "date": "2011-02-04",
+          "correlation": 0.86430562
+        },
+        {
+          "date": "2011-02-11",
+          "correlation": 0.86042593
+        },
+        {
+          "date": "2011-02-18",
+          "correlation": 0.85770727
+        },
+        {
+          "date": "2011-02-25",
+          "correlation": 0.86458202
+        },
+        {
+          "date": "2011-03-04",
+          "correlation": 0.87020576
+        },
+        {
+          "date": "2011-03-11",
+          "correlation": 0.86797494
+        },
+        {
+          "date": "2011-03-18",
+          "correlation": 0.86327252
+        },
+        {
+          "date": "2011-03-25",
+          "correlation": 0.86284359
+        },
+        {
+          "date": "2011-04-01",
+          "correlation": 0.86602932
+        },
+        {
+          "date": "2011-04-08",
+          "correlation": 0.87230743
+        },
+        {
+          "date": "2011-04-15",
+          "correlation": 0.8746919
+        },
+        {
+          "date": "2011-04-22",
+          "correlation": 0.87587159
+        },
+        {
+          "date": "2011-04-29",
+          "correlation": 0.87404972
+        },
+        {
+          "date": "2011-05-06",
+          "correlation": 0.88478775
+        },
+        {
+          "date": "2011-05-13",
+          "correlation": 0.88156332
+        },
+        {
+          "date": "2011-05-20",
+          "correlation": 0.85522163
+        },
+        {
+          "date": "2011-05-27",
+          "correlation": 0.87315149
+        },
+        {
+          "date": "2011-06-03",
+          "correlation": 0.88184601
+        },
+        {
+          "date": "2011-06-10",
+          "correlation": 0.88365977
+        },
+        {
+          "date": "2011-06-17",
+          "correlation": 0.87833018
+        },
+        {
+          "date": "2011-06-24",
+          "correlation": 0.89315868
+        },
+        {
+          "date": "2011-07-01",
+          "correlation": 0.88006183
+        },
+        {
+          "date": "2011-07-08",
+          "correlation": 0.88587206
+        },
+        {
+          "date": "2011-07-15",
+          "correlation": 0.88725313
+        },
+        {
+          "date": "2011-07-22",
+          "correlation": 0.88680465
+        },
+        {
+          "date": "2011-07-29",
+          "correlation": 0.88777271
+        },
+        {
+          "date": "2011-08-05",
+          "correlation": 0.88244457
+        },
+        {
+          "date": "2011-08-12",
+          "correlation": 0.88657943
+        },
+        {
+          "date": "2011-08-19",
+          "correlation": 0.88216029
+        },
+        {
+          "date": "2011-08-26",
+          "correlation": 0.88088276
+        },
+        {
+          "date": "2011-09-02",
+          "correlation": 0.88208556
+        },
+        {
+          "date": "2011-09-09",
+          "correlation": 0.88558032
+        },
+        {
+          "date": "2011-09-16",
+          "correlation": 0.88778969
+        },
+        {
+          "date": "2011-09-23",
+          "correlation": 0.88837083
+        },
+        {
+          "date": "2011-09-30",
+          "correlation": 0.89169858
+        },
+        {
+          "date": "2011-10-07",
+          "correlation": 0.89254669
+        },
+        {
+          "date": "2011-10-14",
+          "correlation": 0.89730874
+        },
+        {
+          "date": "2011-10-21",
+          "correlation": 0.89667144
+        },
+        {
+          "date": "2011-10-28",
+          "correlation": 0.89529899
+        },
+        {
+          "date": "2011-11-04",
+          "correlation": 0.89640225
+        },
+        {
+          "date": "2011-11-11",
+          "correlation": 0.89545018
+        },
+        {
+          "date": "2011-11-18",
+          "correlation": 0.89348822
+        },
+        {
+          "date": "2011-11-25",
+          "correlation": 0.90469497
+        },
+        {
+          "date": "2011-12-02",
+          "correlation": 0.90191603
+        },
+        {
+          "date": "2011-12-09",
+          "correlation": 0.90493185
+        },
+        {
+          "date": "2011-12-16",
+          "correlation": 0.91055822
+        },
+        {
+          "date": "2011-12-23",
+          "correlation": 0.90024724
+        },
+        {
+          "date": "2011-12-30",
+          "correlation": 0.8991806
+        },
+        {
+          "date": "2012-01-06",
+          "correlation": 0.90440568
+        },
+        {
+          "date": "2012-01-13",
+          "correlation": 0.90621833
+        },
+        {
+          "date": "2012-01-20",
+          "correlation": 0.90685419
+        },
+        {
+          "date": "2012-01-27",
+          "correlation": 0.90301804
+        },
+        {
+          "date": "2012-02-03",
+          "correlation": 0.90136177
+        },
+        {
+          "date": "2012-02-10",
+          "correlation": 0.90729307
+        },
+        {
+          "date": "2012-02-17",
+          "correlation": 0.90805809
+        },
+        {
+          "date": "2012-02-24",
+          "correlation": 0.90014126
+        },
+        {
+          "date": "2012-03-02",
+          "correlation": 0.89023708
+        },
+        {
+          "date": "2012-03-09",
+          "correlation": 0.89554751
+        },
+        {
+          "date": "2012-03-16",
+          "correlation": 0.90420913
+        },
+        {
+          "date": "2012-03-23",
+          "correlation": 0.9035387
+        },
+        {
+          "date": "2012-03-30",
+          "correlation": 0.90376457
+        },
+        {
+          "date": "2012-04-06",
+          "correlation": 0.89888725
+        },
+        {
+          "date": "2012-04-13",
+          "correlation": 0.90009199
+        },
+        {
+          "date": "2012-04-20",
+          "correlation": 0.90075156
+        },
+        {
+          "date": "2012-04-27",
+          "correlation": 0.90053635
+        },
+        {
+          "date": "2012-05-04",
+          "correlation": 0.8930378
+        },
+        {
+          "date": "2012-05-11",
+          "correlation": 0.90360549
+        },
+        {
+          "date": "2012-05-18",
+          "correlation": 0.9033194
+        },
+        {
+          "date": "2012-05-25",
+          "correlation": 0.90661302
+        },
+        {
+          "date": "2012-06-01",
+          "correlation": 0.90326997
+        },
+        {
+          "date": "2012-06-08",
+          "correlation": 0.89180529
+        },
+        {
+          "date": "2012-06-15",
+          "correlation": 0.89150514
+        },
+        {
+          "date": "2012-06-22",
+          "correlation": 0.87839581
+        },
+        {
+          "date": "2012-06-29",
+          "correlation": 0.87710064
+        },
+        {
+          "date": "2012-07-06",
+          "correlation": 0.88385931
+        },
+        {
+          "date": "2012-07-13",
+          "correlation": 0.88186133
+        },
+        {
+          "date": "2012-07-20",
+          "correlation": 0.88860649
+        },
+        {
+          "date": "2012-07-27",
+          "correlation": 0.88742468
+        },
+        {
+          "date": "2012-08-03",
+          "correlation": 0.88995195
+        },
+        {
+          "date": "2012-08-10",
+          "correlation": 0.88505517
+        },
+        {
+          "date": "2012-08-17",
+          "correlation": 0.88619987
+        },
+        {
+          "date": "2012-08-24",
+          "correlation": 0.88760299
+        },
+        {
+          "date": "2012-08-31",
+          "correlation": 0.88198583
+        },
+        {
+          "date": "2012-09-07",
+          "correlation": 0.87998434
+        },
+        {
+          "date": "2012-09-14",
+          "correlation": 0.87791488
+        },
+        {
+          "date": "2012-09-21",
+          "correlation": 0.87644887
+        },
+        {
+          "date": "2012-09-28",
+          "correlation": 0.86942923
+        },
+        {
+          "date": "2012-10-05",
+          "correlation": 0.86948417
+        },
+        {
+          "date": "2012-10-12",
+          "correlation": 0.86934336
+        },
+        {
+          "date": "2012-10-19",
+          "correlation": 0.86238376
+        },
+        {
+          "date": "2012-10-26",
+          "correlation": 0.87141027
+        },
+        {
+          "date": "2012-11-02",
+          "correlation": 0.86910673
+        },
+        {
+          "date": "2012-11-09",
+          "correlation": 0.86842691
+        },
+        {
+          "date": "2012-11-16",
+          "correlation": 0.87074202
+        },
+        {
+          "date": "2012-11-23",
+          "correlation": 0.861359
+        },
+        {
+          "date": "2012-11-30",
+          "correlation": 0.85790649
+        },
+        {
+          "date": "2012-12-07",
+          "correlation": 0.85745505
+        },
+        {
+          "date": "2012-12-14",
+          "correlation": 0.84980965
+        },
+        {
+          "date": "2012-12-21",
+          "correlation": 0.86267604
+        },
+        {
+          "date": "2012-12-28",
+          "correlation": 0.85818058
+        },
+        {
+          "date": "2013-01-04",
+          "correlation": 0.84496393
+        },
+        {
+          "date": "2013-01-11",
+          "correlation": 0.85178381
+        },
+        {
+          "date": "2013-01-18",
+          "correlation": 0.85133882
+        },
+        {
+          "date": "2013-01-25",
+          "correlation": 0.85714282
+        },
+        {
+          "date": "2013-02-01",
+          "correlation": 0.8580339
+        },
+        {
+          "date": "2013-02-08",
+          "correlation": 0.85624389
+        },
+        {
+          "date": "2013-02-15",
+          "correlation": 0.85751572
+        },
+        {
+          "date": "2013-02-22",
+          "correlation": 0.85933074
+        },
+        {
+          "date": "2013-03-01",
+          "correlation": 0.86923502
+        },
+        {
+          "date": "2013-03-08",
+          "correlation": 0.86475644
+        },
+        {
+          "date": "2013-03-15",
+          "correlation": 0.86402678
+        },
+        {
+          "date": "2013-03-22",
+          "correlation": 0.86201826
+        },
+        {
+          "date": "2013-03-29",
+          "correlation": 0.84904521
+        },
+        {
+          "date": "2013-04-05",
+          "correlation": 0.84987832
+        },
+        {
+          "date": "2013-04-12",
+          "correlation": 0.85324324
+        },
+        {
+          "date": "2013-04-19",
+          "correlation": 0.86708194
+        },
+        {
+          "date": "2013-04-26",
+          "correlation": 0.86667336
+        },
+        {
+          "date": "2013-05-03",
+          "correlation": 0.86687155
+        },
+        {
+          "date": "2013-05-10",
+          "correlation": 0.85983636
+        },
+        {
+          "date": "2013-05-17",
+          "correlation": 0.85778208
+        },
+        {
+          "date": "2013-05-24",
+          "correlation": 0.85659015
+        },
+        {
+          "date": "2013-05-31",
+          "correlation": 0.85527955
+        },
+        {
+          "date": "2013-06-07",
+          "correlation": 0.86121071
+        },
+        {
+          "date": "2013-06-14",
+          "correlation": 0.86219364
+        },
+        {
+          "date": "2013-06-21",
+          "correlation": 0.86401971
+        },
+        {
+          "date": "2013-06-28",
+          "correlation": 0.8753799
+        },
+        {
+          "date": "2013-07-05",
+          "correlation": 0.86326957
+        },
+        {
+          "date": "2013-07-12",
+          "correlation": 0.86512943
+        },
+        {
+          "date": "2013-07-19",
+          "correlation": 0.85773767
+        },
+        {
+          "date": "2013-07-26",
+          "correlation": 0.85899781
+        },
+        {
+          "date": "2013-08-02",
+          "correlation": 0.85744829
+        },
+        {
+          "date": "2013-08-09",
+          "correlation": 0.82777603
+        },
+        {
+          "date": "2013-08-16",
+          "correlation": 0.81911461
+        },
+        {
+          "date": "2013-08-23",
+          "correlation": 0.81694073
+        },
+        {
+          "date": "2013-08-30",
+          "correlation": 0.82492514
+        },
+        {
+          "date": "2013-09-06",
+          "correlation": 0.82634813
+        },
+        {
+          "date": "2013-09-13",
+          "correlation": 0.82708719
+        },
+        {
+          "date": "2013-09-20",
+          "correlation": 0.82510394
+        },
+        {
+          "date": "2013-09-27",
+          "correlation": 0.80339889
+        },
+        {
+          "date": "2013-10-04",
+          "correlation": 0.78623497
+        },
+        {
+          "date": "2013-10-11",
+          "correlation": 0.78387772
+        },
+        {
+          "date": "2013-10-18",
+          "correlation": 0.79282641
+        },
+        {
+          "date": "2013-10-25",
+          "correlation": 0.77410713
+        },
+        {
+          "date": "2013-11-01",
+          "correlation": 0.776894
+        },
+        {
+          "date": "2013-11-08",
+          "correlation": 0.77646735
+        },
+        {
+          "date": "2013-11-15",
+          "correlation": 0.77349324
+        },
+        {
+          "date": "2013-11-22",
+          "correlation": 0.7714718
+        },
+        {
+          "date": "2013-11-29",
+          "correlation": 0.78448239
+        },
+        {
+          "date": "2013-12-06",
+          "correlation": 0.79452264
+        },
+        {
+          "date": "2013-12-13",
+          "correlation": 0.8007799
+        },
+        {
+          "date": "2013-12-20",
+          "correlation": 0.80065212
+        },
+        {
+          "date": "2013-12-27",
+          "correlation": 0.80337547
+        },
+        {
+          "date": "2014-01-03",
+          "correlation": 0.79005883
+        },
+        {
+          "date": "2014-01-10",
+          "correlation": 0.79014065
+        },
+        {
+          "date": "2014-01-17",
+          "correlation": 0.77898751
+        },
+        {
+          "date": "2014-01-24",
+          "correlation": 0.77713732
+        },
+        {
+          "date": "2014-01-31",
+          "correlation": 0.77407879
+        },
+        {
+          "date": "2014-02-07",
+          "correlation": 0.76180746
+        },
+        {
+          "date": "2014-02-14",
+          "correlation": 0.76264543
+        },
+        {
+          "date": "2014-02-21",
+          "correlation": 0.7630864
+        },
+        {
+          "date": "2014-02-28",
+          "correlation": 0.74444818
+        },
+        {
+          "date": "2014-03-07",
+          "correlation": 0.74539915
+        },
+        {
+          "date": "2014-03-14",
+          "correlation": 0.74730499
+        },
+        {
+          "date": "2014-03-21",
+          "correlation": 0.74796761
+        },
+        {
+          "date": "2014-03-28",
+          "correlation": 0.77044042
+        },
+        {
+          "date": "2014-04-04",
+          "correlation": 0.77055399
+        },
+        {
+          "date": "2014-04-11",
+          "correlation": 0.75706752
+        },
+        {
+          "date": "2014-04-18",
+          "correlation": 0.70783763
+        },
+        {
+          "date": "2014-04-25",
+          "correlation": 0.70764919
+        },
+        {
+          "date": "2014-05-02",
+          "correlation": 0.71898956
+        },
+        {
+          "date": "2014-05-09",
+          "correlation": 0.71008012
+        },
+        {
+          "date": "2014-05-16",
+          "correlation": 0.7064741
+        },
+        {
+          "date": "2014-05-23",
+          "correlation": 0.70684944
+        },
+        {
+          "date": "2014-05-30",
+          "correlation": 0.70553282
+        },
+        {
+          "date": "2014-06-06",
+          "correlation": 0.71875222
+        },
+        {
+          "date": "2014-06-13",
+          "correlation": 0.72073355
+        },
+        {
+          "date": "2014-06-20",
+          "correlation": 0.74261173
+        },
+        {
+          "date": "2014-06-27",
+          "correlation": 0.73128026
+        },
+        {
+          "date": "2014-07-04",
+          "correlation": 0.73242077
+        },
+        {
+          "date": "2014-07-11",
+          "correlation": 0.73207385
+        },
+        {
+          "date": "2014-07-18",
+          "correlation": 0.72734361
+        },
+        {
+          "date": "2014-07-25",
+          "correlation": 0.72279265
+        },
+        {
+          "date": "2014-08-01",
+          "correlation": 0.72457481
+        },
+        {
+          "date": "2014-08-08",
+          "correlation": 0.74200721
+        },
+        {
+          "date": "2014-08-15",
+          "correlation": 0.74781942
+        },
+        {
+          "date": "2014-08-22",
+          "correlation": 0.75005334
+        },
+        {
+          "date": "2014-08-29",
+          "correlation": 0.7429775
+        },
+        {
+          "date": "2014-09-05",
+          "correlation": 0.7452802
+        },
+        {
+          "date": "2014-09-12",
+          "correlation": 0.75256323
+        },
+        {
+          "date": "2014-09-19",
+          "correlation": 0.75590989
+        },
+        {
+          "date": "2014-09-26",
+          "correlation": 0.81323614
+        },
+        {
+          "date": "2014-10-03",
+          "correlation": 0.8369941
+        },
+        {
+          "date": "2014-10-10",
+          "correlation": 0.83854955
+        },
+        {
+          "date": "2014-10-17",
+          "correlation": 0.84739223
+        },
+        {
+          "date": "2014-10-24",
+          "correlation": 0.85111068
+        },
+        {
+          "date": "2014-10-31",
+          "correlation": 0.84920796
+        },
+        {
+          "date": "2014-11-07",
+          "correlation": 0.85519965
+        },
+        {
+          "date": "2014-11-14",
+          "correlation": 0.85267102
+        },
+        {
+          "date": "2014-11-21",
+          "correlation": 0.84671699
+        },
+        {
+          "date": "2014-11-28",
+          "correlation": 0.84127156
+        },
+        {
+          "date": "2014-12-05",
+          "correlation": 0.89091849
+        },
+        {
+          "date": "2014-12-12",
+          "correlation": 0.90770408
+        },
+        {
+          "date": "2014-12-19",
+          "correlation": 0.91450538
+        },
+        {
+          "date": "2014-12-26",
+          "correlation": 0.91210044
+        },
+        {
+          "date": "2015-01-02",
+          "correlation": 0.92337773
+        },
+        {
+          "date": "2015-01-09",
+          "correlation": 0.89942713
+        },
+        {
+          "date": "2015-01-16",
+          "correlation": 0.89402605
+        },
+        {
+          "date": "2015-01-23",
+          "correlation": 0.88542164
+        },
+        {
+          "date": "2015-01-30",
+          "correlation": 0.86879493
+        },
+        {
+          "date": "2015-02-06",
+          "correlation": 0.90702601
+        },
+        {
+          "date": "2015-02-13",
+          "correlation": 0.90968426
+        },
+        {
+          "date": "2015-02-20",
+          "correlation": 0.91235858
+        },
+        {
+          "date": "2015-02-27",
+          "correlation": 0.91309003
+        },
+        {
+          "date": "2015-03-06",
+          "correlation": 0.89943314
+        },
+        {
+          "date": "2015-03-13",
+          "correlation": 0.9015632
+        },
+        {
+          "date": "2015-03-20",
+          "correlation": 0.90192759
+        },
+        {
+          "date": "2015-03-27",
+          "correlation": 0.89896207
+        },
+        {
+          "date": "2015-04-03",
+          "correlation": 0.89888557
+        },
+        {
+          "date": "2015-04-10",
+          "correlation": 0.89354401
+        },
+        {
+          "date": "2015-04-17",
+          "correlation": 0.89640183
+        },
+        {
+          "date": "2015-04-24",
+          "correlation": 0.89766097
+        },
+        {
+          "date": "2015-05-01",
+          "correlation": 0.90085191
+        },
+        {
+          "date": "2015-05-08",
+          "correlation": 0.90264962
+        },
+        {
+          "date": "2015-05-15",
+          "correlation": 0.90274655
+        },
+        {
+          "date": "2015-05-22",
+          "correlation": 0.90199896
+        },
+        {
+          "date": "2015-05-29",
+          "correlation": 0.9027563
+        },
+        {
+          "date": "2015-06-05",
+          "correlation": 0.90312857
+        },
+        {
+          "date": "2015-06-12",
+          "correlation": 0.89973173
+        },
+        {
+          "date": "2015-06-19",
+          "correlation": 0.89704523
+        },
+        {
+          "date": "2015-06-26",
+          "correlation": 0.89695409
+        },
+        {
+          "date": "2015-07-03",
+          "correlation": 0.89254952
+        },
+        {
+          "date": "2015-07-10",
+          "correlation": 0.89691356
+        },
+        {
+          "date": "2015-07-17",
+          "correlation": 0.89547194
+        },
+        {
+          "date": "2015-07-24",
+          "correlation": 0.89491833
+        },
+        {
+          "date": "2015-07-31",
+          "correlation": 0.89667898
+        },
+        {
+          "date": "2015-08-07",
+          "correlation": 0.8968949
+        },
+        {
+          "date": "2015-08-14",
+          "correlation": 0.89862889
+        },
+        {
+          "date": "2015-08-21",
+          "correlation": 0.89909163
+        },
+        {
+          "date": "2015-08-28",
+          "correlation": 0.89783952
+        },
+        {
+          "date": "2015-09-04",
+          "correlation": 0.9120004
+        },
+        {
+          "date": "2015-09-11",
+          "correlation": 0.90748527
+        },
+        {
+          "date": "2015-09-18",
+          "correlation": 0.90590668
+        },
+        {
+          "date": "2015-09-25",
+          "correlation": 0.90605075
+        },
+        {
+          "date": "2015-10-02",
+          "correlation": 0.90167967
+        },
+        {
+          "date": "2015-10-09",
+          "correlation": 0.90675902
+        },
+        {
+          "date": "2015-10-16",
+          "correlation": 0.89984857
+        },
+        {
+          "date": "2015-10-23",
+          "correlation": 0.89841184
+        },
+        {
+          "date": "2015-10-30",
+          "correlation": 0.89603241
+        },
+        {
+          "date": "2015-11-06",
+          "correlation": 0.89876386
+        },
+        {
+          "date": "2015-11-13",
+          "correlation": 0.89831712
+        },
+        {
+          "date": "2015-11-20",
+          "correlation": 0.89700238
+        },
+        {
+          "date": "2015-11-27",
+          "correlation": 0.89647591
+        },
+        {
+          "date": "2015-12-04",
+          "correlation": 0.89013347
+        },
+        {
+          "date": "2015-12-11",
+          "correlation": 0.89443133
+        },
+        {
+          "date": "2015-12-18",
+          "correlation": 0.90616929
+        },
+        {
+          "date": "2015-12-25",
+          "correlation": 0.88336912
+        },
+        {
+          "date": "2016-01-01",
+          "correlation": 0.88276858
+        },
+        {
+          "date": "2016-01-08",
+          "correlation": 0.87217962
+        },
+        {
+          "date": "2016-01-15",
+          "correlation": 0.88526985
+        },
+        {
+          "date": "2016-01-22",
+          "correlation": 0.88821327
+        },
+        {
+          "date": "2016-01-29",
+          "correlation": 0.90231118
+        },
+        {
+          "date": "2016-02-05",
+          "correlation": 0.89257644
+        },
+        {
+          "date": "2016-02-12",
+          "correlation": 0.89103462
+        },
+        {
+          "date": "2016-02-19",
+          "correlation": 0.87653328
+        },
+        {
+          "date": "2016-02-26",
+          "correlation": 0.87641756
+        },
+        {
+          "date": "2016-03-04",
+          "correlation": 0.88644026
+        },
+        {
+          "date": "2016-03-11",
+          "correlation": 0.89611522
+        },
+        {
+          "date": "2016-03-18",
+          "correlation": 0.89484865
+        },
+        {
+          "date": "2016-03-25",
+          "correlation": 0.89417004
+        },
+        {
+          "date": "2016-04-01",
+          "correlation": 0.89329058
+        },
+        {
+          "date": "2016-04-08",
+          "correlation": 0.89250471
+        },
+        {
+          "date": "2016-04-15",
+          "correlation": 0.90034378
+        },
+        {
+          "date": "2016-04-22",
+          "correlation": 0.90036991
+        },
+        {
+          "date": "2016-04-29",
+          "correlation": 0.90142837
+        },
+        {
+          "date": "2016-05-06",
+          "correlation": 0.90060442
+        },
+        {
+          "date": "2016-05-13",
+          "correlation": 0.90049324
+        },
+        {
+          "date": "2016-05-20",
+          "correlation": 0.90369791
+        },
+        {
+          "date": "2016-05-27",
+          "correlation": 0.90369677
+        },
+        {
+          "date": "2016-06-03",
+          "correlation": 0.90303273
+        },
+        {
+          "date": "2016-06-10",
+          "correlation": 0.90500073
+        },
+        {
+          "date": "2016-06-17",
+          "correlation": 0.90587906
+        },
+        {
+          "date": "2016-06-24",
+          "correlation": 0.9061953
+        },
+        {
+          "date": "2016-07-01",
+          "correlation": 0.90782329
+        },
+        {
+          "date": "2016-07-08",
+          "correlation": 0.8999475
+        },
+        {
+          "date": "2016-07-15",
+          "correlation": 0.89904965
+        },
+        {
+          "date": "2016-07-22",
+          "correlation": 0.89912023
+        },
+        {
+          "date": "2016-07-29",
+          "correlation": 0.89968747
+        },
+        {
+          "date": "2016-08-05",
+          "correlation": 0.89627504
+        },
+        {
+          "date": "2016-08-12",
+          "correlation": 0.89823974
+        },
+        {
+          "date": "2016-08-19",
+          "correlation": 0.90421591
+        },
+        {
+          "date": "2016-08-26",
+          "correlation": 0.90375097
+        },
+        {
+          "date": "2016-09-02",
+          "correlation": 0.89862267
+        },
+        {
+          "date": "2016-09-09",
+          "correlation": 0.9003853
+        },
+        {
+          "date": "2016-09-16",
+          "correlation": 0.90129803
+        },
+        {
+          "date": "2016-09-23",
+          "correlation": 0.90113529
+        },
+        {
+          "date": "2016-09-30",
+          "correlation": 0.90128291
+        },
+        {
+          "date": "2016-10-07",
+          "correlation": 0.90216068
+        },
+        {
+          "date": "2016-10-14",
+          "correlation": 0.9031866
+        },
+        {
+          "date": "2016-10-21",
+          "correlation": 0.90333078
+        },
+        {
+          "date": "2016-10-28",
+          "correlation": 0.90451244
+        },
+        {
+          "date": "2016-11-04",
+          "correlation": 0.90467573
+        },
+        {
+          "date": "2016-11-11",
+          "correlation": 0.90576606
+        },
+        {
+          "date": "2016-11-18",
+          "correlation": 0.90571082
+        },
+        {
+          "date": "2016-11-25",
+          "correlation": 0.90782704
+        },
+        {
+          "date": "2016-12-02",
+          "correlation": 0.90599005
+        },
+        {
+          "date": "2016-12-09",
+          "correlation": 0.88788789
+        },
+        {
+          "date": "2016-12-16",
+          "correlation": 0.8753638
+        },
+        {
+          "date": "2016-12-23",
+          "correlation": 0.8946748
+        },
+        {
+          "date": "2016-12-30",
+          "correlation": 0.89451096
+        },
+        {
+          "date": "2017-01-06",
+          "correlation": 0.90379009
+        },
+        {
+          "date": "2017-01-13",
+          "correlation": 0.89300174
+        },
+        {
+          "date": "2017-01-20",
+          "correlation": 0.88932407
+        },
+        {
+          "date": "2017-01-27",
+          "correlation": 0.88343182
+        },
+        {
+          "date": "2017-02-03",
+          "correlation": 0.88181553
+        },
+        {
+          "date": "2017-02-10",
+          "correlation": 0.87731875
+        },
+        {
+          "date": "2017-02-17",
+          "correlation": 0.89502866
+        },
+        {
+          "date": "2017-02-24",
+          "correlation": 0.8944298
+        },
+        {
+          "date": "2017-03-03",
+          "correlation": 0.89386869
+        },
+        {
+          "date": "2017-03-10",
+          "correlation": 0.88566684
+        },
+        {
+          "date": "2017-03-17",
+          "correlation": 0.88925658
+        },
+        {
+          "date": "2017-03-24",
+          "correlation": 0.89080786
+        },
+        {
+          "date": "2017-03-31",
+          "correlation": 0.88935768
+        },
+        {
+          "date": "2017-04-07",
+          "correlation": 0.89271134
+        },
+        {
+          "date": "2017-04-14",
+          "correlation": 0.88048499
+        },
+        {
+          "date": "2017-04-21",
+          "correlation": 0.88224022
+        },
+        {
+          "date": "2017-04-28",
+          "correlation": 0.88116355
+        },
+        {
+          "date": "2017-05-05",
+          "correlation": 0.88636672
+        },
+        {
+          "date": "2017-05-12",
+          "correlation": 0.8864657
+        },
+        {
+          "date": "2017-05-19",
+          "correlation": 0.88388691
+        },
+        {
+          "date": "2017-05-26",
+          "correlation": 0.88504347
+        },
+        {
+          "date": "2017-06-02",
+          "correlation": 0.89001418
+        },
+        {
+          "date": "2017-06-09",
+          "correlation": 0.89241315
+        },
+        {
+          "date": "2017-06-16",
+          "correlation": 0.88971641
+        },
+        {
+          "date": "2017-06-23",
+          "correlation": 0.89009148
+        },
+        {
+          "date": "2017-06-30",
+          "correlation": 0.89235129
+        },
+        {
+          "date": "2017-07-07",
+          "correlation": 0.89910815
+        },
+        {
+          "date": "2017-07-14",
+          "correlation": 0.88684951
+        },
+        {
+          "date": "2017-07-21",
+          "correlation": 0.88809148
+        },
+        {
+          "date": "2017-07-28",
+          "correlation": 0.88075323
+        },
+        {
+          "date": "2017-08-04",
+          "correlation": 0.88980324
+        },
+        {
+          "date": "2017-08-11",
+          "correlation": 0.88637841
+        },
+        {
+          "date": "2017-08-18",
+          "correlation": 0.86915923
+        },
+        {
+          "date": "2017-08-25",
+          "correlation": 0.86980606
+        },
+        {
+          "date": "2017-09-01",
+          "correlation": 0.849401
+        },
+        {
+          "date": "2017-09-08",
+          "correlation": 0.85783177
+        },
+        {
+          "date": "2017-09-15",
+          "correlation": 0.84698885
+        },
+        {
+          "date": "2017-09-22",
+          "correlation": 0.84519286
+        },
+        {
+          "date": "2017-09-29",
+          "correlation": 0.85213999
+        },
+        {
+          "date": "2017-10-06",
+          "correlation": 0.84248046
+        },
+        {
+          "date": "2017-10-13",
+          "correlation": 0.84894915
+        },
+        {
+          "date": "2017-10-20",
+          "correlation": 0.84897363
+        },
+        {
+          "date": "2017-10-27",
+          "correlation": 0.84820702
+        },
+        {
+          "date": "2017-11-03",
+          "correlation": 0.83987503
+        },
+        {
+          "date": "2017-11-10",
+          "correlation": 0.83667305
+        },
+        {
+          "date": "2017-11-17",
+          "correlation": 0.84232237
+        },
+        {
+          "date": "2017-11-24",
+          "correlation": 0.83313538
+        },
+        {
+          "date": "2017-12-01",
+          "correlation": 0.83943593
+        },
+        {
+          "date": "2017-12-08",
+          "correlation": 0.87736107
+        },
+        {
+          "date": "2017-12-15",
+          "correlation": 0.87530047
+        },
+        {
+          "date": "2017-12-22",
+          "correlation": 0.8753386
+        },
+        {
+          "date": "2017-12-29",
+          "correlation": 0.87357559
+        },
+        {
+          "date": "2018-01-05",
+          "correlation": 0.86134436
+        },
+        {
+          "date": "2018-01-12",
+          "correlation": 0.85842957
+        },
+        {
+          "date": "2018-01-19",
+          "correlation": 0.84951543
+        },
+        {
+          "date": "2018-01-26",
+          "correlation": 0.84280938
+        },
+        {
+          "date": "2018-02-02",
+          "correlation": 0.84160169
+        },
+        {
+          "date": "2018-02-09",
+          "correlation": 0.8548733
+        },
+        {
+          "date": "2018-02-16",
+          "correlation": 0.85268944
+        },
+        {
+          "date": "2018-02-23",
+          "correlation": 0.85524039
+        },
+        {
+          "date": "2018-03-02",
+          "correlation": 0.85041575
+        },
+        {
+          "date": "2018-03-09",
+          "correlation": 0.84847462
+        },
+        {
+          "date": "2018-03-16",
+          "correlation": 0.84352636
+        },
+        {
+          "date": "2018-03-23",
+          "correlation": 0.85001583
+        },
+        {
+          "date": "2018-03-30",
+          "correlation": 0.84991439
+        },
+        {
+          "date": "2018-04-06",
+          "correlation": 0.84494484
+        },
+        {
+          "date": "2018-04-13",
+          "correlation": 0.84124681
+        },
+        {
+          "date": "2018-04-20",
+          "correlation": 0.83670884
+        },
+        {
+          "date": "2018-04-27",
+          "correlation": 0.82985036
+        },
+        {
+          "date": "2018-05-04",
+          "correlation": 0.81471181
+        },
+        {
+          "date": "2018-05-11",
+          "correlation": 0.81980996
+        },
+        {
+          "date": "2018-05-18",
+          "correlation": 0.81749234
+        },
+        {
+          "date": "2018-05-25",
+          "correlation": 0.81319791
+        },
+        {
+          "date": "2018-06-01",
+          "correlation": 0.80357051
+        },
+        {
+          "date": "2018-06-08",
+          "correlation": 0.79063632
+        },
+        {
+          "date": "2018-06-15",
+          "correlation": 0.78948548
+        },
+        {
+          "date": "2018-06-22",
+          "correlation": 0.78381508
+        },
+        {
+          "date": "2018-06-29",
+          "correlation": 0.7809926
+        },
+        {
+          "date": "2018-07-06",
+          "correlation": 0.79032736
+        },
+        {
+          "date": "2018-07-13",
+          "correlation": 0.82149371
+        },
+        {
+          "date": "2018-07-20",
+          "correlation": 0.82802159
+        },
+        {
+          "date": "2018-07-27",
+          "correlation": 0.83071572
+        },
+        {
+          "date": "2018-08-03",
+          "correlation": 0.82460949
+        },
+        {
+          "date": "2018-08-10",
+          "correlation": 0.82324124
+        },
+        {
+          "date": "2018-08-17",
+          "correlation": 0.82020797
+        },
+        {
+          "date": "2018-08-24",
+          "correlation": 0.82097484
+        },
+        {
+          "date": "2018-08-31",
+          "correlation": 0.849587
+        },
+        {
+          "date": "2018-09-07",
+          "correlation": 0.8267535
+        },
+        {
+          "date": "2018-09-14",
+          "correlation": 0.84053312
+        },
+        {
+          "date": "2018-09-21",
+          "correlation": 0.84397936
+        },
+        {
+          "date": "2018-09-28",
+          "correlation": 0.85009012
+        },
+        {
+          "date": "2018-10-05",
+          "correlation": 0.84917302
+        },
+        {
+          "date": "2018-10-12",
+          "correlation": 0.85309484
+        },
+        {
+          "date": "2018-10-19",
+          "correlation": 0.85790639
+        },
+        {
+          "date": "2018-10-26",
+          "correlation": 0.86165337
+        },
+        {
+          "date": "2018-11-02",
+          "correlation": 0.8626458
+        },
+        {
+          "date": "2018-11-09",
+          "correlation": 0.85674529
+        },
+        {
+          "date": "2018-11-16",
+          "correlation": 0.86193577
+        },
+        {
+          "date": "2018-11-23",
+          "correlation": 0.85945294
+        },
+        {
+          "date": "2018-11-30",
+          "correlation": 0.8833399
+        },
+        {
+          "date": "2018-12-07",
+          "correlation": 0.88137898
+        },
+        {
+          "date": "2018-12-14",
+          "correlation": 0.88076665
+        },
+        {
+          "date": "2018-12-21",
+          "correlation": 0.88452342
+        },
+        {
+          "date": "2018-12-28",
+          "correlation": 0.88730542
+        },
+        {
+          "date": "2019-01-04",
+          "correlation": 0.85829064
+        },
+        {
+          "date": "2019-01-11",
+          "correlation": 0.87025422
+        },
+        {
+          "date": "2019-01-18",
+          "correlation": 0.87763047
+        },
+        {
+          "date": "2019-01-25",
+          "correlation": 0.88335846
+        },
+        {
+          "date": "2019-02-01",
+          "correlation": 0.88284903
+        },
+        {
+          "date": "2019-02-08",
+          "correlation": 0.87597274
+        },
+        {
+          "date": "2019-02-15",
+          "correlation": 0.87783064
+        },
+        {
+          "date": "2019-02-22",
+          "correlation": 0.88026678
+        },
+        {
+          "date": "2019-03-01",
+          "correlation": 0.88466405
+        },
+        {
+          "date": "2019-03-08",
+          "correlation": 0.88333429
+        },
+        {
+          "date": "2019-03-15",
+          "correlation": 0.88183439
+        },
+        {
+          "date": "2019-03-22",
+          "correlation": 0.87865376
+        },
+        {
+          "date": "2019-03-29",
+          "correlation": 0.87795916
+        },
+        {
+          "date": "2019-04-05",
+          "correlation": 0.88280413
+        },
+        {
+          "date": "2019-04-12",
+          "correlation": 0.88688028
+        },
+        {
+          "date": "2019-04-19",
+          "correlation": 0.88790014
+        },
+        {
+          "date": "2019-04-26",
+          "correlation": 0.88681553
+        },
+        {
+          "date": "2019-05-03",
+          "correlation": 0.88553835
+        },
+        {
+          "date": "2019-05-10",
+          "correlation": 0.88174065
+        },
+        {
+          "date": "2019-05-17",
+          "correlation": 0.87980389
+        },
+        {
+          "date": "2019-05-24",
+          "correlation": 0.88252336
+        },
+        {
+          "date": "2019-05-31",
+          "correlation": 0.88174916
+        },
+        {
+          "date": "2019-06-07",
+          "correlation": 0.88907361
+        },
+        {
+          "date": "2019-06-14",
+          "correlation": 0.88905403
+        },
+        {
+          "date": "2019-06-21",
+          "correlation": 0.89134488
+        },
+        {
+          "date": "2019-06-28",
+          "correlation": 0.89506916
+        },
+        {
+          "date": "2019-07-05",
+          "correlation": 0.89582735
+        },
+        {
+          "date": "2019-07-12",
+          "correlation": 0.8966997
+        },
+        {
+          "date": "2019-07-19",
+          "correlation": 0.89092393
+        },
+        {
+          "date": "2019-07-26",
+          "correlation": 0.88814515
+        },
+        {
+          "date": "2019-08-02",
+          "correlation": 0.88831548
+        },
+        {
+          "date": "2019-08-09",
+          "correlation": 0.89606722
+        },
+        {
+          "date": "2019-08-16",
+          "correlation": 0.8965412
+        },
+        {
+          "date": "2019-08-23",
+          "correlation": 0.89397209
+        },
+        {
+          "date": "2019-08-30",
+          "correlation": 0.89085792
+        },
+        {
+          "date": "2019-09-06",
+          "correlation": 0.89169315
+        },
+        {
+          "date": "2019-09-13",
+          "correlation": 0.89254382
+        },
+        {
+          "date": "2019-09-20",
+          "correlation": 0.89939715
+        },
+        {
+          "date": "2019-09-27",
+          "correlation": 0.89750902
+        },
+        {
+          "date": "2019-10-04",
+          "correlation": 0.89511295
+        },
+        {
+          "date": "2019-10-11",
+          "correlation": 0.89250514
+        },
+        {
+          "date": "2019-10-18",
+          "correlation": 0.88846365
+        },
+        {
+          "date": "2019-10-25",
+          "correlation": 0.88884839
+        },
+        {
+          "date": "2019-11-01",
+          "correlation": 0.8803801
+        },
+        {
+          "date": "2019-11-08",
+          "correlation": 0.88070268
+        },
+        {
+          "date": "2019-11-15",
+          "correlation": 0.88425478
+        },
+        {
+          "date": "2019-11-22",
+          "correlation": 0.88478289
+        },
+        {
+          "date": "2019-11-29",
+          "correlation": 0.86732946
+        },
+        {
+          "date": "2019-12-06",
+          "correlation": 0.86698292
+        },
+        {
+          "date": "2019-12-13",
+          "correlation": 0.86841246
+        },
+        {
+          "date": "2019-12-20",
+          "correlation": 0.86887844
+        },
+        {
+          "date": "2019-12-27",
+          "correlation": 0.86813603
+        },
+        {
+          "date": "2020-01-03",
+          "correlation": 0.90867483
+        },
+        {
+          "date": "2020-01-10",
+          "correlation": 0.89245023
+        },
+        {
+          "date": "2020-01-17",
+          "correlation": 0.90463941
+        },
+        {
+          "date": "2020-01-24",
+          "correlation": 0.89716415
+        },
+        {
+          "date": "2020-01-31",
+          "correlation": 0.90935654
+        },
+        {
+          "date": "2020-02-07",
+          "correlation": 0.91287961
+        },
+        {
+          "date": "2020-02-14",
+          "correlation": 0.90185538
+        },
+        {
+          "date": "2020-02-21",
+          "correlation": 0.89511857
+        },
+        {
+          "date": "2020-02-28",
+          "correlation": 0.91097899
+        },
+        {
+          "date": "2020-03-06",
+          "correlation": 0.90847799
+        },
+        {
+          "date": "2020-03-13",
+          "correlation": 0.95764288
+        },
+        {
+          "date": "2020-03-20",
+          "correlation": 0.96315231
+        },
+        {
+          "date": "2020-03-27",
+          "correlation": 0.94741641
+        },
+        {
+          "date": "2020-04-03",
+          "correlation": 0.94786979
+        },
+        {
+          "date": "2020-04-10",
+          "correlation": 0.94237419
+        },
+        {
+          "date": "2020-04-17",
+          "correlation": 0.94142953
+        },
+        {
+          "date": "2020-04-24",
+          "correlation": 0.84807741
+        },
+        {
+          "date": "2020-05-01",
+          "correlation": 0.77336071
+        },
+        {
+          "date": "2020-05-08",
+          "correlation": 0.80885434
+        },
+        {
+          "date": "2020-05-15",
+          "correlation": 0.76216202
+        },
+        {
+          "date": "2020-05-22",
+          "correlation": 0.77994396
+        },
+        {
+          "date": "2020-05-29",
+          "correlation": 0.77867168
+        },
+        {
+          "date": "2020-06-05",
+          "correlation": 0.78701334
+        },
+        {
+          "date": "2020-06-12",
+          "correlation": 0.79126754
+        },
+        {
+          "date": "2020-06-19",
+          "correlation": 0.79176226
+        },
+        {
+          "date": "2020-06-26",
+          "correlation": 0.78836072
+        },
+        {
+          "date": "2020-07-03",
+          "correlation": 0.7877195
+        },
+        {
+          "date": "2020-07-10",
+          "correlation": 0.78806992
+        },
+        {
+          "date": "2020-07-17",
+          "correlation": 0.78877591
+        },
+        {
+          "date": "2020-07-24",
+          "correlation": 0.78937633
+        },
+        {
+          "date": "2020-07-31",
+          "correlation": 0.78927647
+        },
+        {
+          "date": "2020-08-07",
+          "correlation": 0.78663651
+        },
+        {
+          "date": "2020-08-14",
+          "correlation": 0.78626192
+        },
+        {
+          "date": "2020-08-21",
+          "correlation": 0.7863943
+        },
+        {
+          "date": "2020-08-28",
+          "correlation": 0.78608409
+        },
+        {
+          "date": "2020-09-04",
+          "correlation": 0.7864868
+        },
+        {
+          "date": "2020-09-11",
+          "correlation": 0.79033667
+        },
+        {
+          "date": "2020-09-18",
+          "correlation": 0.78754672
+        },
+        {
+          "date": "2020-09-25",
+          "correlation": 0.78656484
+        },
+        {
+          "date": "2020-10-02",
+          "correlation": 0.786307
+        },
+        {
+          "date": "2020-10-09",
+          "correlation": 0.78847066
+        },
+        {
+          "date": "2020-10-16",
+          "correlation": 0.78833753
+        },
+        {
+          "date": "2020-10-23",
+          "correlation": 0.78816718
+        },
+        {
+          "date": "2020-10-30",
+          "correlation": 0.7869942
+        },
+        {
+          "date": "2020-11-06",
+          "correlation": 0.78650554
+        },
+        {
+          "date": "2020-11-13",
+          "correlation": 0.78812278
+        },
+        {
+          "date": "2020-11-20",
+          "correlation": 0.78865031
+        },
+        {
+          "date": "2020-11-27",
+          "correlation": 0.79330202
+        },
+        {
+          "date": "2020-12-04",
+          "correlation": 0.79361072
+        },
+        {
+          "date": "2020-12-11",
+          "correlation": 0.79424898
+        },
+        {
+          "date": "2020-12-18",
+          "correlation": 0.79482317
+        },
+        {
+          "date": "2020-12-25",
+          "correlation": 0.79376536
+        },
+        {
+          "date": "2021-01-01",
+          "correlation": 0.79456721
+        },
+        {
+          "date": "2021-01-08",
+          "correlation": 0.7942056
+        },
+        {
+          "date": "2021-01-15",
+          "correlation": 0.79392154
+        },
+        {
+          "date": "2021-01-22",
+          "correlation": 0.79435351
+        },
+        {
+          "date": "2021-01-29",
+          "correlation": 0.79142731
+        },
+        {
+          "date": "2021-02-05",
+          "correlation": 0.79292757
+        },
+        {
+          "date": "2021-02-12",
+          "correlation": 0.79412995
+        },
+        {
+          "date": "2021-02-19",
+          "correlation": 0.79563032
+        },
+        {
+          "date": "2021-02-26",
+          "correlation": 0.78908293
+        },
+        {
+          "date": "2021-03-05",
+          "correlation": 0.78935509
+        },
+        {
+          "date": "2021-03-12",
+          "correlation": 0.72260772
+        },
+        {
+          "date": "2021-03-19",
+          "correlation": 0.67461953
+        },
+        {
+          "date": "2021-03-26",
+          "correlation": 0.69424578
+        },
+        {
+          "date": "2021-04-02",
+          "correlation": 0.68518801
+        },
+        {
+          "date": "2021-04-09",
+          "correlation": 0.689153
+        },
+        {
+          "date": "2021-04-16",
+          "correlation": 0.6806467
+        },
+        {
+          "date": "2021-04-23",
+          "correlation": 0.7013242
+        },
+        {
+          "date": "2021-04-30",
+          "correlation": 0.81830592
+        },
+        {
+          "date": "2021-05-07",
+          "correlation": 0.78385551
+        },
+        {
+          "date": "2021-05-14",
+          "correlation": 0.88602933
+        },
+        {
+          "date": "2021-05-21",
+          "correlation": 0.88009155
+        },
+        {
+          "date": "2021-05-28",
+          "correlation": 0.88313213
+        },
+        {
+          "date": "2021-06-04",
+          "correlation": 0.87530435
+        },
+        {
+          "date": "2021-06-11",
+          "correlation": 0.8698136
+        },
+        {
+          "date": "2021-06-18",
+          "correlation": 0.86859468
+        },
+        {
+          "date": "2021-06-25",
+          "correlation": 0.87149264
+        },
+        {
+          "date": "2021-07-02",
+          "correlation": 0.87724996
+        },
+        {
+          "date": "2021-07-09",
+          "correlation": 0.87638617
+        },
+        {
+          "date": "2021-07-16",
+          "correlation": 0.87578329
+        },
+        {
+          "date": "2021-07-23",
+          "correlation": 0.88016972
+        },
+        {
+          "date": "2021-07-30",
+          "correlation": 0.87861126
+        },
+        {
+          "date": "2021-08-06",
+          "correlation": 0.87848845
+        },
+        {
+          "date": "2021-08-13",
+          "correlation": 0.87972712
+        },
+        {
+          "date": "2021-08-20",
+          "correlation": 0.88108304
+        },
+        {
+          "date": "2021-08-27",
+          "correlation": 0.88403954
+        },
+        {
+          "date": "2021-09-03",
+          "correlation": 0.88862525
+        },
+        {
+          "date": "2021-09-10",
+          "correlation": 0.86021231
+        },
+        {
+          "date": "2021-09-17",
+          "correlation": 0.86519382
+        },
+        {
+          "date": "2021-09-24",
+          "correlation": 0.8661268
+        },
+        {
+          "date": "2021-10-01",
+          "correlation": 0.87128041
+        },
+        {
+          "date": "2021-10-08",
+          "correlation": 0.88137213
+        },
+        {
+          "date": "2021-10-15",
+          "correlation": 0.88588255
+        },
+        {
+          "date": "2021-10-22",
+          "correlation": 0.88304444
+        },
+        {
+          "date": "2021-10-29",
+          "correlation": 0.8896796
+        },
+        {
+          "date": "2021-11-05",
+          "correlation": 0.90680263
+        },
+        {
+          "date": "2021-11-12",
+          "correlation": 0.91454273
+        },
+        {
+          "date": "2021-11-19",
+          "correlation": 0.91836863
+        },
+        {
+          "date": "2021-11-26",
+          "correlation": 0.90162059
+        },
+        {
+          "date": "2021-12-03",
+          "correlation": 0.92570274
+        },
+        {
+          "date": "2021-12-10",
+          "correlation": 0.92700903
+        },
+        {
+          "date": "2021-12-17",
+          "correlation": 0.91878526
+        },
+        {
+          "date": "2021-12-24",
+          "correlation": 0.89654958
+        },
+        {
+          "date": "2021-12-31",
+          "correlation": 0.88802383
+        },
+        {
+          "date": "2022-01-07",
+          "correlation": 0.89569647
+        },
+        {
+          "date": "2022-01-14",
+          "correlation": 0.89672005
+        },
+        {
+          "date": "2022-01-21",
+          "correlation": 0.89664508
+        },
+        {
+          "date": "2022-01-28",
+          "correlation": 0.89841859
+        },
+        {
+          "date": "2022-02-04",
+          "correlation": 0.89705733
+        },
+        {
+          "date": "2022-02-11",
+          "correlation": 0.89843691
+        },
+        {
+          "date": "2022-02-18",
+          "correlation": 0.89277359
+        },
+        {
+          "date": "2022-02-25",
+          "correlation": 0.8888567
+        },
+        {
+          "date": "2022-03-04",
+          "correlation": 0.91721731
+        },
+        {
+          "date": "2022-03-11",
+          "correlation": 0.82363938
+        },
+        {
+          "date": "2022-03-18",
+          "correlation": 0.85068381
+        },
+        {
+          "date": "2022-03-25",
+          "correlation": 0.86332463
+        },
+        {
+          "date": "2022-04-01",
+          "correlation": 0.86668604
+        },
+        {
+          "date": "2022-04-08",
+          "correlation": 0.84719533
+        },
+        {
+          "date": "2022-04-15",
+          "correlation": 0.84755083
+        },
+        {
+          "date": "2022-04-22",
+          "correlation": 0.84586622
+        },
+        {
+          "date": "2022-04-29",
+          "correlation": 0.74044816
+        },
+        {
+          "date": "2022-05-06",
+          "correlation": 0.67167186
+        },
+        {
+          "date": "2022-05-13",
+          "correlation": 0.68467534
+        },
+        {
+          "date": "2022-05-20",
+          "correlation": 0.69269711
+        },
+        {
+          "date": "2022-05-27",
+          "correlation": 0.68919583
+        },
+        {
+          "date": "2022-06-03",
+          "correlation": 0.69817258
+        },
+        {
+          "date": "2022-06-10",
+          "correlation": 0.69987931
+        },
+        {
+          "date": "2022-06-17",
+          "correlation": 0.70011288
+        },
+        {
+          "date": "2022-06-24",
+          "correlation": 0.70114046
+        },
+        {
+          "date": "2022-07-01",
+          "correlation": 0.70800022
+        },
+        {
+          "date": "2022-07-08",
+          "correlation": 0.72836595
+        },
+        {
+          "date": "2022-07-15",
+          "correlation": 0.71561887
+        },
+        {
+          "date": "2022-07-22",
+          "correlation": 0.716103
+        },
+        {
+          "date": "2022-07-29",
+          "correlation": 0.71573582
+        },
+        {
+          "date": "2022-08-05",
+          "correlation": 0.71743849
+        },
+        {
+          "date": "2022-08-12",
+          "correlation": 0.71471251
+        },
+        {
+          "date": "2022-08-19",
+          "correlation": 0.71378761
+        },
+        {
+          "date": "2022-08-26",
+          "correlation": 0.72158288
+        },
+        {
+          "date": "2022-09-02",
+          "correlation": 0.72335757
+        },
+        {
+          "date": "2022-09-09",
+          "correlation": 0.72528988
+        },
+        {
+          "date": "2022-09-16",
+          "correlation": 0.73006408
+        },
+        {
+          "date": "2022-09-23",
+          "correlation": 0.73082033
+        },
+        {
+          "date": "2022-09-30",
+          "correlation": 0.7246391
+        },
+        {
+          "date": "2022-10-07",
+          "correlation": 0.73083317
+        },
+        {
+          "date": "2022-10-14",
+          "correlation": 0.73110848
+        },
+        {
+          "date": "2022-10-21",
+          "correlation": 0.73093112
+        },
+        {
+          "date": "2022-10-28",
+          "correlation": 0.71177361
+        },
+        {
+          "date": "2022-11-04",
+          "correlation": 0.70643405
+        },
+        {
+          "date": "2022-11-11",
+          "correlation": 0.69705781
+        },
+        {
+          "date": "2022-11-18",
+          "correlation": 0.69595717
+        },
+        {
+          "date": "2022-11-25",
+          "correlation": 0.70270168
+        },
+        {
+          "date": "2022-12-02",
+          "correlation": 0.69181403
+        },
+        {
+          "date": "2022-12-09",
+          "correlation": 0.69637009
+        },
+        {
+          "date": "2022-12-16",
+          "correlation": 0.69875304
+        },
+        {
+          "date": "2022-12-23",
+          "correlation": 0.70147509
+        },
+        {
+          "date": "2022-12-30",
+          "correlation": 0.69469833
+        },
+        {
+          "date": "2023-01-06",
+          "correlation": 0.69871222
+        },
+        {
+          "date": "2023-01-13",
+          "correlation": 0.69520336
+        },
+        {
+          "date": "2023-01-20",
+          "correlation": 0.69551054
+        },
+        {
+          "date": "2023-01-27",
+          "correlation": 0.69555248
+        },
+        {
+          "date": "2023-02-03",
+          "correlation": 0.69624669
+        },
+        {
+          "date": "2023-02-10",
+          "correlation": 0.69900351
+        },
+        {
+          "date": "2023-02-17",
+          "correlation": 0.69965679
+        },
+        {
+          "date": "2023-02-24",
+          "correlation": 0.70037491
+        },
+        {
+          "date": "2023-03-03",
+          "correlation": 0.67488904
+        },
+        {
+          "date": "2023-03-10",
+          "correlation": 0.68618172
+        },
+        {
+          "date": "2023-03-17",
+          "correlation": 0.67945677
+        },
+        {
+          "date": "2023-03-24",
+          "correlation": 0.624252
+        },
+        {
+          "date": "2023-03-31",
+          "correlation": 0.62241511
+        },
+        {
+          "date": "2023-04-07",
+          "correlation": 0.62951095
+        },
+        {
+          "date": "2023-04-14",
+          "correlation": 0.62708458
+        },
+        {
+          "date": "2023-04-21",
+          "correlation": 0.62129941
+        },
+        {
+          "date": "2023-04-28",
+          "correlation": 0.69166241
+        },
+        {
+          "date": "2023-05-05",
+          "correlation": 0.77508326
+        },
+        {
+          "date": "2023-05-12",
+          "correlation": 0.77124405
+        },
+        {
+          "date": "2023-05-19",
+          "correlation": 0.76767781
+        },
+        {
+          "date": "2023-05-26",
+          "correlation": 0.76878756
+        },
+        {
+          "date": "2023-06-02",
+          "correlation": 0.76404756
+        },
+        {
+          "date": "2023-06-09",
+          "correlation": 0.76374809
+        },
+        {
+          "date": "2023-06-16",
+          "correlation": 0.76520679
+        },
+        {
+          "date": "2023-06-23",
+          "correlation": 0.76881196
+        },
+        {
+          "date": "2023-06-30",
+          "correlation": 0.76551975
+        },
+        {
+          "date": "2023-07-07",
+          "correlation": 0.74215691
+        },
+        {
+          "date": "2023-07-14",
+          "correlation": 0.77279541
+        },
+        {
+          "date": "2023-07-21",
+          "correlation": 0.7678577
+        },
+        {
+          "date": "2023-07-28",
+          "correlation": 0.77592327
+        },
+        {
+          "date": "2023-08-04",
+          "correlation": 0.77838249
+        },
+        {
+          "date": "2023-08-11",
+          "correlation": 0.7840241
+        },
+        {
+          "date": "2023-08-18",
+          "correlation": 0.77972633
+        },
+        {
+          "date": "2023-08-25",
+          "correlation": 0.76642184
+        },
+        {
+          "date": "2023-09-01",
+          "correlation": 0.76115054
+        },
+        {
+          "date": "2023-09-08",
+          "correlation": 0.76091555
+        },
+        {
+          "date": "2023-09-15",
+          "correlation": 0.76102219
+        },
+        {
+          "date": "2023-09-22",
+          "correlation": 0.76301656
+        },
+        {
+          "date": "2023-09-29",
+          "correlation": 0.77743884
+        },
+        {
+          "date": "2023-10-06",
+          "correlation": 0.76306318
+        },
+        {
+          "date": "2023-10-13",
+          "correlation": 0.75266215
+        },
+        {
+          "date": "2023-10-20",
+          "correlation": 0.75431248
+        },
+        {
+          "date": "2023-10-27",
+          "correlation": 0.79760408
+        },
+        {
+          "date": "2023-11-03",
+          "correlation": 0.8100319
+        },
+        {
+          "date": "2023-11-10",
+          "correlation": 0.84659459
+        },
+        {
+          "date": "2023-11-17",
+          "correlation": 0.84914363
+        },
+        {
+          "date": "2023-11-24",
+          "correlation": 0.84309445
+        },
+        {
+          "date": "2023-12-01",
+          "correlation": 0.84236407
+        },
+        {
+          "date": "2023-12-08",
+          "correlation": 0.83169269
+        },
+        {
+          "date": "2023-12-15",
+          "correlation": 0.82425488
+        },
+        {
+          "date": "2023-12-22",
+          "correlation": 0.8091354
+        },
+        {
+          "date": "2023-12-29",
+          "correlation": 0.81683803
+        },
+        {
+          "date": "2024-01-05",
+          "correlation": 0.80691862
+        },
+        {
+          "date": "2024-01-12",
+          "correlation": 0.81046198
+        },
+        {
+          "date": "2024-01-19",
+          "correlation": 0.8055563
+        },
+        {
+          "date": "2024-01-26",
+          "correlation": 0.80797665
+        },
+        {
+          "date": "2024-02-02",
+          "correlation": 0.80835558
+        },
+        {
+          "date": "2024-02-09",
+          "correlation": 0.78991662
+        },
+        {
+          "date": "2024-02-16",
+          "correlation": 0.79003254
+        },
+        {
+          "date": "2024-02-23",
+          "correlation": 0.79315459
+        },
+        {
+          "date": "2024-03-01",
+          "correlation": 0.79083739
+        },
+        {
+          "date": "2024-03-08",
+          "correlation": 0.78992822
+        },
+        {
+          "date": "2024-03-15",
+          "correlation": 0.79181281
+        },
+        {
+          "date": "2024-03-22",
+          "correlation": 0.79022443
+        },
+        {
+          "date": "2024-03-29",
+          "correlation": 0.79223979
+        },
+        {
+          "date": "2024-04-05",
+          "correlation": 0.81291709
+        },
+        {
+          "date": "2024-04-12",
+          "correlation": 0.81125715
+        },
+        {
+          "date": "2024-04-19",
+          "correlation": 0.80908441
+        },
+        {
+          "date": "2024-04-26",
+          "correlation": 0.80220698
+        },
+        {
+          "date": "2024-05-03",
+          "correlation": 0.80871335
+        },
+        {
+          "date": "2024-05-10",
+          "correlation": 0.8061504
+        },
+        {
+          "date": "2024-05-17",
+          "correlation": 0.80554015
+        },
+        {
+          "date": "2024-05-24",
+          "correlation": 0.80610534
+        },
+        {
+          "date": "2024-05-31",
+          "correlation": 0.80076485
+        },
+        {
+          "date": "2024-06-07",
+          "correlation": 0.80239832
+        },
+        {
+          "date": "2024-06-14",
+          "correlation": 0.81602337
+        },
+        {
+          "date": "2024-06-21",
+          "correlation": 0.81660862
+        },
+        {
+          "date": "2024-06-28",
+          "correlation": 0.81528203
+        },
+        {
+          "date": "2024-07-05",
+          "correlation": 0.8196258
+        },
+        {
+          "date": "2024-07-12",
+          "correlation": 0.82058191
+        },
+        {
+          "date": "2024-07-19",
+          "correlation": 0.83316513
+        },
+        {
+          "date": "2024-07-26",
+          "correlation": 0.81834232
+        },
+        {
+          "date": "2024-08-02",
+          "correlation": 0.80758805
+        },
+        {
+          "date": "2024-08-09",
+          "correlation": 0.80062326
+        },
+        {
+          "date": "2024-08-16",
+          "correlation": 0.80123038
+        },
+        {
+          "date": "2024-08-23",
+          "correlation": 0.80197919
+        },
+        {
+          "date": "2024-08-30",
+          "correlation": 0.80817064
+        },
+        {
+          "date": "2024-09-06",
+          "correlation": 0.81377513
+        },
+        {
+          "date": "2024-09-13",
+          "correlation": 0.80082016
+        },
+        {
+          "date": "2024-09-20",
+          "correlation": 0.80218817
+        },
+        {
+          "date": "2024-09-27",
+          "correlation": 0.8034394
+        },
+        {
+          "date": "2024-10-04",
+          "correlation": 0.79345009
+        },
+        {
+          "date": "2024-10-11",
+          "correlation": 0.80647138
+        },
+        {
+          "date": "2024-10-18",
+          "correlation": 0.81324095
+        },
+        {
+          "date": "2024-10-25",
+          "correlation": 0.81102479
+        },
+        {
+          "date": "2024-11-01",
+          "correlation": 0.80822295
+        },
+        {
+          "date": "2024-11-08",
+          "correlation": 0.7918156
+        },
+        {
+          "date": "2024-11-15",
+          "correlation": 0.7936057
+        },
+        {
+          "date": "2024-11-22",
+          "correlation": 0.79610736
+        },
+        {
+          "date": "2024-11-29",
+          "correlation": 0.79935808
+        },
+        {
+          "date": "2024-12-06",
+          "correlation": 0.80465476
+        },
+        {
+          "date": "2024-12-13",
+          "correlation": 0.80577064
+        },
+        {
+          "date": "2024-12-20",
+          "correlation": 0.85956093
+        },
+        {
+          "date": "2024-12-27",
+          "correlation": 0.88024671
+        },
+        {
+          "date": "2025-01-03",
+          "correlation": 0.88629765
+        },
+        {
+          "date": "2025-01-10",
+          "correlation": 0.88595341
+        },
+        {
+          "date": "2025-01-17",
+          "correlation": 0.90128118
+        },
+        {
+          "date": "2025-01-24",
+          "correlation": 0.89884912
+        },
+        {
+          "date": "2025-01-31",
+          "correlation": 0.90454155
+        },
+        {
+          "date": "2025-02-07",
+          "correlation": 0.91922166
+        },
+        {
+          "date": "2025-02-14",
+          "correlation": 0.92021749
+        },
+        {
+          "date": "2025-02-21",
+          "correlation": 0.92324369
+        },
+        {
+          "date": "2025-02-28",
+          "correlation": 0.92523267
+        },
+        {
+          "date": "2025-03-07",
+          "correlation": 0.92264672
+        },
+        {
+          "date": "2025-03-14",
+          "correlation": 0.92527181
+        },
+        {
+          "date": "2025-03-21",
+          "correlation": 0.92591676
+        },
+        {
+          "date": "2025-03-28",
+          "correlation": 0.92541181
+        },
+        {
+          "date": "2025-04-04",
+          "correlation": 0.92211378
+        },
+        {
+          "date": "2025-04-11",
+          "correlation": 0.9313026
+        },
+        {
+          "date": "2025-04-18",
+          "correlation": 0.92541908
+        },
+        {
+          "date": "2025-04-25",
+          "correlation": 0.92555994
+        },
+        {
+          "date": "2025-05-02",
+          "correlation": 0.92758205
+        },
+        {
+          "date": "2025-05-09",
+          "correlation": 0.92829101
+        },
+        {
+          "date": "2025-05-16",
+          "correlation": 0.93229849
+        },
+        {
+          "date": "2025-05-23",
+          "correlation": 0.93227842
+        },
+        {
+          "date": "2025-05-30",
+          "correlation": 0.92930978
+        },
+        {
+          "date": "2025-06-06",
+          "correlation": 0.92837569
+        },
+        {
+          "date": "2025-06-13",
+          "correlation": 0.92805736
+        },
+        {
+          "date": "2025-06-20",
+          "correlation": 0.94189448
+        },
+        {
+          "date": "2025-06-27",
+          "correlation": 0.94475876
+        },
+        {
+          "date": "2025-07-04",
+          "correlation": 0.94584732
+        },
+        {
+          "date": "2025-07-11",
+          "correlation": 0.94622032
+        },
+        {
+          "date": "2025-07-18",
+          "correlation": 0.9438203
+        },
+        {
+          "date": "2025-07-25",
+          "correlation": 0.94407089
+        },
+        {
+          "date": "2025-08-01",
+          "correlation": 0.93702457
+        },
+        {
+          "date": "2025-08-08",
+          "correlation": 0.94241239
+        },
+        {
+          "date": "2025-08-15",
+          "correlation": 0.93999681
+        },
+        {
+          "date": "2025-08-22",
+          "correlation": 0.93898911
+        },
+        {
+          "date": "2025-08-29",
+          "correlation": 0.9370584
+        },
+        {
+          "date": "2025-09-05",
+          "correlation": 0.93492634
+        },
+        {
+          "date": "2025-09-12",
+          "correlation": 0.93539296
+        },
+        {
+          "date": "2025-09-19",
+          "correlation": 0.93554116
+        },
+        {
+          "date": "2025-09-26",
+          "correlation": 0.93535236
+        },
+        {
+          "date": "2025-10-03",
+          "correlation": 0.92682859
+        },
+        {
+          "date": "2025-10-10",
+          "correlation": 0.92551934
+        },
+        {
+          "date": "2025-10-17",
+          "correlation": 0.92474535
+        },
+        {
+          "date": "2025-10-24",
+          "correlation": 0.92861944
+        },
+        {
+          "date": "2025-10-31",
+          "correlation": 0.9315868
+        },
+        {
+          "date": "2025-11-07",
+          "correlation": 0.93115218
+        },
+        {
+          "date": "2025-11-14",
+          "correlation": 0.92930772
+        },
+        {
+          "date": "2025-11-21",
+          "correlation": 0.92165695
+        },
+        {
+          "date": "2025-11-28",
+          "correlation": 0.92993695
+        },
+        {
+          "date": "2025-12-05",
+          "correlation": 0.92644565
+        },
+        {
+          "date": "2025-12-12",
+          "correlation": 0.92735035
+        },
+        {
+          "date": "2025-12-19",
+          "correlation": 0.92936914
+        },
+        {
+          "date": "2025-12-26",
+          "correlation": 0.92546564
+        },
+        {
+          "date": "2026-01-02",
+          "correlation": 0.92359026
+        },
+        {
+          "date": "2026-01-09",
+          "correlation": 0.92387138
+        },
+        {
+          "date": "2026-01-16",
+          "correlation": 0.92053545
+        },
+        {
+          "date": "2026-01-23",
+          "correlation": 0.92045667
+        },
+        {
+          "date": "2026-01-30",
+          "correlation": 0.92214578
+        },
+        {
+          "date": "2026-02-06",
+          "correlation": 0.90476753
+        },
+        {
+          "date": "2026-02-13",
+          "correlation": 0.90424276
+        },
+        {
+          "date": "2026-02-20",
+          "correlation": 0.87524367
+        },
+        {
+          "date": "2026-02-27",
+          "correlation": 0.86959588
+        },
+        {
+          "date": "2026-03-06",
+          "correlation": 0.85967679
+        },
+        {
+          "date": "2026-03-13",
+          "correlation": 0.82965956
+        },
+        {
+          "date": "2026-03-20",
+          "correlation": 0.83958416
+        },
+        {
+          "date": "2026-03-27",
+          "correlation": 0.83695737
+        },
+        {
+          "date": "2026-04-03",
+          "correlation": 0.8270992
+        },
+        {
+          "date": "2026-04-10",
+          "correlation": 0.8220232
+        },
+        {
+          "date": "2026-04-17",
+          "correlation": 0.81128414
+        },
+        {
+          "date": "2026-04-24",
+          "correlation": 0.57522704
+        },
+        {
+          "date": "2026-05-01",
+          "correlation": 0.57059215
+        },
+        {
+          "date": "2026-05-08",
+          "correlation": 0.57538085
+        },
+        {
+          "date": "2026-05-15",
+          "correlation": 0.57469565
+        },
+        {
+          "date": "2026-05-22",
+          "correlation": 0.57455656
+        },
+        {
+          "date": "2026-05-29",
+          "correlation": 0.59284023
+        },
+        {
+          "date": "2026-06-05",
+          "correlation": 0.59276249
+        },
+        {
+          "date": "2026-06-12",
+          "correlation": 0.60036077
+        },
+        {
+          "date": "2026-06-19",
+          "correlation": 0.61049674
+        },
+        {
+          "date": "2026-06-26",
+          "correlation": 0.60656033
+        },
+        {
+          "date": "2026-07-03",
+          "correlation": 0.60796786
+        },
+        {
+          "date": "2026-07-10",
+          "correlation": 0.60966587
+        },
+        {
+          "date": "2026-07-17",
+          "correlation": 0.63193791
+        },
+        {
+          "date": "2026-07-24",
+          "correlation": 0.63647157
+        },
+        {
+          "date": "2026-07-31",
+          "correlation": 0.63813202
+        },
+        {
+          "date": "2026-08-07",
+          "correlation": 0.63699714
+        },
+        {
+          "date": "2026-08-14",
+          "correlation": 0.63528519
+        },
+        {
+          "date": "2026-08-21",
+          "correlation": 0.63329221
+        },
+        {
+          "date": "2026-08-28",
+          "correlation": 0.6365688
+        },
+        {
+          "date": "2026-09-04",
+          "correlation": 0.63860002
+        },
+        {
+          "date": "2026-09-11",
+          "correlation": 0.64031645
+        },
+        {
+          "date": "2026-09-18",
+          "correlation": 0.64263417
+        }
+      ]
+    }
+  },
+  "mgoValidation": "MGO_EXTERNAL_VALIDATION_LIMITED"
+}

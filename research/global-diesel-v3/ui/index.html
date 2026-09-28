@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ayu Fuel Lab · 国际柴油研究 V3</title><link rel="stylesheet" href="style.css"></head>
+<body><main>
+  <header><div class="brand">AYU FUEL LAB <span>研究预览 V3</span></div><h1>沿海柴油行情</h1><p class="subtitle">看当前价格，也看懂市场变化</p></header>
+  <section class="price-card" aria-live="polite"><div class="card-top"><h2>0# 柴油参考价</h2><select id="province" aria-label="选择沿海地区"></select></div><div id="price" class="price">正在读取…</div><p id="liter"></p><p class="small" id="price-date"></p><p class="note">吨价按 0.84 kg/L 估算，实际成交价格可能不同。</p></section>
+  <section class="market-card" aria-live="polite"><div class="card-top"><h2>国际柴油市场</h2><span class="tag">行情核验中</span></div><p class="state" id="state">当前：暂不可用</p><p class="subtitle">复合行情的历史数据仍需核验</p></section>
+  <section class="forecast-card"><h2>未来7天趋势</h2><p class="pending">模型验证中</p><p class="explanation">合格历史数据不足<br>暂不提供趋势预测</p><details><summary>查看判断依据 <span>＋</span></summary><div class="details-body"><h3>目前核查到了什么？</h3><p>已取得美国柴油行情，以及以新加坡柴油为基础的新西兰进口成本历史。</p><h3>为什么还不能判断？</h3><p>进口成本历史曾被修订，部分时期曾暂停发布。还需要确认每个时间点实际能看到哪些数据，再验证判断是否可靠。</p><h3>它能代表船用油吗？</h3><p>进口成本包含运费等费用，和亚洲港口船用油报价并不相同。船用油的独立历史验证仍未完成。</p><p>沿海省级参考价独立展示，不由国际研究结果推算。</p><a href="../reports/GLOBAL_DIESEL_V3_RESULT.md">查看完整研究记录 ↗</a></div></details></section>
+  <footer>独立研究候选 · 尚未公开发布<br>省级参考价使用注明日期的固定快照</footer>
+</main><script type="module" src="app.js"></script></body></html>

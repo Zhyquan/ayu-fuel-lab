@@ -1,0 +1,20 @@
+{
+  "task": "AYU_GLOBAL_DIESEL_FORECAST_V3_COMPOSITE_001",
+  "baseSHA": "0e2f9e3c89c0877a0990175148a90242d6a1249b",
+  "snapshotAt": "2026-09-28T03:21:40Z",
+  "minimumHistoryYears": 5,
+  "forecastCalendarDays": 7,
+  "embargoCalendarDays": 7,
+  "maxStaleDays": { "daily": 4, "weekly": 10 },
+  "weeklyMinimumUSObservations": 3,
+  "rollingCorrelationWeeks": 52,
+  "flatCandidates": [0.005, 0.0075, 0.01, 0.0125, 0.015, 0.02],
+  "flatThreshold": null,
+  "requireHistoricalVintages": true,
+  "mbieVintageReleaseDate": "2026-09-23",
+  "mbieVintageAvailableAt": "2026-09-24T00:00:00+12:00",
+  "mbieHistoricalAvailability": "UNVERIFIED_REVISED_HISTORY",
+  "regionEqualWeightProposal": { "US_NYH": 0.25, "USGC": 0.25, "SG_NZ_IMPORT_PROXY": 0.5 },
+  "compositeStatus": "NOT_ADMITTED",
+  "modelStatus": "NOT_RUN_DATA_GATE_FAILED"
+}

@@ -1,0 +1,20 @@
+test_catalog_flip_cannot_create_missing_historical_vintages (test_audit.SourceAuditTests.test_catalog_flip_cannot_create_missing_historical_vintages) ... ok
+test_failed_candidate_fetches_only_local_reference_snapshot (test_audit.SourceAuditTests.test_failed_candidate_fetches_only_local_reference_snapshot) ... ok
+test_final_does_not_mean_historically_available (test_audit.SourceAuditTests.test_final_does_not_mean_historically_available) ... ok
+test_invalid_price_and_fx_rejected (test_audit.SourceAuditTests.test_invalid_price_and_fx_rejected) ... ok
+test_no_current_forecast_model_label_or_selected_flat (test_audit.SourceAuditTests.test_no_current_forecast_model_label_or_selected_flat) ... ok
+test_no_invented_global_state_or_probability (test_audit.SourceAuditTests.test_no_invented_global_state_or_probability) ... ok
+test_nominal_coverage_does_not_pass_point_in_time_gate (test_audit.SourceAuditTests.test_nominal_coverage_does_not_pass_point_in_time_gate) ... ok
+test_one_day_non_us_returns_remain_unavailable (test_audit.SourceAuditTests.test_one_day_non_us_returns_remain_unavailable) ... ok
+test_open_non_us_history_is_real_and_unit_conversion_explicit (test_audit.SourceAuditTests.test_open_non_us_history_is_real_and_unit_conversion_explicit) ... ok
+test_raw_snapshot_matches_manifest (test_audit.SourceAuditTests.test_raw_snapshot_matches_manifest) ... ok
+test_real_initial_release_anomalies_quarantined_not_revised (test_audit.SourceAuditTests.test_real_initial_release_anomalies_quarantined_not_revised) ... ok
+test_tampered_or_missing_raw_response_is_rejected (test_audit.SourceAuditTests.test_tampered_or_missing_raw_response_is_rejected) ... ok
+test_us_available_time_conservative_and_dst_preserved (test_audit.SourceAuditTests.test_us_available_time_conservative_and_dst_preserved) ... ok
+test_us_only_cannot_become_global (test_audit.SourceAuditTests.test_us_only_cannot_become_global) ... ok
+test_weekly_returns_do_not_bridge_missing_weeks (test_audit.SourceAuditTests.test_weekly_returns_do_not_bridge_missing_weeks) ... ok
+
+----------------------------------------------------------------------
+Ran 15 tests in 0.132s
+
+OK
