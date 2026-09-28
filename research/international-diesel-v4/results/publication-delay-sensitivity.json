@@ -1,0 +1,247 @@
+{
+  "featureLagWeeks": 2,
+  "selectionChanged": false,
+  "n": 387,
+  "pooled": {
+    "baseline/frequency": {
+      "n": 387,
+      "brier": 0.6735377596379095,
+      "logLoss": 1.1089917050685263,
+      "ece": 0.06477059526423096,
+      "classECE": [
+        0.002594352750251827,
+        0.06477059526423096,
+        0.06217624251397909
+      ],
+      "accuracy": 0.2971576227390181,
+      "macroF1": 0.15272244355909695,
+      "recalls": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "predictionShares": [
+        0.0,
+        387.0,
+        0.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        }
+      ]
+    },
+    "baseline/dominant": {
+      "n": 387,
+      "brier": 1.3237436692506461,
+      "logLoss": 2.7616661158818734,
+      "ece": 0.6628423772609822,
+      "classECE": [
+        0.30816537467700256,
+        0.6628423772609822,
+        0.35467700258397933
+      ],
+      "accuracy": 0.2971576227390181,
+      "macroF1": 0.15272244355909695,
+      "recalls": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "predictionShares": [
+        0.0,
+        387.0,
+        0.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        }
+      ]
+    },
+    "baseline/always_flat": {
+      "n": 387,
+      "brier": 1.3237436692506461,
+      "logLoss": 2.7616661158818734,
+      "ece": 0.6628423772609822,
+      "classECE": [
+        0.30816537467700256,
+        0.6628423772609822,
+        0.35467700258397933
+      ],
+      "accuracy": 0.2971576227390181,
+      "macroF1": 0.15272244355909695,
+      "recalls": [
+        0.0,
+        1.0,
+        0.0
+      ],
+      "predictionShares": [
+        0.0,
+        387.0,
+        0.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        }
+      ]
+    },
+    "baseline/continuation": {
+      "n": 387,
+      "brier": 1.1828651162790695,
+      "logLoss": 2.4715761176484654,
+      "ece": 0.5879069767441863,
+      "classECE": [
+        0.37664082687338507,
+        0.41819121447028434,
+        0.38098191214470273
+      ],
+      "accuracy": 0.37209302325581395,
+      "macroF1": 0.3665637563942648,
+      "recalls": [
+        0.3779527559055118,
+        0.2782608695652174,
+        0.4413793103448276
+      ],
+      "predictionShares": [
+        125.0,
+        121.0,
+        141.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        }
+      ]
+    },
+    "baseline/reversal": {
+      "n": 387,
+      "brier": 1.3820382428940567,
+      "logLoss": 2.8817033565301804,
+      "ece": 0.6938501291989667,
+      "classECE": [
+        0.4636692506459947,
+        0.41819121447028434,
+        0.5058397932816538
+      ],
+      "accuracy": 0.2661498708010336,
+      "macroF1": 0.26642275127813536,
+      "recalls": [
+        0.30708661417322836,
+        0.2782608695652174,
+        0.2206896551724138
+      ],
+      "predictionShares": [
+        141.0,
+        121.0,
+        125.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        }
+      ]
+    },
+    "composite": {
+      "n": 387,
+      "brier": 0.6953098962077687,
+      "logLoss": 1.148422117243867,
+      "ece": 0.11374463538227192,
+      "classECE": [
+        0.08095516623983849,
+        0.05869238760802318,
+        0.09440607472562774
+      ],
+      "accuracy": 0.3695090439276486,
+      "macroF1": 0.36767154442437405,
+      "recalls": [
+        0.4566929133858268,
+        0.30434782608695654,
+        0.3448275862068966
+      ],
+      "predictionShares": [
+        171.0,
+        82.0,
+        134.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 1,
+          "meanForecast": 0.6152580866302,
+          "realized": 0.0
+        },
+        {
+          "n": 32,
+          "meanForecast": 0.576621302364653,
+          "realized": 0.28125
+        },
+        {
+          "n": 20,
+          "meanForecast": 0.5694437708091684,
+          "realized": 0.4
+        }
+      ]
+    }
+  }
+}

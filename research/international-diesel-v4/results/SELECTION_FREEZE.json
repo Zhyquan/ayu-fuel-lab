@@ -1,0 +1,26 @@
+{
+  "frozenAt": "2026-09-28T07:57:19.481971+00:00",
+  "specSha256": "646d938b413368b4dfd0aeab0a6828bb154cb6b7d9013353d9f22c5cf2895b8f",
+  "datasetSha256": "9378a3e629e60a1cb1766aceacb5db1c0b51010935d2f3a9357515f67d09a0fc",
+  "threshold": 0.0075,
+  "selections": {
+    "composite": {
+      "route": "elastic_net",
+      "calibrator": "platt",
+      "validationRatio": 0.9454694690930889
+    },
+    "us": {
+      "route": "logistic",
+      "calibrator": "platt",
+      "validationRatio": 0.9394457771949706
+    },
+    "eu": {
+      "route": "quantile_cdf",
+      "calibrator": "platt",
+      "validationRatio": 0.9631125518429008
+    }
+  },
+  "testOpened": false,
+  "japanUsed": false,
+  "phase": "AFTER_VALIDATION_BEFORE_TEST"
+}

@@ -1,0 +1,218 @@
+{
+  "INTERNATIONAL_DIESEL_DATA_GATE_V4": "PASS",
+  "weeklyRows": 807,
+  "usableLabels": 735,
+  "commonStart": "2011-04-04",
+  "commonEnd": "2026-09-14",
+  "commonYears": 15.446954140999315,
+  "euStart": "2005-01-03",
+  "euEnd": "2026-09-21",
+  "euCoverageCounts": {
+    "27": 665,
+    "26": 109,
+    "0": 31,
+    "19": 1,
+    "25": 1
+  },
+  "eiaWeeks": 768,
+  "europeRevisionAudit": {
+    "cells": 162,
+    "dates": 6,
+    "changedBeyondRounding": [
+      {
+        "date": "2014-07-28",
+        "country": "EE",
+        "archive": 631.25,
+        "current": 652.08,
+        "difference": 20.83000000000004
+      }
+    ],
+    "maxCountryDifferenceEurPer1000L": 20.83000000000004,
+    "maxMedianLogReturnImpact": 0.0011049595448616928,
+    "latestComparison": [
+      {
+        "country": "AT",
+        "currentHistory": 1341.14,
+        "latest": 1341.14
+      },
+      {
+        "country": "BE",
+        "currentHistory": 1372.2463586776862,
+        "latest": 1372.2463586776862
+      },
+      {
+        "country": "BG",
+        "currentHistory": 1266.038778080576,
+        "latest": 1266.038778080576
+      },
+      {
+        "country": "HR",
+        "currentHistory": 1320.0,
+        "latest": 1320.0
+      },
+      {
+        "country": "CY",
+        "currentHistory": 1296.3252100840336,
+        "latest": 1296.3252100840336
+      },
+      {
+        "country": "CZ",
+        "currentHistory": 1303.0137867746876,
+        "latest": 1303.0137867746876
+      },
+      {
+        "country": "DK",
+        "currentHistory": 1474.0151160457494,
+        "latest": 1474.0151160457494
+      },
+      {
+        "country": "EE",
+        "currentHistory": 1276.032258064516,
+        "latest": 1276.032258064516
+      },
+      {
+        "country": "FI",
+        "currentHistory": 1525.6425614190857,
+        "latest": 1525.6425614190857
+      },
+      {
+        "country": "FR",
+        "currentHistory": 1378.7083333333333,
+        "latest": 1378.7083333333333
+      },
+      {
+        "country": "DE",
+        "currentHistory": 1432.5058823529412,
+        "latest": 1432.5058823529412
+      },
+      {
+        "country": "GR",
+        "currentHistory": 1369.2183870967742,
+        "latest": 1369.2183870967742
+      },
+      {
+        "country": "HU",
+        "currentHistory": 1178.529223302926,
+        "latest": 1178.529223302926
+      },
+      {
+        "country": "IE",
+        "currentHistory": 1293.572764227642,
+        "latest": 1293.572764227642
+      },
+      {
+        "country": "IT",
+        "currentHistory": 1297.1245901639343,
+        "latest": 1297.1245901639343
+      },
+      {
+        "country": "LV",
+        "currentHistory": 1328.2987603305785,
+        "latest": 1328.2987603305785
+      },
+      {
+        "country": "LT",
+        "currentHistory": 1312.2181818181816,
+        "latest": 1312.2181818181816
+      },
+      {
+        "country": "LU",
+        "currentHistory": 1384.9726068376067,
+        "latest": 1384.9726068376067
+      },
+      {
+        "country": "MT",
+        "currentHistory": 553.02,
+        "latest": 553.0237288135593
+      },
+      {
+        "country": "NL",
+        "currentHistory": 1573.4214876033056,
+        "latest": 1573.4214876033056
+      },
+      {
+        "country": "PL",
+        "currentHistory": 1268.7763759283437,
+        "latest": 1268.7763759283437
+      },
+      {
+        "country": "PT",
+        "currentHistory": 1370.6273955686747,
+        "latest": 1370.6273955686747
+      },
+      {
+        "country": "RO",
+        "currentHistory": 1303.3278249472903,
+        "latest": 1303.3278249472903
+      },
+      {
+        "country": "SK",
+        "currentHistory": 1177.7158536585366,
+        "latest": 1177.7158536585366
+      },
+      {
+        "country": "SI",
+        "currentHistory": 1265.7509753730453,
+        "latest": 1265.7509753730453
+      },
+      {
+        "country": "ES",
+        "currentHistory": 1406.1776374958679,
+        "latest": 1406.1776374958679
+      },
+      {
+        "country": "SE",
+        "currentHistory": 1562.0044345898002,
+        "latest": 1562.0044345898002
+      }
+    ],
+    "coverageLimitation": "Sparse historical comparisons in 2014-2015; cannot prove absence of all later corrections",
+    "admission": "CONTROLLED_RESEARCH_RISK_NOT_UNIVERSAL_VINTAGE_PROOF"
+  },
+  "rawHashes": {
+    "data/raw/DCOILBRENTEU-initial-0.zip": "b9df75e43915d62012a41697527eda77e741ba03e12c54bdb702e5027ed6511d",
+    "data/raw/DCOILBRENTEU-initial-0.zip.meta.json": "35c23db8623719b86ac387bab4e860bd57ce3560972a5b597c41ab8b19a18fb4",
+    "data/raw/DCOILBRENTEU-initial-1.zip": "94bdbc6ef6666b4faf80890e6b8cee1330a6f581314432b78202ea7aab674523",
+    "data/raw/DCOILBRENTEU-initial-1.zip.meta.json": "f9b692e842e18ed6f3772c1e1177ebd28346f7d21f2455137cdb20256da1de9e",
+    "data/raw/DCOILBRENTEU-initial-2.zip": "ae126401783083520b5ea4be3a617b3e61ef81b61164b469e14e1f8160f5b762",
+    "data/raw/DCOILBRENTEU-initial-2.zip.meta.json": "50b113bd30327fe771795f4d6e7220ce05d433c55d9317ff287d42d3bd1417ac",
+    "data/raw/DCOILBRENTEU-initial.csv": "dd1a2a1b6dbd7c5f26459cf25419af4017fa30c8766a9f8edf424b27270abcf1",
+    "data/raw/DCOILWTICO-initial-0.zip": "f99d7b0a1fd5f9725b1a4fe585a1e8d5662eb2b09973f766ec432dffb42be986",
+    "data/raw/DCOILWTICO-initial-0.zip.meta.json": "0ea373dd72b153e32a378c17611f0ab6b7501a487e46f60516206990fff5c50f",
+    "data/raw/DCOILWTICO-initial-1.zip": "4ff2e6c4b624b532b2f9d74e792c99b34ec6cc78134b924013dfcc153bab8625",
+    "data/raw/DCOILWTICO-initial-1.zip.meta.json": "87aef14cea56fd136c3fcc0183f24c66276e52c6c4a02d31722276b893b449fc",
+    "data/raw/DCOILWTICO-initial.csv": "79f4a4b286e9a0cef6121b8ac261022c0821aba0c811a70ee672a426a4842183",
+    "data/raw/DDFUELNYH-initial-0.zip": "2e56f13fc189fab4315ede76c5441b0afa931bd95e60f8705861a56a532d4154",
+    "data/raw/DDFUELNYH-initial-0.zip.meta.json": "dda15fbf37965f289f4ac099e03d5c712b1bf67c5d555f3a91dbc7a8e5b10ba4",
+    "data/raw/DDFUELNYH-initial-1.zip": "cf3545bf75c2278896f214ecf56bdd0cd5f84dc712fa5310c89382fdcafe0bc3",
+    "data/raw/DDFUELNYH-initial-1.zip.meta.json": "c87f2a7642e60ea38655b5ea30d1e496727ec4b899866d2a8f26feecf43f8405",
+    "data/raw/DDFUELNYH-initial.csv": "4f5efc18d1f604e0b36a3c90c9d6cd9a3e75d2bf26a7d46a00e4902fff960640",
+    "data/raw/DDFUELUSGULF-initial-0.zip": "b4d1f782b56c3ef7ba0818aca1104888f75ef4d6d29abc67e1a70da622ab10fd",
+    "data/raw/DDFUELUSGULF-initial-0.zip.meta.json": "57f83c002f118c6ab79a416d59eab0945485039383afecd74c5cb4defdb8e688",
+    "data/raw/DDFUELUSGULF-initial-1.zip": "035babf5533b1af707f5d501f79fed476f08fc62023a7a22776149b7d86dc289",
+    "data/raw/DDFUELUSGULF-initial-1.zip.meta.json": "84bb1a92af6a4294bb1d1607b973cd59594863f6136415a763f32b6952a86e46",
+    "data/raw/DDFUELUSGULF-initial.csv": "0db342551931d8d09ec8f9f45c1177a22cd2ac3dd6d084e75e78ced46c9c160f",
+    "data/raw/DEXUSEU-valid.csv": "df2c1e685d0ef6f085db3adc3223b3eda94938f0263d2c99e1e62002f27d6745",
+    "data/raw/DEXUSEU-valid.csv.meta.json": "d4a900ee10bd0e4c04d04c999cc68dccfc9d4c792359dae8e0807f9c4a3deaa5",
+    "data/raw/eia-weekly-releases.zip": "a88a26edb9b600381d322c49c140b7e840d7da333fd332150f42f3b0b5bff272",
+    "data/raw/eu-2014-03-24-eur-table.txt": "a26a452ab818542e0ef65b6669c84544f29e3778a0e64c29c4a6b187f541417c",
+    "data/raw/eu-2014-03-24.pdf.meta.json": "1247849d1a3977b31eb09869f8e883cb20fee7bf95c5483a4b893647b29662df",
+    "data/raw/eu-2014-07-28-eur-table.txt": "a61e03694e0a3eb7cd974777afd93611c669f7cf6dcad0c10a3cf640f8d33560",
+    "data/raw/eu-2014-07-28.pdf.meta.json": "5da417db57fbf2fe3d1d7f13513fa61e973118feb51ee2c57c9bf9e31ffbfd52",
+    "data/raw/eu-2014-11-17-eur-table.txt": "b6f43d13b631c6ac96e8d3be115e0eb1263325464451911ddbfe4b2e9332774b",
+    "data/raw/eu-2014-11-17.pdf.meta.json": "47fb9fec0104045152c7e7c4c0956f17e1532892c33d6b9d6fa15b0e774099d2",
+    "data/raw/eu-2015-01-14.xls": "18eb6bdf72f3b20eca8c9641876ac0f7b54b91cb0daadd52df1031be2123048b",
+    "data/raw/eu-2015-01-14.xls.meta.json": "218f95f8413fe63c47dac9e863d45b9286ca3fbd291b6bff49ffb1cf2329eded",
+    "data/raw/eu-2015-01-19.xls": "20de88aa59dba3cca1a0da02ed93d8fadff7b682925bc9bb2eb0ef7f6cb748ff",
+    "data/raw/eu-2015-01-19.xls.meta.json": "d8f26087f179efb7ca4fa49a32fa78971044b6b8599edc2f0613b079b3130d22",
+    "data/raw/eu-2015-01-26-eur-table.txt": "1a6537d21da05ccba0ab0016b04e0a1713a5fbd9525bd34f8560cf9c4ab4f04a",
+    "data/raw/eu-2015-01-26.pdf.meta.json": "4435c8959611f510cfbde0ff16c9438ed7b4eec6f23344072555887560292749",
+    "data/raw/eu-history.xlsx": "8467d8c13c85f69bd59ee817832865ab92d2e57c11b1d572cf102df459446856",
+    "data/raw/eu-history.xlsx.meta.json": "568ac4af0a32dd7f4f5849e8ed4ef5c3644598ecb1561ab6f7f7ec9d4e4aae20",
+    "data/raw/eu-latest-ex-tax.xlsx": "cbc075b2dcf7014f9a5e86df76564207b129bba8738ef71865c8228a96b2985c",
+    "data/raw/eu-latest-ex-tax.xlsx.meta.json": "d02a4fa545e57a3485ff6aa9ca17656c0526a6085e49dd455e1e19a72c73066c",
+    "data/raw/global-diesel-v2-reused-manifest.json": "f4871adc07e4260f4ce9c58e2d8ad14a2dccd52a365e6038d6397927dfe1718d",
+    "data/raw/global-diesel-v3-reused-manifest.json": "45fab8a2c72729f66ce86d9741143fe7c1442640a009246ce4dcb5d13ceb9c48"
+  },
+  "japanAdmission": "NOT_IN_TRAINING_OR_SELECTION"
+}

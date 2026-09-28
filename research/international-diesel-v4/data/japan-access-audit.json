@@ -1,0 +1,23 @@
+{
+  "status": "UNAVAILABLE",
+  "trainedOnJapan": false,
+  "tunedOnJapan": false,
+  "primarySource": "METI/ANRE nationwide retail diesel weekly",
+  "observedDownloadLink": "https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/xlsx/260916s5.xlsx",
+  "attempts": [
+    {
+      "method": "urllib",
+      "result": "HTTP 403"
+    },
+    {
+      "method": "ordinary browser download",
+      "result": "timeout, local file zero bytes; no data admitted"
+    },
+    {
+      "method": "curl, certificate verification enabled",
+      "result": "HTTP 403"
+    }
+  ],
+  "rejectedFallback": "Hokkaido files contain regional monthly first-Monday summaries, not nationwide weekly",
+  "ASIA_MGO_VALIDATION_STATUS": "UNAVAILABLE"
+}

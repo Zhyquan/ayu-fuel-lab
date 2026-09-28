@@ -1,0 +1,19 @@
+{
+  "gate": "PASS",
+  "tool": "actual browser interaction",
+  "preview": "http://127.0.0.1:4406/research/international-diesel-v4/ui/",
+  "checks": {
+    "fujianDefaultPricePerL": 8.29,
+    "zhejiangSwitchPricePerL": 8.28,
+    "state": "STRONG",
+    "stateObservationWeekEnd": "2026-09-20",
+    "forecastText": "模型验证中",
+    "futureProbabilityRows": 0,
+    "marketDetailsExpandedAndCollapsed": true,
+    "width320HorizontalOverflow": false,
+    "width390HorizontalOverflow": false,
+    "consoleErrors": []
+  },
+  "viewportReset": true,
+  "screenshot": "candidate-mobile.png"
+}

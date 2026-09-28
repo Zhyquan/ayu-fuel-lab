@@ -1,0 +1,3764 @@
+{
+  "selection": {
+    "threshold": 0.0075,
+    "selected": {
+      "route": "quantile_cdf",
+      "calibrator": "raw",
+      "validationRatio": 0.9827893760872201
+    },
+    "phase": "BINARY_VALIDATION_BEFORE_BINARY_TEST",
+    "japanUsed": false
+  },
+  "validation": [
+    {
+      "year": 2016,
+      "metrics": {
+        "logistic/raw": {
+          "n": 36,
+          "brier": 0.4208339570015713,
+          "logLoss": 0.6902816900688236,
+          "ece": 0.15041298681573317,
+          "classECE": [
+            0.2394032781961753,
+            0.23940327819617527
+          ],
+          "accuracy": 0.75,
+          "macroF1": 0.6974789915966386,
+          "recalls": [
+            0.5,
+            0.875
+          ],
+          "predictionShares": [
+            9.0,
+            27.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 1,
+              "meanForecast": 0.570351417921387,
+              "realized": 1.0
+            },
+            {
+              "n": 5,
+              "meanForecast": 0.59315203302012,
+              "realized": 0.8
+            }
+          ]
+        },
+        "logistic/platt": {
+          "n": 36,
+          "brier": 0.7677427670459501,
+          "logLoss": 1.005709058272594,
+          "ece": 0.4394560212297849,
+          "classECE": [
+            0.4394560212297849,
+            0.439456021229785
+          ],
+          "accuracy": 0.3055555555555556,
+          "macroF1": 0.23404255319148937,
+          "recalls": [
+            0.9166666666666666,
+            0.0
+          ],
+          "predictionShares": [
+            35.0,
+            1.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 4,
+              "meanForecast": 0.5898726343786929,
+              "realized": 0.0
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "logistic/isotonic": {
+          "n": 36,
+          "brier": 0.7425848166559827,
+          "logLoss": 1.385882075037862,
+          "ece": 0.5355236612127434,
+          "classECE": [
+            0.5355236612127434,
+            0.5355236612127434
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            36.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "boost_classifier/raw": {
+          "n": 36,
+          "brier": 0.4459519765211339,
+          "logLoss": 0.6401018512984387,
+          "ece": 0.09537640661254779,
+          "classECE": [
+            0.17132454158489158,
+            0.17132454158489158
+          ],
+          "accuracy": 0.6666666666666666,
+          "macroF1": 0.6493506493506493,
+          "recalls": [
+            0.6666666666666666,
+            0.6666666666666666
+          ],
+          "predictionShares": [
+            16.0,
+            20.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 10,
+              "meanForecast": 0.6212978487502859,
+              "realized": 0.6
+            },
+            {
+              "n": 7,
+              "meanForecast": 0.6111264395665179,
+              "realized": 0.5714285714285714
+            }
+          ]
+        },
+        "boost_classifier/platt": {
+          "n": 36,
+          "brier": 0.8000654198720204,
+          "logLoss": 1.0361490476704889,
+          "ece": 0.4330167320687838,
+          "classECE": [
+            0.4330167320687838,
+            0.4330167320687838
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            36.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "boost_classifier/isotonic": {
+          "n": 36,
+          "brier": 0.8230793657677888,
+          "logLoss": 1.7778265729435023,
+          "ece": 0.47517229533705074,
+          "classECE": [
+            0.47517229533705074,
+            0.4751722953370508
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            36.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 12,
+              "meanForecast": 0.5714285714285713,
+              "realized": 0.08333333333333333
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "ridge/raw": {
+          "n": 36,
+          "brier": 0.5980758879573849,
+          "logLoss": 0.8354907250931344,
+          "ece": 0.2668958991706894,
+          "classECE": [
+            0.2978788051535954,
+            0.2978788051535954
+          ],
+          "accuracy": 0.5555555555555556,
+          "macroF1": 0.55,
+          "recalls": [
+            0.6666666666666666,
+            0.5
+          ],
+          "predictionShares": [
+            20.0,
+            16.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 2,
+              "meanForecast": 0.5961538461538461,
+              "realized": 0.0
+            },
+            {
+              "n": 4,
+              "meanForecast": 0.5874999999999999,
+              "realized": 0.75
+            }
+          ]
+        },
+        "ridge/platt": {
+          "n": 36,
+          "brier": 0.7463708527715299,
+          "logLoss": 0.984366905269461,
+          "ece": 0.3912283664973766,
+          "classECE": [
+            0.3912283664973766,
+            0.3912283664973765
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            36.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 7,
+              "meanForecast": 0.604218568682016,
+              "realized": 0.14285714285714285
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "ridge/isotonic": {
+          "n": 36,
+          "brier": 0.7701054781066239,
+          "logLoss": 1.0864914838185138,
+          "ece": 0.37897875199462494,
+          "classECE": [
+            0.37897875199462494,
+            0.378978751994625
+          ],
+          "accuracy": 0.3888888888888889,
+          "macroF1": 0.37142857142857144,
+          "recalls": [
+            0.8333333333333334,
+            0.16666666666666666
+          ],
+          "predictionShares": [
+            30.0,
+            6.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 9,
+              "meanForecast": 0.5714285714285714,
+              "realized": 0.2222222222222222
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "elastic_net/raw": {
+          "n": 36,
+          "brier": 0.7900665181709239,
+          "logLoss": 1.1402728380578369,
+          "ece": 0.3535469193148931,
+          "classECE": [
+            0.4433538202329053,
+            0.4433538202329052
+          ],
+          "accuracy": 0.4722222222222222,
+          "macroF1": 0.4618410700236035,
+          "recalls": [
+            0.9166666666666666,
+            0.25
+          ],
+          "predictionShares": [
+            29.0,
+            7.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 1,
+              "meanForecast": 0.5961538461538461,
+              "realized": 0.0
+            },
+            {
+              "n": 3,
+              "meanForecast": 0.5833333333333334,
+              "realized": 1.0
+            }
+          ]
+        },
+        "elastic_net/platt": {
+          "n": 36,
+          "brier": 0.8664106104957541,
+          "logLoss": 1.1543211476927087,
+          "ece": 0.48900993547124655,
+          "classECE": [
+            0.48900993547124655,
+            0.48900993547124677
+          ],
+          "accuracy": 0.3055555555555556,
+          "macroF1": 0.23404255319148937,
+          "recalls": [
+            0.9166666666666666,
+            0.0
+          ],
+          "predictionShares": [
+            35.0,
+            1.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 3,
+              "meanForecast": 0.611649384173178,
+              "realized": 0.0
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "elastic_net/isotonic": {
+          "n": 36,
+          "brier": 0.9657513680701262,
+          "logLoss": 3.459990531463312,
+          "ece": 0.5114976114588768,
+          "classECE": [
+            0.5114976114588768,
+            0.5114976114588767
+          ],
+          "accuracy": 0.3611111111111111,
+          "macroF1": 0.31851851851851853,
+          "recalls": [
+            0.9166666666666666,
+            0.08333333333333333
+          ],
+          "predictionShares": [
+            33.0,
+            3.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 1,
+              "meanForecast": 0.5528169014084509,
+              "realized": 0.0
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "boost_regressor/raw": {
+          "n": 36,
+          "brier": 0.7318646150888339,
+          "logLoss": 1.0284565779791317,
+          "ece": 0.40096181171320155,
+          "classECE": [
+            0.4009618117132015,
+            0.40096181171320167
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.2775919732441472,
+          "recalls": [
+            0.9166666666666666,
+            0.041666666666666664
+          ],
+          "predictionShares": [
+            34.0,
+            2.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 4,
+              "meanForecast": 0.6127884615384616,
+              "realized": 0.25
+            },
+            {
+              "n": 2,
+              "meanForecast": 0.5833333333333334,
+              "realized": 0.5
+            }
+          ]
+        },
+        "boost_regressor/platt": {
+          "n": 36,
+          "brier": 0.7909538420840048,
+          "logLoss": 1.025158575575638,
+          "ece": 0.4241785367332427,
+          "classECE": [
+            0.4241785367332427,
+            0.4241785367332426
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            36.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "boost_regressor/isotonic": {
+          "n": 36,
+          "brier": 0.8005126222722705,
+          "logLoss": 1.662079253992708,
+          "ece": 0.42957342957351297,
+          "classECE": [
+            0.42957342957351297,
+            0.4295734295735129
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            36.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 8,
+              "meanForecast": 0.6363636363636364,
+              "realized": 0.25
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "quantile_cdf/raw": {
+          "n": 36,
+          "brier": 0.47958943607591287,
+          "logLoss": 0.6803350300270614,
+          "ece": 0.20983885561299032,
+          "classECE": [
+            0.20983885561299037,
+            0.20983885561299032
+          ],
+          "accuracy": 0.6944444444444444,
+          "macroF1": 0.674074074074074,
+          "recalls": [
+            0.6666666666666666,
+            0.7083333333333334
+          ],
+          "predictionShares": [
+            15.0,
+            21.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 20,
+              "meanForecast": 0.6045876500951552,
+              "realized": 0.85
+            }
+          ]
+        },
+        "quantile_cdf/platt": {
+          "n": 36,
+          "brier": 0.7805492188407687,
+          "logLoss": 1.009051515940634,
+          "ece": 0.42075588003645353,
+          "classECE": [
+            0.42075588003645353,
+            0.42075588003645337
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            36.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "quantile_cdf/isotonic": {
+          "n": 36,
+          "brier": 0.7194363234812005,
+          "logLoss": 1.5926832980674641,
+          "ece": 0.39839531469175765,
+          "classECE": [
+            0.39839531469175765,
+            0.3983953146917576
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            36.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 18,
+              "meanForecast": 0.5833333333333335,
+              "realized": 0.16666666666666666
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/frequency": {
+          "n": 36,
+          "brier": 0.5908528700736493,
+          "logLoss": 0.7855035285803362,
+          "ece": 0.2705627705627707,
+          "classECE": [
+            0.2705627705627707,
+            0.2705627705627704
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            36.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 36,
+              "meanForecast": 0.603896103896104,
+              "realized": 0.3333333333333333
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 36,
+          "brier": 1.2808,
+          "logLoss": 2.614749572724603,
+          "ece": 0.6466666666666663,
+          "classECE": [
+            0.6466666666666663,
+            0.6466666666666666
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            36.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 36,
+          "brier": 0.7474666666666667,
+          "logLoss": 1.5336883788049849,
+          "ece": 0.3688888888888885,
+          "classECE": [
+            0.36888888888888893,
+            0.36888888888888893
+          ],
+          "accuracy": 0.6111111111111112,
+          "macroF1": 0.5785953177257526,
+          "recalls": [
+            0.5,
+            0.6666666666666666
+          ],
+          "predictionShares": [
+            14.0,
+            22.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 36,
+          "brier": 1.174133333333333,
+          "logLoss": 2.3985373339406797,
+          "ece": 0.5911111111111107,
+          "classECE": [
+            0.5911111111111113,
+            0.5911111111111113
+          ],
+          "accuracy": 0.3888888888888889,
+          "macroF1": 0.38699690402476783,
+          "recalls": [
+            0.5,
+            0.3333333333333333
+          ],
+          "predictionShares": [
+            22.0,
+            14.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2016,
+        "train": 76,
+        "calibration": 29,
+        "test": 36,
+        "trainCounts": [
+          46,
+          30
+        ],
+        "calCounts": [
+          22,
+          7
+        ],
+        "testCounts": [
+          12,
+          24
+        ],
+        "trainLabelKnownMax": "2014-12-25T23:00:00+00:00",
+        "calStart": "2015-02-01T23:59:59+00:00",
+        "calLabelKnownMax": "2015-12-24T23:00:00+00:00",
+        "testStart": "2016-01-24T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    },
+    {
+      "year": 2017,
+      "metrics": {
+        "logistic/raw": {
+          "n": 30,
+          "brier": 0.8059234045475017,
+          "logLoss": 1.0949172377855312,
+          "ece": 0.42137319857292743,
+          "classECE": [
+            0.42137319857292743,
+            0.42137319857292743
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.25,
+          "recalls": [
+            0.9090909090909091,
+            0.0
+          ],
+          "predictionShares": [
+            29.0,
+            1.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 6,
+              "meanForecast": 0.6116199977827095,
+              "realized": 0.3333333333333333
+            },
+            {
+              "n": 1,
+              "meanForecast": 0.5620981945987473,
+              "realized": 0.0
+            }
+          ]
+        },
+        "logistic/platt": {
+          "n": 30,
+          "brier": 0.47260715783339025,
+          "logLoss": 0.6666218723465464,
+          "ece": 0.0375215867221997,
+          "classECE": [
+            0.03752158672219973,
+            0.0375215867221997
+          ],
+          "accuracy": 0.6333333333333333,
+          "macroF1": 0.3877551020408163,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            30.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 14,
+              "meanForecast": 0.6175903433342119,
+              "realized": 0.5714285714285714
+            }
+          ]
+        },
+        "logistic/isotonic": {
+          "n": 30,
+          "brier": 0.5557847046549557,
+          "logLoss": 1.1486053790919288,
+          "ece": 0.1304348718461102,
+          "classECE": [
+            0.13043487184611025,
+            0.1304348718461102
+          ],
+          "accuracy": 0.6,
+          "macroF1": 0.375,
+          "recalls": [
+            0.0,
+            0.9473684210526315
+          ],
+          "predictionShares": [
+            1.0,
+            29.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "boost_classifier/raw": {
+          "n": 30,
+          "brier": 0.8174159597524202,
+          "logLoss": 1.1656371480096508,
+          "ece": 0.4250758275481151,
+          "classECE": [
+            0.4250758275481151,
+            0.42507582754811507
+          ],
+          "accuracy": 0.43333333333333335,
+          "macroF1": 0.40070505287896596,
+          "recalls": [
+            0.9090909090909091,
+            0.15789473684210525
+          ],
+          "predictionShares": [
+            26.0,
+            4.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 3,
+              "meanForecast": 0.5824460482572326,
+              "realized": 0.6666666666666666
+            },
+            {
+              "n": 2,
+              "meanForecast": 0.6132143324644819,
+              "realized": 1.0
+            }
+          ]
+        },
+        "boost_classifier/platt": {
+          "n": 30,
+          "brier": 0.5043314360364849,
+          "logLoss": 0.7020940302312723,
+          "ece": 0.18972773252657033,
+          "classECE": [
+            0.22746146177874954,
+            0.22746146177874949
+          ],
+          "accuracy": 0.6,
+          "macroF1": 0.375,
+          "recalls": [
+            0.0,
+            0.9473684210526315
+          ],
+          "predictionShares": [
+            1.0,
+            29.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 1,
+              "meanForecast": 0.5660059387826879,
+              "realized": 0.0
+            },
+            {
+              "n": 9,
+              "meanForecast": 0.6017264729306778,
+              "realized": 0.6666666666666666
+            }
+          ]
+        },
+        "boost_classifier/isotonic": {
+          "n": 30,
+          "brier": 0.6088771730861653,
+          "logLoss": 0.843288815853768,
+          "ece": 0.358101465650985,
+          "classECE": [
+            0.34805542249657984,
+            0.34805542249657967
+          ],
+          "accuracy": 0.4666666666666667,
+          "macroF1": 0.4258373205741627,
+          "recalls": [
+            0.2727272727272727,
+            0.5789473684210527
+          ],
+          "predictionShares": [
+            11.0,
+            19.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 8,
+              "meanForecast": 0.6099708620663973,
+              "realized": 0.75
+            }
+          ]
+        },
+        "ridge/raw": {
+          "n": 30,
+          "brier": 1.0743869872806657,
+          "logLoss": 1.7691717492171626,
+          "ece": 0.5535853320962842,
+          "classECE": [
+            0.5535853320962842,
+            0.5535853320962842
+          ],
+          "accuracy": 0.36666666666666664,
+          "macroF1": 0.2682926829268293,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            30.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "ridge/platt": {
+          "n": 30,
+          "brier": 0.4680848243100257,
+          "logLoss": 0.6607555564656212,
+          "ece": 0.05657535749983593,
+          "classECE": [
+            0.056575357499835874,
+            0.05657535749983593
+          ],
+          "accuracy": 0.6333333333333333,
+          "macroF1": 0.3877551020408163,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            30.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 13,
+              "meanForecast": 0.6224842278319301,
+              "realized": 0.5384615384615384
+            }
+          ]
+        },
+        "ridge/isotonic": {
+          "n": 30,
+          "brier": 0.4997534435261708,
+          "logLoss": 0.6989678783151198,
+          "ece": 0.16030303030303034,
+          "classECE": [
+            0.20696969696969697,
+            0.16030303030303034
+          ],
+          "accuracy": 0.5666666666666667,
+          "macroF1": 0.4222222222222222,
+          "recalls": [
+            0.09090909090909091,
+            0.8421052631578947
+          ],
+          "predictionShares": [
+            4.0,
+            26.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 4,
+              "meanForecast": 0.625,
+              "realized": 0.25
+            },
+            {
+              "n": 9,
+              "meanForecast": 0.6,
+              "realized": 0.4444444444444444
+            }
+          ]
+        },
+        "elastic_net/raw": {
+          "n": 30,
+          "brier": 1.2304962656031606,
+          "logLoss": 2.8080276784249274,
+          "ece": 0.6200106130963101,
+          "classECE": [
+            0.6200106130963101,
+            0.6200106130963098
+          ],
+          "accuracy": 0.36666666666666664,
+          "macroF1": 0.2682926829268293,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            30.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "elastic_net/platt": {
+          "n": 30,
+          "brier": 0.46407813505235607,
+          "logLoss": 0.6566982463846954,
+          "ece": 0.027176421331935763,
+          "classECE": [
+            0.02717642133193593,
+            0.027176421331935763
+          ],
+          "accuracy": 0.6333333333333333,
+          "macroF1": 0.3877551020408163,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            30.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "elastic_net/isotonic": {
+          "n": 30,
+          "brier": 0.44007053475373503,
+          "logLoss": 0.6252214440665288,
+          "ece": 0.03957307060755342,
+          "classECE": [
+            0.03957307060755346,
+            0.03957307060755342
+          ],
+          "accuracy": 0.6333333333333333,
+          "macroF1": 0.3877551020408163,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            30.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 27,
+              "meanForecast": 0.6206896551724138,
+              "realized": 0.5925925925925926
+            }
+          ]
+        },
+        "boost_regressor/raw": {
+          "n": 30,
+          "brier": 0.9804086423324371,
+          "logLoss": 1.39152059843046,
+          "ece": 0.4917923097713483,
+          "classECE": [
+            0.4917923097713483,
+            0.49179230977134825
+          ],
+          "accuracy": 0.36666666666666664,
+          "macroF1": 0.2682926829268293,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            30.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "boost_regressor/platt": {
+          "n": 30,
+          "brier": 0.47028933390767946,
+          "logLoss": 0.6637180959637976,
+          "ece": 0.03317122136993622,
+          "classECE": [
+            0.033171221369936166,
+            0.03317122136993622
+          ],
+          "accuracy": 0.6333333333333333,
+          "macroF1": 0.3877551020408163,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            30.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "boost_regressor/isotonic": {
+          "n": 30,
+          "brier": 0.49596716012346176,
+          "logLoss": 0.6936491994222107,
+          "ece": 0.19887502271524166,
+          "classECE": [
+            0.15125597509619415,
+            0.15125597509619398
+          ],
+          "accuracy": 0.5666666666666667,
+          "macroF1": 0.3617021276595745,
+          "recalls": [
+            0.0,
+            0.8947368421052632
+          ],
+          "predictionShares": [
+            2.0,
+            28.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 3,
+              "meanForecast": 0.5714285714285714,
+              "realized": 0.3333333333333333
+            }
+          ]
+        },
+        "quantile_cdf/raw": {
+          "n": 30,
+          "brier": 0.6960386111163946,
+          "logLoss": 0.9262423225250349,
+          "ece": 0.31316569927605925,
+          "classECE": [
+            0.31316569927605925,
+            0.3131656992760593
+          ],
+          "accuracy": 0.36666666666666664,
+          "macroF1": 0.2682926829268293,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            30.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 11,
+              "meanForecast": 0.596316994630853,
+              "realized": 0.2727272727272727
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "quantile_cdf/platt": {
+          "n": 30,
+          "brier": 0.47697857776011027,
+          "logLoss": 0.671295055506976,
+          "ece": 0.07458309130025337,
+          "classECE": [
+            0.07458309130025331,
+            0.07458309130025337
+          ],
+          "accuracy": 0.6333333333333333,
+          "macroF1": 0.3877551020408163,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            30.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 13,
+              "meanForecast": 0.6040018211985806,
+              "realized": 0.6153846153846154
+            }
+          ]
+        },
+        "quantile_cdf/isotonic": {
+          "n": 30,
+          "brier": 0.6186856098841944,
+          "logLoss": 1.5959945337939496,
+          "ece": 0.24824140195312805,
+          "classECE": [
+            0.2482414686197947,
+            0.24824146861979468
+          ],
+          "accuracy": 0.5333333333333333,
+          "macroF1": 0.49760765550239233,
+          "recalls": [
+            0.36363636363636365,
+            0.631578947368421
+          ],
+          "predictionShares": [
+            11.0,
+            19.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 8,
+              "meanForecast": 0.5833333333333334,
+              "realized": 0.375
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/frequency": {
+          "n": 30,
+          "brier": 0.6207517503263322,
+          "logLoss": 0.8181841299620366,
+          "ece": 0.279559748427673,
+          "classECE": [
+            0.279559748427673,
+            0.27955974842767295
+          ],
+          "accuracy": 0.36666666666666664,
+          "macroF1": 0.2682926829268293,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            30.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 30,
+              "meanForecast": 0.6462264150943396,
+              "realized": 0.36666666666666664
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 30,
+          "brier": 1.2167999999999997,
+          "logLoss": 2.485022229454249,
+          "ece": 0.6133333333333335,
+          "classECE": [
+            0.6133333333333335,
+            0.6133333333333333
+          ],
+          "accuracy": 0.36666666666666664,
+          "macroF1": 0.2682926829268293,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            30.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 30,
+          "brier": 1.0248000000000002,
+          "logLoss": 2.0958401996431864,
+          "ece": 0.5133333333333334,
+          "classECE": [
+            0.5133333333333334,
+            0.5133333333333334
+          ],
+          "accuracy": 0.4666666666666667,
+          "macroF1": 0.4570135746606335,
+          "recalls": [
+            0.45454545454545453,
+            0.47368421052631576
+          ],
+          "predictionShares": [
+            15.0,
+            15.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 30,
+          "brier": 0.8968,
+          "logLoss": 1.8363855131024782,
+          "ece": 0.44666666666666677,
+          "classECE": [
+            0.44666666666666677,
+            0.44666666666666677
+          ],
+          "accuracy": 0.5333333333333333,
+          "macroF1": 0.5248868778280543,
+          "recalls": [
+            0.5454545454545454,
+            0.5263157894736842
+          ],
+          "predictionShares": [
+            15.0,
+            15.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2017,
+        "train": 105,
+        "calibration": 36,
+        "test": 30,
+        "trainCounts": [
+          68,
+          37
+        ],
+        "calCounts": [
+          12,
+          24
+        ],
+        "testCounts": [
+          11,
+          19
+        ],
+        "trainLabelKnownMax": "2015-12-24T23:00:00+00:00",
+        "calStart": "2016-01-24T23:59:59+00:00",
+        "calLabelKnownMax": "2016-12-30T06:00:00+00:00",
+        "testStart": "2017-01-29T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    }
+  ],
+  "pooled": {
+    "baseline/frequency": {
+      "n": 272,
+      "brier": 0.50651287958556,
+      "logLoss": 0.6996718083366594,
+      "ece": 0.06520328132461367,
+      "classECE": [
+        0.06520328132461356,
+        0.06520328132461353
+      ],
+      "accuracy": 0.45588235294117646,
+      "macroF1": 0.45482123510292527,
+      "recalls": [
+        0.4409448818897638,
+        0.4689655172413793
+      ],
+      "predictionShares": [
+        133.0,
+        139.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 24,
+          "meanForecast": 0.5669014084507042,
+          "realized": 0.5
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        }
+      ]
+    },
+    "baseline/dominant": {
+      "n": 272,
+      "brier": 1.045505882352941,
+      "logLoss": 2.137810810701243,
+      "ece": 0.5241176470588238,
+      "classECE": [
+        0.5241176470588236,
+        0.5241176470588236
+      ],
+      "accuracy": 0.45588235294117646,
+      "macroF1": 0.45482123510292527,
+      "recalls": [
+        0.4409448818897638,
+        0.4689655172413793
+      ],
+      "predictionShares": [
+        133.0,
+        139.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        }
+      ]
+    },
+    "baseline/continuation": {
+      "n": 272,
+      "brier": 0.6996235294117645,
+      "logLoss": 1.4367108305269018,
+      "ece": 0.34397058823529436,
+      "classECE": [
+        0.34397058823529425,
+        0.34397058823529425
+      ],
+      "accuracy": 0.6360294117647058,
+      "macroF1": 0.6346020761245674,
+      "recalls": [
+        0.6141732283464567,
+        0.6551724137931034
+      ],
+      "predictionShares": [
+        128.0,
+        144.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        }
+      ]
+    },
+    "baseline/reversal": {
+      "n": 272,
+      "brier": 1.221976470588235,
+      "logLoss": 2.4955148822187634,
+      "ece": 0.616029411764706,
+      "classECE": [
+        0.616029411764706,
+        0.616029411764706
+      ],
+      "accuracy": 0.3639705882352941,
+      "macroF1": 0.36396199126826434,
+      "recalls": [
+        0.3858267716535433,
+        0.3448275862068966
+      ],
+      "predictionShares": [
+        144.0,
+        128.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        },
+        {
+          "n": 0,
+          "meanForecast": null,
+          "realized": null
+        }
+      ]
+    },
+    "binary": {
+      "n": 272,
+      "brier": 0.4592265580902761,
+      "logLoss": 0.6505783384658208,
+      "ece": 0.03333576528225801,
+      "classECE": [
+        0.05015359935781928,
+        0.050153599357819295
+      ],
+      "accuracy": 0.6102941176470589,
+      "macroF1": 0.6102098204629028,
+      "recalls": [
+        0.6377952755905512,
+        0.5862068965517241
+      ],
+      "predictionShares": [
+        141.0,
+        131.0
+      ],
+      "sixtyBuckets": [
+        {
+          "n": 57,
+          "meanForecast": 0.5974468059104542,
+          "realized": 0.5789473684210527
+        },
+        {
+          "n": 51,
+          "meanForecast": 0.5979659936988936,
+          "realized": 0.6078431372549019
+        }
+      ]
+    }
+  },
+  "yearByYear": [
+    {
+      "year": 2018,
+      "metrics": {
+        "baseline/frequency": {
+          "n": 24,
+          "brier": 0.508951596905376,
+          "logLoss": 0.7021798779827657,
+          "ece": 0.06690140845070425,
+          "classECE": [
+            0.06690140845070425,
+            0.06690140845070425
+          ],
+          "accuracy": 0.5,
+          "macroF1": 0.3333333333333333,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            24.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 24,
+              "meanForecast": 0.5669014084507042,
+              "realized": 0.5
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 24,
+          "brier": 0.9607999999999999,
+          "logLoss": 1.9661128563728327,
+          "ece": 0.48,
+          "classECE": [
+            0.48,
+            0.48
+          ],
+          "accuracy": 0.5,
+          "macroF1": 0.3333333333333333,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            24.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 24,
+          "brier": 0.6407999999999999,
+          "logLoss": 1.3174761400210615,
+          "ece": 0.31333333333333335,
+          "classECE": [
+            0.3133333333333334,
+            0.3133333333333334
+          ],
+          "accuracy": 0.6666666666666666,
+          "macroF1": 0.6643356643356644,
+          "recalls": [
+            0.75,
+            0.5833333333333334
+          ],
+          "predictionShares": [
+            14.0,
+            10.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 24,
+          "brier": 1.2808,
+          "logLoss": 2.614749572724604,
+          "ece": 0.6466666666666667,
+          "classECE": [
+            0.6466666666666668,
+            0.6466666666666667
+          ],
+          "accuracy": 0.3333333333333333,
+          "macroF1": 0.32867132867132864,
+          "recalls": [
+            0.25,
+            0.4166666666666667
+          ],
+          "predictionShares": [
+            10.0,
+            14.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "binary": {
+          "n": 24,
+          "brier": 0.5111834811396717,
+          "logLoss": 0.7065281947364856,
+          "ece": 0.21970325839154833,
+          "classECE": [
+            0.24880210446022466,
+            0.2488021044602247
+          ],
+          "accuracy": 0.5,
+          "macroF1": 0.4375,
+          "recalls": [
+            0.8333333333333334,
+            0.16666666666666666
+          ],
+          "predictionShares": [
+            20.0,
+            4.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 2,
+              "meanForecast": 0.5613710134758079,
+              "realized": 0.0
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2018,
+        "train": 141,
+        "calibration": 30,
+        "test": 24,
+        "trainCounts": [
+          80,
+          61
+        ],
+        "calCounts": [
+          11,
+          19
+        ],
+        "testCounts": [
+          12,
+          12
+        ],
+        "trainLabelKnownMax": "2016-12-30T06:00:00+00:00",
+        "calStart": "2017-01-29T23:59:59+00:00",
+        "calLabelKnownMax": "2017-12-29T06:00:00+00:00",
+        "testStart": "2018-01-21T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    },
+    {
+      "year": 2019,
+      "metrics": {
+        "baseline/frequency": {
+          "n": 17,
+          "brier": 0.5058069942417206,
+          "logLoss": 0.698963509868014,
+          "ece": 0.06138850889192882,
+          "classECE": [
+            0.06138850889192882,
+            0.06138850889192887
+          ],
+          "accuracy": 0.47058823529411764,
+          "macroF1": 0.32,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            17.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 17,
+          "brier": 1.017270588235294,
+          "logLoss": 2.0805781592584394,
+          "ece": 0.5094117647058823,
+          "classECE": [
+            0.5094117647058823,
+            0.5094117647058823
+          ],
+          "accuracy": 0.47058823529411764,
+          "macroF1": 0.32,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            17.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 17,
+          "brier": 0.6784470588235293,
+          "logLoss": 1.3937863419447993,
+          "ece": 0.3329411764705882,
+          "classECE": [
+            0.3329411764705883,
+            0.3329411764705883
+          ],
+          "accuracy": 0.6470588235294118,
+          "macroF1": 0.6458333333333333,
+          "recalls": [
+            0.75,
+            0.5555555555555556
+          ],
+          "predictionShares": [
+            10.0,
+            7.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 17,
+          "brier": 1.2431529411764703,
+          "logLoss": 2.538439370800866,
+          "ece": 0.6270588235294117,
+          "classECE": [
+            0.6270588235294119,
+            0.6270588235294119
+          ],
+          "accuracy": 0.35294117647058826,
+          "macroF1": 0.343859649122807,
+          "recalls": [
+            0.25,
+            0.4444444444444444
+          ],
+          "predictionShares": [
+            7.0,
+            10.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "binary": {
+          "n": 17,
+          "brier": 0.55581165643303,
+          "logLoss": 0.7521449525372396,
+          "ece": 0.21181187022512563,
+          "classECE": [
+            0.2808206566527709,
+            0.2808206566527708
+          ],
+          "accuracy": 0.47058823529411764,
+          "macroF1": 0.4631578947368421,
+          "recalls": [
+            0.625,
+            0.3333333333333333
+          ],
+          "predictionShares": [
+            11.0,
+            6.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 5,
+              "meanForecast": 0.6141348551448251,
+              "realized": 0.4
+            },
+            {
+              "n": 1,
+              "meanForecast": 0.6178671089539901,
+              "realized": 1.0
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2019,
+        "train": 171,
+        "calibration": 24,
+        "test": 17,
+        "trainCounts": [
+          91,
+          80
+        ],
+        "calCounts": [
+          12,
+          12
+        ],
+        "testCounts": [
+          8,
+          9
+        ],
+        "trainLabelKnownMax": "2017-12-29T06:00:00+00:00",
+        "calStart": "2018-01-21T23:59:59+00:00",
+        "calLabelKnownMax": "2018-12-29T06:00:00+00:00",
+        "testStart": "2019-02-10T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    },
+    {
+      "year": 2020,
+      "metrics": {
+        "baseline/frequency": {
+          "n": 29,
+          "brier": 0.5112511489465597,
+          "logLoss": 0.7044109933933606,
+          "ece": 0.11426812104152012,
+          "classECE": [
+            0.11426812104152012,
+            0.11426812104152012
+          ],
+          "accuracy": 0.41379310344827586,
+          "macroF1": 0.2926829268292683,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            29.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 29,
+          "brier": 1.12631724137931,
+          "logLoss": 2.301614606209956,
+          "ece": 0.5662068965517242,
+          "classECE": [
+            0.5662068965517242,
+            0.5662068965517241
+          ],
+          "accuracy": 0.41379310344827586,
+          "macroF1": 0.2926829268292683,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            29.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 29,
+          "brier": 0.6628689655172416,
+          "logLoss": 1.3622097066660106,
+          "ece": 0.32482758620689667,
+          "classECE": [
+            0.32482758620689656,
+            0.3248275862068965
+          ],
+          "accuracy": 0.6551724137931034,
+          "macroF1": 0.6446078431372549,
+          "recalls": [
+            0.5833333333333334,
+            0.7058823529411765
+          ],
+          "predictionShares": [
+            12.0,
+            17.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 29,
+          "brier": 1.2587310344827585,
+          "logLoss": 2.5700160060796535,
+          "ece": 0.6351724137931035,
+          "classECE": [
+            0.6351724137931034,
+            0.6351724137931035
+          ],
+          "accuracy": 0.3448275862068966,
+          "macroF1": 0.3448275862068966,
+          "recalls": [
+            0.4166666666666667,
+            0.29411764705882354
+          ],
+          "predictionShares": [
+            17.0,
+            12.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "binary": {
+          "n": 29,
+          "brier": 0.42100647679308595,
+          "logLoss": 0.6100463538386921,
+          "ece": 0.05699032623565018,
+          "classECE": [
+            0.056990326235650195,
+            0.056990326235650215
+          ],
+          "accuracy": 0.6551724137931034,
+          "macroF1": 0.5972222222222222,
+          "recalls": [
+            0.3333333333333333,
+            0.8823529411764706
+          ],
+          "predictionShares": [
+            6.0,
+            23.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 7,
+              "meanForecast": 0.599179668588234,
+              "realized": 0.5714285714285714
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2020,
+        "train": 195,
+        "calibration": 17,
+        "test": 29,
+        "trainCounts": [
+          103,
+          92
+        ],
+        "calCounts": [
+          8,
+          9
+        ],
+        "testCounts": [
+          12,
+          17
+        ],
+        "trainLabelKnownMax": "2018-12-29T06:00:00+00:00",
+        "calStart": "2019-02-10T23:59:59+00:00",
+        "calLabelKnownMax": "2019-12-28T06:00:00+00:00",
+        "testStart": "2020-01-26T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    },
+    {
+      "year": 2021,
+      "metrics": {
+        "baseline/frequency": {
+          "n": 28,
+          "brier": 0.527929706564898,
+          "logLoss": 0.7210978402807978,
+          "ece": 0.3091884641180416,
+          "classECE": [
+            0.3091884641180416,
+            0.3091884641180416
+          ],
+          "accuracy": 0.21428571428571427,
+          "macroF1": 0.17647058823529413,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            28.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 28,
+          "brier": 1.5093714285714284,
+          "logLoss": 3.0780615129758684,
+          "ece": 0.7657142857142858,
+          "classECE": [
+            0.7657142857142858,
+            0.7657142857142857
+          ],
+          "accuracy": 0.21428571428571427,
+          "macroF1": 0.17647058823529413,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            28.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 28,
+          "brier": 0.4807999999999999,
+          "logLoss": 0.9931577818451761,
+          "ece": 0.2300000000000001,
+          "classECE": [
+            0.23,
+            0.23000000000000007
+          ],
+          "accuracy": 0.75,
+          "macroF1": 0.6813008130081301,
+          "recalls": [
+            0.6666666666666666,
+            0.7727272727272727
+          ],
+          "predictionShares": [
+            9.0,
+            19.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 28,
+          "brier": 1.4407999999999999,
+          "logLoss": 2.939067930900489,
+          "ece": 0.7300000000000001,
+          "classECE": [
+            0.7300000000000001,
+            0.7300000000000001
+          ],
+          "accuracy": 0.25,
+          "macroF1": 0.24129032258064514,
+          "recalls": [
+            0.3333333333333333,
+            0.22727272727272727
+          ],
+          "predictionShares": [
+            19.0,
+            9.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "binary": {
+          "n": 28,
+          "brier": 0.3768718195011969,
+          "logLoss": 0.5640676235254923,
+          "ece": 0.13264153221217737,
+          "classECE": [
+            0.3000068389517821,
+            0.30000683895178204
+          ],
+          "accuracy": 0.75,
+          "macroF1": 0.7043740573152337,
+          "recalls": [
+            0.8333333333333334,
+            0.7272727272727273
+          ],
+          "predictionShares": [
+            11.0,
+            17.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 3,
+              "meanForecast": 0.5981639534660405,
+              "realized": 0.6666666666666666
+            },
+            {
+              "n": 7,
+              "meanForecast": 0.5940905076538971,
+              "realized": 1.0
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2021,
+        "train": 212,
+        "calibration": 29,
+        "test": 28,
+        "trainCounts": [
+          111,
+          101
+        ],
+        "calCounts": [
+          12,
+          17
+        ],
+        "testCounts": [
+          6,
+          22
+        ],
+        "trainLabelKnownMax": "2019-12-28T06:00:00+00:00",
+        "calStart": "2020-01-26T23:59:59+00:00",
+        "calLabelKnownMax": "2020-12-24T23:00:00+00:00",
+        "testStart": "2021-01-31T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    },
+    {
+      "year": 2022,
+      "metrics": {
+        "baseline/frequency": {
+          "n": 35,
+          "brier": 0.49962312293266453,
+          "logLoss": 0.6927702650423224,
+          "ece": 0.003955135773317631,
+          "classECE": [
+            0.003955135773317631,
+            0.003955135773317742
+          ],
+          "accuracy": 0.5142857142857142,
+          "macroF1": 0.33962264150943394,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            35.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 35,
+          "brier": 0.9333714285714283,
+          "logLoss": 1.9105154235426807,
+          "ece": 0.4657142857142855,
+          "classECE": [
+            0.4657142857142855,
+            0.4657142857142857
+          ],
+          "accuracy": 0.5142857142857142,
+          "macroF1": 0.33962264150943394,
+          "recalls": [
+            1.0,
+            0.0
+          ],
+          "predictionShares": [
+            35.0,
+            0.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 35,
+          "brier": 0.823657142857143,
+          "logLoss": 1.6881256922220735,
+          "ece": 0.40857142857142836,
+          "classECE": [
+            0.4085714285714285,
+            0.4085714285714285
+          ],
+          "accuracy": 0.5714285714285714,
+          "macroF1": 0.5714285714285714,
+          "recalls": [
+            0.5555555555555556,
+            0.5882352941176471
+          ],
+          "predictionShares": [
+            17.0,
+            18.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 35,
+          "brier": 1.0979428571428569,
+          "logLoss": 2.2441000205235917,
+          "ece": 0.5514285714285712,
+          "classECE": [
+            0.5514285714285714,
+            0.5514285714285714
+          ],
+          "accuracy": 0.42857142857142855,
+          "macroF1": 0.42810457516339867,
+          "recalls": [
+            0.4444444444444444,
+            0.4117647058823529
+          ],
+          "predictionShares": [
+            18.0,
+            17.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "binary": {
+          "n": 35,
+          "brier": 0.3921109742612466,
+          "logLoss": 0.5738412392903457,
+          "ece": 0.1526794817089405,
+          "classECE": [
+            0.24170993388964526,
+            0.2417099338896453
+          ],
+          "accuracy": 0.6857142857142857,
+          "macroF1": 0.6761984861227923,
+          "recalls": [
+            0.8333333333333334,
+            0.5294117647058824
+          ],
+          "predictionShares": [
+            23.0,
+            12.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 12,
+              "meanForecast": 0.5975225006065015,
+              "realized": 0.5833333333333334
+            },
+            {
+              "n": 5,
+              "meanForecast": 0.618587080734385,
+              "realized": 0.6
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2022,
+        "train": 241,
+        "calibration": 28,
+        "test": 35,
+        "trainCounts": [
+          123,
+          118
+        ],
+        "calCounts": [
+          6,
+          22
+        ],
+        "testCounts": [
+          18,
+          17
+        ],
+        "trainLabelKnownMax": "2020-12-24T23:00:00+00:00",
+        "calStart": "2021-01-31T23:59:59+00:00",
+        "calLabelKnownMax": "2021-12-30T23:00:00+00:00",
+        "testStart": "2022-01-23T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    },
+    {
+      "year": 2023,
+      "metrics": {
+        "baseline/frequency": {
+          "n": 39,
+          "brier": 0.5018745383560198,
+          "logLoss": 0.6950229869600657,
+          "ece": 0.03319088319088287,
+          "classECE": [
+            0.03319088319088298,
+            0.03319088319088287
+          ],
+          "accuracy": 0.48717948717948717,
+          "macroF1": 0.3275862068965517,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            39.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 39,
+          "brier": 0.9854153846153844,
+          "logLoss": 2.0160079883998914,
+          "ece": 0.49282051282051226,
+          "classECE": [
+            0.49282051282051276,
+            0.49282051282051226
+          ],
+          "accuracy": 0.48717948717948717,
+          "macroF1": 0.3275862068965517,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            39.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 39,
+          "brier": 0.5423384615384617,
+          "logLoss": 1.1178956119128238,
+          "ece": 0.2620512820512815,
+          "classECE": [
+            0.2620512820512821,
+            0.26205128205128203
+          ],
+          "accuracy": 0.717948717948718,
+          "macroF1": 0.7172050098879368,
+          "recalls": [
+            0.75,
+            0.6842105263157895
+          ],
+          "predictionShares": [
+            21.0,
+            18.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 39,
+          "brier": 1.379261538461538,
+          "logLoss": 2.8143301008328403,
+          "ece": 0.6979487179487174,
+          "classECE": [
+            0.6979487179487179,
+            0.697948717948718
+          ],
+          "accuracy": 0.28205128205128205,
+          "macroF1": 0.28157894736842104,
+          "recalls": [
+            0.25,
+            0.3157894736842105
+          ],
+          "predictionShares": [
+            18.0,
+            21.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "binary": {
+          "n": 39,
+          "brier": 0.4558902038624601,
+          "logLoss": 0.647408276491342,
+          "ece": 0.04019158710193362,
+          "classECE": [
+            0.13907493388057873,
+            0.1390749338805788
+          ],
+          "accuracy": 0.6410256410256411,
+          "macroF1": 0.6407894736842106,
+          "recalls": [
+            0.65,
+            0.631578947368421
+          ],
+          "predictionShares": [
+            20.0,
+            19.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 7,
+              "meanForecast": 0.5994204768383634,
+              "realized": 1.0
+            },
+            {
+              "n": 9,
+              "meanForecast": 0.6030801918426305,
+              "realized": 0.4444444444444444
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2023,
+        "train": 269,
+        "calibration": 34,
+        "test": 39,
+        "trainCounts": [
+          129,
+          140
+        ],
+        "calCounts": [
+          18,
+          16
+        ],
+        "testCounts": [
+          20,
+          19
+        ],
+        "trainLabelKnownMax": "2021-12-30T23:00:00+00:00",
+        "calStart": "2022-01-23T23:59:59+00:00",
+        "calLabelKnownMax": "2022-12-22T23:00:00+00:00",
+        "testStart": "2023-01-01T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    },
+    {
+      "year": 2024,
+      "metrics": {
+        "baseline/frequency": {
+          "n": 29,
+          "brier": 0.5075843338069538,
+          "logLoss": 0.7007337954124276,
+          "ece": 0.13549228675136105,
+          "classECE": [
+            0.1354922867513611,
+            0.13549228675136105
+          ],
+          "accuracy": 0.3793103448275862,
+          "macroF1": 0.275,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            29.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 29,
+          "brier": 1.192524137931034,
+          "logLoss": 2.435815306144805,
+          "ece": 0.6006896551724139,
+          "classECE": [
+            0.6006896551724138,
+            0.6006896551724139
+          ],
+          "accuracy": 0.3793103448275862,
+          "macroF1": 0.275,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            29.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 29,
+          "brier": 0.530455172413793,
+          "logLoss": 1.093808306796313,
+          "ece": 0.25586206896551733,
+          "classECE": [
+            0.2558620689655174,
+            0.2558620689655174
+          ],
+          "accuracy": 0.7241379310344828,
+          "macroF1": 0.7211538461538461,
+          "recalls": [
+            0.6666666666666666,
+            0.8181818181818182
+          ],
+          "predictionShares": [
+            14.0,
+            15.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 29,
+          "brier": 1.3911448275862068,
+          "logLoss": 2.8384174059493517,
+          "ece": 0.7041379310344829,
+          "classECE": [
+            0.7041379310344829,
+            0.7041379310344829
+          ],
+          "accuracy": 0.27586206896551724,
+          "macroF1": 0.26181818181818184,
+          "recalls": [
+            0.3333333333333333,
+            0.18181818181818182
+          ],
+          "predictionShares": [
+            15.0,
+            14.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "binary": {
+          "n": 29,
+          "brier": 0.4570786060904985,
+          "logLoss": 0.6492022560976839,
+          "ece": 0.0565063068755416,
+          "classECE": [
+            0.125177047402748,
+            0.125177047402748
+          ],
+          "accuracy": 0.6206896551724138,
+          "macroF1": 0.6133333333333333,
+          "recalls": [
+            0.6111111111111112,
+            0.6363636363636364
+          ],
+          "predictionShares": [
+            15.0,
+            14.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 10,
+              "meanForecast": 0.6073683138267894,
+              "realized": 0.8
+            },
+            {
+              "n": 8,
+              "meanForecast": 0.5980225130482808,
+              "realized": 0.5
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2024,
+        "train": 303,
+        "calibration": 39,
+        "test": 29,
+        "trainCounts": [
+          147,
+          156
+        ],
+        "calCounts": [
+          20,
+          19
+        ],
+        "testCounts": [
+          18,
+          11
+        ],
+        "trainLabelKnownMax": "2022-12-22T23:00:00+00:00",
+        "calStart": "2023-01-01T23:59:59+00:00",
+        "calLabelKnownMax": "2024-01-05T06:00:00+00:00",
+        "testStart": "2024-01-07T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    },
+    {
+      "year": 2025,
+      "metrics": {
+        "baseline/frequency": {
+          "n": 37,
+          "brier": 0.5024635531624105,
+          "logLoss": 0.695611335112604,
+          "ece": 0.05362193588937786,
+          "classECE": [
+            0.05362193588937786,
+            0.05362193588937786
+          ],
+          "accuracy": 0.4594594594594595,
+          "macroF1": 0.3148148148148148,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            37.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 37,
+          "brier": 1.0386378378378376,
+          "logLoss": 2.1238893549448843,
+          "ece": 0.5205405405405401,
+          "classECE": [
+            0.5205405405405406,
+            0.5205405405405401
+          ],
+          "accuracy": 0.4594594594594595,
+          "macroF1": 0.3148148148148148,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            37.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 37,
+          "brier": 1.0905297297297296,
+          "logLoss": 2.2290736873262533,
+          "ece": 0.5475675675675671,
+          "classECE": [
+            0.5475675675675675,
+            0.5475675675675676
+          ],
+          "accuracy": 0.43243243243243246,
+          "macroF1": 0.43243243243243246,
+          "recalls": [
+            0.4,
+            0.47058823529411764
+          ],
+          "predictionShares": [
+            17.0,
+            20.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 37,
+          "brier": 0.8310702702702703,
+          "logLoss": 1.7031520254194117,
+          "ece": 0.412432432432432,
+          "classECE": [
+            0.4124324324324325,
+            0.41243243243243244
+          ],
+          "accuracy": 0.5675675675675675,
+          "macroF1": 0.5647058823529412,
+          "recalls": [
+            0.6,
+            0.5294117647058824
+          ],
+          "predictionShares": [
+            20.0,
+            17.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "binary": {
+          "n": 37,
+          "brier": 0.5027038320537862,
+          "logLoss": 0.7001282018590488,
+          "ece": 0.09725068026044678,
+          "classECE": [
+            0.16972804094361044,
+            0.16972804094361046
+          ],
+          "accuracy": 0.5675675675675675,
+          "macroF1": 0.5672514619883041,
+          "recalls": [
+            0.55,
+            0.5882352941176471
+          ],
+          "predictionShares": [
+            18.0,
+            19.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 11,
+              "meanForecast": 0.5964605457225951,
+              "realized": 0.45454545454545453
+            },
+            {
+              "n": 11,
+              "meanForecast": 0.590157356518694,
+              "realized": 0.5454545454545454
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2025,
+        "train": 343,
+        "calibration": 28,
+        "test": 37,
+        "trainCounts": [
+          167,
+          176
+        ],
+        "calCounts": [
+          18,
+          10
+        ],
+        "testCounts": [
+          20,
+          17
+        ],
+        "trainLabelKnownMax": "2024-01-05T06:00:00+00:00",
+        "calStart": "2024-01-07T23:59:59+00:00",
+        "calLabelKnownMax": "2024-12-19T23:00:00+00:00",
+        "testStart": "2025-01-05T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    },
+    {
+      "year": 2026,
+      "metrics": {
+        "baseline/frequency": {
+          "n": 34,
+          "brier": 0.4993711020655227,
+          "logLoss": 0.6925182811149512,
+          "ece": 0.11630297280202417,
+          "classECE": [
+            0.11630297280202412,
+            0.11630297280202417
+          ],
+          "accuracy": 0.6176470588235294,
+          "macroF1": 0.38181818181818183,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            34.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/dominant": {
+          "n": 34,
+          "brier": 0.7349176470588236,
+          "logLoss": 1.5082516448304057,
+          "ece": 0.3623529411764703,
+          "classECE": [
+            0.36235294117647054,
+            0.3623529411764703
+          ],
+          "accuracy": 0.6176470588235294,
+          "macroF1": 0.38181818181818183,
+          "recalls": [
+            0.0,
+            1.0
+          ],
+          "predictionShares": [
+            0.0,
+            34.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/continuation": {
+          "n": 34,
+          "brier": 0.7349176470588235,
+          "logLoss": 1.508251644830406,
+          "ece": 0.3623529411764703,
+          "classECE": [
+            0.36235294117647066,
+            0.36235294117647066
+          ],
+          "accuracy": 0.6176470588235294,
+          "macroF1": 0.6007226738934056,
+          "recalls": [
+            0.5384615384615384,
+            0.6666666666666666
+          ],
+          "predictionShares": [
+            14.0,
+            20.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "baseline/reversal": {
+          "n": 34,
+          "brier": 1.1866823529411763,
+          "logLoss": 2.423974067915259,
+          "ece": 0.5976470588235292,
+          "classECE": [
+            0.5976470588235295,
+            0.5976470588235294
+          ],
+          "accuracy": 0.38235294117647056,
+          "macroF1": 0.38181818181818183,
+          "recalls": [
+            0.46153846153846156,
+            0.3333333333333333
+          ],
+          "predictionShares": [
+            20.0,
+            14.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            },
+            {
+              "n": 0,
+              "meanForecast": null,
+              "realized": null
+            }
+          ]
+        },
+        "binary": {
+          "n": 34,
+          "brier": 0.5021147031886576,
+          "logLoss": 0.6959986594681348,
+          "ece": 0.08681224095507596,
+          "classECE": [
+            0.15236649599209762,
+            0.1523664959920976
+          ],
+          "accuracy": 0.5294117647058824,
+          "macroF1": 0.5228070175438597,
+          "recalls": [
+            0.5384615384615384,
+            0.5238095238095238
+          ],
+          "predictionShares": [
+            17.0,
+            17.0
+          ],
+          "sixtyBuckets": [
+            {
+              "n": 7,
+              "meanForecast": 0.5807996124941474,
+              "realized": 0.2857142857142857
+            },
+            {
+              "n": 3,
+              "meanForecast": 0.5763130598823949,
+              "realized": 0.6666666666666666
+            }
+          ]
+        }
+      },
+      "sizes": {
+        "year": 2026,
+        "train": 371,
+        "calibration": 37,
+        "test": 34,
+        "trainCounts": [
+          185,
+          186
+        ],
+        "calCounts": [
+          20,
+          17
+        ],
+        "testCounts": [
+          13,
+          21
+        ],
+        "trainLabelKnownMax": "2024-12-19T23:00:00+00:00",
+        "calStart": "2025-01-05T23:59:59+00:00",
+        "calLabelKnownMax": "2025-12-30T06:00:00+00:00",
+        "testStart": "2026-01-11T23:59:59+00:00",
+        "features": [
+          "brent_return_1w",
+          "brent_return_2w",
+          "brent_return_4w",
+          "brent_return_8w",
+          "brent_volatility_4w",
+          "brent_volatility_13w",
+          "wti_return_1w",
+          "wti_return_2w",
+          "wti_return_4w",
+          "wti_return_8w",
+          "wti_volatility_4w",
+          "wti_volatility_13w",
+          "eia_stock_change",
+          "eia_production_change",
+          "eia_inputs_change",
+          "eia_utilization_change",
+          "season_sin",
+          "season_cos",
+          "aidi_return_1w",
+          "aidi_return_2w",
+          "aidi_return_4w",
+          "aidi_return_8w",
+          "aidi_return_13w",
+          "aidi_volatility_4w",
+          "aidi_volatility_13w",
+          "aidi_volatility_26w",
+          "aidi_distance_MA4",
+          "aidi_distance_MA13",
+          "aidi_distance_MA26",
+          "aidi_momentum_4v13",
+          "aidi_drawdown",
+          "us_eu_divergence",
+          "nyh_usgc_divergence",
+          "regional_volatility_ratio",
+          "cross_region_dispersion",
+          "regional_direction_agreement",
+          "us_crude_return_spread",
+          "eu_crude_return_spread"
+        ]
+      }
+    }
+  ],
+  "eligibleForProduct": false
+}
