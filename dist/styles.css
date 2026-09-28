@@ -1,4 +1,4 @@
-:root { color-scheme: light; --ink: #20373d; --muted: #5e6d72; --border: #e1e7e4; --teal: #286b63; --page: #f7f8f6; --surface: #fff; --marine: #173e46; --up: #c13c35; --down: #247a4b; --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px; --radius-small: 8px; --radius-medium: 16px; --radius-large: 24px; --shadow-main: 0 8px 24px #173e4610; --motion: 180ms; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif; color: var(--ink); background: var(--page); font-synthesis: none; }
+:root { color-scheme: light; --ink: #20373d; --muted: #5e6d72; --border: #e1e7e4; --teal: #286b63; --page: #f7f8f6; --surface: #fff; --marine: #173e46; --up: #e5484d; --down: #16a36b; --flat: #3185e6; --space-1: 4px; --space-2: 8px; --space-3: 12px; --space-4: 16px; --space-6: 24px; --space-8: 32px; --radius-small: 8px; --radius-medium: 16px; --radius-large: 24px; --shadow-main: 0 8px 24px #173e4610; --motion: 180ms; font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", Arial, "Microsoft YaHei", sans-serif; color: var(--ink); background: var(--page); font-synthesis: none; }
 * { box-sizing: border-box; }
 body { margin: 0; font-size: 1rem; -webkit-font-smoothing: antialiased; }
 button { font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -139,7 +139,7 @@ dialog::backdrop { background: #173e4666; }
 .trend-direction { display: flex; align-items: center; gap: var(--space-2); font-size: 1.875rem; font-weight: 600; margin: var(--space-2) 0; }
 .trend-direction.down { color: var(--down); }
 .trend-direction.up { color: var(--up); }
-.trend-direction.sideways { color: #51666d; }
+.trend-direction.sideways { color: var(--flat); }
 .trend-arrow { width: 32px; height: 32px; flex-shrink: 0; }
 .trend-direction.down .trend-arrow { transform: scaleY(-1); }
 .trend-explanation { font-size: 1rem; line-height: 1.55; color: #456167; }
@@ -165,9 +165,12 @@ dialog::backdrop { background: #173e4666; }
 
 .ai-estimate-label { margin: var(--space-2) 0; font-size: .875rem; color: var(--muted); }
 .probability-row { display: grid; grid-template-columns: 5em 1fr 3em; align-items: center; gap: var(--space-3); margin: var(--space-2) 0; font-size: 1rem; line-height: 1.5; }
+.probability-row.up { color: var(--up); }
+.probability-row.down { color: var(--down); }
+.probability-row.flat { color: var(--flat); }
 .probability-row strong { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
 .probability-track { height: 4px; border-radius: var(--radius-small); background: #edf1ee; overflow: hidden; }
-.probability-track span { display: block; height: 100%; background: #668c82; border-radius: inherit; }
+.probability-track span { display: block; height: 100%; background: currentColor; border-radius: inherit; }
 .forecast-details { margin-top: 18px; border-top: 1px solid #eef1f0; padding-top: 14px; }
 .forecast-details summary { cursor: pointer; font-size: .9375rem; color: #246963; min-height: 28px; }
 .forecast-details .intelligence-list { font-size: .9375rem; }
