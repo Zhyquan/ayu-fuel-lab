@@ -174,3 +174,23 @@ dialog::backdrop { background: #0c252a75; backdrop-filter: blur(3px); }
 .forecast-details a { display: inline-block; margin-left: 8px; color: #627b80; font-size: .8125rem; }
 .forecast-scope { margin-top: 12px; font-size: .8125rem; line-height: 1.6; color: #718489; }
 .price-disclaimer { margin-top: 8px; font-size: .8125rem; }
+
+.evidence-section { margin-top: 22px; }
+.evidence-section h2 { font-size: 1.125rem; }
+.evidence-trust-note { margin: 6px 0 16px; font-size: .875rem; line-height: 1.5; color: #718489; }
+.evidence-group-title { margin: 16px 0 10px; font-size: .9375rem; font-weight: 600; color: #456167; }
+.evidence-card { padding: 16px 18px 10px; margin-top: 10px; border: 1px solid var(--border); border-radius: 14px; background: white; }
+.evidence-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 7px 10px; margin-bottom: 10px; font-size: .8125rem; color: #627b80; }
+.evidence-label { padding: 3px 7px; border-radius: 4px; background: #f0f3f2; line-height: 1.4; }
+.evidence-label.up { color: #9b5b24; background: #f7efe7; }
+.evidence-label.down { color: #246963; background: #edf5f2; }
+.evidence-label.risk { border: 1px solid #e9d8c6; background: #fbf7f2; }
+.evidence-card h4 { margin: 0 0 8px; font-size: 1.0625rem; font-weight: 600; line-height: 1.5; overflow-wrap: anywhere; }
+.evidence-summary { font-size: .9375rem; line-height: 1.65; color: #456167; overflow-wrap: anywhere; }
+.evidence-source { display: inline-flex; align-items: center; min-height: 44px; margin-top: 4px; font-size: .9375rem; color: #246963; text-decoration: none; }
+.evidence-source:hover { text-decoration: underline; }
+.evidence-details { margin-top: 14px; }
+.evidence-details summary { cursor: pointer; padding: 12px 0; min-height: 44px; font-size: .9375rem; color: #246963; }
+.evidence-hide-all, .evidence-details[open] .evidence-show-all { display: none; }
+.evidence-details[open] .evidence-hide-all { display: inline; }
+.evidence-unavailable { margin: 14px 0; color: #718489; font-size: .9375rem; line-height: 1.6; }

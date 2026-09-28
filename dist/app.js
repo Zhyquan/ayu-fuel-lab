@@ -3,6 +3,7 @@ import { getProvinceFuelData } from './data/fuel-service.js';
 import { getPriceDisplay } from './data/price-display.js';
 import { getForecast } from './data/intelligence-v2-service.js';
 import { forecastMarkup } from './data/intelligence-v2-view.js';
+import { publicEvidenceMarkup } from './data/public-evidence-view.js';
 
 const content = document.querySelector('#fuel-content');
 const dialog = document.querySelector('#province-dialog');
@@ -32,13 +33,25 @@ function renderForecast(forecast) {
   const target = document.querySelector('#trend-content');
   target.dataset.status = forecast.status;
   target.setAttribute('aria-busy', 'false');
-  const detailsWereOpen = target.querySelector('.forecast-details')?.open;
   target.innerHTML = forecastMarkup(forecast);
-  if (detailsWereOpen && forecast.status === 'LIVE') target.querySelector('.forecast-details').open = true;
+  renderEvidence(forecast);
   const time = document.querySelector('#trend-data-date');
   time.textContent = forecast.status === 'LIVE' ? formatTime(forecast.generatedAt) : '暂不可用';
   if (forecast.status === 'LIVE') time.setAttribute('datetime', forecast.generatedAt);
   else time.removeAttribute('datetime');
+}
+
+function renderEvidence(forecast) {
+  const target = document.querySelector('#evidence-content');
+  const detailsWereOpen = target.querySelector('.evidence-details')?.open;
+  try {
+    target.innerHTML = publicEvidenceMarkup(forecast);
+    const details = target.querySelector('.evidence-details');
+    if (detailsWereOpen && details) details.open = true;
+  } catch {
+    target.innerHTML = '<p class="evidence-unavailable">判断依据暂时无法展示。</p>';
+  }
+  target.setAttribute('aria-busy', 'false');
 }
 
 function LoadingState() {

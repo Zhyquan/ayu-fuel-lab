@@ -1,0 +1,64 @@
+import { canonicalJson, validateForecastCache } from './intelligence-v2-contract.js';
+import { chinaDate, validDate } from './validation.js';
+
+const length = value => Array.from(value).length;
+const directionLabel = signal => signal.kind==='RISK' ? ({UP:'上涨风险',DOWN:'下跌风险',NEUTRAL:'供应风险'})[signal.impact] : ({UP:'利涨',DOWN:'利跌',NEUTRAL:'中性'})[signal.impact];
+
+export function formatEvidenceDate(date,now=new Date()) {
+  if (!validDate(date)) return null;
+  const today=chinaDate(now), yesterday=new Date(Date.parse(today)-86400000).toISOString().slice(0,10);
+  if (date===today) return '今天';
+  if (date===yesterday) return '昨天';
+  const [year,month,day]=date.split('-').map(Number);
+  return `${year===Number(today.slice(0,4))?'':`${year}年`}${month}月${day}日`;
+}
+
+// Owned short copy for the four admitted reason types; never truncate or copy raw fact text.
+// A changed/unsupported fact needs a reviewed projection, rather than a guessed summary.
+function publicCopy(signal,now) {
+  const observed=formatEvidenceDate(signal.eventDate,now);
+  if (signal.sourceOrganization==='EIA' && signal.kind==='FACT') {
+    if (signal.id==='eia-stocks' && signal.category==='DISTILLATE_FUNDAMENTALS' && signal.impact==='UP' && signal.displayText==='美国馏分油库存减少' && /库存周变化 -\d/.test(signal.fact)) return {
+      title:'美国馏分油库存减少',summary:`统计周截至${observed}，馏分油库存较上周减少。`,
+    };
+    if (signal.id==='market-brent' && signal.category==='CRUDE' && signal.impact==='UP' && signal.displayText==='Brent最新日度报价上涨' && signal.observation?.name==='Brent' && signal.observation.change1dPercent>0) return {
+      title:'Brent日度报价上涨',summary:`${observed}的Brent现货报价较上一报价日上涨。`,
+    };
+    if (signal.id==='market-diesel' && signal.category==='INTERNATIONAL_DIESEL' && signal.impact==='DOWN' && signal.displayText==='纽约港低硫柴油最新日度报价回落' && signal.observation?.name==='NY_HARBOR_LOW_SULFUR_DIESEL' && signal.observation.change1dPercent<0) return {
+      title:'纽约港低硫柴油报价回落',summary:`${observed}的低硫柴油现货报价较上一报价日回落。`,
+    };
+  }
+  if (signal.sourceOrganization==='Reuters' && signal.kind==='RISK' && signal.category==='SUPPLY_DISRUPTION' && signal.impact==='UP' && signal.displayText==='霍尔木兹供应仍有不确定风险' && signal.fact.includes('谈判僵局') && signal.fact.includes('供应担忧')) return {
+    title:'霍尔木兹供应仍有不确定风险',summary:'报道提到谈判僵局带来的石油供应担忧，属于风险信号。',
+  };
+  return null;
+}
+
+export function publicEvidenceGate({forecast,evidencePack}, {now=new Date()}={}) {
+  const fail = (errors,excluded=[]) => ({gate:'FAIL',cards:[],errors,excluded,checkedAt:new Date(now).toISOString()});
+  if (forecast?.evidencePack && canonicalJson(forecast.evidencePack)!==canonicalJson(evidencePack)) return fail(['EVIDENCE_PACK_MISMATCH']);
+  // Reuse the existing reason/source/date/expiry contract. Hash verification remains upstream.
+  const checked=validateForecastCache({...forecast,evidencePack},{now});
+  if (checked.status!=='LIVE') return fail([`FORECAST_NOT_LIVE:${checked.reason}`]);
+  const byId=new Map(evidencePack.signals.map(signal=>[signal.id,signal]));
+  const refs=[...forecast.mainReasons.map(ref=>({...ref,role:'MAIN'})),...forecast.counterReasons.map(ref=>({...ref,role:'COUNTER'}))];
+  const cards=[], excluded=[], seen=new Set();
+  for (const ref of refs) {
+    const signal=byId.get(ref.evidenceId);
+    // Same release can carry opposite measurements; retain the genuine counter-signal.
+    const key=`${signal.eventKey}:${signal.impact}`;
+    if (seen.has(key)) { excluded.push({evidenceId:ref.evidenceId,reason:'SAME_EVENT_AND_DIRECTION'}); continue; }
+    seen.add(key);
+    const copy=publicCopy(signal,now);
+    if (!copy || !copy.title || !copy.summary || length(copy.title)>24 || length(copy.summary)>60) return fail(['NO_SAFE_PUBLIC_COPY'],[...excluded,{evidenceId:ref.evidenceId,reason:'NO_SAFE_PUBLIC_COPY'}]);
+    const date=signal.publishedAtPrecision==='DATE_ONLY'?signal.publishedAt.slice(0,10):chinaDate(signal.publishedAt);
+    if (!validDate(date) || !signal.sourceOrganization || length(signal.sourceOrganization)>24 || !directionLabel(signal)) return fail(['INVALID_PUBLIC_CARD']);
+    cards.push({evidenceId:signal.id,direction:signal.impact,directionLabel:directionLabel(signal),title:copy.title,summary:copy.summary,sourceName:signal.sourceOrganization,date,sourceUrl:signal.sourceUrl,role:ref.role});
+  }
+  if (!cards.length || cards.length>5) return fail(['INVALID_CARD_COUNT'],excluded);
+  return {gate:'PASS',cards,errors:[],excluded,checkedAt:new Date(now).toISOString()};
+}
+
+export function buildPublicEvidenceCards(input,options) {
+  return publicEvidenceGate(input,options).cards;
+}

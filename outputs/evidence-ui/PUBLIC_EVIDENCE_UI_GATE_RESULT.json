@@ -1,0 +1,143 @@
+{
+  "task": "AYU_FUEL_INTELLIGENCE_V2_EVIDENCE_UI_001",
+  "checkedAt": "2026-09-28T13:05:04.957Z",
+  "runType": "FROZEN_INPUT_READBACK",
+  "gates": {
+    "INTELLIGENCE_V2_DATA_GATE": "PASS",
+    "INTELLIGENCE_V2_FORECAST_GATE": "PASS",
+    "INTELLIGENCE_V2_UI_GATE": "PASS",
+    "PUBLIC_EVIDENCE_UI_GATE": "PASS"
+  },
+  "forecast": {
+    "primaryDirection": "UP",
+    "probabilities": {
+      "DOWN": 35,
+      "FLAT": 25,
+      "UP": 40
+    },
+    "generatedAt": "2026-09-28T11:17:34.176Z",
+    "validUntil": "2026-09-29T11:17:34.176Z",
+    "evidenceHash": "66453209e4ab96362b77d9846d91b7cf9dd287adf3a63ef7d7af4013d904e135",
+    "cacheMatches": true
+  },
+  "evidence": {
+    "gate": "PASS",
+    "status": "READY",
+    "errors": [],
+    "signalCount": 7,
+    "independentEventCount": 3,
+    "checkedAt": "2026-09-28T13:05:04.957Z"
+  },
+  "forecastResult": {
+    "gate": "PASS",
+    "errors": [],
+    "checkedAt": "2026-09-28T13:05:04.957Z",
+    "evidenceHash": "66453209e4ab96362b77d9846d91b7cf9dd287adf3a63ef7d7af4013d904e135"
+  },
+  "prices": {
+    "gate": "PASS",
+    "coastalRequired": 11,
+    "provinces": 31,
+    "generatedAt": "2026-09-28T01:40:13.534Z",
+    "errors": []
+  },
+  "coastal": [
+    {
+      "province": "福建",
+      "status": "LIVE"
+    },
+    {
+      "province": "浙江",
+      "status": "LIVE"
+    },
+    {
+      "province": "山东",
+      "status": "LIVE"
+    },
+    {
+      "province": "广东",
+      "status": "LIVE"
+    },
+    {
+      "province": "辽宁",
+      "status": "LIVE"
+    },
+    {
+      "province": "海南",
+      "status": "LIVE"
+    },
+    {
+      "province": "江苏",
+      "status": "LIVE"
+    },
+    {
+      "province": "河北",
+      "status": "LIVE"
+    },
+    {
+      "province": "天津",
+      "status": "LIVE"
+    },
+    {
+      "province": "上海",
+      "status": "LIVE"
+    },
+    {
+      "province": "广西",
+      "status": "LIVE"
+    }
+  ],
+  "publicEvidence": {
+    "gate": "PASS",
+    "cards": [
+      {
+        "evidenceId": "eia-stocks",
+        "direction": "UP",
+        "directionLabel": "利涨",
+        "title": "美国馏分油库存减少",
+        "summary": "统计周截至9月18日，馏分油库存较上周减少。",
+        "sourceName": "EIA",
+        "date": "2026-09-23",
+        "sourceUrl": "https://ir.eia.gov/wpsr/summary.txt",
+        "role": "MAIN"
+      },
+      {
+        "evidenceId": "market-brent",
+        "direction": "UP",
+        "directionLabel": "利涨",
+        "title": "Brent日度报价上涨",
+        "summary": "9月24日的Brent现货报价较上一报价日上涨。",
+        "sourceName": "EIA",
+        "date": "2026-09-25",
+        "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
+        "role": "MAIN"
+      },
+      {
+        "evidenceId": "news-hormuz-40441609",
+        "direction": "UP",
+        "directionLabel": "上涨风险",
+        "title": "霍尔木兹供应仍有不确定风险",
+        "summary": "报道提到谈判僵局带来的石油供应担忧，属于风险信号。",
+        "sourceName": "Reuters",
+        "date": "2026-09-28",
+        "sourceUrl": "https://www.brecorder.com/news/40441609/indian-shares-slide-to-near-six-month-low-as-us-iran-deadlock-lifts-oil-prices",
+        "role": "MAIN"
+      },
+      {
+        "evidenceId": "market-diesel",
+        "direction": "DOWN",
+        "directionLabel": "利跌",
+        "title": "纽约港低硫柴油报价回落",
+        "summary": "9月24日的低硫柴油现货报价较上一报价日回落。",
+        "sourceName": "EIA",
+        "date": "2026-09-25",
+        "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
+        "role": "COUNTER"
+      }
+    ],
+    "errors": [],
+    "excluded": [],
+    "checkedAt": "2026-09-28T13:05:04.957Z"
+  },
+  "browserAcceptance": "PASS"
+}
