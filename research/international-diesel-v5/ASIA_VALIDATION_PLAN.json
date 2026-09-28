@@ -1,0 +1,33 @@
+{
+  "registeredAt": "2026-09-28T09:45:48.547767+00:00",
+  "phase": "EXTERNAL_ONLY_AFTER_MODEL_FREEZE",
+  "period": "same 2022-2025 complete target weeks as frozen predictions",
+  "dateMapping": "survey-to-survey log change W to W+1 on consecutive calendar survey weeks; actual dates retained",
+  "calendarWeekLags": [
+    -1,
+    0,
+    1
+  ],
+  "selectLag": false,
+  "diagnosticThreshold": 0.0075,
+  "targetRedefined": false,
+  "baselineStart": "2013-06-10",
+  "baselineEndExclusive": "2022-01-01",
+  "baseline": "Japanese diagnostic class frequency, Jeffreys 0.5 smoothing",
+  "missingWeeks": "exclude, no interpolation",
+  "inputHashes": {
+    "V5_PREREGISTERED_PLAN.json": "4f8fe861888fa0d720bcf03ce55943dc180c671686e5edc259ac5c509acfe6e2",
+    "results/MODEL_FREEZE.json": "98f45cf2777efbc91fda5a8693650c1a7d76816113f91231b860a7163889eb09",
+    "results/final-result.json": "0d9559295851a7b239109419c43dc163d090b99af1e6e5305e803ebf5dc1c29e",
+    "results/final-predictions.json": "5c2142ab07e4fd4bc392f848ae010519ec2d494217c0680bc7015f15d54c7574",
+    "data/asia-evidence/japan-national-weekly.xlsx": "b6e2a35b69253e4a89a083631c106212d12ccc42e2df7927baa722b895b4c1bd"
+  },
+  "analysisCodeSha256": "7ff9780cd0c7c856bf2f3223e1cd0096fdce00f970acc72b25f7df70c05d0446",
+  "runtime": {
+    "python": "3.12.14",
+    "numpy": "2.3.5",
+    "openpyxl": "3.1.5"
+  },
+  "modelFits": 0,
+  "affectsV5ModelGate": false
+}

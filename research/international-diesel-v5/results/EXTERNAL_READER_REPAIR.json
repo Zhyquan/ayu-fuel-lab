@@ -1,0 +1,17 @@
+{
+  "attempt": 1,
+  "endedBeforeExternalScores": true,
+  "error": "DUPLICATE_SURVEY_WEEK",
+  "duplicateWeeks": [
+    "1992-03-30",
+    "1993-11-29"
+  ],
+  "affectsRegisteredBaselineOrTestPeriod": false,
+  "firstCodeFile": "asia_validate.py",
+  "firstCodeSha256": "7ff9780cd0c7c856bf2f3223e1cd0096fdce00f970acc72b25f7df70c05d0446",
+  "firstPlanFile": "ASIA_VALIDATION_PLAN.json",
+  "firstPlanSha256": "a5628231c01d325dc2a5c8adb8bbfe5402022db9df5d73a5d035ac82dba65d06",
+  "rerunReason": "Exclude all records in two duplicate calendar weeks; both pre-2013. Preserve original bytes and all frozen model inputs. No model fit/configuration/threshold/weight change. No external metric was viewed before repair.",
+  "formalModelEvaluationCount": 1,
+  "recordedAt": "2026-09-28T09:47:08.768843+00:00"
+}

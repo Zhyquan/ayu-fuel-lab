@@ -1,0 +1,194 @@
+{
+  "task": "AYU_INTERNATIONAL_DIESEL_FORECAST_V5_LEADING_SIGNALS_001",
+  "registeredAt": "2026-09-28T09:33:53.779937+00:00",
+  "phase": "PREREGISTERED_BEFORE_FINAL_EVALUATION",
+  "datasetSha256": "c3b4e54640075946109fa5d95560058f8204a39e5e0d9810fd62d5c50b9e606a",
+  "provenanceSha256": "a65c0ba379fbde0674257e146670ad4db0ed7d19601019459e392bf69025cd56",
+  "developmentSha256": "2b36c24287d2bba505c2b4db8709e4328ebe3ea3a34553d74d372419d2e283de",
+  "targetDefinition": "Inherited V4 LOCAL-CURRENCY AIDI; no target or threshold reselection",
+  "threshold": 0.0075,
+  "featureLists": {
+    "us": [
+      "us_return_1w",
+      "us_return_4w",
+      "us_volatility_13w",
+      "brent_return_1w",
+      "season_sin",
+      "season_cos",
+      "wti_return_1w",
+      "nyh_usgc_divergence",
+      "managedMoneyNetShare",
+      "managedMoneyNetShareChange1w",
+      "managedMoneyNetShareChange4w",
+      "producerMerchantNetShare",
+      "producerMerchantNetShareChange1w",
+      "swapDealerNetShare",
+      "openInterestChange1w",
+      "managedMoneyGrossShare"
+    ],
+    "eu": [
+      "eu_return_1w",
+      "eu_return_4w",
+      "eu_volatility_13w",
+      "brent_return_1w",
+      "season_sin",
+      "season_cos",
+      "us_eu_divergence"
+    ]
+  },
+  "architectureChoice": "REGIONAL_EXPERT",
+  "stageAModel": "logistic",
+  "stageBModel": "logistic",
+  "hyperparameters": {
+    "C": 0.1,
+    "class_weight": null,
+    "dual": false,
+    "fit_intercept": true,
+    "intercept_scaling": 1,
+    "l1_ratio": null,
+    "max_iter": 2000,
+    "multi_class": "deprecated",
+    "n_jobs": null,
+    "penalty": "l2",
+    "random_state": 5001,
+    "solver": "lbfgs",
+    "tol": 0.0001,
+    "verbose": 0,
+    "warm_start": false
+  },
+  "preprocessing": {
+    "imputer": "Train median, keep_empty_features=True",
+    "scaler": "Train StandardScaler, with_mean=True, with_std=True"
+  },
+  "dependencyLockSha256": "e30b0fc7ad24c21d2a5a46ef261ee5386d3f82420b81d8a6823a7a884222cacd",
+  "calibration": {
+    "stageA": "isotonic",
+    "stageB": "platt",
+    "plattC": 1
+  },
+  "selectedGroup": "CFTC",
+  "selection": {
+    "group": "CFTC",
+    "architecture": "REGIONAL_EXPERT",
+    "family": "logistic",
+    "calA": "isotonic",
+    "calB": "platt"
+  },
+  "holdoutDates": {
+    "start": "2022-01-01",
+    "end": "2025-12-31"
+  },
+  "calibrationYear": 2021,
+  "finalModelPolicy": "FIXED_TRAIN_THROUGH_2020_CALIBRATION_2021_NO_HOLDOUT_REFIT",
+  "evaluationMetrics": [
+    "multiclassBrier",
+    "LogLoss",
+    "topLabelECE",
+    "classwiseECE",
+    "accuracy",
+    "macroF1",
+    "recalls",
+    "binaryBrier",
+    "binaryLogLoss",
+    "AUC"
+  ],
+  "gates": {
+    "brierRelativeGain": 0.02,
+    "logLossRelativeGain": 0.02,
+    "multiclassECE": 0.08,
+    "yearMaxJointDegradation": 0.02,
+    "yearsNotJointlyDegraded": 3,
+    "yearsImprovedBoth": 2,
+    "reliabilityMinimumN": 20,
+    "reliabilityMaxAbsoluteGap": 0.15,
+    "stageARequiresBothProperScores": true,
+    "stageBRequiresBothProperScoresAndAccuracy": true,
+    "beatsV4BothProperScores": true,
+    "beatsMatchedDirectThreeClassBothProperScores": true
+  },
+  "reliabilityBuckets": [
+    0,
+    0.05,
+    0.15,
+    0.25,
+    0.35,
+    0.45,
+    0.55,
+    0.65,
+    0.75,
+    0.85,
+    0.95,
+    1
+  ],
+  "bootstrap": {
+    "blockWeeks": 8,
+    "repetitions": 3000,
+    "seed": 5001,
+    "weakIfCIIncludesZero": true
+  },
+  "randomSeed": 5001,
+  "dependencyVersions": {
+    "python": "3.12.14",
+    "numpy": "2.3.3",
+    "pandas": "2.2.3",
+    "scipy": "1.15.3",
+    "scikit-learn": "1.6.1"
+  },
+  "protectedFileHashes": {
+    "settings.json": "db207474fea4fc181386003c4ffaeb7c7144e72c2b99c310a5113f5020d13271",
+    "common.py": "b4cccef38510479c6fe57672eaf61df41b79202b01055019a14bc1e4e9bdc061",
+    "prepare.py": "08d1e1d8d76d8ceca1df584097d3458eacc2d585f418c0a65e9ad1c1c85d60cc",
+    "model.py": "2cd56d5eea80805a3477d99f79bcdb26fc96ce1be9bc42c6ec3ccecf988e6728",
+    "experiment.py": "83b3d899a705def8448e95788fa546aabefeb24943b233060aee6858045f75fb",
+    "run.py": "b0eccc8a15215879366caa770ba06c3c5ea69b27c346543624e54149e39cd10d",
+    "reports.py": "8e4a489b7f4d425844e34730fda64bcfcf2248b90fbf646783b651d4eb1b17ee",
+    "test_v5.py": "f89d315f2aa201fd64d912fe7e4ab0576a49cae47a10f2f4037afd5ea0345753",
+    "requirements.txt": "fb3443b60108151361651e72d32a51b26b24f4b84f8892f1aef4451467ac431e",
+    "requirements-lock.txt": "e30b0fc7ad24c21d2a5a46ef261ee5386d3f82420b81d8a6823a7a884222cacd"
+  },
+  "inheritedV4Hashes": {
+    "AIDI_DEFINITION.md": "5a87553d5070c1d399f087bc8c945e1eee53dfa1423eb4a8c79c00f4a1b4ec27",
+    "AIDI_FLAT_THRESHOLD_DECISION.md": "2df6e2511483097ea4ecebc97c4e3db31bd9f08e4d9b7220b67d0a372337d6e5",
+    "WEEKLY_ALIGNMENT_SPEC.md": "83a187c5b1683c635ac04701b1f64c83725cb254e0fe33773fa1500a0f21854d",
+    "spec.json": "646d938b413368b4dfd0aeab0a6828bb154cb6b7d9013353d9f22c5cf2895b8f",
+    "SPEC_FREEZE.json": "e6098756c384f18619188826bfe10ae239599b4c78a0a1cdfe706e2c381a1bf9",
+    "results/SELECTION_FREEZE.json": "2690c1fbb0916d6779cdedaee42af73797134456d278613b4fe9b2c4c8c33fd1",
+    "results/MODEL_FREEZE.json": "5858d9e0a22ba92b0798f48b13b2de6cf32848eb8d29691a5fa83f1fc8097051",
+    "data/weekly-dataset.csv": "9378a3e629e60a1cb1766aceacb5db1c0b51010935d2f3a9357515f67d09a0fc",
+    "data/weekly-index.csv": "159063909c1adc22446e1eece26a60c3ac2513202f87e2fd50efd5ff0bc08f18",
+    "data/DATA_AUDIT.json": "a86aa2eaa113395ebaee42134ae73704052f577621508749f7e79545e04d1486",
+    "prepare.py": "470abd692aaf70e1862988ff438d048ac61cdcac3dfe3ca1071f627f1f245f32",
+    "evaluate.py": "dcb9763bba548e5409f9241856565546791998275378dfe0f20f2b8f3beaa8f6",
+    "data/raw/eia-weekly-releases.zip": "a88a26edb9b600381d322c49c140b7e840d7da333fd332150f42f3b0b5bff272",
+    "data/raw/eu-history.xlsx": "8467d8c13c85f69bd59ee817832865ab92d2e57c11b1d572cf102df459446856",
+    "data/raw/DDFUELNYH-initial.csv": "4f5efc18d1f604e0b36a3c90c9d6cd9a3e75d2bf26a7d46a00e4902fff960640",
+    "data/raw/DDFUELUSGULF-initial.csv": "0db342551931d8d09ec8f9f45c1177a22cd2ac3dd6d084e75e78ced46c9c160f",
+    "data/raw/DCOILBRENTEU-initial.csv": "dd1a2a1b6dbd7c5f26459cf25419af4017fa30c8766a9f8edf424b27270abcf1",
+    "data/raw/DCOILWTICO-initial.csv": "79f4a4b286e9a0cef6121b8ac261022c0821aba0c811a70ee672a426a4842183"
+  },
+  "rawHashes": {
+    "data/raw/cftc-dataset-metadata.json": "c59be32ecfd559cb62ab70003e48041cd2517c950d1510f33509ee04dfa4b69f",
+    "data/raw/cftc-dataset-metadata.json.meta.json": "9a2fb7f310a83033c98be9fd4c11565ef369fd0dbc48b2fe6687b776ba31eba4",
+    "data/raw/cftc-ulsd-selected-fields.json": "8546bbe203fb7a4dcabfcd98c417ae31acf4fa59fbba7495ee653a8ab4bb5da7",
+    "data/raw/cftc-ulsd-selected-fields.json.meta.json": "5af870cfaa6eb40eee6a09b858551bec3bef59ae742d248404ec1e13cc2f97f5"
+  },
+  "baselineRules": {
+    "frequency": "all mature Train+Calibration labels; Jeffreys .5 smoothing",
+    "dominant": "same pre-final dominant class, .96 confidence",
+    "continuation": "last available AIDI class; pre-final empirical reliability >=1/3",
+    "meanReversion": "DOWN/UP reversed, FLAT retained; pre-final reliability",
+    "directionMomentum": "sign(last published AIDI return), pre-final MOVE reliability confidence .5..95",
+    "usOnlyEuOnly": "V5 chosen family/calibration, same AIDI labels, own regional inputs; US keeps admitted leading signals",
+    "v4Best": "fixed ElasticNet alpha=.001 l1_ratio=.25 + Platt, original 38-feature baseline exception; same V5 cutoffs/target weeks",
+    "matchedDirectThreeClass": "chosen small family on union of chosen features, direct AIDI labels, fixed OVR Platt C=.25; diagnostic comparator, not selection candidate"
+  },
+  "priorHoldoutExposure": "V4 previously evaluated 2022-2025; V5 selection lock is not historical blindness",
+  "holdoutOpened": false,
+  "japanOrMgoUsedInSelection": false,
+  "probabilitySumTolerance": 1e-09,
+  "minimumProperScoreGains": {
+    "brier": 0.02,
+    "logLoss": 0.02
+  },
+  "dataGate": "PASS"
+}

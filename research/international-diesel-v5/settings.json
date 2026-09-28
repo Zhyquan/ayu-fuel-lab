@@ -1,0 +1,98 @@
+{
+  "task": "AYU_INTERNATIONAL_DIESEL_FORECAST_V5_LEADING_SIGNALS_001",
+  "v4Sha": "68acfd6d465dbcb440c31377459751d2057bc260",
+  "threshold": 0.0075,
+  "seed": 5001,
+  "primaryStart": "2013-06-10",
+  "developmentYears": [
+    2017,
+    2018,
+    2019,
+    2020
+  ],
+  "trainingTargetEnd": "2020-12-31",
+  "calibrationYear": 2021,
+  "holdout": {
+    "start": "2022-01-01",
+    "end": "2025-12-31"
+  },
+  "asOf": "2026-09-28T00:00:00Z",
+  "priceBase": [
+    "aidi_return_1w",
+    "aidi_return_4w",
+    "aidi_volatility_4w",
+    "aidi_volatility_13w",
+    "brent_return_1w",
+    "wti_return_1w",
+    "season_sin",
+    "season_cos",
+    "us_eu_divergence",
+    "nyh_usgc_divergence"
+  ],
+  "cftcFeatures": [
+    "managedMoneyNetShare",
+    "managedMoneyNetShareChange1w",
+    "managedMoneyNetShareChange4w",
+    "producerMerchantNetShare",
+    "producerMerchantNetShareChange1w",
+    "swapDealerNetShare",
+    "openInterestChange1w",
+    "managedMoneyGrossShare"
+  ],
+  "inventoryFeatures": [
+    "inventory_change_1w",
+    "inventory_change_4w",
+    "inventory_pct_change_4w",
+    "inventory_seasonal_zscore"
+  ],
+  "refineryFeatures": [
+    "refinery_utilization_level",
+    "refinery_utilization_change_1w",
+    "refinery_utilization_change_4w",
+    "distillate_production_change_1w",
+    "distillate_production_change_4w",
+    "refinery_input_change_4w"
+  ],
+  "families": {
+    "logistic": {
+      "C": 0.1,
+      "max_iter": 2000,
+      "random_state": 5001
+    },
+    "shallow_boost": {
+      "max_iter": 60,
+      "max_depth": 2,
+      "min_samples_leaf": 25,
+      "l2_regularization": 2,
+      "early_stopping": false,
+      "random_state": 5001
+    }
+  },
+  "calibrators": [
+    "platt",
+    "isotonic"
+  ],
+  "calibratorPlattC": 1,
+  "ablationAdmissionRelativeGain": 0.005,
+  "featureHardLimit": 30,
+  "gates": {
+    "brierRelativeGain": 0.02,
+    "logLossRelativeGain": 0.02,
+    "multiclassECE": 0.08,
+    "yearMaxJointDegradation": 0.02,
+    "yearsNotJointlyDegraded": 3,
+    "yearsImprovedBoth": 2,
+    "reliabilityMinimumN": 20,
+    "reliabilityMaxAbsoluteGap": 0.15,
+    "stageARequiresBothProperScores": true,
+    "stageBRequiresBothProperScoresAndAccuracy": true
+  },
+  "bootstrap": {
+    "blockWeeks": 8,
+    "repetitions": 3000,
+    "seed": 5001,
+    "weakIfCIIncludesZero": true
+  },
+  "holdoutDisclosure": "V4 previously evaluated 2022-2025; V5 selection lock is not historical blindness",
+  "finalModelUpdatePolicy": "FIXED_TRAIN_THROUGH_2020_CALIBRATION_2021_NO_HOLDOUT_REFIT"
+}

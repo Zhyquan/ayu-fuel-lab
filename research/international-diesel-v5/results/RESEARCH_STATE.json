@@ -1,0 +1,17 @@
+{
+  "phase": "FINAL_EVALUATED",
+  "updatedAt": "2026-09-28T09:37:56.719802+00:00",
+  "dataGate": "PASS",
+  "finalHoldoutOpened": true,
+  "selection": {
+    "group": "CFTC",
+    "architecture": "REGIONAL_EXPERT",
+    "family": "logistic",
+    "calA": "isotonic",
+    "calB": "platt"
+  },
+  "planSha256": "4f8fe861888fa0d720bcf03ce55943dc180c671686e5edc259ac5c509acfe6e2",
+  "finalHoldoutAuthorization": "VALID",
+  "modelGate": "FAIL",
+  "finalEvaluationCount": 1
+}

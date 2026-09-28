@@ -1,0 +1,89 @@
+{
+  "V5_DATA_GATE": "PASS",
+  "cftc": {
+    "rawRows": 925,
+    "rawStart": "2009-01-06",
+    "rawEnd": "2026-09-22",
+    "primaryRows": 695,
+    "primaryStart": "2013-06-04",
+    "primaryEnd": "2026-09-22",
+    "quarantined": 34,
+    "availabilityRules": {
+      "CONSERVATIVE_ONE_CUTOFF_DELAY": 654,
+      "2025_ANNOUNCED_CATCHUP_NOT_ACTUAL_RELEASE_PROOF": 13,
+      "2019_SHUTDOWN_INCOMPLETE_ACTUAL_SCHEDULE": 12,
+      "2013_SHUTDOWN_INCOMPLETE_ACTUAL_SCHEDULE": 7,
+      "ACTUAL_ISSUE_PLUS_NEXT_MIDNIGHT": 7,
+      "ION_REMAINING_RECOVERY_NOT_PROVEN": 2
+    },
+    "displayNames": {
+      "NY HARBOR ULSD - NEW YORK MERCANTILE EXCHANGE": 241,
+      "#2 HEATING OIL- NY HARBOR-ULSD - NEW YORK MERCANTILE EXCHANGE": 227,
+      "#2 HEATING OIL, NY HARBOR-ULSD - NEW YORK MERCANTILE EXCHANGE": 203,
+      "NO. 2 HEATING OIL, N.Y. HARBOR - NEW YORK MERCANTILE EXCHANGE": 23,
+      "NY HARBOR USLD - NEW YORK MERCANTILE EXCHANGE": 1
+    },
+    "units": "contracts; normalized by openInterest",
+    "revisionEvidence": "Official current historical snapshot, not a complete first-publication vintage archive",
+    "license": "CFTC government data public domain with acknowledgement; private contributions excluded",
+    "revisionRisk": "COT may correct reports and trader classifications. No target-market correction found in reviewed special notices; absence is not universal vintage proof."
+  },
+  "eia": {
+    "rows": 768,
+    "start": "2011-12-26",
+    "end": "2026-09-14",
+    "source": "original release first observation column; inherited dated WPSR raw archives",
+    "units": {
+      "stock": "million barrels",
+      "production": "thousand barrels/day",
+      "inputs": "thousand barrels/day",
+      "utilization": "percent"
+    },
+    "revisionRisk": "Dated archive snapshot audit inherited V4; not a guarantee these archive files were never corrected",
+    "seasonalReference": "past five years, +/-3 ISO weeks, only earlier years and released data"
+  },
+  "targetIntegrity": "PASS",
+  "inheritedV4Hashes": {
+    "AIDI_DEFINITION.md": "5a87553d5070c1d399f087bc8c945e1eee53dfa1423eb4a8c79c00f4a1b4ec27",
+    "AIDI_FLAT_THRESHOLD_DECISION.md": "2df6e2511483097ea4ecebc97c4e3db31bd9f08e4d9b7220b67d0a372337d6e5",
+    "WEEKLY_ALIGNMENT_SPEC.md": "83a187c5b1683c635ac04701b1f64c83725cb254e0fe33773fa1500a0f21854d",
+    "spec.json": "646d938b413368b4dfd0aeab0a6828bb154cb6b7d9013353d9f22c5cf2895b8f",
+    "SPEC_FREEZE.json": "e6098756c384f18619188826bfe10ae239599b4c78a0a1cdfe706e2c381a1bf9",
+    "results/SELECTION_FREEZE.json": "2690c1fbb0916d6779cdedaee42af73797134456d278613b4fe9b2c4c8c33fd1",
+    "results/MODEL_FREEZE.json": "5858d9e0a22ba92b0798f48b13b2de6cf32848eb8d29691a5fa83f1fc8097051",
+    "data/weekly-dataset.csv": "9378a3e629e60a1cb1766aceacb5db1c0b51010935d2f3a9357515f67d09a0fc",
+    "data/weekly-index.csv": "159063909c1adc22446e1eece26a60c3ac2513202f87e2fd50efd5ff0bc08f18",
+    "data/DATA_AUDIT.json": "a86aa2eaa113395ebaee42134ae73704052f577621508749f7e79545e04d1486",
+    "prepare.py": "470abd692aaf70e1862988ff438d048ac61cdcac3dfe3ca1071f627f1f245f32",
+    "evaluate.py": "dcb9763bba548e5409f9241856565546791998275378dfe0f20f2b8f3beaa8f6",
+    "data/raw/eia-weekly-releases.zip": "a88a26edb9b600381d322c49c140b7e840d7da333fd332150f42f3b0b5bff272",
+    "data/raw/eu-history.xlsx": "8467d8c13c85f69bd59ee817832865ab92d2e57c11b1d572cf102df459446856",
+    "data/raw/DDFUELNYH-initial.csv": "4f5efc18d1f604e0b36a3c90c9d6cd9a3e75d2bf26a7d46a00e4902fff960640",
+    "data/raw/DDFUELUSGULF-initial.csv": "0db342551931d8d09ec8f9f45c1177a22cd2ac3dd6d084e75e78ced46c9c160f",
+    "data/raw/DCOILBRENTEU-initial.csv": "dd1a2a1b6dbd7c5f26459cf25419af4017fa30c8766a9f8edf424b27270abcf1",
+    "data/raw/DCOILWTICO-initial.csv": "79f4a4b286e9a0cef6121b8ac261022c0821aba0c811a70ee672a426a4842183"
+  },
+  "residualRisks": [
+    "EU extreme delayed releases/current historical revisions",
+    "CFTC current historical corrections without full vintages",
+    "CFTC unannounced exceptional delays not a universal guarantee"
+  ],
+  "admission": "RESEARCH_ONLY_CONSERVATIVE_RELEASE_RULE_WITH_EXPLICIT_QUARANTINES",
+  "datasetRows": 694,
+  "modelableRows": 577,
+  "sourceCoverage": {
+    "cftc": 660,
+    "eia": 694
+  },
+  "datasetSha256": "c3b4e54640075946109fa5d95560058f8204a39e5e0d9810fd62d5c50b9e606a",
+  "provenanceSha256": "a65c0ba379fbde0674257e146670ad4db0ed7d19601019459e392bf69025cd56",
+  "gateChecks": {
+    "targetFreeze": true,
+    "postULSDYears": true,
+    "postULSDRows": true,
+    "cftcCoverage": true,
+    "eiaCoverage": true,
+    "noFutureFeature": true,
+    "candidateFeaturesWithinLimit": true
+  }
+}

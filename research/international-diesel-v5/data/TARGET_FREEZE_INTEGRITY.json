@@ -1,0 +1,28 @@
+{
+  "gate": "PASS",
+  "checks": {
+    "thresholdExact": true,
+    "selectionHashMatchesTestFreeze": true,
+    "datasetHash": true,
+    "specHash": true,
+    "selectionRecordedBeforeTest": true,
+    "selectionPhase": true
+  },
+  "v4Sha": "68acfd6d465dbcb440c31377459751d2057bc260",
+  "selectionFrozenAt": "2026-09-28T07:57:19.481971+00:00",
+  "testFrozenAt": "2026-09-28T08:01:34.507782+00:00",
+  "hashes": {
+    "AIDI_DEFINITION.md": "5a87553d5070c1d399f087bc8c945e1eee53dfa1423eb4a8c79c00f4a1b4ec27",
+    "AIDI_FLAT_THRESHOLD_DECISION.md": "2df6e2511483097ea4ecebc97c4e3db31bd9f08e4d9b7220b67d0a372337d6e5",
+    "WEEKLY_ALIGNMENT_SPEC.md": "83a187c5b1683c635ac04701b1f64c83725cb254e0fe33773fa1500a0f21854d",
+    "spec.json": "646d938b413368b4dfd0aeab0a6828bb154cb6b7d9013353d9f22c5cf2895b8f",
+    "SPEC_FREEZE.json": "e6098756c384f18619188826bfe10ae239599b4c78a0a1cdfe706e2c381a1bf9",
+    "results/SELECTION_FREEZE.json": "2690c1fbb0916d6779cdedaee42af73797134456d278613b4fe9b2c4c8c33fd1",
+    "results/MODEL_FREEZE.json": "5858d9e0a22ba92b0798f48b13b2de6cf32848eb8d29691a5fa83f1fc8097051",
+    "data/weekly-dataset.csv": "9378a3e629e60a1cb1766aceacb5db1c0b51010935d2f3a9357515f67d09a0fc",
+    "data/weekly-index.csv": "159063909c1adc22446e1eece26a60c3ac2513202f87e2fd50efd5ff0bc08f18",
+    "data/DATA_AUDIT.json": "a86aa2eaa113395ebaee42134ae73704052f577621508749f7e79545e04d1486",
+    "prepare.py": "470abd692aaf70e1862988ff438d048ac61cdcac3dfe3ca1071f627f1f245f32",
+    "evaluate.py": "dcb9763bba548e5409f9241856565546791998275378dfe0f20f2b8f3beaa8f6"
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "status": "LIMITED",
+  "japanStatus": "AVAILABLE_EXTERNAL_ONLY",
+  "mgoStatus": "UNAVAILABLE",
+  "n": 177,
+  "statistics": [
+    {
+      "japanLagWeeks": -1,
+      "n": 178,
+      "pearsonReturnCorrelation": 0.1395181599546452,
+      "signAgreement": 0.5112359550561798,
+      "threeClassAgreement": 0.29213483146067415
+    },
+    {
+      "japanLagWeeks": 0,
+      "n": 177,
+      "pearsonReturnCorrelation": 0.25596480431635754,
+      "signAgreement": 0.5028248587570622,
+      "threeClassAgreement": 0.2994350282485876
+    },
+    {
+      "japanLagWeeks": 1,
+      "n": 175,
+      "pearsonReturnCorrelation": 0.19066481961435655,
+      "signAgreement": 0.5314285714285715,
+      "threeClassAgreement": 0.3028571428571429
+    }
+  ],
+  "reason": "Official Japan weekly workbook obtained through normal anonymous browser download after HTTP403; Singapore candidate rejected by terms.",
+  "modelFreezeSha256": "98f45cf2777efbc91fda5a8693650c1a7d76816113f91231b860a7163889eb09",
+  "usedInSelection": false,
+  "reviewedAt": "2026-09-28T09:45:48.551392+00:00",
+  "japanAttempts": [
+    {
+      "source": "METI Japan national weekly retail diesel",
+      "url": "https://www.enecho.meti.go.jp/statistics/petroleum_and_lpgas/pl007/xlsx/260916s5.xlsx",
+      "attemptedAt": "2026-09-28T09:39:36.520422+00:00",
+      "method": "ordinary anonymous GET",
+      "credentialsUsed": false,
+      "httpStatus": 403,
+      "contentType": "text/html",
+      "bytes": 34244,
+      "error": "HTTP Error 403: Forbidden",
+      "sha256": "6f7f3108e207fc7ee083ab08fc592ccef43af3d25822e7ec46cda1588ab6d2af"
+    },
+    {
+      "method": "normal anonymous browser click on official weekly XLSX link",
+      "completedAt": "2026-09-28T09:45:48.551529+00:00",
+      "httpStatus": null,
+      "bytes": 2648192,
+      "sha256": "b6e2a35b69253e4a89a083631c106212d12ccc42e2df7927baa722b895b4c1bd",
+      "validZipHeader": true,
+      "credentialsUsed": false,
+      "securityWarningsBypassed": false
+    }
+  ],
+  "japanPolicy": {
+    "url": "https://www.enecho.meti.go.jp/about/linksto_thissite/index.html",
+    "rule": "PDL1.0; attribution and processing disclosure; no unrelated third-party content reused"
+  },
+  "mgoReview": {
+    "source": "Ship & Bunker",
+    "page": "https://shipandbunker.com/prices/apac/sea/sg-sin-singapore",
+    "terms": "https://shipandbunker.com/terms",
+    "status": "BLOCKED_BY_LICENSE",
+    "reason": "ML / AI training / commercial-product uses require written agreement; historical downloads require login/subscription",
+    "pricesStored": false,
+    "n": 0,
+    "statistics": null
+  },
+  "statisticsFile": "results/ASIA_VALIDATION_RESULT.json",
+  "originalHttpErrorBody": "Preserved byte-for-byte as private delivery evidence outside the Git checkout; hash in japan-request.json"
+}

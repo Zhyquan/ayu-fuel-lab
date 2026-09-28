@@ -1,0 +1,91 @@
+{
+  "V5_DATA_GATE": "PASS",
+  "V5_MODEL_GATE": "FAIL",
+  "V5_PRODUCT_GATE": "FAIL",
+  "v5Tests": {
+    "gate": "PASS",
+    "tests": 23,
+    "failures": 0
+  },
+  "existingTests": {
+    "gate": "PASS",
+    "tests": 102,
+    "failures": 0
+  },
+  "publicFileScan": {
+    "gate": "PASS",
+    "scanned": 1208,
+    "findings": []
+  },
+  "modelAuthorization": "VALID",
+  "formalEvaluationCount": 1,
+  "reproduction": {
+    "gate": "PASS",
+    "sameSelection": true,
+    "sameDatasetHash": true,
+    "samePlanHash": true,
+    "sameModelGate": true,
+    "sameScores": true,
+    "productionFilesChanged": 0,
+    "networkRequests": 0,
+    "formalResultChanged": false,
+    "sameFinalPredictionBytes": true,
+    "sameAllScientificResultFields": true,
+    "sameFinalResultBytes": false,
+    "expectedDifferentFields": [
+      "evaluationCompletedAt"
+    ],
+    "formalMarkerKind": "FORMAL_ONCE",
+    "reproductionMarkerKind": "FROZEN_PLAN_REPRODUCTION",
+    "evaluationTimes": {
+      "formal": "2026-09-28T09:37:56.709974+00:00",
+      "reproduction": "2026-09-28T09:50:11.484934+00:00"
+    }
+  },
+  "browser": {
+    "gate": "PASS",
+    "verifiedAt": "2026-09-28T09:53:47.352Z",
+    "url": "http://127.0.0.1:4408/research/international-diesel-v5/ui/",
+    "actualClicks": [
+      "province dropdown opened",
+      "浙江 selected",
+      "market details expanded",
+      "market details collapsed"
+    ],
+    "provinceSwitch": {
+      "from": "福建",
+      "to": "浙江",
+      "fujianPrice": 8.29,
+      "zhejiangPrice": 8.28
+    },
+    "mobile390": {
+      "height": 844,
+      "liter": "¥8.28 / 升",
+      "marketOpen": true,
+      "pending": "模型验证中",
+      "price": "约 ¥9,857 / 吨",
+      "province": "浙江",
+      "scrollWidth": 390,
+      "stateDate": "最新完整观测周截至 2026-09-20",
+      "width": 390
+    },
+    "narrow320": {
+      "height": 760,
+      "marketOpen": true,
+      "pending": "模型验证中",
+      "scrollWidth": 320,
+      "width": 320
+    },
+    "browserErrors": [],
+    "probabilityDisplay": "模型验证中; no future probability percentages",
+    "screenshot": "results/candidate-mobile.png",
+    "publicDeployment": false
+  },
+  "scope": "new research/international-diesel-v5 subtree only",
+  "productionTrackedFilesChanged": 0,
+  "currentForecastGenerated": false,
+  "fittedModelArtifactGenerated": false,
+  "asia": "LIMITED",
+  "coreModelCodeChangedAfterPreregistration": false,
+  "coreModelPlanSha256": "4f8fe861888fa0d720bcf03ce55943dc180c671686e5edc259ac5c509acfe6e2"
+}

@@ -1,0 +1,23 @@
+{
+  "gate": "PASS",
+  "sameSelection": true,
+  "sameDatasetHash": true,
+  "samePlanHash": true,
+  "sameModelGate": true,
+  "sameScores": true,
+  "productionFilesChanged": 0,
+  "networkRequests": 0,
+  "formalResultChanged": false,
+  "sameFinalPredictionBytes": true,
+  "sameAllScientificResultFields": true,
+  "sameFinalResultBytes": false,
+  "expectedDifferentFields": [
+    "evaluationCompletedAt"
+  ],
+  "formalMarkerKind": "FORMAL_ONCE",
+  "reproductionMarkerKind": "FROZEN_PLAN_REPRODUCTION",
+  "evaluationTimes": {
+    "formal": "2026-09-28T09:37:56.709974+00:00",
+    "reproduction": "2026-09-28T09:50:11.484934+00:00"
+  }
+}

@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AIDI · 国际柴油研究 V5</title><link rel="stylesheet" href="./style.css"></head>
+<body><main>
+  <header><div class="brand">AYU FUEL LAB <span>研究候选 · V5</span></div><h1>全国柴油行情</h1><p class="subtitle">0#柴油参考价与国际市场变化</p></header>
+  <section class="card price-card"><div class="top"><h2>0#柴油参考价</h2><select id="province" aria-label="选择沿海地区"></select></div><div class="price" id="price">读取快照…</div><p class="liter" id="liter"></p><p class="meta" id="price-date"></p><p class="note">吨价按 0.84 kg/L 估算，实际成交价格可能不同。</p></section>
+  <section class="card"><div class="top"><h2>国际柴油市场</h2><span class="tag">周度参考</span></div><div class="state" id="state">正在读取…</div><p class="meta" id="state-date"></p><details id="market-details"><summary>查看市场变化 <span>＋</span></summary><div class="changes" id="changes"></div><svg id="chart" viewBox="0 0 350 100" role="img" aria-label="近26个有效观测周的AIDI参考指数"></svg><p class="meta">美国与欧洲各占一半。反映已发生的变化，不是未来预测。</p></details></section>
+  <section class="card forecast"><h2>未来7天趋势</h2><div class="pending">模型验证中</div><p class="explanation">预测可靠性尚未通过验证<br>暂不提供未来涨跌概率</p></section>
+  <footer>独立研究预览 · AIDI 国际柴油指数<br>美国与欧洲参考市场，不代表亚洲船燃成交价<br><a href="../AYU_INTERNATIONAL_DIESEL_V5_RESULT.md">查看研究结论</a></footer>
+</main><script type="module" src="./app.js"></script></body></html>

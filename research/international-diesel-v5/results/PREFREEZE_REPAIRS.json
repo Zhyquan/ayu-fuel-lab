@@ -1,0 +1,18 @@
+{
+  "phase": "BEFORE_PREREGISTRATION_BEFORE_FINAL",
+  "repairedAt": "2026-09-28T09:33:53.761599+00:00",
+  "finalHoldoutOpened": false,
+  "repairs": [
+    {
+      "issue": "Quarantined CFTC row could inherit older change timestamp; current row must remain unavailable",
+      "action": "Mask availability by current original release status; reject future observations in as-of lookup"
+    },
+    {
+      "issue": "Regional BOTH candidate input union exceeded30 despite each expert being smaller",
+      "action": "Pre-development prune redundant4w own-region volatility; union maximum30, winner union20"
+    }
+  ],
+  "developmentRecomputed": true,
+  "datasetSha256": "c3b4e54640075946109fa5d95560058f8204a39e5e0d9810fd62d5c50b9e606a",
+  "developmentSha256": "2b36c24287d2bba505c2b4db8709e4328ebe3ea3a34553d74d372419d2e283de"
+}
