@@ -43,11 +43,8 @@ function renderForecast(forecast) {
 
 function renderEvidence(forecast) {
   const target = document.querySelector('#evidence-content');
-  const detailsWereOpen = target.querySelector('.evidence-details')?.open;
   try {
     target.innerHTML = publicEvidenceMarkup(forecast);
-    const details = target.querySelector('.evidence-details');
-    if (detailsWereOpen && details) details.open = true;
   } catch {
     target.innerHTML = '<p class="evidence-unavailable">判断依据暂时无法展示。</p>';
   }

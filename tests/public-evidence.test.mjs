@@ -85,21 +85,21 @@ test('publication dates are explicit while summaries keep observation dates; DAT
   assert.equal(formatEvidenceDate('2026-09-28',now),'今天');assert.equal(formatEvidenceDate('2026-09-27',now),'昨天');
   assert.equal(formatEvidenceDate('2025-09-23',now),'2025年9月23日');assert.equal(formatEvidenceDate('2026-02-30',now),null);
 });
-test('default shows two main cards; remaining main and counter are folded, with independent Reuters retained',()=>{
-  const html=publicEvidenceMarkup(cache(fixture()),options), [visible,folded]=html.split('<details');
-  assert.equal((visible.match(/<article/g)??[]).length,2);assert.equal((folded.match(/<article/g)??[]).length,2);
-  assert.match(visible,/主要上行因素/);assert.match(folded,/查看全部依据（4）/);assert.match(folded,/反向因素|Reuters|上涨风险/);
+test('all genuine cards appear directly without explanation headings or disclosure',()=>{
+  const html=publicEvidenceMarkup(cache(fixture()),options);
   assert.equal((html.match(/<article/g)??[]).length,4);
+  assert.doesNotMatch(html,/<details|主要上行因素|主要下行因素|反向因素|查看全部依据/);
+  assert.match(html,/Reuters/);assert.match(html,/上涨风险/);assert.match(html,/利跌/);
 });
 test('only two true reason cards are shown directly without filler or disclosure',()=>{
   const f=fixture();f.forecast.mainReasons=f.forecast.mainReasons.slice(0,1);
   assert.equal(publicEvidenceGate(f,options).gate,'PASS');
   const html=publicEvidenceMarkup(cache(f),options);assert.equal((html.match(/<article/g)??[]).length,2);assert.doesNotMatch(html,/<details/);
 });
-test('DOWN uses a clear main direction title and leaves original probabilities intact',()=>{
+test('DOWN retains card direction labels and leaves original probabilities intact',()=>{
   const f=fixture();[f.forecast.mainReasons,f.forecast.counterReasons]=[f.forecast.counterReasons,f.forecast.mainReasons.slice(0,2)];
   f.forecast.primaryDirection='DOWN';f.forecast.probabilities={DOWN:40,FLAT:25,UP:35};
-  assert.equal(publicEvidenceGate(f,options).gate,'PASS');assert.match(publicEvidenceMarkup(cache(f),options),/主要下行因素/);
+  assert.equal(publicEvidenceGate(f,options).gate,'PASS');assert.match(publicEvidenceMarkup(cache(f),options),/利跌/);
   assert.deepEqual(f.forecast.probabilities,{DOWN:40,FLAT:25,UP:35});
 });
 test('same EIA weekly event is deduplicated even if multiple measurements are genuine reason refs',()=>{
