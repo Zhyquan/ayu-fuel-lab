@@ -1,0 +1,2019 @@
+{
+  "capturedAt": "2026-09-28T14:30:24.591Z",
+  "keyboard": [
+    {
+      "active": "广西壮族自治区",
+      "open": true,
+      "outline": "3px",
+      "outlineStyle": "solid",
+      "step": "Keyboard opens picker and focuses selected province"
+    },
+    {
+      "active": null,
+      "open": true,
+      "step": "Tab stays within dialog",
+      "withinDialog": false
+    },
+    {
+      "activeId": "province-trigger",
+      "closed": true,
+      "outline": "3px",
+      "step": "Escape closes and restores selector focus"
+    },
+    {
+      "active": "浙江省",
+      "step": "Tab from selected Fujian to Zhejiang",
+      "withinDialog": true
+    },
+    {
+      "active": "关闭省份选择器",
+      "outline": "3px",
+      "step": "Reverse Tab reaches close button",
+      "withinDialog": true
+    }
+  ],
+  "nativeDialogNote": "Tab after last item can move into browser chrome in the embedded WebView; foreground page controls remain inert while modal is open. Enter, Tab between options, reverse Tab to close, Escape, and focus return were verified.",
+  "directCards": true,
+  "links": [
+    {
+      "height": 44,
+      "href": "https://ir.eia.gov/wpsr/summary.txt",
+      "id": "eia-stocks",
+      "label": "查看美国馏分油库存减少的原始来源",
+      "rel": "noopener noreferrer",
+      "target": "_blank"
+    },
+    {
+      "height": 44,
+      "href": "https://www.eia.gov/todayinenergy/prices.php",
+      "id": "market-brent",
+      "label": "查看Brent日度报价上涨的原始来源",
+      "rel": "noopener noreferrer",
+      "target": "_blank"
+    },
+    {
+      "height": 44,
+      "href": "https://www.brecorder.com/news/40441609/indian-shares-slide-to-near-six-month-low-as-us-iran-deadlock-lifts-oil-prices",
+      "id": "news-hormuz-40441609",
+      "label": "查看霍尔木兹供应仍有不确定风险的原始来源",
+      "rel": "noopener noreferrer",
+      "target": "_blank"
+    },
+    {
+      "height": 44,
+      "href": "https://www.eia.gov/todayinenergy/prices.php",
+      "id": "market-diesel",
+      "label": "查看纽约港低硫柴油报价回落的原始来源",
+      "rel": "noopener noreferrer",
+      "target": "_blank"
+    }
+  ],
+  "noDisclosure": true,
+  "noExtraHeading": true,
+  "priceIndependent": true,
+  "selector": {
+    "hasPopup": "dialog",
+    "height": 44,
+    "label": "福建省"
+  },
+  "text": [
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "22px",
+      "fontWeight": "600",
+      "height": 31,
+      "selector": "H1",
+      "text": "渔船柴油参考价"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 18.5,
+      "selector": "subtitle",
+      "text": "沿海地区 · 0#柴油省级参考价"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 20.796875,
+      "selector": "location-note",
+      "text": "沿海 11 个地区"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(236, 245, 246)",
+      "fontSize": "16px",
+      "fontWeight": "500",
+      "height": 22.3984375,
+      "selector": "H2",
+      "text": "省级0#柴油参考价"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(220, 239, 237)",
+      "fontSize": "18px",
+      "fontWeight": "400",
+      "height": 25,
+      "selector": "approx",
+      "text": "约"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(255, 255, 255)",
+      "fontSize": "24px",
+      "fontWeight": "400",
+      "height": 28,
+      "selector": "currency",
+      "text": "¥"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(255, 255, 255)",
+      "fontSize": "44px",
+      "fontWeight": "550",
+      "height": 48.3984375,
+      "selector": "STRONG",
+      "text": "9,869"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(208, 224, 223)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 20,
+      "selector": "unit",
+      "text": "/ 吨"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(232, 245, 243)",
+      "fontSize": "20px",
+      "fontWeight": "400",
+      "height": 25,
+      "selector": "liter-price",
+      "text": "¥8.29 / 升"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(208, 224, 223)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 19.5,
+      "selector": "estimate-note",
+      "text": "吨价按参考密度估算 · 0.84 kg/L"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "16px",
+      "fontWeight": "600",
+      "height": 22.3984375,
+      "selector": "H2",
+      "text": "未来7天油价趋势"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(137, 85, 43)",
+      "fontSize": "30px",
+      "fontWeight": "600",
+      "height": 42,
+      "selector": "trend-direction up",
+      "text": "↑\n偏涨"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 20,
+      "selector": "ai-estimate-label",
+      "text": "AI综合估计"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 24,
+      "selector": "probability-row",
+      "text": "下跌\n35%"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 24,
+      "selector": "probability-row",
+      "text": "基本不变\n25%"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 24,
+      "selector": "probability-row",
+      "text": "上涨\n40%"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 41.59375,
+      "selector": "forecast-scope",
+      "text": "判断国际柴油市场方向，不等同于本省调价。"
+    },
+    {
+      "bg": [
+        "rgb(247, 239, 231)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(137, 85, 43)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 26.1953125,
+      "selector": "evidence-label up",
+      "text": "利涨"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "13px",
+      "fontWeight": "600",
+      "height": 15,
+      "selector": "SPAN",
+      "text": "EIA"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 18.5,
+      "selector": "TIME",
+      "text": "9月23日发布"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "17px",
+      "fontWeight": "600",
+      "height": 25.5,
+      "selector": "H3",
+      "text": "美国馏分油库存减少"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 51.1875,
+      "selector": "evidence-summary",
+      "text": "统计周截至9月18日，馏分油库存较上周减少。"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(40, 107, 99)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 44,
+      "selector": "evidence-source",
+      "text": "查看来源 ↗"
+    },
+    {
+      "bg": [
+        "rgb(247, 239, 231)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(137, 85, 43)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 26.1953125,
+      "selector": "evidence-label up",
+      "text": "利涨"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "13px",
+      "fontWeight": "600",
+      "height": 15,
+      "selector": "SPAN",
+      "text": "EIA"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 18.5,
+      "selector": "TIME",
+      "text": "9月25日发布"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "17px",
+      "fontWeight": "600",
+      "height": 25.5,
+      "selector": "H3",
+      "text": "Brent日度报价上涨"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 51.1875,
+      "selector": "evidence-summary",
+      "text": "9月24日的Brent现货报价较上一报价日上涨。"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(40, 107, 99)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 44,
+      "selector": "evidence-source",
+      "text": "查看来源 ↗"
+    },
+    {
+      "bg": [
+        "rgb(251, 247, 242)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(137, 85, 43)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 28.1953125,
+      "selector": "evidence-label up risk",
+      "text": "上涨风险"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "13px",
+      "fontWeight": "600",
+      "height": 15,
+      "selector": "SPAN",
+      "text": "Reuters"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 18.5,
+      "selector": "TIME",
+      "text": "今天发布"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "17px",
+      "fontWeight": "600",
+      "height": 25.5,
+      "selector": "H3",
+      "text": "霍尔木兹供应仍有不确定风险"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 51.1875,
+      "selector": "evidence-summary",
+      "text": "报道提到谈判僵局带来的石油供应担忧，属于风险信号。"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(40, 107, 99)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 44,
+      "selector": "evidence-source",
+      "text": "查看来源 ↗"
+    },
+    {
+      "bg": [
+        "rgb(237, 245, 242)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(40, 107, 99)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 26.1953125,
+      "selector": "evidence-label down",
+      "text": "利跌"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "13px",
+      "fontWeight": "600",
+      "height": 15,
+      "selector": "SPAN",
+      "text": "EIA"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 18.5,
+      "selector": "TIME",
+      "text": "9月25日发布"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "17px",
+      "fontWeight": "600",
+      "height": 25.5,
+      "selector": "H3",
+      "text": "纽约港低硫柴油报价回落"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 51.1875,
+      "selector": "evidence-summary",
+      "text": "9月24日的低硫柴油现货报价较上一报价日回落。"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(40, 107, 99)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 44,
+      "selector": "evidence-source",
+      "text": "查看来源 ↗"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "P",
+      "text": "价格来源日期\n2026-09-26"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "TIME",
+      "text": "2026-09-26"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "P",
+      "text": "本站更新时间\n2026-09-28 09:40"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "TIME",
+      "text": "2026-09-28 09:40"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "P",
+      "text": "AI判断更新时间\n2026-09-28 19:17"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "TIME",
+      "text": "2026-09-28 19:17"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 20.796875,
+      "selector": "precision-note",
+      "text": "价格来源保留观测日期；本站更新为北京时间。"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 20.796875,
+      "selector": "source-credit",
+      "text": "价格：APIZero · 趋势：公开能源信息综合判断"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 47.59375,
+      "selector": "disclaimer",
+      "text": "趋势由AI根据公开国际油价、供需和能源市场信息综合判断，仅供参考。"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 47.59375,
+      "selector": "disclaimer price-disclaimer",
+      "text": "省级价格为公开参考价，吨价按参考密度估算。"
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "12px",
+      "fontWeight": "400",
+      "height": 16.5,
+      "selector": "footer-brand",
+      "text": "AYU FUEL LAB\n沿海柴油参考行情"
+    }
+  ],
+  "contrast": [
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "22px",
+      "fontWeight": "600",
+      "height": 31,
+      "selector": "H1",
+      "text": "渔船柴油参考价",
+      "contrast": 11.77,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 18.5,
+      "selector": "subtitle",
+      "text": "沿海地区 · 0#柴油省级参考价",
+      "contrast": 5.05,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 20.796875,
+      "selector": "location-note",
+      "text": "沿海 11 个地区",
+      "contrast": 5.05,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(236, 245, 246)",
+      "fontSize": "16px",
+      "fontWeight": "500",
+      "height": 22.3984375,
+      "selector": "H2",
+      "text": "省级0#柴油参考价",
+      "contrast": 10.45,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(220, 239, 237)",
+      "fontSize": "18px",
+      "fontWeight": "400",
+      "height": 25,
+      "selector": "approx",
+      "text": "约",
+      "contrast": 9.71,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(255, 255, 255)",
+      "fontSize": "24px",
+      "fontWeight": "400",
+      "height": 28,
+      "selector": "currency",
+      "text": "¥",
+      "contrast": 11.58,
+      "required": 3
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(255, 255, 255)",
+      "fontSize": "44px",
+      "fontWeight": "550",
+      "height": 48.3984375,
+      "selector": "STRONG",
+      "text": "9,869",
+      "contrast": 11.58,
+      "required": 3
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(208, 224, 223)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 20,
+      "selector": "unit",
+      "text": "/ 吨",
+      "contrast": 8.5,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(232, 245, 243)",
+      "fontSize": "20px",
+      "fontWeight": "400",
+      "height": 25,
+      "selector": "liter-price",
+      "text": "¥8.29 / 升",
+      "contrast": 10.36,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(23, 62, 70)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(208, 224, 223)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 19.5,
+      "selector": "estimate-note",
+      "text": "吨价按参考密度估算 · 0.84 kg/L",
+      "contrast": 8.5,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "16px",
+      "fontWeight": "600",
+      "height": 22.3984375,
+      "selector": "H2",
+      "text": "未来7天油价趋势",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(137, 85, 43)",
+      "fontSize": "30px",
+      "fontWeight": "600",
+      "height": 42,
+      "selector": "trend-direction up",
+      "text": "↑\n偏涨",
+      "contrast": 6.18,
+      "required": 3
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 20,
+      "selector": "ai-estimate-label",
+      "text": "AI综合估计",
+      "contrast": 5.38,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 24,
+      "selector": "probability-row",
+      "text": "下跌\n35%",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 24,
+      "selector": "probability-row",
+      "text": "基本不变\n25%",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 24,
+      "selector": "probability-row",
+      "text": "上涨\n40%",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 41.59375,
+      "selector": "forecast-scope",
+      "text": "判断国际柴油市场方向，不等同于本省调价。",
+      "contrast": 5.38,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgb(247, 239, 231)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(137, 85, 43)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 26.1953125,
+      "selector": "evidence-label up",
+      "text": "利涨",
+      "contrast": 5.43,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "13px",
+      "fontWeight": "600",
+      "height": 15,
+      "selector": "SPAN",
+      "text": "EIA",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 18.5,
+      "selector": "TIME",
+      "text": "9月23日发布",
+      "contrast": 5.38,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "17px",
+      "fontWeight": "600",
+      "height": 25.5,
+      "selector": "H3",
+      "text": "美国馏分油库存减少",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 51.1875,
+      "selector": "evidence-summary",
+      "text": "统计周截至9月18日，馏分油库存较上周减少。",
+      "contrast": 5.38,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(40, 107, 99)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 44,
+      "selector": "evidence-source",
+      "text": "查看来源 ↗",
+      "contrast": 6.23,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgb(247, 239, 231)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(137, 85, 43)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 26.1953125,
+      "selector": "evidence-label up",
+      "text": "利涨",
+      "contrast": 5.43,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "13px",
+      "fontWeight": "600",
+      "height": 15,
+      "selector": "SPAN",
+      "text": "EIA",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 18.5,
+      "selector": "TIME",
+      "text": "9月25日发布",
+      "contrast": 5.38,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "17px",
+      "fontWeight": "600",
+      "height": 25.5,
+      "selector": "H3",
+      "text": "Brent日度报价上涨",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 51.1875,
+      "selector": "evidence-summary",
+      "text": "9月24日的Brent现货报价较上一报价日上涨。",
+      "contrast": 5.38,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(40, 107, 99)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 44,
+      "selector": "evidence-source",
+      "text": "查看来源 ↗",
+      "contrast": 6.23,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgb(251, 247, 242)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(137, 85, 43)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 28.1953125,
+      "selector": "evidence-label up risk",
+      "text": "上涨风险",
+      "contrast": 5.79,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "13px",
+      "fontWeight": "600",
+      "height": 15,
+      "selector": "SPAN",
+      "text": "Reuters",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 18.5,
+      "selector": "TIME",
+      "text": "今天发布",
+      "contrast": 5.38,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "17px",
+      "fontWeight": "600",
+      "height": 25.5,
+      "selector": "H3",
+      "text": "霍尔木兹供应仍有不确定风险",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 51.1875,
+      "selector": "evidence-summary",
+      "text": "报道提到谈判僵局带来的石油供应担忧，属于风险信号。",
+      "contrast": 5.38,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(40, 107, 99)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 44,
+      "selector": "evidence-source",
+      "text": "查看来源 ↗",
+      "contrast": 6.23,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgb(237, 245, 242)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(40, 107, 99)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 26.1953125,
+      "selector": "evidence-label down",
+      "text": "利跌",
+      "contrast": 5.62,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "13px",
+      "fontWeight": "600",
+      "height": 15,
+      "selector": "SPAN",
+      "text": "EIA",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 18.5,
+      "selector": "TIME",
+      "text": "9月25日发布",
+      "contrast": 5.38,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "17px",
+      "fontWeight": "600",
+      "height": 25.5,
+      "selector": "H3",
+      "text": "纽约港低硫柴油报价回落",
+      "contrast": 12.54,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "height": 51.1875,
+      "selector": "evidence-summary",
+      "text": "9月24日的低硫柴油现货报价较上一报价日回落。",
+      "contrast": 5.38,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgb(255, 255, 255)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(40, 107, 99)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 44,
+      "selector": "evidence-source",
+      "text": "查看来源 ↗",
+      "contrast": 6.23,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "P",
+      "text": "价格来源日期\n2026-09-26",
+      "contrast": 5.05,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "TIME",
+      "text": "2026-09-26",
+      "contrast": 11.77,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "P",
+      "text": "本站更新时间\n2026-09-28 09:40",
+      "contrast": 5.05,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "TIME",
+      "text": "2026-09-28 09:40",
+      "contrast": 11.77,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "P",
+      "text": "AI判断更新时间\n2026-09-28 19:17",
+      "contrast": 5.05,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(32, 55, 61)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 23.796875,
+      "selector": "TIME",
+      "text": "2026-09-28 19:17",
+      "contrast": 11.77,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 20.796875,
+      "selector": "precision-note",
+      "text": "价格来源保留观测日期；本站更新为北京时间。",
+      "contrast": 5.05,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "13px",
+      "fontWeight": "400",
+      "height": 20.796875,
+      "selector": "source-credit",
+      "text": "价格：APIZero · 趋势：公开能源信息综合判断",
+      "contrast": 5.05,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 47.59375,
+      "selector": "disclaimer",
+      "text": "趋势由AI根据公开国际油价、供需和能源市场信息综合判断，仅供参考。",
+      "contrast": 5.05,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "14px",
+      "fontWeight": "400",
+      "height": 47.59375,
+      "selector": "disclaimer price-disclaimer",
+      "text": "省级价格为公开参考价，吨价按参考密度估算。",
+      "contrast": 5.05,
+      "required": 4.5
+    },
+    {
+      "bg": [
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgba(0, 0, 0, 0)",
+        "rgb(247, 248, 246)"
+      ],
+      "color": "rgb(94, 109, 114)",
+      "fontSize": "12px",
+      "fontWeight": "400",
+      "height": 16.5,
+      "selector": "footer-brand",
+      "text": "AYU FUEL LAB\n沿海柴油参考行情",
+      "contrast": 5.05,
+      "required": 4.5
+    }
+  ]
+}

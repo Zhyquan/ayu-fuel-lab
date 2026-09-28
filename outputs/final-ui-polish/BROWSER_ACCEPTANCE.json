@@ -1,0 +1,876 @@
+{
+  "task": "AYU_FUEL_FINAL_UI_POLISH_001",
+  "checkedAt": "2026-09-28T14:36:36.036Z",
+  "gate": "PASS",
+  "checks": {
+    "noOverflow": true,
+    "coreOnMobileFirstScreen": true,
+    "directRealCards": true,
+    "allElevenRegions": true,
+    "sourcesOpenAndReturn": true,
+    "safeSourceAttributes": true,
+    "contrast": true,
+    "keyboard": true,
+    "forecastFailureLeavesPrices": true,
+    "priceStates": true,
+    "fallbacks": true,
+    "allStateWidths": true,
+    "noDisclosure": true
+  },
+  "viewports": {
+    "320": {
+      "cards": [
+        {
+          "id": "eia-stocks",
+          "text": "利涨\nEIA\n9月23日发布\n\n美国馏分油库存减少\n\n统计周截至9月18日，馏分油库存较上周减少。\n\n查看来源 ↗",
+          "y": 662.7890625
+        },
+        {
+          "id": "market-brent",
+          "text": "利涨\nEIA\n9月25日发布\n\nBrent日度报价上涨\n\n9月24日的Brent现货报价较上一报价日上涨。\n\n查看来源 ↗",
+          "y": 875.671875
+        },
+        {
+          "id": "news-hormuz-40441609",
+          "text": "上涨风险\nReuters\n今天发布\n\n霍尔木兹供应仍有不确定风险\n\n报道提到谈判僵局带来的石油供应担忧，属于风险信号。\n\n查看来源 ↗",
+          "y": 1088.5546875
+        },
+        {
+          "id": "market-diesel",
+          "text": "利跌\nEIA\n9月25日发布\n\n纽约港低硫柴油报价回落\n\n9月24日的低硫柴油现货报价较上一报价日回落。\n\n查看来源 ↗",
+          "y": 1303.4375
+        }
+      ],
+      "core": [
+        {
+          "bottom": 346.796875,
+          "className": "price-card",
+          "y": 161.5
+        },
+        {
+          "bottom": 646.7890625,
+          "className": "trend-card",
+          "y": 362.796875
+        },
+        {
+          "bottom": 512.1953125,
+          "className": "probability-row",
+          "y": 488.1953125
+        },
+        {
+          "bottom": 544.1953125,
+          "className": "probability-row",
+          "y": 520.1953125
+        },
+        {
+          "bottom": 576.1953125,
+          "className": "probability-row",
+          "y": 552.1953125
+        }
+      ],
+      "documentWidth": 320,
+      "liter": "¥8.29 / 升",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "scrollY": 0,
+      "trend": "↑\n偏涨\n\nAI综合估计\n\n下跌\n35%\n基本不变\n25%\n上涨\n40%\n\n判断国际柴油市场方向，不等同于本省调价。",
+      "viewport": {
+        "height": 740,
+        "width": 320
+      }
+    },
+    "390": {
+      "cards": [
+        {
+          "id": "eia-stocks",
+          "text": "利涨\nEIA\n9月23日发布\n\n美国馏分油库存减少\n\n统计周截至9月18日，馏分油库存较上周减少。\n\n查看来源 ↗",
+          "y": 680.5078125
+        },
+        {
+          "id": "market-brent",
+          "text": "利涨\nEIA\n9月25日发布\n\nBrent日度报价上涨\n\n9月24日的Brent现货报价较上一报价日上涨。\n\n查看来源 ↗",
+          "y": 893.390625
+        },
+        {
+          "id": "news-hormuz-40441609",
+          "text": "上涨风险\nReuters\n今天发布\n\n霍尔木兹供应仍有不确定风险\n\n报道提到谈判僵局带来的石油供应担忧，属于风险信号。\n\n查看来源 ↗",
+          "y": 1106.2734375
+        },
+        {
+          "id": "market-diesel",
+          "text": "利跌\nEIA\n9月25日发布\n\n纽约港低硫柴油报价回落\n\n9月24日的低硫柴油现货报价较上一报价日回落。\n\n查看来源 ↗",
+          "y": 1321.15625
+        }
+      ],
+      "core": [
+        {
+          "bottom": 369.3125,
+          "className": "price-card",
+          "y": 161.5
+        },
+        {
+          "bottom": 664.5078125,
+          "className": "trend-card",
+          "y": 385.3125
+        },
+        {
+          "bottom": 542.7109375,
+          "className": "probability-row",
+          "y": 518.7109375
+        },
+        {
+          "bottom": 574.7109375,
+          "className": "probability-row",
+          "y": 550.7109375
+        },
+        {
+          "bottom": 606.7109375,
+          "className": "probability-row",
+          "y": 582.7109375
+        }
+      ],
+      "documentWidth": 390,
+      "liter": "¥8.29 / 升",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "scrollY": 0,
+      "trend": "↑\n偏涨\n\nAI综合估计\n\n下跌\n35%\n基本不变\n25%\n上涨\n40%\n\n判断国际柴油市场方向，不等同于本省调价。",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      }
+    },
+    "desktop": {
+      "cards": [
+        {
+          "id": "eia-stocks",
+          "text": "利涨\nEIA\n9月23日发布\n\n美国馏分油库存减少\n\n统计周截至9月18日，馏分油库存较上周减少。\n\n查看来源 ↗",
+          "y": 696.1875
+        },
+        {
+          "id": "market-brent",
+          "text": "利涨\nEIA\n9月25日发布\n\nBrent日度报价上涨\n\n9月24日的Brent现货报价较上一报价日上涨。\n\n查看来源 ↗",
+          "y": 883.4765625
+        },
+        {
+          "id": "news-hormuz-40441609",
+          "text": "上涨风险\nReuters\n今天发布\n\n霍尔木兹供应仍有不确定风险\n\n报道提到谈判僵局带来的石油供应担忧，属于风险信号。\n\n查看来源 ↗",
+          "y": 1070.765625
+        },
+        {
+          "id": "market-diesel",
+          "text": "利跌\nEIA\n9月25日发布\n\n纽约港低硫柴油报价回落\n\n9月24日的低硫柴油现货报价较上一报价日回落。\n\n查看来源 ↗",
+          "y": 1260.0546875
+        }
+      ],
+      "core": [
+        {
+          "bottom": 384.9921875,
+          "className": "price-card",
+          "y": 170.5
+        },
+        {
+          "bottom": 680.1875,
+          "className": "trend-card",
+          "y": 400.9921875
+        },
+        {
+          "bottom": 558.390625,
+          "className": "probability-row",
+          "y": 534.390625
+        },
+        {
+          "bottom": 590.390625,
+          "className": "probability-row",
+          "y": 566.390625
+        },
+        {
+          "bottom": 622.390625,
+          "className": "probability-row",
+          "y": 598.390625
+        }
+      ],
+      "documentWidth": 1280,
+      "liter": "¥8.29 / 升",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "scrollY": 0,
+      "trend": "↑\n偏涨\n\nAI综合估计\n\n下跌\n35%\n基本不变\n25%\n上涨\n40%\n\n判断国际柴油市场方向，不等同于本省调价。",
+      "viewport": {
+        "height": 900,
+        "width": 1280
+      }
+    }
+  },
+  "regionChecks": [
+    {
+      "province": "福建",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "liter": "¥8.29 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    },
+    {
+      "province": "浙江",
+      "price": "约\n¥\n9,857\n/ 吨",
+      "liter": "¥8.28 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    },
+    {
+      "province": "山东",
+      "price": "约\n¥\n9,774\n/ 吨",
+      "liter": "¥8.21 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    },
+    {
+      "province": "广东",
+      "price": "约\n¥\n9,893\n/ 吨",
+      "liter": "¥8.31 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    },
+    {
+      "province": "辽宁",
+      "price": "约\n¥\n9,750\n/ 吨",
+      "liter": "¥8.19 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    },
+    {
+      "province": "海南",
+      "price": "约\n¥\n9,988\n/ 吨",
+      "liter": "¥8.39 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    },
+    {
+      "province": "江苏",
+      "price": "约\n¥\n9,833\n/ 吨",
+      "liter": "¥8.26 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    },
+    {
+      "province": "河北",
+      "price": "约\n¥\n9,893\n/ 吨",
+      "liter": "¥8.31 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    },
+    {
+      "province": "天津",
+      "price": "约\n¥\n9,893\n/ 吨",
+      "liter": "¥8.31 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    },
+    {
+      "province": "上海",
+      "price": "约\n¥\n9,857\n/ 吨",
+      "liter": "¥8.28 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    },
+    {
+      "province": "广西",
+      "price": "约\n¥\n9,952\n/ 吨",
+      "liter": "¥8.36 / 升",
+      "trendUnchanged": true,
+      "cardsUnchanged": true,
+      "noOverflow": true
+    }
+  ],
+  "smallRegionCheck": {
+    "cards": [
+      {
+        "id": "eia-stocks",
+        "text": "利涨\nEIA\n9月23日发布\n\n美国馏分油库存减少\n\n统计周截至9月18日，馏分油库存较上周减少。\n\n查看来源 ↗",
+        "y": 662.7890625
+      },
+      {
+        "id": "market-brent",
+        "text": "利涨\nEIA\n9月25日发布\n\nBrent日度报价上涨\n\n9月24日的Brent现货报价较上一报价日上涨。\n\n查看来源 ↗",
+        "y": 875.671875
+      },
+      {
+        "id": "news-hormuz-40441609",
+        "text": "上涨风险\nReuters\n今天发布\n\n霍尔木兹供应仍有不确定风险\n\n报道提到谈判僵局带来的石油供应担忧，属于风险信号。\n\n查看来源 ↗",
+        "y": 1088.5546875
+      },
+      {
+        "id": "market-diesel",
+        "text": "利跌\nEIA\n9月25日发布\n\n纽约港低硫柴油报价回落\n\n9月24日的低硫柴油现货报价较上一报价日回落。\n\n查看来源 ↗",
+        "y": 1303.4375
+      }
+    ],
+    "core": [
+      {
+        "bottom": 346.796875,
+        "className": "price-card",
+        "y": 161.5
+      },
+      {
+        "bottom": 646.7890625,
+        "className": "trend-card",
+        "y": 362.796875
+      },
+      {
+        "bottom": 512.1953125,
+        "className": "probability-row",
+        "y": 488.1953125
+      },
+      {
+        "bottom": 544.1953125,
+        "className": "probability-row",
+        "y": 520.1953125
+      },
+      {
+        "bottom": 576.1953125,
+        "className": "probability-row",
+        "y": 552.1953125
+      }
+    ],
+    "documentWidth": 320,
+    "liter": "¥8.28 / 升",
+    "price": "约\n¥\n9,857\n/ 吨",
+    "scrollY": 0,
+    "trend": "↑\n偏涨\n\nAI综合估计\n\n下跌\n35%\n基本不变\n25%\n上涨\n40%\n\n判断国际柴油市场方向，不等同于本省调价。",
+    "viewport": {
+      "height": 740,
+      "width": 320
+    }
+  },
+  "sourceChecks": [
+    {
+      "id": "eia-stocks",
+      "requestedUrl": "https://ir.eia.gov/wpsr/summary.txt",
+      "newContext": true,
+      "sourceLoaded": true,
+      "sourceRedirect": "EIA secure/wpsr/summary.txt (query omitted)",
+      "result": "PASS",
+      "returnPreservesPrice": true,
+      "returnPreservesTrend": true
+    },
+    {
+      "id": "market-brent",
+      "requestedUrl": "https://www.eia.gov/todayinenergy/prices.php",
+      "observedUrl": "https://www.eia.gov/todayinenergy/prices.php",
+      "sourceTitle": "Today in Energy Daily Prices - U.S. Energy Information Administration (EIA)",
+      "newContext": true,
+      "sourceLoaded": true,
+      "result": "PASS",
+      "note": "Fresh-tab inventory was initially delayed; later loaded-tab observation confirms the original click.",
+      "returnPreservesPrice": true,
+      "returnPreservesTrend": true
+    },
+    {
+      "id": "news-hormuz-40441609",
+      "requestedUrl": "https://www.brecorder.com/news/40441609/indian-shares-slide-to-near-six-month-low-as-us-iran-deadlock-lifts-oil-prices",
+      "observedUrl": "https://www.brecorder.com/news/40441609/indian-shares-slide-to-near-six-month-low-as-us-iran-deadlock-lifts-oil-prices",
+      "sourceTitle": "Indian shares slide to near six-month low as US-Iran deadlock lifts oil prices - Markets - Business Recorder",
+      "newContext": true,
+      "sourceLoaded": true,
+      "result": "PASS",
+      "note": "Fresh-tab inventory was initially delayed; later loaded-tab observation confirms the original click.",
+      "returnPreservesPrice": true,
+      "returnPreservesTrend": true
+    },
+    {
+      "id": "market-diesel",
+      "requestedUrl": "https://www.eia.gov/todayinenergy/prices.php",
+      "observedUrl": "https://www.eia.gov/todayinenergy/prices.php",
+      "sourceTitle": "Today in Energy Daily Prices - U.S. Energy Information Administration (EIA)",
+      "newContext": true,
+      "sourceLoaded": true,
+      "result": "PASS",
+      "note": "Fresh-tab inventory was initially delayed; later loaded-tab observation confirms the original click.",
+      "returnPreservesPrice": true,
+      "returnPreservesTrend": true
+    }
+  ],
+  "keyboard": [
+    {
+      "active": "广西壮族自治区",
+      "open": true,
+      "outline": "3px",
+      "outlineStyle": "solid",
+      "step": "Keyboard opens picker and focuses selected province"
+    },
+    {
+      "active": null,
+      "open": true,
+      "step": "Tab stays within dialog",
+      "withinDialog": false
+    },
+    {
+      "activeId": "province-trigger",
+      "closed": true,
+      "outline": "3px",
+      "step": "Escape closes and restores selector focus"
+    },
+    {
+      "active": "浙江省",
+      "step": "Tab from selected Fujian to Zhejiang",
+      "withinDialog": true
+    },
+    {
+      "active": "关闭省份选择器",
+      "outline": "3px",
+      "step": "Reverse Tab reaches close button",
+      "withinDialog": true
+    }
+  ],
+  "sourceKeyboardFocus": {
+    "activeTag": "A",
+    "height": 44,
+    "label": "查看美国馏分油库存减少的原始来源",
+    "outline": "3px",
+    "outlineStyle": "solid"
+  },
+  "states": [
+    {
+      "scenario": "forecast-stale",
+      "cards": [],
+      "core": [
+        {
+          "bottom": 369.3125,
+          "className": "price-card",
+          "y": 161.5
+        },
+        {
+          "bottom": 510.5078125,
+          "className": "trend-card",
+          "y": 385.3125
+        }
+      ],
+      "documentWidth": 390,
+      "liter": "¥8.29 / 升",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "scrollY": 0,
+      "trend": "数据更新中",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "priceState": "LIVE",
+      "forecastState": "STALE"
+    },
+    {
+      "scenario": "forecast-unavailable",
+      "cards": [],
+      "core": [
+        {
+          "bottom": 369.3125,
+          "className": "price-card",
+          "y": 161.5
+        },
+        {
+          "bottom": 510.5078125,
+          "className": "trend-card",
+          "y": 385.3125
+        }
+      ],
+      "documentWidth": 390,
+      "liter": "¥8.29 / 升",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "scrollY": 0,
+      "trend": "当前信息不足，暂不判断",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "priceState": "LIVE",
+      "forecastState": "UNAVAILABLE"
+    },
+    {
+      "scenario": "price-stale",
+      "cards": [
+        {
+          "id": "eia-stocks",
+          "text": "利涨\nEIA\n9月23日发布\n\n美国馏分油库存减少\n\n统计周截至9月18日，馏分油库存较上周减少。\n\n查看来源 ↗",
+          "y": 712.5078125
+        },
+        {
+          "id": "market-brent",
+          "text": "利涨\nEIA\n9月25日发布\n\nBrent日度报价上涨\n\n9月24日的Brent现货报价较上一报价日上涨。\n\n查看来源 ↗",
+          "y": 925.390625
+        },
+        {
+          "id": "news-hormuz-40441609",
+          "text": "上涨风险\nReuters\n今天发布\n\n霍尔木兹供应仍有不确定风险\n\n报道提到谈判僵局带来的石油供应担忧，属于风险信号。\n\n查看来源 ↗",
+          "y": 1138.2734375
+        },
+        {
+          "id": "market-diesel",
+          "text": "利跌\nEIA\n9月25日发布\n\n纽约港低硫柴油报价回落\n\n9月24日的低硫柴油现货报价较上一报价日回落。\n\n查看来源 ↗",
+          "y": 1353.15625
+        }
+      ],
+      "core": [
+        {
+          "bottom": 401.3125,
+          "className": "price-card stale-card",
+          "y": 161.5
+        },
+        {
+          "bottom": 696.5078125,
+          "className": "trend-card",
+          "y": 417.3125
+        },
+        {
+          "bottom": 574.7109375,
+          "className": "probability-row",
+          "y": 550.7109375
+        },
+        {
+          "bottom": 606.7109375,
+          "className": "probability-row",
+          "y": 582.7109375
+        },
+        {
+          "bottom": 638.7109375,
+          "className": "probability-row",
+          "y": 614.7109375
+        }
+      ],
+      "documentWidth": 390,
+      "liter": "¥8.29 / 升",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "scrollY": 0,
+      "trend": "↑\n偏涨\n\nAI综合估计\n\n下跌\n35%\n基本不变\n25%\n上涨\n40%\n\n判断国际柴油市场方向，不等同于本省调价。",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "priceState": "STALE",
+      "forecastState": "LIVE",
+      "fixtureNote": "A separate response uses a 26-hour-old cache timestamp at the contract-required millisecond precision; accepted data is untouched."
+    },
+    {
+      "scenario": "price-unavailable",
+      "cards": [
+        {
+          "id": "eia-stocks",
+          "text": "利涨\nEIA\n9月23日发布\n\n美国馏分油库存减少\n\n统计周截至9月18日，馏分油库存较上周减少。\n\n查看来源 ↗",
+          "y": 752.6953125
+        },
+        {
+          "id": "market-brent",
+          "text": "利涨\nEIA\n9月25日发布\n\nBrent日度报价上涨\n\n9月24日的Brent现货报价较上一报价日上涨。\n\n查看来源 ↗",
+          "y": 965.578125
+        },
+        {
+          "id": "news-hormuz-40441609",
+          "text": "上涨风险\nReuters\n今天发布\n\n霍尔木兹供应仍有不确定风险\n\n报道提到谈判僵局带来的石油供应担忧，属于风险信号。\n\n查看来源 ↗",
+          "y": 1178.4609375
+        },
+        {
+          "id": "market-diesel",
+          "text": "利跌\nEIA\n9月25日发布\n\n纽约港低硫柴油报价回落\n\n9月24日的低硫柴油现货报价较上一报价日回落。\n\n查看来源 ↗",
+          "y": 1393.34375
+        }
+      ],
+      "core": [
+        {
+          "bottom": 736.6953125,
+          "className": "trend-card",
+          "y": 457.5
+        },
+        {
+          "bottom": 614.8984375,
+          "className": "probability-row",
+          "y": 590.8984375
+        },
+        {
+          "bottom": 646.8984375,
+          "className": "probability-row",
+          "y": 622.8984375
+        },
+        {
+          "bottom": 678.8984375,
+          "className": "probability-row",
+          "y": 654.8984375
+        }
+      ],
+      "documentWidth": 390,
+      "scrollY": 0,
+      "trend": "↑\n偏涨\n\nAI综合估计\n\n下跌\n35%\n基本不变\n25%\n上涨\n40%\n\n判断国际柴油市场方向，不等同于本省调价。",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "priceState": "UNAVAILABLE"
+    },
+    {
+      "scenario": "price-retry",
+      "cards": [
+        {
+          "id": "eia-stocks",
+          "text": "利涨\nEIA\n9月23日发布\n\n美国馏分油库存减少\n\n统计周截至9月18日，馏分油库存较上周减少。\n\n查看来源 ↗",
+          "y": 680.5078125
+        },
+        {
+          "id": "market-brent",
+          "text": "利涨\nEIA\n9月25日发布\n\nBrent日度报价上涨\n\n9月24日的Brent现货报价较上一报价日上涨。\n\n查看来源 ↗",
+          "y": 893.390625
+        },
+        {
+          "id": "news-hormuz-40441609",
+          "text": "上涨风险\nReuters\n今天发布\n\n霍尔木兹供应仍有不确定风险\n\n报道提到谈判僵局带来的石油供应担忧，属于风险信号。\n\n查看来源 ↗",
+          "y": 1106.2734375
+        },
+        {
+          "id": "market-diesel",
+          "text": "利跌\nEIA\n9月25日发布\n\n纽约港低硫柴油报价回落\n\n9月24日的低硫柴油现货报价较上一报价日回落。\n\n查看来源 ↗",
+          "y": 1321.15625
+        }
+      ],
+      "core": [
+        {
+          "bottom": 369.3125,
+          "className": "price-card",
+          "y": 161.5
+        },
+        {
+          "bottom": 664.5078125,
+          "className": "trend-card",
+          "y": 385.3125
+        },
+        {
+          "bottom": 542.7109375,
+          "className": "probability-row",
+          "y": 518.7109375
+        },
+        {
+          "bottom": 574.7109375,
+          "className": "probability-row",
+          "y": 550.7109375
+        },
+        {
+          "bottom": 606.7109375,
+          "className": "probability-row",
+          "y": 582.7109375
+        }
+      ],
+      "documentWidth": 390,
+      "liter": "¥8.29 / 升",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "scrollY": 0,
+      "trend": "↑\n偏涨\n\nAI综合估计\n\n下跌\n35%\n基本不变\n25%\n上涨\n40%\n\n判断国际柴油市场方向，不等同于本省调价。",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "priceState": "LIVE"
+    },
+    {
+      "scenario": "price-loading",
+      "cards": [
+        {
+          "id": "eia-stocks",
+          "text": "利涨\nEIA\n9月23日发布\n\n美国馏分油库存减少\n\n统计周截至9月18日，馏分油库存较上周减少。\n\n查看来源 ↗",
+          "y": 676.6953125
+        },
+        {
+          "id": "market-brent",
+          "text": "利涨\nEIA\n9月25日发布\n\nBrent日度报价上涨\n\n9月24日的Brent现货报价较上一报价日上涨。\n\n查看来源 ↗",
+          "y": 889.578125
+        },
+        {
+          "id": "news-hormuz-40441609",
+          "text": "上涨风险\nReuters\n今天发布\n\n霍尔木兹供应仍有不确定风险\n\n报道提到谈判僵局带来的石油供应担忧，属于风险信号。\n\n查看来源 ↗",
+          "y": 1102.4609375
+        },
+        {
+          "id": "market-diesel",
+          "text": "利跌\nEIA\n9月25日发布\n\n纽约港低硫柴油报价回落\n\n9月24日的低硫柴油现货报价较上一报价日回落。\n\n查看来源 ↗",
+          "y": 1317.34375
+        }
+      ],
+      "core": [
+        {
+          "bottom": 365.5,
+          "className": "price-card skeleton-card",
+          "y": 161.5
+        },
+        {
+          "bottom": 660.6953125,
+          "className": "trend-card",
+          "y": 381.5
+        },
+        {
+          "bottom": 538.8984375,
+          "className": "probability-row",
+          "y": 514.8984375
+        },
+        {
+          "bottom": 570.8984375,
+          "className": "probability-row",
+          "y": 546.8984375
+        },
+        {
+          "bottom": 602.8984375,
+          "className": "probability-row",
+          "y": 578.8984375
+        }
+      ],
+      "documentWidth": 390,
+      "scrollY": 0,
+      "trend": "↑\n偏涨\n\nAI综合估计\n\n下跌\n35%\n基本不变\n25%\n上涨\n40%\n\n判断国际柴油市场方向，不等同于本省调价。",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "priceState": "LOADING",
+      "skeletonAnimation": "none"
+    },
+    {
+      "scenario": "price-loading-recovered",
+      "cards": [
+        {
+          "id": "eia-stocks",
+          "text": "利涨\nEIA\n9月23日发布\n\n美国馏分油库存减少\n\n统计周截至9月18日，馏分油库存较上周减少。\n\n查看来源 ↗",
+          "y": 680.5078125
+        },
+        {
+          "id": "market-brent",
+          "text": "利涨\nEIA\n9月25日发布\n\nBrent日度报价上涨\n\n9月24日的Brent现货报价较上一报价日上涨。\n\n查看来源 ↗",
+          "y": 893.390625
+        },
+        {
+          "id": "news-hormuz-40441609",
+          "text": "上涨风险\nReuters\n今天发布\n\n霍尔木兹供应仍有不确定风险\n\n报道提到谈判僵局带来的石油供应担忧，属于风险信号。\n\n查看来源 ↗",
+          "y": 1106.2734375
+        },
+        {
+          "id": "market-diesel",
+          "text": "利跌\nEIA\n9月25日发布\n\n纽约港低硫柴油报价回落\n\n9月24日的低硫柴油现货报价较上一报价日回落。\n\n查看来源 ↗",
+          "y": 1321.15625
+        }
+      ],
+      "core": [
+        {
+          "bottom": 369.3125,
+          "className": "price-card",
+          "y": 161.5
+        },
+        {
+          "bottom": 664.5078125,
+          "className": "trend-card",
+          "y": 385.3125
+        },
+        {
+          "bottom": 542.7109375,
+          "className": "probability-row",
+          "y": 518.7109375
+        },
+        {
+          "bottom": 574.7109375,
+          "className": "probability-row",
+          "y": 550.7109375
+        },
+        {
+          "bottom": 606.7109375,
+          "className": "probability-row",
+          "y": 582.7109375
+        }
+      ],
+      "documentWidth": 390,
+      "liter": "¥8.29 / 升",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "scrollY": 0,
+      "trend": "↑\n偏涨\n\nAI综合估计\n\n下跌\n35%\n基本不变\n25%\n上涨\n40%\n\n判断国际柴油市场方向，不等同于本省调价。",
+      "viewport": {
+        "height": 844,
+        "width": 390
+      },
+      "priceState": "LIVE"
+    },
+    {
+      "scenario": "forecast-stale-320",
+      "cards": [],
+      "core": [
+        {
+          "bottom": 346.796875,
+          "className": "price-card",
+          "y": 161.5
+        },
+        {
+          "bottom": 471.9921875,
+          "className": "trend-card",
+          "y": 362.796875
+        }
+      ],
+      "documentWidth": 320,
+      "liter": "¥8.29 / 升",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "scrollY": 0,
+      "trend": "数据更新中",
+      "viewport": {
+        "height": 740,
+        "width": 320
+      },
+      "priceState": "LIVE",
+      "forecastState": "STALE"
+    },
+    {
+      "scenario": "forecast-unavailable-320",
+      "cards": [],
+      "core": [
+        {
+          "bottom": 346.796875,
+          "className": "price-card",
+          "y": 161.5
+        },
+        {
+          "bottom": 471.9921875,
+          "className": "trend-card",
+          "y": 362.796875
+        }
+      ],
+      "documentWidth": 320,
+      "liter": "¥8.29 / 升",
+      "price": "约\n¥\n9,869\n/ 吨",
+      "scrollY": 0,
+      "trend": "当前信息不足，暂不判断",
+      "viewport": {
+        "height": 740,
+        "width": 320
+      },
+      "priceState": "LIVE",
+      "forecastState": "UNAVAILABLE"
+    }
+  ],
+  "fallbacks": [
+    {
+      "scenario": "reduced-motion",
+      "blur": "blur(8px)",
+      "documentWidth": 320,
+      "evidenceBlur": "none",
+      "priceVisible": true,
+      "selectorBackground": "rgba(255, 255, 255, 0.93)",
+      "transition": "0s",
+      "viewport": 320
+    },
+    {
+      "scenario": "no-blur",
+      "blur": "none",
+      "documentWidth": 320,
+      "evidenceBlur": "none",
+      "priceVisible": true,
+      "selectorBackground": "rgb(255, 255, 255)",
+      "transition": "0.18s, 0.18s, 0.18s, 0.18s",
+      "viewport": 320
+    }
+  ],
+  "simulationNote": "Only a separate local fixture server changes test responses. Reduced-motion uses the original reduce CSS block activated for all media; no-blur omits only the optional supports block. No OS preferences or accepted inputs were changed."
+}
