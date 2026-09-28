@@ -91,11 +91,11 @@ Public Gate 再限定：只从理由引用生成、只使用经核验的短摘�
 - [公开卡片投影](outputs/evidence-ui/public-evidence-cards.json)
 - [浏览器实际验收记录](outputs/evidence-ui/BROWSER_ACCEPTANCE.json)
 - [冻结输入字节校验](outputs/evidence-ui/FROZEN_INPUT_READBACK.json)
-- [390 手机首屏](outputs/evidence-ui/mobile-390-default.png)
-- [390 展开全部](outputs/evidence-ui/mobile-390-expanded.png)
-- [390 风险与反向因素](outputs/evidence-ui/mobile-390-counter.png)
-- [320 手机首屏](outputs/evidence-ui/mobile-320-default.png)
-- [320 展开全部](outputs/evidence-ui/mobile-320-expanded.png)
+- [390 手机首屏](outputs/evidence-ui/mobile-390-default.jpg)
+- [390 展开全部](outputs/evidence-ui/mobile-390-expanded.jpg)
+- [390 风险与反向因素](outputs/evidence-ui/mobile-390-counter.jpg)
+- [320 手机首屏](outputs/evidence-ui/mobile-320-default.jpg)
+- [320 展开全部](outputs/evidence-ui/mobile-320-expanded.jpg)
 
 图片按实际手机视窗分别记录首屏、展开和反向因素；[截图尺寸记录](outputs/evidence-ui/SCREENSHOT_CAPTURE.json)保留各视窗尺寸。
 
