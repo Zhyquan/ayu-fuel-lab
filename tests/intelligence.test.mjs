@@ -86,8 +86,10 @@ test('intelligence 13: all 11 coastal regions and 31 national names preserved',(
 test('intelligence 14: estimated ton price still uses 0.84 kg/L',()=>{
  assert.deepEqual([getPriceDisplay(8.29).estimatedPricePerTon,getPriceDisplay(8.36).estimatedPricePerTon],[9869,9952]);assert.equal(getPriceDisplay(8.29).dieselDensityKgPerLiter,0.84);
 });
-test('intelligence 15: existing price Actions and collector remain byte-identical',async()=>{
- assert.equal(hashText(await read('.github/workflows/update-and-deploy.yml')),'97fb43f290ad6f9e571968515e1b6e0a2b92f0516fc5e0b4ee6d685a07bd75e3');
+test('intelligence 15: price Actions retain price update/gate; V2 removes unused trend generation',async()=>{
+ const workflow=await read('.github/workflows/update-and-deploy.yml');
+ assert.ok(workflow.includes('run: npm run update\n'));assert.ok(workflow.includes('run: npm run gate\n'));
+ assert.equal(workflow.includes('npm run update:trend'),false);assert.equal(workflow.includes('npm run gate:trend'),false);
  assert.equal(hashText(await read('scripts/update-fuel-prices.mjs')),'8f7f4394ab643e70b0c697e8a10bc4227fb7ec803d0d3d09cf90d085dba83715');
 });
 test('intelligence: pending human review still fails and active-source request errors degrade safely',async context=>{

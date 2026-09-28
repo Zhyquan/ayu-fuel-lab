@@ -161,3 +161,16 @@ dialog::backdrop { background: #0c252a75; backdrop-filter: blur(3px); }
 .forecast-ton { margin-top: 5px; font-size: 1.5rem; font-weight: 600; font-variant-numeric: tabular-nums; }
 .forecast-ton span { font-size: 1rem; font-weight: 400; }
 .forecast-liter { margin: 4px 0 8px; color: #627b80; font-size: 1rem; }
+
+.ai-estimate-label { margin: 10px 0; font-size: .875rem; color: #627b80; }
+.probability-row { display: grid; grid-template-columns: 5em 1fr 3em; align-items: center; gap: 12px; margin: 10px 0; font-size: .9375rem; }
+.probability-row strong { text-align: right; font-variant-numeric: tabular-nums; font-weight: 600; }
+.probability-track { height: 5px; border-radius: 5px; background: #eef3f2; overflow: hidden; }
+.probability-track span { display: block; height: 100%; background: #6e9991; border-radius: inherit; }
+.forecast-details { margin-top: 18px; border-top: 1px solid #eef1f0; padding-top: 14px; }
+.forecast-details summary { cursor: pointer; font-size: .9375rem; color: #246963; min-height: 28px; }
+.forecast-details .intelligence-list { font-size: .9375rem; }
+.forecast-details li { padding: 4px 0; }
+.forecast-details a { display: inline-block; margin-left: 8px; color: #627b80; font-size: .8125rem; }
+.forecast-scope { margin-top: 12px; font-size: .8125rem; line-height: 1.6; color: #718489; }
+.price-disclaimer { margin-top: 8px; font-size: .8125rem; }

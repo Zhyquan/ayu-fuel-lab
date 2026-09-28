@@ -1,8 +1,8 @@
 import { coastalProvinces } from './data/coastal-provinces.js';
 import { getProvinceFuelData } from './data/fuel-service.js';
 import { getPriceDisplay } from './data/price-display.js';
-import { getForecast } from './data/intelligence-service.js';
-import { forecastMarkup } from './data/intelligence-view.js';
+import { getForecast } from './data/intelligence-v2-service.js';
+import { forecastMarkup } from './data/intelligence-v2-view.js';
 
 const content = document.querySelector('#fuel-content');
 const dialog = document.querySelector('#province-dialog');
@@ -32,7 +32,9 @@ function renderForecast(forecast) {
   const target = document.querySelector('#trend-content');
   target.dataset.status = forecast.status;
   target.setAttribute('aria-busy', 'false');
+  const detailsWereOpen = target.querySelector('.forecast-details')?.open;
   target.innerHTML = forecastMarkup(forecast);
+  if (detailsWereOpen && forecast.status === 'LIVE') target.querySelector('.forecast-details').open = true;
   const time = document.querySelector('#trend-data-date');
   time.textContent = forecast.status === 'LIVE' ? formatTime(forecast.generatedAt) : '暂不可用';
   if (forecast.status === 'LIVE') time.setAttribute('datetime', forecast.generatedAt);
@@ -113,3 +115,4 @@ loadProvince(selectedProvince);
 
 getForecast().then(renderForecast);
 setInterval(() => { if (!document.hidden) getForecast().then(renderForecast); }, 60000);
+document.addEventListener('visibilitychange', () => { if (!document.hidden) getForecast().then(renderForecast); });

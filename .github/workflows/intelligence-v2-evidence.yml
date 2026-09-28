@@ -1,0 +1,34 @@
+name: Intelligence V2 evidence collection only
+on:
+  schedule:
+    # Asia/Shanghai: 07:30 and 18:30. Schedules run only on the default branch.
+    - cron: '30 23,10 * * *'
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: intelligence-v2-evidence-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+      - name: Collect bounded public evidence and run Evidence Gate
+        run: npm run intelligence:v2:collect
+      - name: Upload pending pack even when evidence is insufficient
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: pending-intelligence-pack
+          path: |
+            intelligence-v2/pending-intelligence-pack.json
+            intelligence-v2/EVIDENCE_GATE_RESULT.json
+          retention-days: 7
+# Phase A never calls a paid provider, commits a forecast, or deploys Pages.

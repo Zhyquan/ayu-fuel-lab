@@ -1,0 +1,80 @@
+{
+  "source": "AYU_INTELLIGENCE_V2",
+  "status": "LIVE",
+  "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
+  "forecastHorizonDays": 7,
+  "provider": "MANUAL",
+  "generatedAt": "2026-09-28T11:17:34.176Z",
+  "validUntil": "2026-09-29T11:17:34.176Z",
+  "evidenceHash": "66453209e4ab96362b77d9846d91b7cf9dd287adf3a63ef7d7af4013d904e135",
+  "probabilities": {
+    "DOWN": 35,
+    "FLAT": 25,
+    "UP": 40
+  },
+  "primaryDirection": "UP",
+  "mainReasons": [
+    {
+      "evidenceId": "eia-stocks",
+      "text": "美国馏分油库存减少"
+    },
+    {
+      "evidenceId": "market-brent",
+      "text": "Brent最新日度报价上涨"
+    },
+    {
+      "evidenceId": "news-hormuz-40441609",
+      "text": "霍尔木兹供应仍有不确定风险"
+    }
+  ],
+  "counterReasons": [
+    {
+      "evidenceId": "market-diesel",
+      "text": "纽约港低硫柴油最新日度报价回落"
+    }
+  ],
+  "signalAssessments": [
+    {
+      "evidenceId": "market-wti",
+      "impact": "UP",
+      "kind": "FACT",
+      "strength": "MEDIUM"
+    },
+    {
+      "evidenceId": "market-brent",
+      "impact": "UP",
+      "kind": "FACT",
+      "strength": "MEDIUM"
+    },
+    {
+      "evidenceId": "market-diesel",
+      "impact": "DOWN",
+      "kind": "FACT",
+      "strength": "HIGH"
+    },
+    {
+      "evidenceId": "eia-stocks",
+      "impact": "UP",
+      "kind": "FACT",
+      "strength": "MEDIUM"
+    },
+    {
+      "evidenceId": "eia-production",
+      "impact": "UP",
+      "kind": "FACT",
+      "strength": "LOW"
+    },
+    {
+      "evidenceId": "eia-refinery-inputs",
+      "impact": "UP",
+      "kind": "FACT",
+      "strength": "LOW"
+    },
+    {
+      "evidenceId": "news-hormuz-40441609",
+      "impact": "UP",
+      "kind": "RISK",
+      "strength": "MEDIUM"
+    }
+  ]
+}

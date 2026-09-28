@@ -12,7 +12,9 @@
     "scan": "node scripts/scan-public-files.mjs",
     "update:forecast": "node scripts/update-apizero-forecast.mjs",
     "gate:forecast": "node scripts/forecast-data-gate.mjs",
-    "intelligence:run": "node scripts/run-intelligence.mjs"
+    "intelligence:run": "node scripts/run-intelligence.mjs",
+    "intelligence:v2:collect": "node scripts/intelligence-v2/collect.mjs",
+    "intelligence:v2:run": "node scripts/intelligence-v2/run.mjs"
   },
   "engines": { "node": ">=22" }
 }

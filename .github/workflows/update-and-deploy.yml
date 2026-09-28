@@ -10,10 +10,6 @@ on:
         description: 'Failure drill: simulate API HTTP 503; deployment must be skipped'
         type: boolean
         default: false
-      simulate_trend_failure:
-        description: 'Optional trend failure drill; current fuel prices must still pass'
-        type: boolean
-        default: false
   push:
     branches: [main]
 
@@ -45,24 +41,12 @@ jobs:
         id: start
         run: |
           rm -f dist/data/normalized-live-cache.json
-          rm -f dist/data/trend-cache.json
           node --input-type=module -e 'import fs from "node:fs"; fs.appendFileSync(process.env.GITHUB_ENV, `RUN_STARTED_AT=${new Date().toISOString()}\n`);'
       - name: Fetch 31 provinces anonymously
         id: update
         env:
           SIMULATE_API_FAILURE: ${{ inputs.simulate_failure && '1' || '0' }}
         run: npm run update
-      - name: Candidate source availability audit
-        if: github.ref != 'refs/heads/main'
-        continue-on-error: true
-        run: node scripts/check-market-sources.mjs
-      - name: Fetch optional Brent and WTI data
-        continue-on-error: true
-        env:
-          SIMULATE_TREND_FAILURE: ${{ inputs.simulate_trend_failure && '1' || '0' }}
-        run: npm run update:trend
-      - name: TREND_FRESHNESS_GATE and safe degradation
-        run: npm run gate:trend
       - name: PUBLIC_DATA_GATE
         if: ${{ !cancelled() && steps.start.outcome == 'success' }}
         run: npm run gate
