@@ -26,28 +26,42 @@ concurrency:
 
 jobs:
   daily-delivery:
-    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == 'Zhyquan/ayu-fuel-lab'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     outputs:
-      ready: ${{ steps.ready.outputs.ready }}
+      ready: ${{ steps.ready.outputs.ready || steps.passthrough.outputs.ready || 'false' }}
+      is_main_delivery: ${{ steps.identity.outputs.is_main_delivery }}
     steps:
-      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - name: Identify main delivery
+        id: identity
+        env:
+          IS_MAIN_DELIVERY: ${{ github.repository == 'Zhyquan/ayu-fuel-lab' && ((github.event_name != 'workflow_run' && github.ref == 'refs/heads/main') || (github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == 'Zhyquan/ayu-fuel-lab')) }}
+        run: echo "is_main_delivery=$IS_MAIN_DELIVERY" >> "$GITHUB_OUTPUT"
+      - name: Ordinary price delivery
+        id: passthrough
+        if: github.event_name != 'workflow_run'
+        run: echo "ready=true" >> "$GITHUB_OUTPUT"
+      - name: Checkout trusted main
+        if: github.event_name == 'workflow_run' && steps.identity.outputs.is_main_delivery == 'true'
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
           ref: main
           persist-credentials: false
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+      - name: Setup trusted Node
+        if: github.event_name == 'workflow_run' && steps.identity.outputs.is_main_delivery == 'true'
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '22'
       - name: Verify this trusted Official Daily commit and fresh cache
         id: ready
+        if: github.event_name == 'workflow_run' && steps.identity.outputs.is_main_delivery == 'true'
         env:
           OFFICIAL_TRIGGER_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
           OFFICIAL_TRIGGER_CREATED_AT: ${{ github.event.workflow_run.created_at }}
         run: node scripts/intelligence-v2/pages-delivery-ready.mjs
   build:
     needs: daily-delivery
-    if: ${{ !cancelled() && (github.event_name != 'workflow_run' || needs.daily-delivery.outputs.ready == 'true') }}
+    if: ${{ !cancelled() && needs.daily-delivery.result == 'success' && needs.daily-delivery.outputs.ready == 'true' }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -88,17 +102,17 @@ jobs:
       - name: Scan generated public files
         run: npm run scan
       - name: Prepare Pages
-        if: github.ref == 'refs/heads/main'
+        if: needs.daily-delivery.outputs.is_main_delivery == 'true'
         uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
       - name: Upload validated static site
-        if: github.ref == 'refs/heads/main'
+        if: needs.daily-delivery.outputs.is_main_delivery == 'true'
         uses: actions/upload-pages-artifact@7b1f4a764d45c48632c6b24a0339c27f5614fb0b # v4
         with:
           path: dist
           retention-days: 1
   deploy:
-    if: github.ref == 'refs/heads/main'
-    needs: build
+    if: ${{ always() && !cancelled() && needs.build.result == 'success' && needs.daily-delivery.outputs.is_main_delivery == 'true' }}
+    needs: [daily-delivery, build]
     runs-on: ubuntu-latest
     timeout-minutes: 10
     permissions:
