@@ -12,6 +12,10 @@ on:
         default: false
   push:
     branches: [main]
+  workflow_run:
+    workflows: [Intelligence V2 official daily forecast]
+    branches: [main]
+    types: [completed]
 
 permissions:
   contents: read
@@ -21,18 +25,49 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  daily-delivery:
+    if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main' && github.event.workflow_run.head_repository.full_name == 'Zhyquan/ayu-fuel-lab'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      ready: ${{ steps.ready.outputs.ready }}
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+      - name: Verify this trusted Official Daily commit and fresh cache
+        id: ready
+        env:
+          OFFICIAL_TRIGGER_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          OFFICIAL_TRIGGER_CREATED_AT: ${{ github.event.workflow_run.created_at }}
+        run: node scripts/intelligence-v2/pages-delivery-ready.mjs
   build:
+    needs: daily-delivery
+    if: ${{ !cancelled() && (github.event_name != 'workflow_run' || needs.daily-delivery.outputs.ready == 'true') }}
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
         with:
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.ref }}
           persist-credentials: false
       - name: Setup Node
         uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '22'
+      - name: Recheck daily identity after build checkout
+        if: github.event_name == 'workflow_run'
+        env:
+          OFFICIAL_TRIGGER_HEAD_SHA: ${{ github.event.workflow_run.head_sha }}
+          OFFICIAL_TRIGGER_CREATED_AT: ${{ github.event.workflow_run.created_at }}
+        run: |
+          node scripts/intelligence-v2/pages-delivery-ready.mjs > daily-delivery-result.json
+          node --input-type=module -e 'import fs from "node:fs"; if(JSON.parse(fs.readFileSync("daily-delivery-result.json")).ready!==true)process.exit(1);'
       - name: Public source scan
         run: npm run scan
       - name: Data contract regression

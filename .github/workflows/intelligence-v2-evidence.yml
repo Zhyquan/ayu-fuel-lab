@@ -1,8 +1,8 @@
 name: Intelligence V2 evidence collection only
 on:
   schedule:
-    # Asia/Shanghai: 07:30 and 18:30. Schedules run only on the default branch.
-    - cron: '30 23,10 * * *'
+    # Asia/Shanghai: 02:30, 07:30, 13:30 and 18:30. Schedules run only on the default branch.
+    - cron: '30 18,23,5,10 * * *'
   workflow_dispatch:
 permissions:
   contents: read

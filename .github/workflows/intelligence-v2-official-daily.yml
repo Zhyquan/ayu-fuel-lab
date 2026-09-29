@@ -1,0 +1,102 @@
+name: Intelligence V2 official daily forecast
+on:
+  schedule:
+    # Asia/Shanghai 08:05; GitHub scheduled execution may be delayed.
+    - cron: '5 0 * * *'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'DRY_RUN uses fake HTTP only; OFFICIAL_DAILY requires separately authorized activation'
+        type: choice
+        options: [DRY_RUN, OFFICIAL_DAILY]
+        default: DRY_RUN
+permissions:
+  contents: read
+concurrency:
+  group: intelligence-v2-official-daily
+  cancel-in-progress: false
+jobs:
+  dry-run:
+    if: github.event_name == 'workflow_dispatch' && inputs.mode == 'DRY_RUN'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+      - name: Fake HTTP and full regression only
+        run: npm test
+      - name: Public source scan
+        run: npm run scan
+  official-daily:
+    if: github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab' && (github.event_name == 'schedule' || inputs.mode == 'OFFICIAL_DAILY')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout main source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          ref: main
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '22'
+      - name: Freeze checkout identity
+        run: node --input-type=module -e 'import {execFileSync} from "node:child_process"; if(execFileSync("git",["rev-parse","HEAD"],{encoding:"utf8"}).trim()!==process.env.GITHUB_SHA)process.exit(1);'
+      - name: Full regression before collection
+        run: npm test
+      - name: Unique Official Daily preflight
+        id: preflight
+        run: npm run intelligence:v2:official -- preflight
+      - name: Activation and secret presence only
+        if: steps.preflight.outputs.eligible == 'true'
+        env:
+          QWEN_API_ACTIVATION_AUTHORIZED: ${{ vars.QWEN_API_ACTIVATED == 'true' && '1' || '0' }}
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+        run: node --input-type=module -e 'if(process.env.QWEN_API_ACTIVATION_AUTHORIZED!=="1"||!process.env.DASHSCOPE_API_KEY?.trim()){console.error("QWEN_API_ACTIVATION_NEEDS_USER_AUTHORIZATION_OR_SECRET");process.exit(1);}'
+      - name: Start this run fresh evidence collection
+        if: steps.preflight.outputs.eligible == 'true'
+        run: |
+          node --input-type=module -e 'import fs from "node:fs"; fs.appendFileSync(process.env.GITHUB_ENV, `OFFICIAL_RUN_STARTED_AT=${new Date().toISOString()}\n`);'
+          node --input-type=module -e 'import fs from "node:fs"; for(const p of ["intelligence-v2/provider-run.json","intelligence-v2/EVIDENCE_GATE_RESULT.json","FORECAST_GATE_V2_RESULT.json"])fs.rmSync(p,{force:true});'
+      - name: Independently collect and gate current public evidence
+        if: steps.preflight.outputs.eligible == 'true'
+        run: npm run intelligence:v2:collect
+      - name: Evidence Gate before any model request
+        if: steps.preflight.outputs.eligible == 'true'
+        run: node --input-type=module -e 'import fs from "node:fs"; if(JSON.parse(fs.readFileSync("intelligence-v2/EVIDENCE_GATE_RESULT.json")).gate!=="PASS")process.exit(1);'
+      - name: Qwen structured inference, Forecast Gate, immutable history and cache
+        if: steps.preflight.outputs.eligible == 'true'
+        env:
+          QWEN_API_ACTIVATION_AUTHORIZED: ${{ vars.QWEN_API_ACTIVATED == 'true' && '1' || '0' }}
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+          DASHSCOPE_BASE_URL: ${{ vars.DASHSCOPE_BASE_URL }}
+        run: npm run intelligence:v2:official -- generate
+      - name: Full regression on generated data
+        if: steps.preflight.outputs.eligible == 'true'
+        run: npm test
+      - name: Public scan before publication
+        if: steps.preflight.outputs.eligible == 'true'
+        run: npm run scan
+      - name: Whitelist, latest main check, commit and fast-forward push
+        if: steps.preflight.outputs.eligible == 'true'
+        env:
+          QWEN_API_ACTIVATION_AUTHORIZED: ${{ vars.QWEN_API_ACTIVATED == 'true' && '1' || '0' }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/intelligence-v2/commit-official-daily.mjs
+      - name: Safe current run audit
+        if: always() && steps.preflight.outputs.eligible == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: official-daily-audit
+          path: |
+            intelligence-v2/provider-run.json
+            intelligence-v2/EVIDENCE_GATE_RESULT.json
+            FORECAST_GATE_V2_RESULT.json
+          if-no-files-found: ignore
+          retention-days: 7

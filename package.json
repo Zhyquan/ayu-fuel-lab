@@ -14,7 +14,8 @@
     "gate:forecast": "node scripts/forecast-data-gate.mjs",
     "intelligence:run": "node scripts/run-intelligence.mjs",
     "intelligence:v2:collect": "node scripts/intelligence-v2/collect.mjs",
-    "intelligence:v2:run": "node scripts/intelligence-v2/run.mjs"
+    "intelligence:v2:run": "node scripts/intelligence-v2/run.mjs",
+    "intelligence:v2:official": "node scripts/intelligence-v2/official-daily.mjs"
   },
   "engines": { "node": ">=22" }
 }

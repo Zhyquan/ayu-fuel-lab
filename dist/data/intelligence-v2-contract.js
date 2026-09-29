@@ -104,7 +104,7 @@ export function evidenceGate(pack, {now = new Date()} = {}) {
 export function forecastGate(candidate, pack, {now = new Date(),expectedEvidenceHash} = {}) {
   const errors = [];
   if (evidenceGate(pack,{now}).gate !== 'PASS') errors.push('EVIDENCE_GATE_FAILED');
-  if (!candidate || candidate.source !== INTELLIGENCE_V2_SOURCE || candidate.status !== 'LIVE' || candidate.probabilityType !== PROBABILITY_TYPE || candidate.forecastHorizonDays !== 7 || !['MANUAL','OPENAI','OTHER'].includes(candidate.provider)) errors.push('INVALID_FORECAST_CONTRACT');
+  if (!candidate || candidate.source !== INTELLIGENCE_V2_SOURCE || candidate.status !== 'LIVE' || candidate.probabilityType !== PROBABILITY_TYPE || candidate.forecastHorizonDays !== 7 || !['MANUAL','QWEN','OPENAI','OTHER'].includes(candidate.provider)) errors.push('INVALID_FORECAST_CONTRACT');
   if (!validTimestamp(candidate?.generatedAt) || !validTimestamp(candidate?.validUntil) || Date.parse(candidate.validUntil)-Date.parse(candidate.generatedAt)!==DAY || Date.parse(candidate.generatedAt)<Date.parse(pack?.generatedAt) || Date.parse(candidate.generatedAt)>+new Date(now)) errors.push('INVALID_FORECAST_TIME');
   if (Date.parse(candidate?.validUntil)<=+new Date(now)) errors.push('FORECAST_EXPIRED');
   if (!/^[a-f0-9]{64}$/.test(candidate?.evidenceHash ?? '') || (expectedEvidenceHash && candidate.evidenceHash !== expectedEvidenceHash)) errors.push('EVIDENCE_HASH_MISMATCH');

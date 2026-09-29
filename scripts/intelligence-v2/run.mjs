@@ -2,18 +2,25 @@ import { readFile, writeFile, rename } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { forecastGate, unavailableForecast } from '../../dist/data/intelligence-v2-contract.js';
+import { publicEvidenceGate } from '../../dist/data/public-evidence.js';
 import { createForecastProvider } from './provider.mjs';
 import { evidenceHashFor, saveForecastSnapshot } from './history.mjs';
 
-export async function runForecast({pack,manualCandidate,provider='MANUAL',historyDirectory,cachePath,now=new Date()}) {
+export async function runForecast({pack,manualCandidate,provider='MANUAL',historyDirectory,cachePath,now=new Date(),providerOptions={},persist=true}) {
+  if(provider==='QWEN')pack=structuredClone(pack);
   const evidenceHash=evidenceHashFor(pack);
-  const candidate=await createForecastProvider(provider).generateForecast({evidencePack:pack,evidenceHash,manualCandidate});
-  const gate=forecastGate(candidate,pack,{now,expectedEvidenceHash:evidenceHash});
+  const analyst=createForecastProvider(provider,providerOptions);
+  const candidate=await analyst.generateForecast({evidencePack:pack,evidenceHash,manualCandidate,now});
+  const checkedAt=provider==='QWEN'?(providerOptions.clock?.()??new Date()):now;
+  const gate=forecastGate(candidate,pack,{now:checkedAt,expectedEvidenceHash:evidenceHash});
+  const projection=provider==='QWEN'?publicEvidenceGate({forecast:candidate,evidencePack:pack},{now:checkedAt}):null;
+  if(projection?.gate==='FAIL') {gate.gate='FAIL';gate.errors.push('PUBLIC_EVIDENCE_GATE_FAILED');}
   if (gate.gate!=='PASS') {
-    await writeFile(cachePath,JSON.stringify(unavailableForecast(gate.errors.join(',')),null,2)+'\n');
+    if(persist&&provider==='MANUAL') await writeFile(cachePath,JSON.stringify(unavailableForecast(gate.errors.join(',')),null,2)+'\n');
     return {gate,history:null};
   }
-  const {path,snapshot}=await saveForecastSnapshot(historyDirectory,candidate,pack,{now});
+  if(!persist)return {gate,candidate,evidencePack:structuredClone(pack),providerAudit:analyst.lastRun??null,publicEvidence:projection};
+  const {path,snapshot}=await saveForecastSnapshot(historyDirectory,candidate,pack,{now:checkedAt});
   const temporary=`${cachePath}.${process.pid}.tmp`;
   await writeFile(temporary,JSON.stringify(snapshot,null,2)+'\n');
   await rename(temporary,cachePath);

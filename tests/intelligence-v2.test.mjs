@@ -18,8 +18,8 @@ import { getPriceDisplay } from '../dist/data/price-display.js';
 import { getProvinceFuelData } from '../dist/data/fuel-service.js';
 
 const root=fileURLToPath(new URL('../',import.meta.url));
-const pack=JSON.parse(await readFile(join(root,'CURRENT_EVIDENCE_V2.json'),'utf8'));
-const candidate=JSON.parse(await readFile(join(root,'CURRENT_FORECAST_CANDIDATE_V2.json'),'utf8'));
+// Immutable MANUAL golden snapshot: Official Daily current files change every day.
+const {evidencePack:pack,...candidate}=JSON.parse(await readFile(join(root,'data/forecast-history-v2/2026-09-28T11-17-34.176Z-66453209e4ab.json'),'utf8'));
 const now=new Date(candidate.generatedAt);
 const gate=(c=candidate,p=pack)=>forecastGate(c,p,{now,expectedEvidenceHash:evidenceHashFor(p)});
 const fixture=()=>({candidate:structuredClone(candidate),pack:structuredClone(pack)});
@@ -122,7 +122,7 @@ test('V2 15 active browser import graph cannot reach retired intelligence/quant 
   await visit(join(root,'dist/app.js'));
   assert.ok([...visited].some(p=>p.endsWith('intelligence-v2-contract.js')));
   const workflow=await readFile(join(root,'.github/workflows/intelligence-v2-evidence.yml'),'utf8');
-  assert.ok(workflow.includes("cron: '30 23,10 * * *'"));assert.doesNotMatch(workflow,/npm run intelligence:v2:run|deploy-pages|git push|OPENAI_API/);
+  assert.ok(workflow.includes("cron: '30 18,23,5,10 * * *'"));assert.doesNotMatch(workflow,/npm run intelligence:v2:run|deploy-pages|git push|OPENAI_API/);
 });
 test('V2 hash tampering, future timestamps, expired EIA and missing category reject',async()=>{
   const f=fixture();f.pack.signals[0].fact+='改动';

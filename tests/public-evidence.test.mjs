@@ -8,8 +8,8 @@ import { readForecast } from '../dist/data/intelligence-v2-service.js';
 import { evidenceHashFor } from '../scripts/intelligence-v2/history.mjs';
 import { getProvinceFuelData } from '../dist/data/fuel-service.js';
 
-const evidencePack=JSON.parse(await readFile(new URL('../CURRENT_EVIDENCE_V2.json',import.meta.url),'utf8'));
-const candidate=JSON.parse(await readFile(new URL('../CURRENT_FORECAST_CANDIDATE_V2.json',import.meta.url),'utf8'));
+// Immutable historical fixture, independent of today's automated current cache.
+const {evidencePack,...candidate}=JSON.parse(await readFile(new URL('../data/forecast-history-v2/2026-09-28T11-17-34.176Z-66453209e4ab.json',import.meta.url),'utf8'));
 const now=new Date(candidate.generatedAt), options={now};
 const fixture=()=>({forecast:structuredClone(candidate),evidencePack:structuredClone(evidencePack)});
 const cache=f=>({...f.forecast,evidencePack:f.evidencePack});
@@ -137,4 +137,25 @@ test('public evidence failure does not hide a valid trend or affect the actual p
   context.mock.method(globalThis,'fetch',async()=>new Response(JSON.stringify({generatedAt:new Date().toISOString(),source:'APIZero',provinces:{福建:{province:'福建',diesel0Price:8.29,unit:'元/升',updatedAt:'2026-09-26',sourceStatus:'LIVE'}}})));
   const result=await getProvinceFuelData('福建',{refresh:true});assert.equal(result.status,'LIVE');assert.equal(result.record.diesel0Price,8.29);
   assert.doesNotMatch(publicEvidenceMarkup({status:'UNAVAILABLE'}),/<article/);assert.match(publicEvidenceMarkup({status:'STALE'}),/数据更新中/);
+});
+test('automated daily supports reviewed inverse movements without copying raw facts or changing the UI',()=>{
+  const f=fixture();
+  for(const [id,impact,displayText]of [
+    ['eia-stocks','DOWN','美国馏分油库存增加'],
+    ['market-brent','DOWN','Brent最新日度报价回落'],
+    ['market-diesel','UP','纽约港低硫柴油最新日度报价上涨'],
+  ]) {
+    const s=signal(f,id);s.impact=impact;s.displayText=displayText;
+    if(id==='eia-stocks')s.fact=s.fact.replace('库存周变化 -','库存周变化 +');
+    else s.observation.change1dPercent=impact==='UP'?1:-1;
+    f.forecast.signalAssessments.find(a=>a.evidenceId===id).impact=impact;
+  }
+  f.forecast.probabilities={DOWN:40,FLAT:25,UP:35};f.forecast.primaryDirection='DOWN';
+  f.forecast.mainReasons=['eia-stocks','market-brent'].map(id=>ref(signal(f,id)));
+  f.forecast.counterReasons=['market-diesel',signal(fixture(),'news-hormuz-40441609').id].map(id=>ref(signal(f,id)));
+  f.forecast.evidenceHash=evidenceHashFor(f.evidencePack);
+  const result=publicEvidenceGate(f,options);assert.equal(result.gate,'PASS');
+  assert.deepEqual(result.cards.slice(0,3).map(c=>c.title),['美国馏分油库存增加','Brent日度报价回落','纽约港低硫柴油报价上涨']);
+  signal(f,'market-brent').observation.change1dPercent=1;
+  assert.equal(publicEvidenceGate(f,options).gate,'FAIL');
 });

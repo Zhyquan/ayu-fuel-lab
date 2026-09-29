@@ -1,7 +1,9 @@
-export const FORECAST_PROVIDERS = ['MANUAL','OPENAI','OTHER'];
+import { createQwenProvider } from './qwen-provider.mjs';
+export const FORECAST_PROVIDERS = ['MANUAL','QWEN','OPENAI','OTHER'];
 
-export function createForecastProvider(name='MANUAL') {
+export function createForecastProvider(name='MANUAL',options={}) {
   if (!FORECAST_PROVIDERS.includes(name)) throw new Error('UNKNOWN_PROVIDER');
+  if (name==='QWEN') return createQwenProvider(options);
   return {
     name,
     async generateForecast({evidencePack,evidenceHash,manualCandidate}) {

@@ -21,11 +21,20 @@ function publicCopy(signal,now) {
     if (signal.id==='eia-stocks' && signal.category==='DISTILLATE_FUNDAMENTALS' && signal.impact==='UP' && signal.displayText==='美国馏分油库存减少' && /库存周变化 -\d/.test(signal.fact)) return {
       title:'美国馏分油库存减少',summary:`统计周截至${observed}，馏分油库存较上周减少。`,
     };
+    if (signal.id==='eia-stocks' && signal.category==='DISTILLATE_FUNDAMENTALS' && signal.impact==='DOWN' && signal.displayText==='美国馏分油库存增加' && /库存周变化 \+\d/.test(signal.fact)) return {
+      title:'美国馏分油库存增加',summary:`统计周截至${observed}，馏分油库存较上周增加。`,
+    };
     if (signal.id==='market-brent' && signal.category==='CRUDE' && signal.impact==='UP' && signal.displayText==='Brent最新日度报价上涨' && signal.observation?.name==='Brent' && signal.observation.change1dPercent>0) return {
       title:'Brent日度报价上涨',summary:`${observed}的Brent现货报价较上一报价日上涨。`,
     };
     if (signal.id==='market-diesel' && signal.category==='INTERNATIONAL_DIESEL' && signal.impact==='DOWN' && signal.displayText==='纽约港低硫柴油最新日度报价回落' && signal.observation?.name==='NY_HARBOR_LOW_SULFUR_DIESEL' && signal.observation.change1dPercent<0) return {
       title:'纽约港低硫柴油报价回落',summary:`${observed}的低硫柴油现货报价较上一报价日回落。`,
+    };
+    if (signal.id==='market-brent' && signal.category==='CRUDE' && signal.impact==='DOWN' && signal.displayText==='Brent最新日度报价回落' && signal.observation?.name==='Brent' && signal.observation.change1dPercent<0) return {
+      title:'Brent日度报价回落',summary:`${observed}的Brent现货报价较上一报价日回落。`,
+    };
+    if (signal.id==='market-diesel' && signal.category==='INTERNATIONAL_DIESEL' && signal.impact==='UP' && signal.displayText==='纽约港低硫柴油最新日度报价上涨' && signal.observation?.name==='NY_HARBOR_LOW_SULFUR_DIESEL' && signal.observation.change1dPercent>0) return {
+      title:'纽约港低硫柴油报价上涨',summary:`${observed}的低硫柴油现货报价较上一报价日上涨。`,
     };
   }
   if (signal.sourceOrganization==='Reuters' && signal.kind==='RISK' && signal.category==='SUPPLY_DISRUPTION' && signal.impact==='UP' && signal.displayText==='霍尔木兹供应仍有不确定风险' && signal.fact.includes('谈判僵局') && signal.fact.includes('供应担忧')) return {
