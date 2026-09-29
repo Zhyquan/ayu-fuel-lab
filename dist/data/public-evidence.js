@@ -3,6 +3,12 @@ import { chinaDate, validDate } from './validation.js';
 
 const length = value => Array.from(value).length;
 const directionLabel = signal => signal.kind==='RISK' ? ({UP:'上涨风险',DOWN:'下跌风险',NEUTRAL:'供应风险'})[signal.impact] : ({UP:'利涨',DOWN:'利跌',NEUTRAL:'中性'})[signal.impact];
+const newsCopy = {
+  SUPPLY_DISRUPTION_CONFIRMED:{kind:'FACT',impact:'UP',title:'油品供应设施运行中断',summary:'报道确认油品供应作业中断，可能增加供应压力。',fact:'当前油品供应作业中断'},
+  SUPPLY_RESTORATION_CONFIRMED:{kind:'FACT',impact:'DOWN',title:'油品供应设施恢复运行',summary:'报道确认相关油品供应作业恢复，原有供应压力有所缓解。',fact:'相关油品供应作业恢复运行'},
+  HORMUZ_SHIPPING_RISK:{kind:'RISK',impact:'UP',title:'霍尔木兹运输仍存不确定风险',summary:'报道提到海峡重开仍待解决，属于运输供应风险。',fact:'霍尔木兹重开尚待解决'},
+  STRATEGIC_RESERVE_RELEASE_OUTLOOK:{kind:'OUTLOOK',impact:'DOWN',title:'战略储备释放仍属前瞻',summary:'能源机构或政府可能讨论储备释放，尚未确认实施。',fact:'这是条件性前瞻，不代表已经释放'},
+};
 
 export function formatEvidenceDate(date,now=new Date()) {
   if (!validDate(date)) return null;
@@ -40,6 +46,8 @@ function publicCopy(signal,now) {
   if (signal.sourceOrganization==='Reuters' && signal.kind==='RISK' && signal.category==='SUPPLY_DISRUPTION' && signal.impact==='UP' && signal.displayText==='霍尔木兹供应仍有不确定风险' && signal.fact.includes('谈判僵局') && signal.fact.includes('供应担忧')) return {
     title:'霍尔木兹供应仍有不确定风险',summary:'报道提到谈判僵局带来的石油供应担忧，属于风险信号。',
   };
+  const copy=Object.hasOwn(newsCopy,signal.ruleId)?newsCopy[signal.ruleId]:null;
+  if (copy && signal.sourceOrganization==='Reuters' && signal.category==='SUPPLY_DISRUPTION' && signal.kind===copy.kind && signal.impact===copy.impact && signal.displayText===copy.title && signal.fact.includes(copy.fact)) return {title:copy.title,summary:copy.summary};
   return null;
 }
 

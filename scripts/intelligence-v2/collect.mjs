@@ -3,6 +3,8 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { CATEGORIES, DAY, evidenceGate, filterAndDeduplicateSignals, marketObservationLag } from '../../dist/data/intelligence-v2-contract.js';
+import { verifyNewsArticle, newsCandidatePriority } from './news-event-rules.mjs';
+export { verifyNewsArticle, NEWS_EVENT_RULES } from './news-event-rules.mjs';
 
 export const SOURCES = {
   prices:'https://www.eia.gov/todayinenergy/prices.php',
@@ -14,6 +16,7 @@ export const SOURCES = {
   opec:'https://www.opec.org/press-releases.html',
   gdelt:'https://api.gdeltproject.org/api/v2/doc/doc',
   rss:'https://www.brecorder.com/feeds/latest-news',
+  sitemap:'https://www.brecorder.com/feeds/sitemap',
 };
 const sha = value => createHash('sha256').update(value).digest('hex');
 const clean = s => s.replace(/<[^>]*>/g,' ').replace(/&amp;/g,'&').replace(/&#(?:0*39|x27);/g,"'").replace(/&quot;/g,'"').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim();
@@ -98,20 +101,11 @@ export function parseRssCandidates(xml) {
   });
 }
 
-export function verifyNewsArticle(html,url,checkedAt) {
-  let article;
-  for (const m of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/g)) {
-    try { const value=JSON.parse(m[1]); if (value['@type']==='NewsArticle') article=value; } catch { /* Ignore unrelated invalid metadata. */ }
-  }
-  const author = article?.author?.some?.(a=>a.name==='Reuters');
-  const bodyStart = html.indexOf('class="story__content');
-  const singleStart = bodyStart>=0?bodyStart:html.indexOf("class='story__content");
-  // Restrict extraction to the article body, excluding related headlines and menus.
-  const body = singleStart>=0?clean(html.slice(singleStart,html.indexOf('</div>',singleStart))):'';
-  if (!author || !article.datePublished || !body) throw new Error('ORIGINAL_ARTICLE_NOT_VERIFIED');
-  if (!/Hormuz/i.test(body) || !/(?:US President|Trump)[^.]{0,160}rejected [^.]{0,30}Iranian proposal/i.test(body) || !/(?:deadlock|stalemate)[^.]{0,80}concerns?[^.]{0,80}oil supplies/i.test(body) || /(?:deadlock|stalemate)[^.]{0,80}(?:resolved|ended)/i.test(body)) throw new Error('NEEDS_REVIEW_UNSUPPORTED_EVENT');
-  const publishedAt=iso(article.datePublished), eventDate=publishedAt.slice(0,10);
-  return {id:`news-hormuz-${url.match(/news\/(\d+)/)?.[1]}`,category:'SUPPLY_DISRUPTION',relatedCategories:['SHIPPING'],eventKey:'us-iran-hormuz-negotiation-deadlock',measurementKey:'negotiation-supply-risk',headline:'Reuters报道美伊谈判僵局带来霍尔木兹供应担忧',fact:'Reuters当前报道：美国拒绝了伊朗有关重开霍尔木兹海峡的提议，谈判僵局引起石油供应担忧。此项是报道中的持续风险，不能等同于新发生的关闭或确定减产。',displayText:'霍尔木兹供应仍有不确定风险',impact:'UP',importance:'MEDIUM',kind:'RISK',eventDate,eventAt:publishedAt,publishedAt,checkedAt,sourceName:'Reuters via Business Recorder',sourceOrganization:'Reuters',sourceUrl:url,sourceTier:2,verified:true,freshness:'BREAKING_72H',eventTimeBasis:'Current ongoing state explicitly reported on publication date; not the date of an earlier attack.'};
+export function parseNewsSitemap(xml) {
+  return [...xml.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(match=>{
+    const field=name=>clean(match[1].match(new RegExp(`<${name}>([\\s\\S]*?)<\\/${name}>`))?.[1]?.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/,'$1') ?? '');
+    return {headline:field('news:title'),url:field('loc'),discoveredAt:field('news:publication_date'),discoverySource:'Business Recorder news sitemap'};
+  }).filter(candidate=>candidate.headline && candidate.url.startsWith('https://www.brecorder.com/news/')).slice(0,200);
 }
 
 export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=15000}={}) {
@@ -148,19 +142,45 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
     discovery=candidates.length?'GDELT_DOC_WITH_RSS_FALLBACK':'RSS_FALLBACK';
     try { candidates.push(...parseRssCandidates(await get(SOURCES.rss)).slice(0,30-candidates.length)); } catch { exclusions.push({source:'RSS',reason:'DISCOVERY_FAILED'}); }
   }
+  // The general RSS contains only 30 items; use the publisher's robots-listed
+  // news sitemap as discovery, never as proof of an event or its timestamp.
+  try {
+    const found=parseNewsSitemap(await get(SOURCES.sitemap));
+    if(found.length) {candidates.push(...found);discovery+='_WITH_NEWS_SITEMAP';}
+  } catch { exclusions.push({source:'NEWS_SITEMAP',reason:'DISCOVERY_FAILED'}); }
+  candidates.sort((a,b)=>newsCandidatePriority(b.headline)-newsCandidatePriority(a.headline));
+  const seenArticles=new Set();
+  const selected=candidates.filter(candidate=>{
+    const key=candidate.url?.match(/^https:\/\/www\.brecorder\.com\/news\/(\d+)(?:\/|$)/)?.[1]??candidate.url;
+    if(seenArticles.has(key)) {exclusions.push({...candidate,reason:'DUPLICATE_DISCOVERY_ARTICLE'});return false;}
+    seenArticles.add(key);return true;
+  });
+  for(const candidate of selected.slice(30))exclusions.push({...candidate,reason:'DISCOVERY_CANDIDATE_LIMIT'});
+  selected.length=Math.min(selected.length,30);
+  candidates.splice(0,candidates.length,...selected);
   let articleRequests=0;
   for (const candidate of candidates) {
-    if (!/(oil|diesel|gasoil|OPEC|Hormuz|refinery|tanker)/i.test(candidate.headline)) { candidate.status='IRRELEVANT'; continue; }
-    if (!candidate.url?.startsWith('https://www.brecorder.com/news/') || articleRequests>=6) { candidate.status='NEEDS_VERIFICATION'; continue; }
+    if (!newsCandidatePriority(candidate.headline)) { candidate.status='IRRELEVANT';candidate.reason='NO_SUPPORTED_ENERGY_MECHANISM_IN_HEADLINE';continue; }
+    if (!/^https:\/\/www\.brecorder\.com\/news\/\d+(?:\/[^?#]*)?$/.test(candidate.url??'') || articleRequests>=6) { candidate.status='NEEDS_VERIFICATION';candidate.reason=articleRequests>=6?'ARTICLE_REQUEST_LIMIT':'UNSUPPORTED_ARTICLE_URL';continue; }
     articleRequests++;
-    try { signals.push(verifyNewsArticle(await get(candidate.url),candidate.url,generatedAt)); candidate.status='ORIGINAL_VERIFIED'; }
-    catch(error) { candidate.status='EXCLUDED'; candidate.reason=error.message==='NEEDS_REVIEW_UNSUPPORTED_EVENT'?error.message:'ARTICLE_VERIFICATION_FAILED'; }
+    try {
+      const signal=verifyNewsArticle(await get(candidate.url),candidate.url,generatedAt);
+      signals.push(signal);candidate.status='ORIGINAL_VERIFIED';candidate.evidenceId=signal.id;candidate.ruleId=signal.ruleId;
+    } catch(error) {
+      candidate.status='EXCLUDED';
+      candidate.reason=/^(?:NEEDS_REVIEW_UNSUPPORTED_EVENT|REUTERS_AUTHOR_NOT_VERIFIED|ARTICLE_PUBLICATION_TIME_UNVERIFIED|INVALID_SIGNAL_DATE|EXPIRED_NEWS|UNRELATED_MARKET_ARTICLE|ORIGINAL_ARTICLE_NOT_VERIFIED)$/.test(error.message)?error.message:'ARTICLE_VERIFICATION_FAILED';
+    }
   }
-  const dedup=filterAndDeduplicateSignals(signals,now);
+  const news=signals.filter(s=>s.sourceOrganization==='Reuters').sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt));
+  const dedup=filterAndDeduplicateSignals([...signals.filter(s=>s.sourceOrganization!=='Reuters'),...news],now);
+  for(const excluded of dedup.excluded) {
+    const candidate=candidates.find(c=>c.evidenceId===excluded.id);
+    if(candidate) {candidate.status='EXCLUDED';candidate.reason=excluded.reason;}
+  }
   const categoryChecks=CATEGORIES.map(category=>{
     const relevant=dedup.signals.filter(s=>s.category===category || s.relatedCategories?.includes(category));
     const officialFailure=category==='OPEC_MAJOR_PRODUCERS' && fetchLog.some(f=>f.url===SOURCES.opec && f.status==='FAILED');
-    return {category,status:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'VERIFIED':officialFailure?'FAILED':'NO_QUALIFIED_SIGNAL',checkedAt:generatedAt,sourceUrls:category===CATEGORIES[0] || category===CATEGORIES[1]?[SOURCES.prices]:category===CATEGORIES[2]?[SOURCES.weekly,SOURCES.summary]:category==='OPEC_MAJOR_PRODUCERS'?[SOURCES.opec,SOURCES.rss]:[SOURCES.gdelt,SOURCES.rss],reason:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'Original sources verified; linked shipping risk belongs to the same event.':officialFailure?'Official OPEC endpoint inaccessible; no current production/export/policy fact admitted.':'Discovery checked; no verified material signal admitted for this category.'};
+    return {category,status:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'VERIFIED':officialFailure?'FAILED':'NO_QUALIFIED_SIGNAL',checkedAt:generatedAt,sourceUrls:category===CATEGORIES[0] || category===CATEGORIES[1]?[SOURCES.prices]:category===CATEGORIES[2]?[SOURCES.weekly,SOURCES.summary]:category==='OPEC_MAJOR_PRODUCERS'?[SOURCES.opec,SOURCES.rss]:[SOURCES.gdelt,SOURCES.rss,SOURCES.sitemap],reason:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'Original sources verified; linked shipping risk belongs to the same event.':officialFailure?'Official OPEC endpoint inaccessible; no current production/export/policy fact admitted.':'Discovery checked; no verified material signal admitted for this category.'};
   });
   const pack={generatedAt,forecastHorizonDays:7,runType:'CURRENT_REAL_WORLD_RUN',signals:dedup.signals,categoryChecks,recentMarketContext,discovery:{provider:discovery,candidateCount:candidates.length,articleRequests,candidates},exclusions:[...exclusions,...dedup.excluded],fetchLog,conflicts:[],eventGroups:[...new Set(dedup.signals.map(s=>s.eventKey))].map(eventKey=>({eventKey,evidenceIds:dedup.signals.filter(s=>s.eventKey===eventKey).map(s=>s.id),weightingRule:'ONE_EVENT_NOT_ARTICLE_COUNT'}))};
   return {pack,gate:evidenceGate(pack,{now})};
