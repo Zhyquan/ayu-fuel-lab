@@ -32,7 +32,7 @@
 
 ## 模型输出与可信构造
 
-根 schema：[QWEN_FORECAST_SCHEMA.json](QWEN_FORECAST_SCHEMA.json)。请求时进一步把 ID enum 和 assessment 数量绑定到本轮 pack。
+根 schema：[QWEN_FORECAST_SCHEMA.json](QWEN_FORECAST_SCHEMA.json)。请求时把三处 evidence ID enum 绑定到本轮 pack。远端 Schema 仅使用百炼文档明确展示的关键词；数组长度、唯一性、非空 ID、概率范围与全量 assessment 由本地 validateAnalysis 严格验证。
 
 模型只返回四个字段：
 

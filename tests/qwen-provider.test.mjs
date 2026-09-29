@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createQwenProvider, validateAnalysis, analysisSchema, projectEvidence, MAX_TRANSPORT_RETRIES, MAX_PROVIDER_CALLS_PER_RUN } from '../scripts/intelligence-v2/qwen-provider.mjs';
+import { createQwenProvider, validateAnalysis, analysisSchema, projectEvidence, qwenSchemaCompatibilityGate, QWEN_SCHEMA_KEYWORDS, MAX_TRANSPORT_RETRIES, MAX_PROVIDER_CALLS_PER_RUN } from '../scripts/intelligence-v2/qwen-provider.mjs';
 import { evidenceHashFor } from '../scripts/intelligence-v2/history.mjs';
 import { forecastGate, DAY } from '../dist/data/intelligence-v2-contract.js';
 import { runForecast } from '../scripts/intelligence-v2/run.mjs';
@@ -17,6 +17,7 @@ test('Qwen strict request and grounded candidate pass the existing Forecast and 
   assert.equal(body.model,'qwen3.8-flash');assert.equal(body.enable_thinking,false);assert.equal(body.stream,false);
   assert.equal(body.response_format.type,'json_schema');assert.equal(body.response_format.json_schema.strict,true);
   assert.equal(body.response_format.json_schema.schema.additionalProperties,false);
+  assert.equal(body.max_tokens,undefined);
   assert.equal(request.redirect,'error');assert.equal(body.tools,undefined);assert.equal(body.enable_search,undefined);
   assert.equal(candidate.provider,'QWEN');assert.equal(candidate.source,'AYU_INTELLIGENCE_V2');assert.equal(candidate.primaryDirection,'UP');
   assert.equal(candidate.generatedAt,clock().toISOString());assert.equal(Date.parse(candidate.validUntil)-Date.parse(candidate.generatedAt),DAY);
@@ -44,10 +45,17 @@ test('missing key, unactivated native transport, failed Evidence and mismatched 
 });
 for(const [name,modify,error]of [
   ['unknown ID',v=>v.mainReasonEvidenceIds[0]='outside-pack','QWEN_REASON_INVALID'],
+  ['empty ID',v=>v.mainReasonEvidenceIds[0]='','QWEN_REASON_INVALID'],
+  ['zero main reasons',v=>v.mainReasonEvidenceIds=[],'QWEN_REASON_INVALID'],
+  ['four main reasons',v=>v.mainReasonEvidenceIds=['eia-stocks','market-brent','news-hormuz-40441609','eia-production'],'QWEN_REASON_INVALID'],
+  ['three counter reasons',v=>v.counterReasonEvidenceIds=['market-diesel','market-wti','market-diesel'],'QWEN_REASON_INVALID'],
+  ['duplicate main IDs',v=>v.mainReasonEvidenceIds=['eia-stocks','eia-stocks'],'QWEN_REASON_INVALID'],
+  ['duplicate counter IDs',v=>v.counterReasonEvidenceIds=['market-diesel','market-diesel'],'QWEN_REASON_INVALID'],
   ['bad sum',v=>v.probabilities.FLAT=30,'QWEN_PROBABILITIES_INVALID'],
   ['bad step',v=>{v.probabilities.UP=41;v.probabilities.DOWN=34;},'QWEN_PROBABILITIES_INVALID'],
   ['missing assessment',v=>v.strengthAssessments.pop(),'QWEN_ASSESSMENTS_INVALID'],
   ['duplicate assessment',v=>v.strengthAssessments[1]=v.strengthAssessments[0],'QWEN_ASSESSMENTS_INVALID'],
+  ['extra assessment',v=>v.strengthAssessments.push({...v.strengthAssessments[0]}),'QWEN_ASSESSMENTS_INVALID'],
   ['missing counter',v=>v.counterReasonEvidenceIds=[],'QWEN_COUNTER_REQUIRED'],
   ['reversed main reason',v=>v.mainReasonEvidenceIds=['market-diesel'],'QWEN_REASON_INVALID'],
   ['correlated event voting',v=>v.mainReasonEvidenceIds=['eia-stocks','eia-production'],'QWEN_REASON_INVALID'],
@@ -108,10 +116,30 @@ test('endpoint override only accepts Beijing official HTTPS; oversized input is 
   f.pack.signals[0].fact='a'.repeat(70000);
   await assert.rejects(createQwenProvider(fakeOptions(f.pack,{fetchImpl:async()=>{calls++;}})).generateForecast({evidencePack:f.pack,evidenceHash:evidenceHashFor(f.pack),now:f.now}),/QWEN_PAYLOAD_TOO_LARGE/);assert.equal(calls,0);
 });
-test('schema binds IDs and exact assessment count to this pack and requires all fields',()=>{
+test('remote schema uses only documented-compatible keywords and keeps dynamic evidence enums',()=>{
   const {pack}=fixture(), schema=analysisSchema(pack);
   assert.deepEqual(schema.required,Object.keys(schema.properties));
-  assert.equal(schema.properties.strengthAssessments.minItems,pack.signals.length);
   assert.deepEqual(schema.properties.mainReasonEvidenceIds.items.enum,pack.signals.map(s=>s.id));
+  assert.deepEqual(schema.properties.counterReasonEvidenceIds.items.enum,pack.signals.map(s=>s.id));
+  assert.deepEqual(schema.properties.strengthAssessments.items.properties.evidenceId.enum,pack.signals.map(s=>s.id));
+  assert.equal(schema.additionalProperties,false);
+  assert.equal(schema.properties.probabilities.additionalProperties,false);
+  assert.equal(schema.properties.strengthAssessments.items.additionalProperties,false);
+  assert.equal(qwenSchemaCompatibilityGate(schema).gate,'PASS');
+  const forbidden=['uniqueItems','minItems','maxItems','minLength','pattern','format','minimum','maximum','multipleOf'];
+  const serialized=JSON.stringify(schema);
+  for(const keyword of forbidden)assert.doesNotMatch(serialized,new RegExp(`"${keyword}"\\s*:`));
   assert.deepEqual(validateAnalysis(analysis(pack),pack),analysis(pack));
+});
+test('schema compatibility allowlist recurses without treating property names or enum values as keywords',()=>{
+  const valid={type:'object',properties:{pattern:{type:'string',enum:['minimum','uniqueItems']}},required:['pattern'],additionalProperties:false};
+  assert.equal(qwenSchemaCompatibilityGate(valid).gate,'PASS');
+  assert.deepEqual(QWEN_SCHEMA_KEYWORDS,['type','properties','required','items','enum','description','title','additionalProperties']);
+  for(const [keyword,value]of [
+    ['uniqueItems',true],['minItems',1],['maxItems',3],['minLength',1],['pattern','x'],['format','date'],
+    ['minimum',5],['maximum',90],['multipleOf',5],
+  ]) {
+    const result=qwenSchemaCompatibilityGate({type:'array',items:{type:'string',[keyword]:value}});
+    assert.equal(result.gate,'FAIL');assert.ok(result.errors.some(error=>error.endsWith(`:${keyword}`)));
+  }
 });

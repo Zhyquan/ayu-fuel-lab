@@ -90,28 +90,18 @@
     },
     "mainReasonEvidenceIds": {
       "type": "array",
-      "minItems": 1,
-      "maxItems": 3,
-      "uniqueItems": true,
       "items": {
-        "type": "string",
-        "minLength": 1
+        "type": "string"
       }
     },
     "counterReasonEvidenceIds": {
       "type": "array",
-      "minItems": 0,
-      "maxItems": 2,
-      "uniqueItems": true,
       "items": {
-        "type": "string",
-        "minLength": 1
+        "type": "string"
       }
     },
     "strengthAssessments": {
       "type": "array",
-      "minItems": 5,
-      "maxItems": 12,
       "items": {
         "type": "object",
         "additionalProperties": false,
@@ -121,8 +111,7 @@
         ],
         "properties": {
           "evidenceId": {
-            "type": "string",
-            "minLength": 1
+            "type": "string"
           },
           "strength": {
             "type": "string",

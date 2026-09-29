@@ -11,13 +11,29 @@ export const MAX_INPUT_BYTES = 65536;
 const schema = JSON.parse(await readFile(new URL('../../QWEN_FORECAST_SCHEMA.json',import.meta.url),'utf8'));
 const fail = code => { throw new Error(code); };
 const exactKeys = (value,keys) => value && typeof value==='object' && !Array.isArray(value) && Object.keys(value).sort().join(',')===[...keys].sort().join(',');
+export const QWEN_SCHEMA_KEYWORDS=Object.freeze(['type','properties','required','items','enum','description','title','additionalProperties']);
+
+export function qwenSchemaCompatibilityGate(input) {
+  const allowed=new Set(QWEN_SCHEMA_KEYWORDS), errors=[];
+  const walk=(node,path='schema')=>{
+    if(!node||typeof node!=='object'||Array.isArray(node)){errors.push(`${path}:INVALID_SCHEMA_NODE`);return;}
+    for(const key of Object.keys(node))if(!allowed.has(key))errors.push(`${path}:${key}`);
+    if(node.properties!==undefined) {
+      if(!node.properties||typeof node.properties!=='object'||Array.isArray(node.properties))errors.push(`${path}.properties:INVALID_PROPERTY_MAP`);
+      else for(const [name,child]of Object.entries(node.properties))walk(child,`${path}.properties.${name}`);
+    }
+    if(node.items!==undefined)walk(node.items,`${path}.items`);
+  };
+  walk(input);
+  return {gate:errors.length?'FAIL':'PASS',errors};
+}
 
 export function analysisSchema(pack) {
   const result=structuredClone(schema), ids=pack.signals.map(s=>s.id);
   for (const key of ['mainReasonEvidenceIds','counterReasonEvidenceIds']) result.properties[key].items={type:'string',enum:ids};
   const assessments=result.properties.strengthAssessments;
-  assessments.minItems=ids.length;assessments.maxItems=ids.length;
   assessments.items.properties.evidenceId={type:'string',enum:ids};
+  if(qwenSchemaCompatibilityGate(result).gate!=='PASS')fail('QWEN_SCHEMA_COMPATIBILITY_FAILED');
   return result;
 }
 export function validateAnalysis(value,pack) {
@@ -78,7 +94,7 @@ export function createQwenProvider(options={}) {
       if(!mock&&options.activationAuthorized!==true)fail('QWEN_API_ACTIVATION_NEEDS_USER_AUTHORIZATION');
       const url=endpoint(environment.DASHSCOPE_BASE_URL||DEFAULT_BASE_URL);
       const input=canonicalJson(projectEvidence(pack));
-      const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,max_tokens:2048,
+      const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,
         messages:[{role:'system',content:SYSTEM_PROMPT},{role:'user',content:`Frozen Evidence Pack (${evidenceHash})\n${input}`}],
         response_format:{type:'json_schema',json_schema:{name:'QWEN_ANALYSIS_OUTPUT',strict:true,schema:analysisSchema(pack)}}});
       if(Buffer.byteLength(body)>MAX_INPUT_BYTES)fail('QWEN_PAYLOAD_TOO_LARGE');
