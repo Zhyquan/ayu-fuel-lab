@@ -1,0 +1,45 @@
+{
+  "role": "CURRENT_INTRADAY",
+  "producer": "Ayu Fuel · 情报桥",
+  "sourceCommit": "29b066d054ba8e5b762dcda95bcb857b853ac090",
+  "runId": "36749094574",
+  "forecastHash": "3aea93a1118e65e9c5dbc6e330687dc358bf6b901fbf7a3b655f15a46f2eb078",
+  "evidenceHash": "bbd534d199ac0578b8270175070d6baea3ff83256038531f224f636b94eebd88",
+  "inputPackHash": "291408e1cd26dc31fa0a28e64bf3deb8410e19837616d45ed16d1e9187a79585",
+  "generatedAt": "2026-09-30T17:07:33.593Z",
+  "provider": "QWEN",
+  "model": "qwen3.8-flash",
+  "providerAudit": {
+    "provider": "QWEN",
+    "model": "qwen3.8-flash",
+    "promptVersion": "qwen-forecast-external-v1",
+    "inputPackHash": "291408e1cd26dc31fa0a28e64bf3deb8410e19837616d45ed16d1e9187a79585",
+    "evidenceHash": "bbd534d199ac0578b8270175070d6baea3ff83256038531f224f636b94eebd88",
+    "requestStartedAt": "2026-09-30T17:07:26.987Z",
+    "requestCompletedAt": "2026-09-30T17:07:33.595Z",
+    "semanticCallCount": 1,
+    "configuredTransportRetries": 0,
+    "maxExternalRequests": 1,
+    "actualExternalRequestCount": 1,
+    "attemptCount": 1,
+    "httpStatus": 200,
+    "httpStatuses": [
+      200
+    ],
+    "inputPayloadBytes": 15505,
+    "usage": {
+      "input_tokens": 3792,
+      "output_tokens": 266
+    },
+    "status": "OK",
+    "mock": false,
+    "outputHash": "0d61599e06e4cc3ffe8a7c3301579a35f1d66a1549525de4fa9da407c9b5b46b",
+    "newsEnrichment": {
+      "gate": "PASS",
+      "acceptedCount": 0,
+      "droppedCount": 0,
+      "codes": [],
+      "diagnostics": []
+    }
+  }
+}

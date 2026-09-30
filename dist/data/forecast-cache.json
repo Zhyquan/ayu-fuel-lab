@@ -3,14 +3,14 @@
   "status": "LIVE",
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
-  "provider": "MANUAL",
-  "generatedAt": "2026-09-28T11:17:34.176Z",
-  "validUntil": "2026-09-29T11:17:34.176Z",
-  "evidenceHash": "66453209e4ab96362b77d9846d91b7cf9dd287adf3a63ef7d7af4013d904e135",
+  "provider": "QWEN",
+  "generatedAt": "2026-09-30T17:07:33.593Z",
+  "validUntil": "2026-10-01T17:07:33.593Z",
+  "evidenceHash": "bbd534d199ac0578b8270175070d6baea3ff83256038531f224f636b94eebd88",
   "probabilities": {
-    "DOWN": 35,
-    "FLAT": 25,
-    "UP": 40
+    "DOWN": 15,
+    "FLAT": 20,
+    "UP": 65
   },
   "primaryDirection": "UP",
   "mainReasons": [
@@ -19,36 +19,32 @@
       "text": "美国馏分油库存减少"
     },
     {
-      "evidenceId": "market-brent",
-      "text": "Brent最新日度报价上涨"
-    },
-    {
-      "evidenceId": "news-hormuz-40441609",
-      "text": "霍尔木兹供应仍有不确定风险"
+      "evidenceId": "market-diesel",
+      "text": "纽约港低硫柴油最新日度报价上涨"
     }
   ],
   "counterReasons": [
     {
-      "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价回落"
+      "evidenceId": "market-brent",
+      "text": "Brent最新日度报价回落"
     }
   ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-brent",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-diesel",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -56,47 +52,71 @@
       "evidenceId": "eia-stocks",
       "impact": "UP",
       "kind": "FACT",
-      "strength": "MEDIUM"
+      "strength": "HIGH"
     },
     {
       "evidenceId": "eia-production",
       "impact": "UP",
       "kind": "FACT",
-      "strength": "LOW"
+      "strength": "MEDIUM"
     },
     {
       "evidenceId": "eia-refinery-inputs",
       "impact": "UP",
       "kind": "FACT",
       "strength": "LOW"
-    },
-    {
-      "evidenceId": "news-hormuz-40441609",
-      "impact": "UP",
-      "kind": "RISK",
-      "strength": "MEDIUM"
     }
   ],
+  "inputContractVersion": "NEWS_MATERIAL_V1",
+  "forecastContract": "CORE_FORECAST_V1",
+  "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
+  "promptVersion": "qwen-forecast-external-v1",
+  "inputPackHash": "291408e1cd26dc31fa0a28e64bf3deb8410e19837616d45ed16d1e9187a79585",
+  "coverageMode": "LIMITED",
+  "newsAssessments": [],
   "evidencePack": {
-    "generatedAt": "2026-09-28T11:15:07.714Z",
+    "weeklyRelease": {
+      "status": "AVAILABLE",
+      "identity": {
+        "sourceDataset": "EIA_WPSR_TABLES_1_2",
+        "authoritySourceUrl": "https://ir.eia.gov/wpsr/psw00.json",
+        "sourceKey": "WCESTUS1",
+        "releaseDate": "2026-09-30",
+        "periodEndDate": "2026-09-25",
+        "previousPeriodEndDate": "2026-09-18",
+        "authorityCheckedAt": "2026-09-30T17:07:25.580Z"
+      },
+      "diagnostics": [
+        {
+          "code": "SUMMARY_CONFIRMS_CURRENT_RELEASE",
+          "sourceUrl": "https://ir.eia.gov/wpsr/summary.txt"
+        },
+        {
+          "code": "LANDING_CONFIRMS_CURRENT_RELEASE",
+          "sourceUrl": "https://www.eia.gov/petroleum/supply/weekly/"
+        }
+      ]
+    },
+    "inputContractVersion": "NEWS_MATERIAL_V1",
+    "generatedAt": "2026-09-30T17:07:25.580Z",
     "forecastHorizonDays": 7,
     "runType": "CURRENT_REAL_WORLD_RUN",
     "signals": [
       {
         "id": "market-wti",
         "category": "CRUDE",
-        "eventKey": "daily-spot-2026-09-24",
+        "eventKey": "daily-spot-2026-09-29",
         "measurementKey": "WTI",
-        "headline": "WTI最新日度报价上涨",
-        "fact": "2026-09-24 收盘：WTI 95.88 USD/barrel，日变化 2.7%。",
-        "displayText": "WTI最新日度报价上涨",
-        "impact": "UP",
+        "headline": "WTI最新日度报价回落",
+        "fact": "2026-09-29 收盘：WTI 96.16 USD/barrel，日变化 -3.2%。",
+        "displayText": "WTI最新日度报价回落",
+        "impact": "DOWN",
         "importance": "MEDIUM",
         "kind": "FACT",
-        "eventDate": "2026-09-24",
-        "publishedAt": "2026-09-25T00:00:00.000Z",
+        "eventDate": "2026-09-29",
+        "publishedAt": "2026-09-30T00:00:00.000Z",
         "publishedAtPrecision": "DATE_ONLY",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceName": "EIA Daily Prices / Refinitiv",
         "sourceOrganization": "EIA",
         "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
@@ -105,27 +125,27 @@
         "freshness": "MARKET_PRICE",
         "observation": {
           "name": "WTI",
-          "price": 95.88,
+          "price": 96.16,
           "unit": "USD/barrel",
-          "change1dPercent": 2.7
+          "change1dPercent": -3.2
         },
         "provenanceNote": "EIA publishes Refinitiv spot observations with permission; not a futures quote. The page gives a publication date, not an exact time; 00:00Z is a date anchor only."
       },
       {
         "id": "market-brent",
         "category": "CRUDE",
-        "eventKey": "daily-spot-2026-09-24",
+        "eventKey": "daily-spot-2026-09-29",
         "measurementKey": "Brent",
-        "headline": "Brent最新日度报价上涨",
-        "fact": "2026-09-24 收盘：Brent 120.92 USD/barrel，日变化 3%。",
-        "displayText": "Brent最新日度报价上涨",
-        "impact": "UP",
+        "headline": "Brent最新日度报价回落",
+        "fact": "2026-09-29 收盘：Brent 113.96 USD/barrel，日变化 -5%。",
+        "displayText": "Brent最新日度报价回落",
+        "impact": "DOWN",
         "importance": "MEDIUM",
         "kind": "FACT",
-        "eventDate": "2026-09-24",
-        "publishedAt": "2026-09-25T00:00:00.000Z",
+        "eventDate": "2026-09-29",
+        "publishedAt": "2026-09-30T00:00:00.000Z",
         "publishedAtPrecision": "DATE_ONLY",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceName": "EIA Daily Prices / Refinitiv",
         "sourceOrganization": "EIA",
         "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
@@ -134,27 +154,27 @@
         "freshness": "MARKET_PRICE",
         "observation": {
           "name": "Brent",
-          "price": 120.92,
+          "price": 113.96,
           "unit": "USD/barrel",
-          "change1dPercent": 3
+          "change1dPercent": -5
         },
         "provenanceNote": "EIA publishes Refinitiv spot observations with permission; not a futures quote. The page gives a publication date, not an exact time; 00:00Z is a date anchor only."
       },
       {
         "id": "market-diesel",
         "category": "INTERNATIONAL_DIESEL",
-        "eventKey": "daily-spot-2026-09-24",
+        "eventKey": "daily-spot-2026-09-29",
         "measurementKey": "纽约港低硫柴油",
-        "headline": "纽约港低硫柴油最新日度报价回落",
-        "fact": "2026-09-24 收盘：纽约港低硫柴油 4.88 USD/gallon，日变化 -1.6%。",
-        "displayText": "纽约港低硫柴油最新日度报价回落",
-        "impact": "DOWN",
+        "headline": "纽约港低硫柴油最新日度报价上涨",
+        "fact": "2026-09-29 收盘：纽约港低硫柴油 5 USD/gallon，日变化 1.8%。",
+        "displayText": "纽约港低硫柴油最新日度报价上涨",
+        "impact": "UP",
         "importance": "HIGH",
         "kind": "FACT",
-        "eventDate": "2026-09-24",
-        "publishedAt": "2026-09-25T00:00:00.000Z",
+        "eventDate": "2026-09-29",
+        "publishedAt": "2026-09-30T00:00:00.000Z",
         "publishedAtPrecision": "DATE_ONLY",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceName": "EIA Daily Prices / Refinitiv",
         "sourceOrganization": "EIA",
         "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
@@ -163,116 +183,141 @@
         "freshness": "MARKET_PRICE",
         "observation": {
           "name": "NY_HARBOR_LOW_SULFUR_DIESEL",
-          "price": 4.88,
+          "price": 5,
           "unit": "USD/gallon",
-          "change1dPercent": -1.6
+          "change1dPercent": 1.8
         },
         "provenanceNote": "EIA publishes Refinitiv spot observations with permission; not a futures quote. The page gives a publication date, not an exact time; 00:00Z is a date anchor only."
       },
       {
         "id": "eia-stocks",
         "category": "DISTILLATE_FUNDAMENTALS",
-        "eventKey": "eia-weekly-2026-09-23",
+        "eventKey": "eia-weekly-2026-09-30",
         "measurementKey": "stocks",
         "headline": "美国馏分油库存减少",
-        "fact": "统计周截止 2026-09-18；库存周变化 -0.4 百万桶，较五年均值低 12%。",
+        "fact": "统计周截止 2026-09-25；库存周变化 -2.251 百万桶。",
         "displayText": "美国馏分油库存减少",
         "impact": "UP",
         "importance": "HIGH",
         "kind": "FACT",
-        "eventDate": "2026-09-18",
-        "publishedAt": "2026-09-23T14:30:00.000Z",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "eventDate": "2026-09-25",
+        "publishedAt": "2026-09-30T14:30:00.000Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceName": "EIA Weekly Petroleum Status Report",
         "sourceOrganization": "EIA",
-        "sourceUrl": "https://ir.eia.gov/wpsr/summary.txt",
+        "sourceUrl": "https://ir.eia.gov/wpsr/table1.csv",
         "sourceTier": 1,
         "verified": true,
         "freshness": "EIA_RELEASE",
-        "releaseDate": "2026-09-23",
-        "latestReleaseDate": "2026-09-23",
-        "nextReleaseAt": "2026-09-30T14:30:00.000Z"
+        "releaseDate": "2026-09-30",
+        "latestReleaseDate": "2026-09-30",
+        "nextReleaseAt": "2026-10-07T14:30:00.000Z",
+        "weeklyReleaseIdentity": {
+          "sourceDataset": "EIA_WPSR_TABLES_1_2",
+          "authoritySourceUrl": "https://ir.eia.gov/wpsr/psw00.json",
+          "sourceKey": "WCESTUS1",
+          "releaseDate": "2026-09-30",
+          "periodEndDate": "2026-09-25",
+          "previousPeriodEndDate": "2026-09-18",
+          "authorityCheckedAt": "2026-09-30T17:07:25.580Z"
+        },
+        "weeklyObservation": {
+          "current": 105.18,
+          "previous": 107.431,
+          "change": -2.251,
+          "unit": "百万桶"
+        }
       },
       {
         "id": "eia-production",
         "category": "DISTILLATE_FUNDAMENTALS",
-        "eventKey": "eia-weekly-2026-09-23",
+        "eventKey": "eia-weekly-2026-09-30",
         "measurementKey": "production",
         "headline": "美国馏分油产量减少",
-        "fact": "统计周截止 2026-09-18；馏分油产量下降至 5.2 百万桶/日。",
+        "fact": "统计周截止 2026-09-25；馏分油产量 5003 千桶/日，周变化 -156 千桶/日。",
         "displayText": "美国馏分油产量减少",
         "impact": "UP",
         "importance": "MEDIUM",
         "kind": "FACT",
-        "eventDate": "2026-09-18",
-        "publishedAt": "2026-09-23T14:30:00.000Z",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "eventDate": "2026-09-25",
+        "publishedAt": "2026-09-30T14:30:00.000Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceName": "EIA Weekly Petroleum Status Report",
         "sourceOrganization": "EIA",
-        "sourceUrl": "https://ir.eia.gov/wpsr/summary.txt",
+        "sourceUrl": "https://ir.eia.gov/wpsr/table2.csv",
         "sourceTier": 1,
         "verified": true,
         "freshness": "EIA_RELEASE",
-        "releaseDate": "2026-09-23",
-        "latestReleaseDate": "2026-09-23",
-        "nextReleaseAt": "2026-09-30T14:30:00.000Z"
+        "releaseDate": "2026-09-30",
+        "latestReleaseDate": "2026-09-30",
+        "nextReleaseAt": "2026-10-07T14:30:00.000Z",
+        "weeklyReleaseIdentity": {
+          "sourceDataset": "EIA_WPSR_TABLES_1_2",
+          "authoritySourceUrl": "https://ir.eia.gov/wpsr/psw00.json",
+          "sourceKey": "WCESTUS1",
+          "releaseDate": "2026-09-30",
+          "periodEndDate": "2026-09-25",
+          "previousPeriodEndDate": "2026-09-18",
+          "authorityCheckedAt": "2026-09-30T17:07:25.580Z"
+        },
+        "weeklyObservation": {
+          "current": 5003,
+          "previous": 5159,
+          "change": -156,
+          "unit": "千桶/日"
+        }
       },
       {
         "id": "eia-refinery-inputs",
         "category": "DISTILLATE_FUNDAMENTALS",
-        "eventKey": "eia-weekly-2026-09-23",
+        "eventKey": "eia-weekly-2026-09-30",
         "measurementKey": "refinery-inputs",
         "headline": "美国炼厂原油加工量减少",
-        "fact": "统计周截止 2026-09-18；炼厂加工量 16.8 百万桶/日，周变化 -519,000 桶/日；利用率 94.0%。",
+        "fact": "统计周截止 2026-09-25；炼厂原油加工量 16257 千桶/日，周变化 -554 千桶/日；利用率 92.5%。",
         "displayText": "美国炼厂原油加工量减少",
         "impact": "UP",
         "importance": "LOW",
         "kind": "FACT",
-        "eventDate": "2026-09-18",
-        "publishedAt": "2026-09-23T14:30:00.000Z",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "eventDate": "2026-09-25",
+        "publishedAt": "2026-09-30T14:30:00.000Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceName": "EIA Weekly Petroleum Status Report",
         "sourceOrganization": "EIA",
-        "sourceUrl": "https://ir.eia.gov/wpsr/summary.txt",
+        "sourceUrl": "https://ir.eia.gov/wpsr/table2.csv",
         "sourceTier": 1,
         "verified": true,
         "freshness": "EIA_RELEASE",
-        "releaseDate": "2026-09-23",
-        "latestReleaseDate": "2026-09-23",
-        "nextReleaseAt": "2026-09-30T14:30:00.000Z"
-      },
-      {
-        "id": "news-hormuz-40441609",
-        "category": "SUPPLY_DISRUPTION",
-        "relatedCategories": [
-          "SHIPPING"
-        ],
-        "eventKey": "us-iran-hormuz-negotiation-deadlock",
-        "measurementKey": "negotiation-supply-risk",
-        "headline": "Reuters报道美伊谈判僵局带来霍尔木兹供应担忧",
-        "fact": "Reuters当前报道：美国拒绝了伊朗有关重开霍尔木兹海峡的提议，谈判僵局引起石油供应担忧。此项是报道中的持续风险，不能等同于新发生的关闭或确定减产。",
-        "displayText": "霍尔木兹供应仍有不确定风险",
-        "impact": "UP",
-        "importance": "MEDIUM",
-        "kind": "RISK",
-        "eventDate": "2026-09-28",
-        "eventAt": "2026-09-28T10:44:01.000Z",
-        "publishedAt": "2026-09-28T10:44:01.000Z",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "sourceName": "Reuters via Business Recorder",
-        "sourceOrganization": "Reuters",
-        "sourceUrl": "https://www.brecorder.com/news/40441609/indian-shares-slide-to-near-six-month-low-as-us-iran-deadlock-lifts-oil-prices",
-        "sourceTier": 2,
-        "verified": true,
-        "freshness": "BREAKING_72H",
-        "eventTimeBasis": "Current ongoing state explicitly reported on publication date; not the date of an earlier attack."
+        "releaseDate": "2026-09-30",
+        "latestReleaseDate": "2026-09-30",
+        "nextReleaseAt": "2026-10-07T14:30:00.000Z",
+        "weeklyReleaseIdentity": {
+          "sourceDataset": "EIA_WPSR_TABLES_1_2",
+          "authoritySourceUrl": "https://ir.eia.gov/wpsr/psw00.json",
+          "sourceKey": "WCESTUS1",
+          "releaseDate": "2026-09-30",
+          "periodEndDate": "2026-09-25",
+          "previousPeriodEndDate": "2026-09-18",
+          "authorityCheckedAt": "2026-09-30T17:07:25.580Z"
+        },
+        "weeklyObservation": {
+          "current": 16257,
+          "previous": 16811,
+          "change": -554,
+          "unit": "千桶/日",
+          "utilizationPercent": {
+            "current": 92.5,
+            "previous": 94
+          }
+        }
       }
     ],
+    "newsDocuments": [],
+    "coverageMode": "LIMITED",
     "categoryChecks": [
       {
         "category": "INTERNATIONAL_DIESEL",
         "status": "VERIFIED",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceUrls": [
           "https://www.eia.gov/todayinenergy/prices.php"
         ],
@@ -281,7 +326,7 @@
       {
         "category": "CRUDE",
         "status": "VERIFIED",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceUrls": [
           "https://www.eia.gov/todayinenergy/prices.php"
         ],
@@ -290,52 +335,56 @@
       {
         "category": "DISTILLATE_FUNDAMENTALS",
         "status": "VERIFIED",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceUrls": [
-          "https://www.eia.gov/petroleum/supply/weekly/",
-          "https://ir.eia.gov/wpsr/summary.txt"
+          "https://ir.eia.gov/wpsr/psw00.json",
+          "https://ir.eia.gov/wpsr/table1.csv",
+          "https://ir.eia.gov/wpsr/table2.csv"
         ],
         "reason": "Original sources verified; linked shipping risk belongs to the same event."
       },
       {
         "category": "OPEC_MAJOR_PRODUCERS",
-        "status": "FAILED",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "status": "NO_QUALIFIED_SIGNAL",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceUrls": [
           "https://www.opec.org/press-releases.html",
           "https://www.brecorder.com/feeds/latest-news"
         ],
-        "reason": "Official OPEC endpoint inaccessible; no current production/export/policy fact admitted."
+        "reason": "Not fetched in external bridge core-only intake."
       },
       {
         "category": "SUPPLY_DISRUPTION",
-        "status": "VERIFIED",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "status": "NO_QUALIFIED_SIGNAL",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceUrls": [
           "https://api.gdeltproject.org/api/v2/doc/doc",
-          "https://www.brecorder.com/feeds/latest-news"
+          "https://www.brecorder.com/feeds/latest-news",
+          "https://www.brecorder.com/feeds/sitemap"
         ],
-        "reason": "Original sources verified; linked shipping risk belongs to the same event."
+        "reason": "Not fetched in external bridge core-only intake."
       },
       {
         "category": "SHIPPING",
-        "status": "VERIFIED",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "status": "NO_QUALIFIED_SIGNAL",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceUrls": [
           "https://api.gdeltproject.org/api/v2/doc/doc",
-          "https://www.brecorder.com/feeds/latest-news"
+          "https://www.brecorder.com/feeds/latest-news",
+          "https://www.brecorder.com/feeds/sitemap"
         ],
-        "reason": "Original sources verified; linked shipping risk belongs to the same event."
+        "reason": "Not fetched in external bridge core-only intake."
       },
       {
         "category": "DEMAND_MACRO",
         "status": "NO_QUALIFIED_SIGNAL",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "sourceUrls": [
           "https://api.gdeltproject.org/api/v2/doc/doc",
-          "https://www.brecorder.com/feeds/latest-news"
+          "https://www.brecorder.com/feeds/latest-news",
+          "https://www.brecorder.com/feeds/sitemap"
         ],
-        "reason": "Discovery checked; no verified material signal admitted for this category."
+        "reason": "Not fetched in external bridge core-only intake."
       }
     ],
     "recentMarketContext": {
@@ -369,329 +418,74 @@
       ]
     },
     "discovery": {
-      "provider": "RSS_FALLBACK",
-      "candidateCount": 30,
-      "articleRequests": 5,
-      "candidates": [
-        {
-          "headline": "China, US agree tariff cuts on $60 billion of goods including agriculture, household items",
-          "url": "https://www.brecorder.com/news/40441617/china-us-agree-tariff-cuts-on-60-billion-of-goods-including-agriculture-household-items",
-          "discoveredAt": "Mon, 28 Sep 2026 16:08:27 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Rupee gains against US dollar",
-          "url": "https://www.brecorder.com/news/40441616/intra-day-update-rupee-records-gain-against-us-dollar",
-          "discoveredAt": "Mon, 28 Sep 2026 16:07:46 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Russian oil supply to India tightens on reduced exports, strong Chinese demand",
-          "url": "https://www.brecorder.com/news/40441615/russian-oil-supply-to-india-tightens-on-reduced-exports-strong-chinese-demand",
-          "discoveredAt": "Mon, 28 Sep 2026 16:02:17 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "EXCLUDED",
-          "reason": "NEEDS_REVIEW_UNSUPPORTED_EVENT"
-        },
-        {
-          "headline": "Pakistan becomes first country to join Hong Kong's ValidAP trade verification platform",
-          "url": "https://www.brecorder.com/news/40441613/pakistan-becomes-first-country-to-join-hong-kongs-validap-trade-verification-platform",
-          "discoveredAt": "Mon, 28 Sep 2026 15:57:46 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Indian firms ready $3 billion of debt issues with eye on potential RBI rate hike",
-          "url": "https://www.brecorder.com/news/40441612/indian-firms-ready-3-billion-of-debt-issues-with-eye-on-potential-rbi-rate-hike",
-          "discoveredAt": "Mon, 28 Sep 2026 15:55:59 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "FPCCI seeks one-month extension to the income tax return deadline",
-          "url": "https://www.brecorder.com/news/40441611/fpcci-seeks-one-month-extension-to-the-income-tax-return-deadline",
-          "discoveredAt": "Mon, 28 Sep 2026 15:51:32 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Oil woes push Indian rupee to over one-week low, RBI caps fall near 96/USD",
-          "url": "https://www.brecorder.com/news/40441610/oil-woes-push-indian-rupee-to-over-one-week-low-rbi-caps-fall-near-96usd",
-          "discoveredAt": "Mon, 28 Sep 2026 15:48:19 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "EXCLUDED",
-          "reason": "NEEDS_REVIEW_UNSUPPORTED_EVENT"
-        },
-        {
-          "headline": "Indian shares slide to near six-month low as US-Iran deadlock lifts oil prices",
-          "url": "https://www.brecorder.com/news/40441609/indian-shares-slide-to-near-six-month-low-as-us-iran-deadlock-lifts-oil-prices",
-          "discoveredAt": "Mon, 28 Sep 2026 15:44:01 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "ORIGINAL_VERIFIED"
-        },
-        {
-          "headline": "Three policemen killed in firing on police vehicle in Tank",
-          "url": "https://www.brecorder.com/news/40441608/three-policemen-killed-in-firing-on-police-vehicle-in-tank",
-          "discoveredAt": "Mon, 28 Sep 2026 15:06:37 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Imran Haleem Shaikh to take charge as BankIslami President & CEO from Sept 29",
-          "url": "https://www.brecorder.com/news/40441607/imran-haleem-shaikh-to-take-charge-as-bankislami-president-amp-ceo-from-sept-29",
-          "discoveredAt": "Mon, 28 Sep 2026 15:05:44 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Establish a gas market for boosting exports",
-          "url": "https://www.brecorder.com/news/40441606/establish-a-gas-market-for-boosting-exports",
-          "discoveredAt": "Mon, 28 Sep 2026 14:47:43 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "South African rand slips as US-Iran stalemate pushes oil prices higher",
-          "url": "https://www.brecorder.com/news/40441605/south-african-rand-slips-as-us-iran-stalemate-pushes-oil-prices-higher",
-          "discoveredAt": "Mon, 28 Sep 2026 14:38:22 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "EXCLUDED",
-          "reason": "NEEDS_REVIEW_UNSUPPORTED_EVENT"
-        },
-        {
-          "headline": "Xavi pleased with first week as Netherlands coach, but wants more",
-          "url": "https://www.brecorder.com/news/40441604/xavi-pleased-with-first-week-as-netherlands-coach-but-wants-more",
-          "discoveredAt": "Mon, 28 Sep 2026 14:34:32 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "AKD Securities warns of deepfake scam impersonating Dhedhi, Hina Junaid",
-          "url": "https://www.brecorder.com/news/40441603/akd-securities-warns-of-deepfake-scam-impersonating-dhedhi-hina-junaid",
-          "discoveredAt": "Mon, 28 Sep 2026 14:21:07 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "'Hurting' badminton star Sindhu says Asian Games schedule 'took toll'",
-          "url": "https://www.brecorder.com/news/40441602/hurting-badminton-star-sindhu-says-asian-games-schedule-took-toll",
-          "discoveredAt": "Mon, 28 Sep 2026 14:05:16 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Iran has no plans to negotiate with US: state media",
-          "url": "https://www.brecorder.com/news/40441601/iran-has-no-plans-to-negotiate-with-us-state-media",
-          "discoveredAt": "Mon, 28 Sep 2026 14:02:17 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Gold prices in Pakistan fall Rs12,800 per tola",
-          "url": "https://www.brecorder.com/news/40441599/gold-price-drops-by-rs2700-per-tola-in-pakistan",
-          "discoveredAt": "Mon, 28 Sep 2026 13:55:52 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "India, Pakistan on Asian Games collision course after cricket washout",
-          "url": "https://www.brecorder.com/news/40441596/india-pakistan-on-asian-games-collision-course-after-cricket-washout",
-          "discoveredAt": "Mon, 28 Sep 2026 13:12:36 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "CM Murad approves request to extend Mir Raza judicial commission’s tenure",
-          "url": "https://www.brecorder.com/news/40441595/cm-murad-approves-request-to-extend-mir-raza-judicial-commissions-tenure",
-          "discoveredAt": "Mon, 28 Sep 2026 13:45:51 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Belgium’s new boss Van Bommel relishing clash with Zidane",
-          "url": "https://www.brecorder.com/news/40441594/belgiums-new-boss-van-bommel-relishing-clash-with-zidane",
-          "discoveredAt": "Mon, 28 Sep 2026 13:00:05 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "India's top court says need to fix accountability over Delhi rape cases, media reports",
-          "url": "https://www.brecorder.com/news/40441593/indias-top-court-says-need-to-fix-accountability-over-delhi-rape-cases-media-reports",
-          "discoveredAt": "Mon, 28 Sep 2026 12:55:35 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "European shares rise as British homebuilders surge on buyer support scheme",
-          "url": "https://www.brecorder.com/news/40441592/european-shares-rise-as-british-homebuilders-surge-on-buyer-support-scheme",
-          "discoveredAt": "Mon, 28 Sep 2026 12:50:38 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "MIHAS Awards 2026 celebrates excellence and sets new benchmark for innovation, sustainability and digitalisation across the global halal ecosystem",
-          "url": "https://www.brecorder.com/news/40441591/mihas-awards-2026-celebrates-excellence-and-sets-new-benchmark-for-innovation-sustainability-and-digitalisation-across-the-global-halal-ecosystem",
-          "discoveredAt": "Mon, 28 Sep 2026 12:49:27 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Ireland beat Israel 3-0 to end fractious weekend with Nations League win",
-          "url": "https://www.brecorder.com/news/40441590/ireland-beat-israel-3-0-to-end-fractious-weekend-with-nations-league-win",
-          "discoveredAt": "Mon, 28 Sep 2026 12:46:18 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "World T20 champions India on alert for Afghanistan after Japan scare",
-          "url": "https://www.brecorder.com/news/40441589/world-t20-champions-india-on-alert-for-afghanistan-after-japan-scare",
-          "discoveredAt": "Mon, 28 Sep 2026 12:40:55 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "After turbulent summer, England's cricketers head into winter schedule",
-          "url": "https://www.brecorder.com/news/40441587/after-turbulent-summer-englands-cricketers-head-into-winter-schedule",
-          "discoveredAt": "Mon, 28 Sep 2026 12:32:15 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Attock Refinery plans new 50,000 bpd deep-conversion refinery",
-          "url": "https://www.brecorder.com/news/40441586/attock-refinery-plans-new-50000-bpd-deep-conversion-refinery",
-          "discoveredAt": "Mon, 28 Sep 2026 12:46:29 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "EXCLUDED",
-          "reason": "ARTICLE_VERIFICATION_FAILED"
-        },
-        {
-          "headline": "Thai trailblazer claims Asian Games sprint double in rainy Nagoya",
-          "url": "https://www.brecorder.com/news/40441585/thai-trailblazer-claims-asian-games-sprint-double-in-rainy-nagoya",
-          "discoveredAt": "Mon, 28 Sep 2026 12:26:47 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Greece stun Germany 1-0 in losing home debut for Klopp",
-          "url": "https://www.brecorder.com/news/40441584/greece-stun-germany-1-0-in-losing-home-debut-for-klopp",
-          "discoveredAt": "Mon, 28 Sep 2026 12:20:11 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "China weighs allowing ByteDance, Alibaba to buy new Nvidia chips, The Information reports",
-          "url": "https://www.brecorder.com/news/40441583/china-weighs-allowing-bytedance-alibaba-to-buy-new-nvidia-chips-the-information-reports",
-          "discoveredAt": "Mon, 28 Sep 2026 12:14:55 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        }
-      ]
+      "provider": "CORE_ONLY_NO_NEWS_FETCH",
+      "candidateCount": 0,
+      "articleRequests": 0,
+      "candidates": []
     },
     "exclusions": [],
     "fetchLog": [
       {
         "url": "https://www.eia.gov/todayinenergy/prices.php",
         "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "3dd186e97ec41865314eaa332896cf9becb28e8da16b381b154474629c707917",
-        "bytes": 74192
+        "checkedAt": "2026-09-30T17:07:25.580Z",
+        "bodySha256": "0b0bcdff71b719f59d88bf37b96478a5ebe5beede4eafc35963dc08f19609b1f",
+        "bytes": 74390
       },
       {
         "url": "https://ir.eia.gov/wpsr/psw00.json",
         "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "f4f0db02724c8a1b26886440fdb07dea00cba095487dda051738dc6e110e7967",
-        "bytes": 246866
+        "checkedAt": "2026-09-30T17:07:25.580Z",
+        "bodySha256": "b5187561cfc4ed3d3c001b06a8002f09b5971dbf28cc7aad650e198de9c757a0",
+        "bytes": 246865
       },
       {
-        "url": "https://ir.eia.gov/wpsr/summary.txt",
+        "url": "https://ir.eia.gov/wpsr/table1.csv",
         "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "57b3bfd23b51bc1be01ea703430c7842a4e55c039a24b0d1fec304aa0a495a25",
-        "bytes": 1405
+        "checkedAt": "2026-09-30T17:07:25.580Z",
+        "bodySha256": "3aa67978a16d9a4a5b4f37bba71f87b914754fd721edd7a9e8cfa72af6901a6a",
+        "bytes": 6634
       },
       {
-        "url": "https://www.eia.gov/petroleum/supply/weekly/",
+        "url": "https://ir.eia.gov/wpsr/table2.csv",
         "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "7faf928869ae303b57320be9958056ff07acbc0b63f1b38684cb33e458d6ab1a",
-        "bytes": 82907
+        "checkedAt": "2026-09-30T17:07:25.580Z",
+        "bodySha256": "6153a76c6e7636e0695ab2080ea7e4c7fe190e66a528c8ebb818d84e6957c8c2",
+        "bytes": 8457
       },
       {
         "url": "https://www.eia.gov/petroleum/supply/weekly/schedule.php",
         "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "49e403abf2421712804d84f109c11ca1a898cc97d1b2adc0d4814abb8264d455",
-        "bytes": 52318
+        "checkedAt": "2026-09-30T17:07:25.580Z",
+        "bodySha256": "256c6b0213ac45be87bbec060a77a052081a11a196222d48e10ccc1bbe98735c",
+        "bytes": 52504
+      },
+      {
+        "url": "https://ir.eia.gov/wpsr/summary.txt",
+        "status": "OK",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
+        "bodySha256": "afd7072dd8fa3376fa415ae09dc7add568d22914486818b9260c1bb83444b7fd",
+        "bytes": 1402
+      },
+      {
+        "url": "https://www.eia.gov/petroleum/supply/weekly/",
+        "status": "OK",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
+        "bodySha256": "2fa30ac37a0329192a1c26f67c254143fb0e83eaf8a391bedd4867e812835080",
+        "bytes": 83097
       },
       {
         "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU,DCOILWTICO,DDFUELNYH",
         "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
+        "checkedAt": "2026-09-30T17:07:25.580Z",
         "bodySha256": "73d4f0326d8f4333b96b32a891dc92f024b7f0aa0131bf4dc0accbce4460bce4",
         "bytes": 268954
-      },
-      {
-        "url": "https://www.opec.org/press-releases.html",
-        "status": "FAILED",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "reason": "HTTP_403"
-      },
-      {
-        "url": "https://api.gdeltproject.org/api/v2/doc/doc",
-        "status": "FAILED",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "reason": "FETCH_FAILED"
-      },
-      {
-        "url": "https://www.brecorder.com/feeds/latest-news",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "e60887300f9e713876e63b4f8b57dcbb7f3488c544caf121ed5733a9db1332a4",
-        "bytes": 204968
-      },
-      {
-        "url": "https://www.brecorder.com/news/40441615/russian-oil-supply-to-india-tightens-on-reduced-exports-strong-chinese-demand",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "3f458386bcc4ea0a28c82b229f3f7bb9dbe61549da7bfdbd03802bdb57d8cbe5",
-        "bytes": 257423
-      },
-      {
-        "url": "https://www.brecorder.com/news/40441610/oil-woes-push-indian-rupee-to-over-one-week-low-rbi-caps-fall-near-96usd",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "83115c5bdb18b824de507f9be05fda1185a0e345c62a1f6ad8c5d24690b31d2b",
-        "bytes": 255479
-      },
-      {
-        "url": "https://www.brecorder.com/news/40441609/indian-shares-slide-to-near-six-month-low-as-us-iran-deadlock-lifts-oil-prices",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "5e143acb2607a43a9173c11cc2c87dfca93f114505b402811bd464f6ac5e7f84",
-        "bytes": 258379
-      },
-      {
-        "url": "https://www.brecorder.com/news/40441605/south-african-rand-slips-as-us-iran-stalemate-pushes-oil-prices-higher",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "a283d0cff40db28e995da6baf099b215981c9d65d5ec35dd373ddb0be5c15d0a",
-        "bytes": 256177
-      },
-      {
-        "url": "https://www.brecorder.com/news/40441586/attock-refinery-plans-new-50000-bpd-deep-conversion-refinery",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "588dd7a23d35f3e25b97e271abceb0856558064b95ab0bf6a82f111791971f0f",
-        "bytes": 258481
       }
     ],
     "conflicts": [],
     "eventGroups": [
       {
-        "eventKey": "daily-spot-2026-09-24",
+        "eventKey": "daily-spot-2026-09-29",
         "evidenceIds": [
           "market-wti",
           "market-brent",
@@ -700,7 +494,7 @@
         "weightingRule": "ONE_EVENT_NOT_ARTICLE_COUNT"
       },
       {
-        "eventKey": "eia-weekly-2026-09-23",
+        "eventKey": "eia-weekly-2026-09-30",
         "evidenceIds": [
           "eia-stocks",
           "eia-production",
@@ -709,11 +503,78 @@
         "weightingRule": "ONE_EVENT_NOT_ARTICLE_COUNT"
       },
       {
-        "eventKey": "us-iran-hormuz-negotiation-deadlock",
+        "eventKey": "synthetic-eia-release-review-0",
         "evidenceIds": [
-          "news-hormuz-40441609"
+          "external-e39a72cd6289"
         ],
         "weightingRule": "ONE_EVENT_NOT_ARTICLE_COUNT"
+      },
+      {
+        "eventKey": "synthetic-eia-release-review-1",
+        "evidenceIds": [
+          "external-410495a760aa"
+        ],
+        "weightingRule": "ONE_EVENT_NOT_ARTICLE_COUNT"
+      },
+      {
+        "eventKey": "synthetic-eia-release-review-2",
+        "evidenceIds": [
+          "external-84ecd0be74f1"
+        ],
+        "weightingRule": "ONE_EVENT_NOT_ARTICLE_COUNT"
+      }
+    ],
+    "externalAnalystSignals": [
+      {
+        "eventKey": "synthetic-eia-release-review-0",
+        "category": "SUPPLY_DISRUPTION",
+        "source": "Ayu Fixture",
+        "eventAt": null,
+        "publishedAt": "2026-09-30T15:56:12.065Z",
+        "title": "合成演示：柴油供应变化",
+        "summary": "这是合成测试材料，用于验证情报包入口，不代表真实新闻。",
+        "sourceUrl": "https://example.com/synthetic-eia-release-0/",
+        "kind": "RISK",
+        "direction": "UP",
+        "strength": "MEDIUM",
+        "confirmation": "CONDITIONAL",
+        "reason": "合成场景中的供应风险可能推高柴油价格，仅用于离线合同验证。",
+        "evidenceId": "external-e39a72cd6289",
+        "provenance": "EXTERNAL_ANALYST_WITH_URL"
+      },
+      {
+        "eventKey": "synthetic-eia-release-review-1",
+        "category": "SUPPLY_DISRUPTION",
+        "source": "Ayu Fixture",
+        "eventAt": null,
+        "publishedAt": "2026-09-30T15:56:12.065Z",
+        "title": "合成演示：柴油供应变化",
+        "summary": "这是合成测试材料，用于验证情报包入口，不代表真实新闻。",
+        "sourceUrl": "https://example.com/synthetic-eia-release-1/",
+        "kind": "RISK",
+        "direction": "DOWN",
+        "strength": "MEDIUM",
+        "confirmation": "CONDITIONAL",
+        "reason": "合成场景中的供应风险可能推高柴油价格，仅用于离线合同验证。",
+        "evidenceId": "external-410495a760aa",
+        "provenance": "EXTERNAL_ANALYST_WITH_URL"
+      },
+      {
+        "eventKey": "synthetic-eia-release-review-2",
+        "category": "SUPPLY_DISRUPTION",
+        "source": "Ayu Fixture",
+        "eventAt": null,
+        "publishedAt": "2026-09-30T15:56:12.065Z",
+        "title": "合成演示：柴油供应变化",
+        "summary": "这是合成测试材料，用于验证情报包入口，不代表真实新闻。",
+        "sourceUrl": null,
+        "kind": "RISK",
+        "direction": "UP",
+        "strength": "MEDIUM",
+        "confirmation": "CONDITIONAL",
+        "reason": "合成场景中的供应风险可能推高柴油价格，仅用于离线合同验证。",
+        "evidenceId": "external-84ecd0be74f1",
+        "provenance": "EXTERNAL_ANALYST_NO_URL"
       }
     ]
   }
