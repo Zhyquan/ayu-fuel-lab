@@ -144,7 +144,7 @@ test('opposite Core remains counter evidence even with confirmed high external s
   const result=await setup({packageValue:p}).run({mode:'REFRESH_CURRENT'});assert.equal(result.status,'CURRENT_READY');assert.ok(result.snapshot.counterReasons.some(r=>r.evidenceId==='market-diesel'));
   for(const mutate of [p=>{p.signals=p.signals.filter(s=>s.id!=='market-diesel');},p=>{p.signals.find(s=>s.id==='market-diesel').eventDate='2026-09-20';},p=>{p.conflicts=[{severity:'MAJOR'}];}]) {
     const pack=structuredClone(f.pack);mutate(pack);const s=setup({pack,packageValue:p}),failed=await s.run({mode:'REFRESH_CURRENT'});
-    assert.equal(failed.failureCode,'CORE_EVIDENCE_GATE_FAILED');assert.equal(s.counts.model,0);
+    assert.equal(failed.failureCode,'CORE_EVIDENCE_GATE_FAILED');assert.equal(failed.coreEvidenceGate,'FAIL');assert.ok(failed.coreEvidenceErrors.length);assert.match(bridgeSummary(failed),/Core Evidence \| FAIL/);assert.equal(s.counts.model,0);
   }
 });
 test('production core-only collector never contacts a news publisher, discovery, or proxy',async()=>{

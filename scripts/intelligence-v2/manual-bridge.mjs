@@ -45,8 +45,10 @@ export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_UR
         freshness:'PASS',verificationChecks:resolved.checks,documentId:document.documentId,articleContentHash:document.articleContentHash});
     }
     const collected=await collect({now:clock(),coreOnly:intakeType==='CHATGPT_SIGNAL_PACKAGE'});
-    if(coreEvidenceGate(collected.pack,{now:clock()}).gate!=='PASS')fail('CORE_EVIDENCE_GATE_FAILED');
-    result.coreEvidenceGate='PASS';
+    const core=coreEvidenceGate(collected.pack,{now:clock()});
+    result.coreEvidenceGate=core.gate;result.coreEvidenceErrors=core.errors;
+    result.coreFetchFailures=(collected.pack.fetchLog??[]).filter(f=>f.status==='FAILED').map(f=>({url:f.url,reason:f.reason}));
+    if(core.gate!=='PASS')fail('CORE_EVIDENCE_GATE_FAILED');
     let pack;
     if(normalized) {
       const merged=mergeExternalSignals(collected.pack,normalized,{currentCache,autoEvidence,now:clock()});
@@ -98,7 +100,7 @@ export function bridgeSummary(result) {
   if(result.intakeType==='CHATGPT_SIGNAL_PACKAGE')return `## 情报桥结果\n\n| 项目 | 结果 |\n| --- | --- |\n${[
     ['结果',result.status],['Intake','ChatGPT Signal Package'],['Signals',result.signalCount??0],['Fresh signals',result.freshSignals??0],['Duplicate events',result.duplicateEvents??0],
     ['Source URL present',`${result.sourceUrlPresent??0}/${result.signalCount??0}`],['Core Evidence',result.coreEvidenceGate??'NOT_RUN'],
-    ['Ready for reforecast',result.status==='READY_FOR_REFORECAST'?'YES':'NO'],['Mode',result.mode],['Qwen Called',result.qwenCalled?'YES':'NO'],
+    ['Core failure details',(result.coreEvidenceErrors??[]).join(', ')||'—'],['Ready for reforecast',result.status==='READY_FOR_REFORECAST'?'YES':'NO'],['Mode',result.mode],['Qwen Called',result.qwenCalled?'YES':'NO'],
     ['Current Forecast Updated',result.currentForecastUpdated?'YES':'NO'],['Failure Code',result.failureCode],
   ].map(([label,value])=>`| ${label} | ${escape(value)} |`).join('\n')}\n`;
   const date=result.publishedAtPrecision==='DATE_ONLY'?result.publishedAt?.slice(0,10):result.publishedAt;
