@@ -29,6 +29,10 @@ try {
   }
 }catch(error){result.status='REJECTED';result.failureCode=/^[A-Z0-9_]+$/.test(error.message)?error.message:'CURRENT_STAGING_FAILED';}
 const {snapshot,providerAudit,...safe}=result;
+if(providerAudit)safe.providerMetrics={
+  ...Object.fromEntries(['provider','model','status','configuredTransportRetries','maxExternalRequests','actualExternalRequestCount','attemptCount','httpStatus','validationCode'].map(key=>[key,providerAudit[key]??null])),
+  inputTokens:providerAudit.usage?.input_tokens??null,outputTokens:providerAudit.usage?.output_tokens??null,
+};
 await writeFile(resolve(directory,'result.json'),JSON.stringify(safe,null,2)+'\n');
 if(process.env.GITHUB_STEP_SUMMARY)await appendFile(process.env.GITHUB_STEP_SUMMARY,bridgeSummary(safe));
 if(process.env.GITHUB_OUTPUT)await appendFile(process.env.GITHUB_OUTPUT,`ready=${ready}\n`);

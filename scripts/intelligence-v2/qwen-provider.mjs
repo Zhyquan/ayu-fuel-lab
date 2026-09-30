@@ -122,6 +122,10 @@ async function boundedText(response) {
   return result+decoder.decode();
 }
 export function createQwenProvider(options={}) {
+  const maxTransportRetries=options.maxTransportRetries===undefined?MAX_TRANSPORT_RETRIES:options.maxTransportRetries;
+  const maxExternalRequests=options.maxExternalRequests===undefined?MAX_TRANSPORT_RETRIES+1:options.maxExternalRequests;
+  if(!Number.isInteger(maxTransportRetries)||maxTransportRetries<0||maxTransportRetries>MAX_TRANSPORT_RETRIES)fail('QWEN_TRANSPORT_RETRIES_INVALID');
+  if(!Number.isInteger(maxExternalRequests)||maxExternalRequests<1||maxExternalRequests>MAX_TRANSPORT_RETRIES+1)fail('QWEN_EXTERNAL_REQUEST_LIMIT_INVALID');
   const environment=options.environment??process.env, clock=options.clock??(()=>new Date()), wait=options.wait??(ms=>new Promise(r=>setTimeout(r,ms)));
   const transport=options.fetchImpl??globalThis.fetch;
   const mock=options.mock===true && typeof options.fetchImpl==='function' && options.fetchImpl!==globalThis.fetch;
@@ -148,17 +152,19 @@ export function createQwenProvider(options={}) {
         messages:[{role:'system',content:systemPrompt},{role:'user',content:`Frozen Evidence Pack (${evidenceHash}); model input hash ${inputPackHash}\n${input}`}],
         response_format:{type:'json_schema',json_schema:{name:'QWEN_ANALYSIS_OUTPUT',strict:true,schema:analysisSchema(pack)}}});
       if(Buffer.byteLength(body)>MAX_INPUT_BYTES)fail('QWEN_PAYLOAD_TOO_LARGE');
-      lastRun={provider:'QWEN',model:QWEN_MODEL,promptVersion,inputPackHash,evidenceHash,requestStartedAt:new Date(clock()).toISOString(),requestCompletedAt:null,semanticCallCount:MAX_PROVIDER_CALLS_PER_RUN,attemptCount:0,httpStatus:null,httpStatuses:[],inputPayloadBytes:Buffer.byteLength(body),usage:{input_tokens:null,output_tokens:null},status:'FAILED',mock};
+      lastRun={provider:'QWEN',model:QWEN_MODEL,promptVersion,inputPackHash,evidenceHash,requestStartedAt:new Date(clock()).toISOString(),requestCompletedAt:null,semanticCallCount:MAX_PROVIDER_CALLS_PER_RUN,configuredTransportRetries:maxTransportRetries,maxExternalRequests,actualExternalRequestCount:0,attemptCount:0,httpStatus:null,httpStatuses:[],inputPayloadBytes:Buffer.byteLength(body),usage:{input_tokens:null,output_tokens:null},status:'FAILED',mock};
       try {
         let response;
-        for(let attempt=0;attempt<=MAX_TRANSPORT_RETRIES;attempt++) {
+        for(let attempt=0;attempt<=maxTransportRetries;attempt++) {
           lastRun.attemptCount++;response=null;
+          if(lastRun.actualExternalRequestCount>=maxExternalRequests)fail('QWEN_EXTERNAL_REQUEST_BUDGET_EXCEEDED');
+          lastRun.actualExternalRequestCount++;
           try {response=await transport(url,{method:'POST',redirect:'error',headers:{Authorization:`Bearer ${key}`,'Content-Type':'application/json'},body,signal:AbortSignal.timeout(options.timeoutMs??30000)});}
           catch {response=null;}
           const status=response?.status??null;lastRun.httpStatus=status;lastRun.httpStatuses.push(status);
           if(response?.ok)break;
           if(response && status!==429 && !(status>=500&&status<=599))fail('QWEN_HTTP_REJECTED');
-          if(attempt===MAX_TRANSPORT_RETRIES)fail('QWEN_TRANSPORT_FAILED');
+          if(attempt===maxTransportRetries)fail('QWEN_TRANSPORT_FAILED');
           await wait(250*2**attempt);
         }
         let envelope;try {envelope=JSON.parse(await boundedText(response));}catch{fail('QWEN_RESPONSE_INVALID');}

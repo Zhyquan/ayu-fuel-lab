@@ -69,7 +69,7 @@ export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_UR
     result.inputShape={signals:pack.signals.length,newsDocuments:pack.newsDocuments.length,...(normalized?{externalAnalystSignals:pack.externalAnalystSignals.length}:{})};
     if(mode==='VERIFY_ONLY'){result.status='READY_FOR_REFORECAST';return result;}
     // Existing provider/prompt/schema and nonpersisting runner; never enter the Official writer.
-    const analysis=await runForecast({pack,provider:'QWEN',providerOptions:{...providerOptions,activationAuthorized:true,onAudit:async audit=>{
+    const analysis=await runForecast({pack,provider:'QWEN',providerOptions:{...providerOptions,activationAuthorized:true,maxTransportRetries:0,maxExternalRequests:1,onAudit:async audit=>{
       result.qwenCalled=Boolean(audit.attemptCount);result.providerAudit=audit;await providerOptions.onAudit?.(audit);
     }},now:clock(),persist:false});
     result.qwenCalled=Boolean(analysis.providerAudit?.attemptCount);
