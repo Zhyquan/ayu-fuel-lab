@@ -53,10 +53,11 @@ test('real local Git push rejects concurrent movement without overwriting main',
 });
 test('scheduled workflow has fresh collection, fixed budgets, no secret in dry run and controlled write permission',async()=>{
   const workflow=await read('.github/workflows/intelligence-v2-official-daily.yml');
-  assert.match(workflow,/cron: '5 0 \* \* \*'/);assert.match(workflow,/group: intelligence-v2-official-daily/);assert.match(workflow,/cancel-in-progress: false/);
+  assert.match(workflow,/cron: '23 0 \* \* \*'/);assert.match(workflow,/cron: '23 1 \* \* \*'/);assert.match(workflow,/group: intelligence-v2-official-daily/);assert.match(workflow,/cancel-in-progress: false/);
+  assert.match(workflow,/workflow_run:\s*\n\s*workflows: \[Update and deploy fuel references\]/);
   assert.match(workflow,/node-version: '22'/);assert.match(workflow,/default: DRY_RUN/);assert.match(workflow,/contents: write/);
   const dry=workflow.split('  dry-run:')[1].split('  official-daily:')[0];assert.doesNotMatch(dry,/secrets\.|DASHSCOPE|collect|commit|push|deploy/);
-  const names=['Full regression before collection','Unique Official Daily preflight','Activation and secret presence only','Start this run fresh evidence collection','Independently collect and gate current public evidence','Evidence Gate before any model request','Qwen structured inference','Full regression on generated data','Public scan before publication','Whitelist, latest main check'];
+  const names=['Admit trusted trigger and Shanghai time window','Full regression before collection','Unique Official Daily preflight','Activation and secret presence only','Start this run fresh evidence collection','Independently collect and gate current public evidence','Evidence Gate before any model request','Recheck latest main and prior inference reservations','Reserve today\'s one inference before the model request','Persist inference reservation for publication failures','Confirm latest main immediately before inference','Qwen structured inference','Full regression on generated data','Public scan before publication','Whitelist, latest main check'];
   let previous=0;for(const name of names){const at=workflow.indexOf(name);assert.ok(at>previous,name);previous=at;}
   assert.match(workflow,/ref: main/);assert.match(workflow,/persist-credentials: false/);
   assert.doesNotMatch(workflow,/permissions:\s*\n\s*(?:actions|issues|packages|pull-requests): write|PAT|codex exec|download-artifact|--force|--force-with-lease/);

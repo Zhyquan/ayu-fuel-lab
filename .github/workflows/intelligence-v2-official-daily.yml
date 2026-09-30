@@ -1,8 +1,12 @@
 name: Intelligence V2 official daily forecast
 on:
   schedule:
-    # Asia/Shanghai 08:05; GitHub scheduled execution may be delayed.
-    - cron: '5 0 * * *'
+    # Asia/Shanghai 08:23 and 09:23; backup for a missed price workflow_run.
+    - cron: '23 0 * * *'
+    - cron: '23 1 * * *'
+  workflow_run:
+    workflows: [Update and deploy fuel references]
+    types: [completed]
   workflow_dispatch:
     inputs:
       mode:
@@ -32,11 +36,20 @@ jobs:
       - name: Public source scan
         run: npm run scan
   official-daily:
-    if: github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab' && (github.event_name == 'schedule' || inputs.mode == 'OFFICIAL_DAILY')
+    if: >-
+      github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab' &&
+      (github.event_name == 'schedule' ||
+       (github.event_name == 'workflow_dispatch' && inputs.mode == 'OFFICIAL_DAILY') ||
+       (github.event_name == 'workflow_run' &&
+        github.event.workflow_run.conclusion == 'success' &&
+        github.event.workflow_run.head_branch == 'main' &&
+        github.event.workflow_run.head_repository.full_name == 'Zhyquan/ayu-fuel-lab' &&
+        github.event.workflow_run.event == 'schedule'))
     runs-on: ubuntu-latest
     timeout-minutes: 20
     permissions:
       contents: write
+      actions: read
     steps:
       - name: Checkout main source
         uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
@@ -46,12 +59,21 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '22'
+      - name: Admit trusted trigger and Shanghai time window
+        id: trigger
+        run: node scripts/intelligence-v2/trigger-reliability.mjs trigger
       - name: Freeze checkout identity
-        run: node --input-type=module -e 'import {execFileSync} from "node:child_process"; if(execFileSync("git",["rev-parse","HEAD"],{encoding:"utf8"}).trim()!==process.env.GITHUB_SHA)process.exit(1);'
+        if: steps.trigger.outputs.eligible == 'true'
+        run: |
+          test "$(git rev-parse HEAD)" = "$GITHUB_SHA"
+          git fetch origin main
+          test "$(git rev-parse HEAD)" = "$(git rev-parse refs/remotes/origin/main)"
       - name: Full regression before collection
+        if: steps.trigger.outputs.eligible == 'true'
         run: npm test
       - name: Unique Official Daily preflight
         id: preflight
+        if: steps.trigger.outputs.eligible == 'true'
         run: npm run intelligence:v2:official -- preflight
       - name: Activation and secret presence only
         if: steps.preflight.outputs.eligible == 'true'
@@ -70,21 +92,48 @@ jobs:
       - name: Evidence Gate before any model request
         if: steps.preflight.outputs.eligible == 'true'
         run: node --input-type=module -e 'import fs from "node:fs"; if(JSON.parse(fs.readFileSync("intelligence-v2/EVIDENCE_GATE_RESULT.json")).gate!=="PASS")process.exit(1);'
-      - name: Qwen structured inference, Forecast Gate, immutable history and cache
+      - name: Recheck latest main and prior inference reservations
+        id: late
         if: steps.preflight.outputs.eligible == 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          OFFICIAL_FORECAST_DATE: ${{ steps.preflight.outputs.forecastDate }}
+        run: node scripts/intelligence-v2/trigger-reliability.mjs late
+      - name: Reserve today's one inference before the model request
+        if: steps.late.outputs.eligible == 'true'
+        env:
+          OFFICIAL_FORECAST_DATE: ${{ steps.preflight.outputs.forecastDate }}
+        run: node scripts/intelligence-v2/trigger-reliability.mjs reserve
+      - name: Persist inference reservation for publication failures
+        if: steps.late.outputs.eligible == 'true'
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: qwen-inference-reserved-${{ steps.preflight.outputs.forecastDate }}
+          path: .work/official-daily-reservation.json
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 3
+      - name: Confirm latest main immediately before inference
+        id: confirm
+        if: steps.late.outputs.eligible == 'true'
+        env:
+          OFFICIAL_FORECAST_DATE: ${{ steps.preflight.outputs.forecastDate }}
+        run: node scripts/intelligence-v2/trigger-reliability.mjs confirm
+      - name: Qwen structured inference, Forecast Gate, immutable history and cache
+        if: steps.confirm.outputs.eligible == 'true'
         env:
           QWEN_API_ACTIVATION_AUTHORIZED: ${{ vars.QWEN_API_ACTIVATED == 'true' && '1' || '0' }}
           DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
           DASHSCOPE_BASE_URL: ${{ vars.DASHSCOPE_BASE_URL }}
         run: npm run intelligence:v2:official -- generate
       - name: Full regression on generated data
-        if: steps.preflight.outputs.eligible == 'true'
+        if: steps.confirm.outputs.eligible == 'true'
         run: npm test
       - name: Public scan before publication
-        if: steps.preflight.outputs.eligible == 'true'
+        if: steps.confirm.outputs.eligible == 'true'
         run: npm run scan
       - name: Whitelist, latest main check, commit and fast-forward push
-        if: steps.preflight.outputs.eligible == 'true'
+        if: steps.confirm.outputs.eligible == 'true'
         env:
           QWEN_API_ACTIVATION_AUTHORIZED: ${{ vars.QWEN_API_ACTIVATED == 'true' && '1' || '0' }}
           GITHUB_TOKEN: ${{ github.token }}

@@ -66,7 +66,7 @@ async function main() {
   const root=fileURLToPath(new URL('../../',import.meta.url)), mode=process.argv[2]??'preflight';
   if(mode==='preflight') {
     const result=await officialPreflight(root);
-    if(process.env.GITHUB_OUTPUT)await writeFile(process.env.GITHUB_OUTPUT,`eligible=${result.eligible}\n`,{flag:'a'});
+    if(process.env.GITHUB_OUTPUT)await writeFile(process.env.GITHUB_OUTPUT,`eligible=${result.eligible}\nforecastDate=${result.forecastDate}\n`,{flag:'a'});
     console.log(JSON.stringify(result));return;
   }
   if(mode!=='generate')fail('OFFICIAL_DAILY_MODE_INVALID');
