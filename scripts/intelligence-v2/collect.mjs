@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { CATEGORIES, DAY, evidenceGate, filterAndDeduplicateSignals, marketObservationLag } from '../../dist/data/intelligence-v2-contract.js';
 import { verifyNewsArticle, newsCandidatePriority } from './news-event-rules.mjs';
+import { parseNewsMaterial } from './news-material.mjs';
 export { verifyNewsArticle, NEWS_EVENT_RULES } from './news-event-rules.mjs';
 
 export const SOURCES = {
@@ -109,24 +110,25 @@ export function parseNewsSitemap(xml) {
 }
 
 export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=15000}={}) {
-  const generatedAt=iso(now), signals=[], exclusions=[], fetchLog=[], candidates=[];
+  const generatedAt=iso(now), signals=[], newsDocuments=[], exclusions=[], fetchLog=[], candidates=[];
   const get = async (url) => {
     try {
       const response=await fetchImpl(url,{headers:{'User-Agent':'AyuFuelLabEvidence/2.0 (https://github.com/Zhyquan/ayu-fuel-lab)'},signal:AbortSignal.timeout(timeoutMs)});
       if (!response.ok) throw new Error(`HTTP_${response.status}`);
+      if(url.startsWith('https://www.brecorder.com/news/')&&response.url&&response.url!==url) throw new Error('ARTICLE_REDIRECTED');
       if (Number(response.headers.get('content-length'))>1000000) throw new Error('SOURCE_TOO_LARGE');
       let body=''; const decoder=new TextDecoder();
       for await (const chunk of response.body) { body+=decoder.decode(chunk,{stream:true}); if (body.length>1000000) throw new Error('SOURCE_TOO_LARGE'); }
       body+=decoder.decode();
       fetchLog.push({url:url.startsWith(SOURCES.gdelt)?SOURCES.gdelt:url,status:'OK',checkedAt:generatedAt,bodySha256:sha(body),bytes:Buffer.byteLength(body)});
       return body;
-    } catch(error) { fetchLog.push({url:url.startsWith(SOURCES.gdelt)?SOURCES.gdelt:url,status:'FAILED',checkedAt:generatedAt,reason:/HTTP_\d+|SOURCE_TOO_LARGE/.test(error.message)?error.message:error.name==='TimeoutError'?'TIMEOUT':'FETCH_FAILED'}); throw error; }
+    } catch(error) { fetchLog.push({url:url.startsWith(SOURCES.gdelt)?SOURCES.gdelt:url,status:'FAILED',checkedAt:generatedAt,reason:/^(?:HTTP_\d+|SOURCE_TOO_LARGE|ARTICLE_REDIRECTED)$/.test(error.message)?error.message:error.name==='TimeoutError'?'TIMEOUT':'FETCH_FAILED'}); throw error; }
   };
-  try { signals.push(...parseDailyPrices(await get(SOURCES.prices),generatedAt)); } catch { exclusions.push({source:'EIA_DAILY',reason:'MARKET_COLLECTION_OR_PARSE_FAILED'}); }
+  try { signals.push(...parseDailyPrices(await get(SOURCES.prices),generatedAt)); } catch { exclusions.push({source:'EIA_DAILY',reason:fetchLog.some(f=>f.url===SOURCES.prices&&f.status==='FAILED')?'MARKET_FETCH_FAILED':'MARKET_PARSE_FAILED'}); }
   try {
     const metadata=JSON.parse(await get(SOURCES.metadata)), summary=await get(SOURCES.summary), landing=await get(SOURCES.weekly), schedule=await get(SOURCES.schedule);
     signals.push(...parseWeeklySummary(summary,metadata,landing,schedule,generatedAt));
-  } catch { exclusions.push({source:'EIA_WEEKLY',reason:'WEEKLY_COLLECTION_OR_PARSE_FAILED'}); }
+  } catch { exclusions.push({source:'EIA_WEEKLY',reason:fetchLog.some(f=>[SOURCES.metadata,SOURCES.summary,SOURCES.weekly,SOURCES.schedule].includes(f.url)&&f.status==='FAILED')?'WEEKLY_FETCH_FAILED':'WEEKLY_PARSE_FAILED'}); }
   let recentMarketContext;
   try { recentMarketContext=parseRecentContext(await get(SOURCES.recent),now); }
   catch { recentMarketContext={status:'UNAVAILABLE',reason:'RECENT_CONTEXT_COLLECTION_FAILED',role:'CONTEXT_ONLY_NO_CURRENT_SIGNAL_WEIGHT'}; }
@@ -160,29 +162,40 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
   candidates.splice(0,candidates.length,...selected);
   let articleRequests=0;
   for (const candidate of candidates) {
-    if (!newsCandidatePriority(candidate.headline)) { candidate.status='IRRELEVANT';candidate.reason='NO_SUPPORTED_ENERGY_MECHANISM_IN_HEADLINE';continue; }
+    if (!newsCandidatePriority(candidate.headline)) { candidate.status='IRRELEVANT';candidate.reason='NO_ENERGY_RELEVANCE_IN_HEADLINE';continue; }
     if (!/^https:\/\/www\.brecorder\.com\/news\/\d+(?:\/[^?#]*)?$/.test(candidate.url??'') || articleRequests>=6) { candidate.status='NEEDS_VERIFICATION';candidate.reason=articleRequests>=6?'ARTICLE_REQUEST_LIMIT':'UNSUPPORTED_ARTICLE_URL';continue; }
     articleRequests++;
     try {
-      const signal=verifyNewsArticle(await get(candidate.url),candidate.url,generatedAt);
-      signals.push(signal);candidate.status='ORIGINAL_VERIFIED';candidate.evidenceId=signal.id;candidate.ruleId=signal.ruleId;
+      const html=await get(candidate.url);
+      const document=parseNewsMaterial(html,candidate.url,generatedAt);
+      if(newsDocuments.some(existing=>existing.originalSource===document.originalSource&&existing.articleContentHash===document.articleContentHash)) {
+        candidate.status='EXCLUDED';candidate.reason='DUPLICATE_SYNDICATED_CONTENT';continue;
+      }
+      newsDocuments.push(document);
+      candidate.status='CONTENT_VERIFIED';candidate.documentId=document.documentId;
+      candidate.publisher=document.publisher;candidate.originalSource=document.originalSource;
+      candidate.publishedAt=document.publishedAt;candidate.articleContentHash=document.articleContentHash;
+      candidate.segmentIds=document.segments.map(segment=>segment.segmentId);
+      try { const signal=verifyNewsArticle(html,candidate.url,generatedAt);signals.push(signal);candidate.evidenceId=signal.id;candidate.ruleId=signal.ruleId; }
+      catch(error) { candidate.legacyRuleDisposition=error.message; }
     } catch(error) {
       candidate.status='EXCLUDED';
-      candidate.reason=/^(?:NEEDS_REVIEW_UNSUPPORTED_EVENT|REUTERS_AUTHOR_NOT_VERIFIED|ARTICLE_PUBLICATION_TIME_UNVERIFIED|INVALID_SIGNAL_DATE|EXPIRED_NEWS|UNRELATED_MARKET_ARTICLE|ORIGINAL_ARTICLE_NOT_VERIFIED)$/.test(error.message)?error.message:'ARTICLE_VERIFICATION_FAILED';
+      const failedFetch=fetchLog.findLast(item=>item.url===candidate.url&&item.status==='FAILED');
+      candidate.reason=failedFetch?.reason??(/^[A-Z0-9_]+$/.test(error.message)?error.message:'ARTICLE_VERIFICATION_FAILED');
     }
   }
   const news=signals.filter(s=>s.sourceOrganization==='Reuters').sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt));
   const dedup=filterAndDeduplicateSignals([...signals.filter(s=>s.sourceOrganization!=='Reuters'),...news],now);
   for(const excluded of dedup.excluded) {
     const candidate=candidates.find(c=>c.evidenceId===excluded.id);
-    if(candidate) {candidate.status='EXCLUDED';candidate.reason=excluded.reason;}
+    if(candidate) {if(candidate.documentId)candidate.legacyRuleDisposition=excluded.reason;else {candidate.status='EXCLUDED';candidate.reason=excluded.reason;}}
   }
   const categoryChecks=CATEGORIES.map(category=>{
     const relevant=dedup.signals.filter(s=>s.category===category || s.relatedCategories?.includes(category));
     const officialFailure=category==='OPEC_MAJOR_PRODUCERS' && fetchLog.some(f=>f.url===SOURCES.opec && f.status==='FAILED');
     return {category,status:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'VERIFIED':officialFailure?'FAILED':'NO_QUALIFIED_SIGNAL',checkedAt:generatedAt,sourceUrls:category===CATEGORIES[0] || category===CATEGORIES[1]?[SOURCES.prices]:category===CATEGORIES[2]?[SOURCES.weekly,SOURCES.summary]:category==='OPEC_MAJOR_PRODUCERS'?[SOURCES.opec,SOURCES.rss]:[SOURCES.gdelt,SOURCES.rss,SOURCES.sitemap],reason:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'Original sources verified; linked shipping risk belongs to the same event.':officialFailure?'Official OPEC endpoint inaccessible; no current production/export/policy fact admitted.':'Discovery checked; no verified material signal admitted for this category.'};
   });
-  const pack={generatedAt,forecastHorizonDays:7,runType:'CURRENT_REAL_WORLD_RUN',signals:dedup.signals,categoryChecks,recentMarketContext,discovery:{provider:discovery,candidateCount:candidates.length,articleRequests,candidates},exclusions:[...exclusions,...dedup.excluded],fetchLog,conflicts:[],eventGroups:[...new Set(dedup.signals.map(s=>s.eventKey))].map(eventKey=>({eventKey,evidenceIds:dedup.signals.filter(s=>s.eventKey===eventKey).map(s=>s.id),weightingRule:'ONE_EVENT_NOT_ARTICLE_COUNT'}))};
+  const pack={inputContractVersion:'NEWS_MATERIAL_V1',generatedAt,forecastHorizonDays:7,runType:'CURRENT_REAL_WORLD_RUN',signals:dedup.signals,newsDocuments,coverageMode:newsDocuments.length?'NORMAL':'LIMITED',categoryChecks,recentMarketContext,discovery:{provider:discovery,candidateCount:candidates.length,articleRequests,candidates},exclusions:[...exclusions,...dedup.excluded],fetchLog,conflicts:[],eventGroups:[...new Set(dedup.signals.map(s=>s.eventKey))].map(eventKey=>({eventKey,evidenceIds:dedup.signals.filter(s=>s.eventKey===eventKey).map(s=>s.id),weightingRule:'ONE_EVENT_NOT_ARTICLE_COUNT'}))};
   return {pack,gate:evidenceGate(pack,{now})};
 }
 
@@ -193,6 +206,7 @@ async function main() {
   for (const path of ['CURRENT_EVIDENCE_V2.json','intelligence-v2/current-evidence.json']) await writeFile(resolve(root,path),JSON.stringify(pack,null,2)+'\n');
   await writeFile(resolve(root,'intelligence-v2/pending-intelligence-pack.json'),JSON.stringify({status:gate.status,evidenceGate:gate,evidencePack:pack},null,2)+'\n');
   await writeFile(resolve(root,'intelligence-v2/EVIDENCE_GATE_RESULT.json'),JSON.stringify(gate,null,2)+'\n');
+  await writeFile(resolve(root,'intelligence-v2/collection-diagnostics.json'),JSON.stringify({generatedAt:pack.generatedAt,gate,fetchLog:pack.fetchLog,candidates:pack.discovery.candidates,exclusions:pack.exclusions},null,2)+'\n');
   console.log(JSON.stringify({runType:pack.runType,...gate,discovery:pack.discovery.provider,candidates:pack.discovery.candidateCount}));
   if (gate.gate!=='PASS') process.exitCode=1;
 }

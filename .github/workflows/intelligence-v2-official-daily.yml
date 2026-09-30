@@ -146,6 +146,7 @@ jobs:
           path: |
             intelligence-v2/provider-run.json
             intelligence-v2/EVIDENCE_GATE_RESULT.json
+            intelligence-v2/collection-diagnostics.json
             FORECAST_GATE_V2_RESULT.json
           if-no-files-found: ignore
           retention-days: 7

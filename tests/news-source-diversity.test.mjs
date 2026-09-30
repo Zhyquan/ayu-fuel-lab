@@ -105,9 +105,10 @@ test('duplicate Reuters event cannot inflate independent events or source organi
   assert.equal(evidenceGate(pack,options).independentEventCount,3);
   assert.deepEqual([...new Set(pack.signals.map(s=>s.sourceOrganization))],['EIA','Reuters']);
 });
-test('GDELT discovery without a verified original cannot satisfy diversity',async()=>{
+test('GDELT discovery without a verified original is explicitly LIMITED when core facts pass',async()=>{
   const result=await collectEvidence({now,fetchImpl:collectorFetch({gdelt:[{title:'Oil supply disrupted',url:'https://example.com/oil',seendate:newsTime}]})});
-  assert.ok(result.gate.errors.includes('SOURCE_DIVERSITY_INSUFFICIENT'));
+  assert.equal(result.gate.gate,'PASS');assert.equal(result.gate.coverageMode,'LIMITED');
+  assert.equal(result.pack.newsDocuments.length,0);
   assert.deepEqual([...new Set(result.pack.signals.map(s=>s.sourceOrganization))],['EIA']);
   assert.equal(result.pack.discovery.candidates[0].reason,'UNSUPPORTED_ARTICLE_URL');
 });
@@ -117,7 +118,7 @@ test('publisher sitemap supplies original verification when general RSS misses e
   assert.equal(result.gate.gate,'PASS');assert.equal(result.pack.discovery.articleRequests,1);
   const s=result.pack.signals.find(s=>s.sourceOrganization==='Reuters');
   assert.equal(s.eventAt,'2026-09-29T10:00:00.000Z');
-  assert.equal(result.pack.discovery.candidates.find(c=>c.evidenceId===s.id).status,'ORIGINAL_VERIFIED');
+  assert.equal(result.pack.discovery.candidates.find(c=>c.evidenceId===s.id).status,'CONTENT_VERIFIED');
   assert.equal(requested.filter(url=>url===newsUrl(1)).length,1);
 });
 test('partial GDELT discovery does not suppress current sitemap or duplicate article fetches',async()=>{
@@ -125,9 +126,9 @@ test('partial GDELT discovery does not suppress current sitemap or duplicate art
   const result=await collectEvidence({now,fetchImpl:collectorFetch({requested,gdelt:[{title:'Oil supply concern',url:newsUrl(9)}],sitemap:[{id:1,headline:cases.restoration.headline},{id:2,headline:cases.restoration.headline},{id:1,headline:cases.restoration.headline}],articles:{1:newsArticle(cases.restoration),2:newsArticle({...cases.restoration,publishedAt:'2026-09-29T10:10:00Z'}),9:newsArticle(cases.ambiguous)}})});
   assert.equal(result.gate.gate,'PASS');assert.equal(result.gate.independentEventCount,3);
   assert.equal(requested.filter(url=>url===newsUrl(1)).length,1);
-  assert.equal(result.pack.discovery.candidates.find(c=>c.url===newsUrl(1)).reason,'DUPLICATE_EVENT');
+  assert.equal(result.pack.discovery.candidates.find(c=>c.url===newsUrl(2)).reason,'DUPLICATE_SYNDICATED_CONTENT');
   assert.ok(result.pack.exclusions.some(item=>item.reason==='DUPLICATE_DISCOVERY_ARTICLE'));
-  assert.equal(result.pack.signals.find(s=>s.sourceOrganization==='Reuters').sourceUrl,newsUrl(2));
+  assert.equal(result.pack.signals.find(s=>s.sourceOrganization==='Reuters').sourceUrl,newsUrl(1));
 });
 test('article verification remains bounded to six requests with explicit exclusion reasons',async()=>{
   const items=Array.from({length:10},(_,i)=>({id:i+1,headline:`Oil supply concern ${i}`}));

@@ -68,7 +68,7 @@ export const NEWS_EVENT_RULES = Object.freeze([
   },
 ]);
 
-function articleBody(html) {
+export function articleBody(html) {
   const opening=/<div\b[^>]*class=["'][^"']*\bstory__content\b[^"']*["'][^>]*>/g.exec(html);
   if (!opening) return '';
   const tags=/<\/?div\b[^>]*>/g;tags.lastIndex=opening.index+opening[0].length;
@@ -115,7 +115,9 @@ export function verifyNewsArticle(html,url,checkedAt) {
 }
 
 export function newsCandidatePriority(headline) {
-  if (unrelated.test(headline)) return 0;
+  if (/^(?:Dollar|Euro|Pound|Rupee|Stocks?|Shares?|Currencies|Forex)\b/i.test(headline)) return 0;
+  if (!/\b(?:oil|crude|diesel|gasoil|distillate|fuel|refiner(?:y|ies)|pipeline|tanker|OPEC|Hormuz|petroleum)\b/i.test(headline)) return 0;
+  if (unrelated.test(headline) && !/\b(?:oil prices?|crude|diesel|gasoil|distillate|refiner(?:y|ies)|OPEC|Hormuz)\b/i.test(headline)) return 0;
   if (/\b(?:pipeline|refinery|loadings?|oil exports?|export terminal|strategic reserves?)\b/i.test(headline)) return 3;
   if (/\b(?:Hormuz|supply (?:disruption|concern|risk))\b/i.test(headline)) return 2;
   return /\b(?:oil|diesel|gasoil|OPEC|tanker)\b/i.test(headline)?1:0;

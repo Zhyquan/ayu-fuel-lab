@@ -12,7 +12,7 @@ export const cases={
   shipping:{headline:'Oil settles amid unresolved Hormuz supply risk',body:'Ongoing supply disruptions remain a concern while mediators seek talks to reopen the Strait of Hormuz.'},
 };
 export function newsArticle({headline,body,author=[{name:'Reuters'}],publishedAt='2026-09-29T10:00:00.000Z',modifiedAt=newsTime,related=''}={}) {
-  const metadata={'@type':'NewsArticle',headline,author,dateModified:modifiedAt};
+  const metadata={'@type':'NewsArticle',headline,author,publisher:{name:'Business Recorder'},dateModified:modifiedAt};
   if(publishedAt!==null)metadata.datePublished=publishedAt;
   return `<script type="application/ld+json">${JSON.stringify(metadata)}</script><div class="story__content"><div class="wrapper"><p>${body}</p></div>${related}</div><div class="outside">Unrelated page content.</div>`;
 }

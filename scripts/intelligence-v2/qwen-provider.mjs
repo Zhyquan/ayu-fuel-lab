@@ -1,7 +1,9 @@
 import { readFile } from 'node:fs/promises';
-import { DAY, INTELLIGENCE_V2_SOURCE, PROBABILITY_TYPE, canonicalJson, evidenceGate, forecastGate, primaryDirectionFor } from '../../dist/data/intelligence-v2-contract.js';
+import { DAY, INTELLIGENCE_V2_SOURCE, NEWS_INPUT_CONTRACT, PROBABILITY_TYPE, canonicalJson, evidenceGate, forecastGate, primaryDirectionFor } from '../../dist/data/intelligence-v2-contract.js';
 import { evidenceHashFor } from './history.mjs';
 import { PROMPT_VERSION, SYSTEM_PROMPT } from './prompts/qwen-forecast-v1.mjs';
+import { PROMPT_VERSION as NEWS_PROMPT_VERSION, SYSTEM_PROMPT as NEWS_SYSTEM_PROMPT } from './prompts/qwen-forecast-news-v1.mjs';
+import { createHash } from 'node:crypto';
 
 export const QWEN_MODEL = 'qwen3.8-flash';
 export const DEFAULT_BASE_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1';
@@ -29,18 +31,36 @@ export function qwenSchemaCompatibilityGate(input) {
 }
 
 export function analysisSchema(pack) {
-  const result=structuredClone(schema), ids=pack.signals.map(s=>s.id);
+  const result=structuredClone(schema), newsContract=pack.inputContractVersion===NEWS_INPUT_CONTRACT;
+  const ids=[...pack.signals.map(s=>s.id),...(newsContract?pack.newsDocuments.flatMap(d=>d.segments.map(s=>`${d.documentId}:${s.segmentId}`)):[])];
   for (const key of ['mainReasonEvidenceIds','counterReasonEvidenceIds']) result.properties[key].items={type:'string',enum:ids};
   const assessments=result.properties.strengthAssessments;
   assessments.items.properties.evidenceId={type:'string',enum:ids};
+  if(newsContract) {
+    assessments.items.properties.evidenceId={type:'string',enum:pack.signals.map(s=>s.id)};
+    const properties={documentId:{type:'string',enum:pack.newsDocuments.map(d=>d.documentId)},segmentId:{type:'string',enum:pack.newsDocuments.flatMap(d=>d.segments.map(s=>s.segmentId))},evidenceId:{type:'string',enum:ids.filter(id=>id.includes(':'))},impact:{type:'string',enum:['UP','DOWN','NEUTRAL']},kind:{type:'string',enum:['FACT','RISK','OUTLOOK','CLAIM']},title:{type:'string'},summary:{type:'string'},quote:{type:'string'},strength:{type:'string',enum:['LOW','MEDIUM','HIGH']}};
+    if(!pack.newsDocuments.length)for(const key of ['documentId','segmentId','evidenceId'])delete properties[key].enum;
+    result.properties.newsAssessments={type:'array',items:{type:'object',additionalProperties:false,required:Object.keys(properties),properties}};
+    result.required.push('newsAssessments');
+  }
   if(qwenSchemaCompatibilityGate(result).gate!=='PASS')fail('QWEN_SCHEMA_COMPATIBILITY_FAILED');
   return result;
 }
 export function validateAnalysis(value,pack) {
-  if (!exactKeys(value,['probabilities','mainReasonEvidenceIds','counterReasonEvidenceIds','strengthAssessments']) || !exactKeys(value.probabilities,['DOWN','FLAT','UP'])) fail('QWEN_SCHEMA_INVALID');
+  const newsContract=pack.inputContractVersion===NEWS_INPUT_CONTRACT;
+  if (!exactKeys(value,['probabilities','mainReasonEvidenceIds','counterReasonEvidenceIds','strengthAssessments',...(newsContract?['newsAssessments']:[])]) || !exactKeys(value.probabilities,['DOWN','FLAT','UP'])) fail('QWEN_SCHEMA_INVALID');
   const p=value.probabilities;
   if (Object.values(p).some(n=>!Number.isInteger(n)||n<5||n>90||n%5!==0) || p.DOWN+p.FLAT+p.UP!==100) fail('QWEN_PROBABILITIES_INVALID');
   const byId=new Map(pack.signals.map(s=>[s.id,s])), primary=primaryDirectionFor(p), refs=[];
+  if(newsContract) {
+    const docs=new Map(pack.newsDocuments.map(d=>[d.documentId,d]));
+    if(!Array.isArray(value.newsAssessments)||value.newsAssessments.length>3||new Set(value.newsAssessments.map(a=>a?.documentId)).size!==value.newsAssessments.length||!!docs.size&&!value.newsAssessments.length)fail('QWEN_NEWS_ASSESSMENT_INVALID');
+    for(const a of value.newsAssessments) {
+      const segment=docs.get(a?.documentId)?.segments.find(s=>s.segmentId===a.segmentId);
+      if(!exactKeys(a,['documentId','segmentId','evidenceId','impact','kind','title','summary','quote','strength'])||!segment||a.evidenceId!==`${a.documentId}:${a.segmentId}`||!['UP','DOWN','NEUTRAL'].includes(a.impact)||!['FACT','RISK','OUTLOOK','CLAIM'].includes(a.kind)||!['LOW','MEDIUM','HIGH'].includes(a.strength)||typeof a.title!=='string'||!a.title.trim()||a.title.length>48||typeof a.summary!=='string'||!a.summary.trim()||a.summary.length>100||typeof a.quote!=='string'||a.quote.length>140||!segment.text.includes(a.quote)||a.kind==='FACT'&&/\b(?:may|might|could|would|expected|considering|plans?|if|potential|rumou?r|unconfirmed)\b/i.test(a.quote)||[...(a.title+a.summary).matchAll(/\d+(?:\.\d+)?%?/g)].some(m=>!a.quote.includes(m[0])))fail('QWEN_NEWS_ASSESSMENT_INVALID');
+      byId.set(a.evidenceId,{...a,eventKey:a.documentId,displayText:a.title});
+    }
+  }
   for (const [key,min,max,opposite] of [['mainReasonEvidenceIds',1,3,false],['counterReasonEvidenceIds',0,2,true]]) {
     const ids=value[key];
     if (!Array.isArray(ids)||ids.length<min||ids.length>max||new Set(ids).size!==ids.length) fail('QWEN_REASON_INVALID');
@@ -51,9 +71,10 @@ export function validateAnalysis(value,pack) {
       refs.push(id);events.add(s.eventKey);
     }
   }
-  if (pack.signals.some(s=>s.impact!==primary&&s.impact!=='NEUTRAL')&&!value.counterReasonEvidenceIds.length) fail('QWEN_COUNTER_REQUIRED');
+  if ([...byId.values()].some(s=>s.impact!==primary&&s.impact!=='NEUTRAL')&&!value.counterReasonEvidenceIds.length) fail('QWEN_COUNTER_REQUIRED');
   const a=value.strengthAssessments;
-  if (!Array.isArray(a)||a.length!==byId.size||new Set(a.map(s=>s?.evidenceId)).size!==byId.size || a.some(s=>!exactKeys(s,['evidenceId','strength'])||!byId.has(s.evidenceId)||!['LOW','MEDIUM','HIGH'].includes(s.strength))) fail('QWEN_ASSESSMENTS_INVALID');
+  const signalIds=new Set(pack.signals.map(s=>s.id));
+  if (!Array.isArray(a)||a.length!==signalIds.size||new Set(a.map(s=>s?.evidenceId)).size!==signalIds.size || a.some(s=>!exactKeys(s,['evidenceId','strength'])||!signalIds.has(s.evidenceId)||!['LOW','MEDIUM','HIGH'].includes(s.strength))) fail('QWEN_ASSESSMENTS_INVALID');
   return structuredClone(value);
 }
 export function projectEvidence(pack) {
@@ -62,6 +83,9 @@ export function projectEvidence(pack) {
   const context=pick(pack.recentMarketContext,['status','asOf','windowStart','role','reason']);
   context.series=(pack.recentMarketContext.series??[]).map(s=>pick(s,['name','firstPrice','lastPrice','direction','sourceUrl']));
   return {forecastHorizonDays:pack.forecastHorizonDays,generatedAt:pack.generatedAt,
+    ...(pack.inputContractVersion===NEWS_INPUT_CONTRACT?{inputContractVersion:NEWS_INPUT_CONTRACT,coverageMode:pack.coverageMode,
+      newsDocuments:pack.newsDocuments.map(d=>pick(d,['documentId','sourceUrl','publisher','originalSource','authorName','publishedAt','publishedAtPrecision','fetchedAt','articleContentHash','headline','segments'])),
+      missingSources:pack.fetchLog.filter(f=>f.status==='FAILED').map(f=>({url:f.url,reason:f.reason}))}:{}),
     signals:pack.signals.map(s=>({...pick(s,signalFields),...(s.observation?{observation:pick(s.observation,['name','price','unit','change1dPercent'])}:{})})),
     eventGroups:(pack.eventGroups??[]).map(g=>pick(g,['eventKey','evidenceIds','weightingRule'])),
     categoryChecks:pack.categoryChecks.map(c=>pick(c,['category','status','reason','checkedAt','sourceUrls'])),
@@ -94,11 +118,13 @@ export function createQwenProvider(options={}) {
       if(!mock&&options.activationAuthorized!==true)fail('QWEN_API_ACTIVATION_NEEDS_USER_AUTHORIZATION');
       const url=endpoint(environment.DASHSCOPE_BASE_URL||DEFAULT_BASE_URL);
       const input=canonicalJson(projectEvidence(pack));
+      const inputPackHash=createHash('sha256').update(input).digest('hex');
+      const newsContract=pack.inputContractVersion===NEWS_INPUT_CONTRACT;
       const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,
-        messages:[{role:'system',content:SYSTEM_PROMPT},{role:'user',content:`Frozen Evidence Pack (${evidenceHash})\n${input}`}],
+        messages:[{role:'system',content:newsContract?NEWS_SYSTEM_PROMPT:SYSTEM_PROMPT},{role:'user',content:`Frozen Evidence Pack (${evidenceHash}); model input hash ${inputPackHash}\n${input}`}],
         response_format:{type:'json_schema',json_schema:{name:'QWEN_ANALYSIS_OUTPUT',strict:true,schema:analysisSchema(pack)}}});
       if(Buffer.byteLength(body)>MAX_INPUT_BYTES)fail('QWEN_PAYLOAD_TOO_LARGE');
-      lastRun={provider:'QWEN',model:QWEN_MODEL,promptVersion:PROMPT_VERSION,requestStartedAt:new Date(clock()).toISOString(),requestCompletedAt:null,semanticCallCount:MAX_PROVIDER_CALLS_PER_RUN,attemptCount:0,httpStatus:null,httpStatuses:[],inputPayloadBytes:Buffer.byteLength(body),usage:{input_tokens:null,output_tokens:null},status:'FAILED',mock};
+      lastRun={provider:'QWEN',model:QWEN_MODEL,promptVersion:newsContract?NEWS_PROMPT_VERSION:PROMPT_VERSION,inputPackHash,evidenceHash,requestStartedAt:new Date(clock()).toISOString(),requestCompletedAt:null,semanticCallCount:MAX_PROVIDER_CALLS_PER_RUN,attemptCount:0,httpStatus:null,httpStatuses:[],inputPayloadBytes:Buffer.byteLength(body),usage:{input_tokens:null,output_tokens:null},status:'FAILED',mock};
       try {
         let response;
         for(let attempt=0;attempt<=MAX_TRANSPORT_RETRIES;attempt++) {
@@ -116,13 +142,17 @@ export function createQwenProvider(options={}) {
         for(const [target,source]of [['input_tokens','prompt_tokens'],['output_tokens','completion_tokens']]) {const n=envelope.usage?.[source];if(Number.isSafeInteger(n)&&n>=0)lastRun.usage[target]=n;}
         const choice=envelope.choices?.[0];
         if(envelope.choices?.length!==1||choice.finish_reason!=='stop'||choice.message?.role!=='assistant'||choice.message.refusal||choice.message.tool_calls||typeof choice.message.content!=='string')fail('QWEN_RESPONSE_INVALID');
+        lastRun.outputHash=createHash('sha256').update(choice.message.content).digest('hex');
         let analysis;try{analysis=JSON.parse(choice.message.content);}catch{fail('QWEN_SCHEMA_INVALID');}
         validateAnalysis(analysis,pack);
         const generatedAt=new Date(clock()).toISOString();
-        const byId=new Map(pack.signals.map(s=>[s.id,s])), reason=id=>({evidenceId:id,text:byId.get(id).displayText});
+        const byId=new Map(pack.signals.map(s=>[s.id,s])), newsById=new Map((analysis.newsAssessments??[]).map(a=>[a.evidenceId,a]));
+        const reason=id=>byId.has(id)?{evidenceId:id,text:byId.get(id).displayText}:{evidenceId:id,text:newsById.get(id).title,documentId:newsById.get(id).documentId,segmentId:newsById.get(id).segmentId};
         const candidate={source:INTELLIGENCE_V2_SOURCE,status:'LIVE',probabilityType:PROBABILITY_TYPE,forecastHorizonDays:7,provider:'QWEN',generatedAt,validUntil:new Date(Date.parse(generatedAt)+DAY).toISOString(),evidenceHash,
           probabilities:analysis.probabilities,primaryDirection:primaryDirectionFor(analysis.probabilities),mainReasons:analysis.mainReasonEvidenceIds.map(reason),counterReasons:analysis.counterReasonEvidenceIds.map(reason),
-          signalAssessments:analysis.strengthAssessments.map(({evidenceId,strength})=>({evidenceId,impact:byId.get(evidenceId).impact,kind:byId.get(evidenceId).kind,strength}))};
+          signalAssessments:analysis.strengthAssessments.map(({evidenceId,strength})=>({evidenceId,impact:byId.get(evidenceId).impact,kind:byId.get(evidenceId).kind,strength})),
+          ...(newsContract?{inputContractVersion:NEWS_INPUT_CONTRACT,promptVersion:NEWS_PROMPT_VERSION,inputPackHash,coverageMode:pack.coverageMode,newsAssessments:analysis.newsAssessments}:{}),
+        };
         if(forecastGate(candidate,pack,{now:new Date(clock()),expectedEvidenceHash:evidenceHash}).gate!=='PASS')fail('FORECAST_GATE_FAILED');
         lastRun.status='OK';return candidate;
       } finally {lastRun.requestCompletedAt=new Date(clock()).toISOString();await options.onAudit?.(structuredClone(lastRun));}

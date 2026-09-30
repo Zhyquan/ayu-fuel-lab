@@ -19,7 +19,7 @@ export async function atomicJson(path,value,{renameImpl=rename}={}) {
 }
 export function validateIndexShape(index) {
   if(!index||index.schemaVersion!==1||!Array.isArray(index.entries)||!Array.isArray(index.legacyHistory)||new Set(index.entries.map(e=>e.forecastDate)).size!==index.entries.length)fail('OFFICIAL_INDEX_INVALID');
-  for(const e of index.entries)if(e.role!=='OFFICIAL_DAILY'||!validDate(e.forecastDate)||!validTimestamp(e.generatedAt)||chinaDate(e.generatedAt)!==e.forecastDate||!/^[a-f0-9]{64}$/.test(e.forecastHash)||e.forecastId!==e.forecastHash||!/^[a-f0-9]{64}$/.test(e.evidenceHash)||!/^[a-f0-9]{40}$/.test(e.sourceCommit)||e.provider!=='QWEN'||e.model!==QWEN_MODEL||!/^\d{4}-\d{2}-\d{2}T[\d.\-]+Z-[a-f0-9]{12}\.json$/.test(e.historyFile))fail('OFFICIAL_INDEX_INVALID');
+  for(const e of index.entries)if(e.role!=='OFFICIAL_DAILY'||!validDate(e.forecastDate)||!validTimestamp(e.generatedAt)||chinaDate(e.generatedAt)!==e.forecastDate||!/^[a-f0-9]{64}$/.test(e.forecastHash)||e.forecastId!==e.forecastHash||!/^[a-f0-9]{64}$/.test(e.evidenceHash)||!/^[a-f0-9]{40}$/.test(e.sourceCommit)||e.provider!=='QWEN'||e.model!==QWEN_MODEL||!/^\d{4}-\d{2}-\d{2}T[\d.\-]+Z-[a-f0-9]{12}\.json$/.test(e.historyFile)||(e.inputPackHash!==undefined&&(!/^[a-f0-9]{64}$/.test(e.inputPackHash)||!['NORMAL','LIMITED'].includes(e.coverageMode))))fail('OFFICIAL_INDEX_INVALID');
   for(const e of index.legacyHistory)if(e.role!=='ROLE_UNCONFIRMED'||e.historyFile!==basename(e.historyFile)||!/\.json$/.test(e.historyFile))fail('OFFICIAL_INDEX_INVALID');
   return index;
 }
@@ -28,7 +28,7 @@ export async function readOfficialIndex(root) {
   for(const e of index.entries) {
     const snapshot=await read(resolve(root,'data/forecast-history-v2',e.historyFile));
     const {evidencePack,...candidate}=snapshot;
-    if(hashFor(snapshot)!==e.forecastHash||hashFor(evidencePack)!==e.evidenceHash||candidate.evidenceHash!==e.evidenceHash||candidate.generatedAt!==e.generatedAt||candidate.provider!=='QWEN')fail('OFFICIAL_HISTORY_INTEGRITY_FAILED');
+    if(hashFor(snapshot)!==e.forecastHash||hashFor(evidencePack)!==e.evidenceHash||candidate.evidenceHash!==e.evidenceHash||candidate.generatedAt!==e.generatedAt||candidate.provider!=='QWEN'||(e.inputPackHash!==undefined&&(candidate.inputPackHash!==e.inputPackHash||candidate.coverageMode!==e.coverageMode)))fail('OFFICIAL_HISTORY_INTEGRITY_FAILED');
   }
   return index;
 }
@@ -53,7 +53,9 @@ export async function runOfficialDaily({root,pack,sourceCommit,providerOptions={
     if(result.gate.gate!=='PASS')fail('FORECAST_GATE_FAILED');
     if(chinaDate(result.candidate.generatedAt)!==preflight.forecastDate)fail('OFFICIAL_DAILY_DATE_CHANGED');
     const {path,snapshot}=await saveForecastSnapshot(directory,result.candidate,frozen,{now:clock()});
-    const entry={forecastId:hashFor(snapshot),forecastDate:preflight.forecastDate,historyFile:basename(path),forecastHash:hashFor(snapshot),evidenceHash:result.candidate.evidenceHash,generatedAt:result.candidate.generatedAt,role:'OFFICIAL_DAILY',provider:'QWEN',model:QWEN_MODEL,sourceCommit};
+    const entry={forecastId:hashFor(snapshot),forecastDate:preflight.forecastDate,historyFile:basename(path),forecastHash:hashFor(snapshot),evidenceHash:result.candidate.evidenceHash,generatedAt:result.candidate.generatedAt,role:'OFFICIAL_DAILY',provider:'QWEN',model:QWEN_MODEL,sourceCommit,
+      ...(result.candidate.inputPackHash?{inputPackHash:result.candidate.inputPackHash,coverageMode:result.candidate.coverageMode}:{}),
+    };
     await atomicJson(resolve(root,'CURRENT_FORECAST_CANDIDATE_V2.json'),result.candidate);
     await atomicJson(resolve(root,'FORECAST_GATE_V2_RESULT.json'),result.gate);
     await atomicJson(resolve(root,'dist/data/forecast-cache.json'),snapshot);

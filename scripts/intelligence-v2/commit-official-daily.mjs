@@ -2,15 +2,17 @@ import { execFileSync } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { createHash } from 'node:crypto';
 import { canonicalJson, evidenceGate, forecastGate } from '../../dist/data/intelligence-v2-contract.js';
 import { publicEvidenceGate } from '../../dist/data/public-evidence.js';
 import { chinaDate } from '../../dist/data/validation.js';
 import { readOfficialIndex, INDEX_PATH } from './official-daily.mjs';
+import { projectEvidence } from './qwen-provider.mjs';
 
 export const GENERATED_PATHS=[
   'CURRENT_EVIDENCE_V2.json','CURRENT_FORECAST_CANDIDATE_V2.json','FORECAST_GATE_V2_RESULT.json',
   'intelligence-v2/current-evidence.json','intelligence-v2/pending-intelligence-pack.json',
-  'intelligence-v2/EVIDENCE_GATE_RESULT.json','intelligence-v2/provider-run.json',
+  'intelligence-v2/EVIDENCE_GATE_RESULT.json','intelligence-v2/collection-diagnostics.json','intelligence-v2/provider-run.json',
   INDEX_PATH,'dist/data/forecast-cache.json',
 ];
 const historyPattern=/^data\/forecast-history-v2\/\d{4}-\d{2}-\d{2}T[\d.\-]+Z-[a-f0-9]{12}\.json$/;
@@ -42,6 +44,10 @@ export async function verifyGenerated(root,before,{sourceCommit,now=new Date()}=
   if(canonicalJson(await read('dist/data/forecast-cache.json'))!==canonicalJson(snapshot)||canonicalJson(await read(`data/forecast-history-v2/${entry.historyFile}`))!==canonicalJson(snapshot))fail('OFFICIAL_CACHE_HISTORY_MISMATCH');
   const audit=await read('intelligence-v2/provider-run.json');
   if(audit.mock!==false||audit.status!=='OK'||audit.provider!=='QWEN'||audit.model!=='qwen3.8-flash'||audit.semanticCallCount!==1||audit.attemptCount<1||audit.attemptCount>3||audit.requestCompletedAt<candidate.generatedAt)fail('OFFICIAL_PROVIDER_AUDIT_INVALID');
+  if(candidate.inputPackHash) {
+    const inputHash=createHash('sha256').update(canonicalJson(projectEvidence(pack))).digest('hex');
+    if(candidate.inputPackHash!==inputHash||entry.inputPackHash!==inputHash||audit.inputPackHash!==inputHash||audit.evidenceHash!==entry.evidenceHash||!/^[a-f0-9]{64}$/.test(audit.outputHash??''))fail('OFFICIAL_INPUT_IDENTITY_INVALID');
+  }
   return entry;
 }
 export function requireUnmovedMain(git,sourceCommit) {

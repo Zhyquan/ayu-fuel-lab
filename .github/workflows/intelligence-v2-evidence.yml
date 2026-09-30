@@ -30,5 +30,6 @@ jobs:
           path: |
             intelligence-v2/pending-intelligence-pack.json
             intelligence-v2/EVIDENCE_GATE_RESULT.json
+            intelligence-v2/collection-diagnostics.json
           retention-days: 7
 # Phase A never calls a paid provider, commits a forecast, or deploys Pages.

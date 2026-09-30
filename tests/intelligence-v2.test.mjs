@@ -32,7 +32,7 @@ const daily=`<h1>September 25, 2026</h1><table summary="Spot Petroleum Prices"><
 <tr><td class="s2">Brent</td><td class="d1">120.92</td><td class="up">+3.0</td></tr>
 <tr><td class="s1">Low-Sulfur Diesel ($/gallon)</td><td class="s2">NY Harbor</td><td class="d1">4.88</td><td class="dn">-1.6</td></tr></table>`;
 const weekly='For the week ending September 18, 2026, U.S. refineries processed 16.8 million barrels per day (b/d), down 519,000 b/d from the previous week, at 94.0% capacity utilization. Distillate production decreased to 5.2 million b/d. Distillate inventories decreased 0.4 million barrels, 12% below the five-year average.';
-const article=()=>`<script type="application/ld+json">${JSON.stringify({'@type':'NewsArticle',datePublished:'2026-09-28T10:44:01Z',author:[{name:'Reuters'}]})}</script><div class='story__content'><p>TEST FIXTURE ONLY: US President TestTrump rejected an Iranian proposal involving Hormuz. A deadlock produced concerns regarding oil supplies.</p></div>`;
+const article=()=>`<script type="application/ld+json">${JSON.stringify({'@type':'NewsArticle',headline:'Oil Hormuz deadlock',publisher:{name:'Business Recorder'},datePublished:'2026-09-28T10:44:01Z',author:[{name:'Reuters'}]})}</script><div class='story__content'><p>TEST FIXTURE ONLY: US President TestTrump rejected an Iranian proposal involving Hormuz. A deadlock produced concerns regarding oil supplies.</p></div>`;
 const rss=`<rss>${Array.from({length:15},(_,i)=>`<item><title>${i<2?'Oil Hormuz deadlock':'Unrelated fixture'}</title><link>https://www.brecorder.com/news/${i+1}</link><pubDate>Mon, 28 Sep 2026 10:44:01 GMT</pubDate></item>`).join('')}</rss>`;
 function sourceFetch(url) {
   if (url===SOURCES.opec) return Promise.resolve(new Response('',{status:403}));

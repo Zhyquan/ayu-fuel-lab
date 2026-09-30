@@ -58,10 +58,21 @@ export function publicEvidenceGate({forecast,evidencePack}, {now=new Date()}={})
   const checked=validateForecastCache({...forecast,evidencePack},{now});
   if (checked.status!=='LIVE') return fail([`FORECAST_NOT_LIVE:${checked.reason}`]);
   const byId=new Map(evidencePack.signals.map(signal=>[signal.id,signal]));
+  const documents=new Map((evidencePack.newsDocuments??[]).map(document=>[document.documentId,document]));
+  const newsById=new Map((forecast.newsAssessments??[]).map(item=>[item.evidenceId,item]));
   const refs=[...forecast.mainReasons.map(ref=>({...ref,role:'MAIN'})),...forecast.counterReasons.map(ref=>({...ref,role:'COUNTER'}))];
   const cards=[], excluded=[], seen=new Set();
   for (const ref of refs) {
     const signal=byId.get(ref.evidenceId);
+    if(!signal) {
+      const item=newsById.get(ref.evidenceId), document=documents.get(item?.documentId);
+      if(!item||!document||!document.segments.some(segment=>segment.segmentId===item.segmentId)||!/[\u3400-\u9fff]/.test(item.title+item.summary)||length(item.title)>24||length(item.summary)>60) return fail(['NO_SAFE_PUBLIC_COPY']);
+      const key=`${item.documentId}:${item.impact}`;
+      if(seen.has(key)){excluded.push({evidenceId:ref.evidenceId,reason:'SAME_NEWS_DOCUMENT'});continue;}
+      seen.add(key);
+      cards.push({evidenceId:item.evidenceId,direction:item.impact,directionLabel:directionLabel(item),title:item.title,summary:item.summary,sourceName:document.originalSource,date:document.publishedAt.slice(0,10),sourceUrl:document.sourceUrl,role:ref.role});
+      continue;
+    }
     // Same release can carry opposite measurements; retain the genuine counter-signal.
     const key=`${signal.eventKey}:${signal.impact}`;
     if (seen.has(key)) { excluded.push({evidenceId:ref.evidenceId,reason:'SAME_EVENT_AND_DIRECTION'}); continue; }
