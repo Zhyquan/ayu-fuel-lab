@@ -20,7 +20,7 @@ const make=(withNews=true)=>{
 const output=pack=>{
   const doc=pack.newsDocuments[0], segment=doc?.segments[0], evidenceId=segment?`${doc.documentId}:${segment.segmentId}`:null;
   return {probabilities:{DOWN:35,FLAT:25,UP:40},mainReasonEvidenceIds:['eia-stocks',...(evidenceId?[evidenceId]:[])],counterReasonEvidenceIds:['market-diesel'],strengthAssessments:pack.signals.map(s=>({evidenceId:s.id,strength:'MEDIUM'})),
-    newsAssessments:doc?[{documentId:doc.documentId,segmentId:segment.segmentId,evidenceId,impact:'UP',kind:'RISK',title:'柴油供应偏紧风险',summary:'报道提到供应偏紧和运输可用性。',quote:segment.text.slice(0,80),strength:'MEDIUM'}]:[]};
+    newsAssessments:doc?[{evidenceId,impact:'UP',kind:'RISK',title:'柴油供应偏紧风险',summary:'报道提到供应偏紧和运输可用性。',strength:'MEDIUM'}]:[]};
 };
 
 test('ordinary Reuters energy roundup enters bounded news input even when old event templates do not match',()=>{
@@ -51,7 +51,7 @@ test('valid core with failed news channels is LIMITED; missing diesel or major c
   assert.ok(evidenceGate(conflict,{now:f.now}).errors.includes('MAJOR_SOURCE_CONFLICT'));
 });
 
-test('single fake Qwen request reads frozen material; quoted news reason reaches public card and hash contract',async()=>{
+test('single fake Qwen request reads frozen material; derived news reason reaches public card and hash contract',async()=>{
   const f=make(), value=output(f.pack);let calls=0,request;
   const clock=()=>new Date(at);
   const provider=createQwenProvider(fakeOptions(f.pack,{clock,fetchImpl:async(_url,options)=>{calls++;request=JSON.parse(options.body);return response(value);}}));
@@ -59,6 +59,9 @@ test('single fake Qwen request reads frozen material; quoted news reason reaches
   assert.equal(calls,1);assert.equal(request.tools,undefined);assert.equal(request.messages[1].content.includes(body),true);
   assert.equal(request.messages[1].content.includes('DASHSCOPE_API_KEY'),false);
   assert.equal(candidate.inputContractVersion,'NEWS_MATERIAL_V1');assert.equal(candidate.coverageMode,'NORMAL');
+  assert.equal(candidate.newsAssessmentContract,'NEWS_ASSESSMENT_V2');
+  assert.equal(candidate.newsAssessments[0].documentId,f.pack.newsDocuments[0].documentId);
+  assert.equal(candidate.newsAssessments[0].sourceUrl,url);
   assert.match(candidate.inputPackHash,/^[a-f0-9]{64}$/);assert.notEqual(candidate.inputPackHash,candidate.evidenceHash);
   assert.equal(forecastGate(candidate,f.pack,{now:f.now,expectedEvidenceHash:f.evidenceHash}).gate,'PASS');
   const cards=publicEvidenceGate({forecast:candidate,evidencePack:f.pack},{now:f.now});
@@ -75,13 +78,16 @@ test('LIMITED keeps only true structural reasons and shows one short scope line'
   assert.match(forecastMarkup({...candidate,evidencePack:f.pack},{now:f.now}),/仅据行情与库存/);
 });
 
-test('invented segment, numeric claim, conditional-as-fact, unknown source and invalid probability cannot publish',()=>{
+test('invented segment, numeric claim, conditional-as-fact, extra source and invalid probability cannot publish',()=>{
   const f=make();
   for(const change of [
-    v=>v.newsAssessments[0].segmentId='missing',v=>v.newsAssessments[0].quote='not in frozen text',
-    v=>v.newsAssessments[0].summary='库存减少99%',v=>{v.newsAssessments[0].quote='may be shut down';v.newsAssessments[0].kind='FACT';},
+    v=>v.newsAssessments[0].evidenceId='missing',v=>v.newsAssessments[0].quote='not in frozen text',
+    v=>v.newsAssessments[0].summary='库存减少99%',
     v=>v.newsAssessments[0].sourceUrl='https://example.com',v=>v.probabilities.UP=41,
   ]){const value=output(f.pack);change(value);assert.throws(()=>validateAnalysis(value,f.pack));}
+  const conditional=structuredClone(f.pack);conditional.newsDocuments[0].segments[0].text+=' Supply may be interrupted.';
+  const conditionalValue=output(conditional);conditionalValue.newsAssessments[0].kind='FACT';
+  assert.throws(()=>validateAnalysis(conditionalValue,conditional),/NEWS_FACT_FROM_CONDITIONAL_SEGMENT/);
 });
 
 test('instructions embedded in a news paragraph remain data and receive no tools or environment access',async()=>{

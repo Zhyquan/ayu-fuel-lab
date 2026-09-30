@@ -5,7 +5,18 @@ export const PROBABILITY_TYPE = 'AI_SUBJECTIVE_ESTIMATE';
 export const CATEGORIES = ['INTERNATIONAL_DIESEL','CRUDE','DISTILLATE_FUNDAMENTALS','OPEC_MAJOR_PRODUCERS','SUPPLY_DISRUPTION','SHIPPING','DEMAND_MACRO'];
 export const DAY = 86400000;
 export const NEWS_INPUT_CONTRACT = 'NEWS_MATERIAL_V1';
+export const NEWS_ASSESSMENT_CONTRACT = 'NEWS_ASSESSMENT_V2';
 const text = value => typeof value === 'string' && value.trim().length > 0;
+export const newsSegmentFor = (pack, evidenceId) => {
+  for (const document of pack?.newsDocuments??[]) for (const segment of document.segments??[])
+    if (`${document.documentId}:${segment.segmentId}`===evidenceId) return {document,segment};
+  return null;
+};
+export const newsNumbersGrounded = (copy, segment) => {
+  const sourceNumbers=new Set([...segment.matchAll(/\d+(?:\.\d+)?/g)].map(match=>match[0]));
+  return [...copy.matchAll(/\d+(?:\.\d+)?/g)].every(match=>sourceNumbers.has(match[0]));
+};
+export const conditionalNewsSegment = segment => /\b(?:may|might|could|would|expected|considering|plans?|if|potential|rumou?r|unconfirmed)\b/i.test(segment);
 export const publicUrl = value => {
   try { const url = new URL(value); return url.protocol === 'https:' && !url.username && !url.password && !url.search && !url.hash; }
   catch { return false; }
@@ -126,6 +137,9 @@ export function forecastGate(candidate, pack, {now = new Date(),expectedEvidence
   if (!/^[a-f0-9]{64}$/.test(candidate?.evidenceHash ?? '') || (expectedEvidenceHash && candidate.evidenceHash !== expectedEvidenceHash)) errors.push('EVIDENCE_HASH_MISMATCH');
   const newsContract=pack?.inputContractVersion===NEWS_INPUT_CONTRACT;
   if(newsContract && (candidate?.inputContractVersion!==NEWS_INPUT_CONTRACT || candidate?.coverageMode!==pack.coverageMode || !text(candidate?.promptVersion) || !/^[a-f0-9]{64}$/.test(candidate?.inputPackHash??''))) errors.push('INVALID_INPUT_IDENTITY');
+  const newsV2=newsContract&&candidate?.newsAssessmentContract===NEWS_ASSESSMENT_CONTRACT;
+  if(newsV2&&candidate.promptVersion!=='qwen-forecast-news-v2') errors.push('INVALID_NEWS_ASSESSMENT_VERSION');
+  if(newsContract&&candidate?.promptVersion==='qwen-forecast-news-v2'&&!newsV2) errors.push('INVALID_NEWS_ASSESSMENT_VERSION');
   const p = candidate?.probabilities;
   if (!p || Object.keys(p).sort().join(',')!=='DOWN,FLAT,UP' || ['DOWN','FLAT','UP'].some(key=>!Number.isFinite(p[key]) || p[key]%5!==0 || p[key]<5 || p[key]>90) || p.DOWN+p.FLAT+p.UP!==100) errors.push('INVALID_PROBABILITIES');
   if (!['UP','DOWN'].includes(candidate?.primaryDirection) || (p && candidate.primaryDirection!==primaryDirectionFor(p))) errors.push('INVALID_PRIMARY_DIRECTION');
@@ -137,6 +151,17 @@ export function forecastGate(candidate, pack, {now = new Date(),expectedEvidence
     if(!Array.isArray(candidate?.newsAssessments)||news.length>3||new Set(news.map(a=>a?.documentId)).size!==news.length) errors.push('INVALID_NEWS_ASSESSMENTS');
     for(const a of news) {
       const document=documents.get(a?.documentId), segment=document?.segments.find(s=>s.segmentId===a.segmentId);
+      if(newsV2) {
+        const selected=newsSegmentFor(pack,a?.evidenceId);
+        if(!selected||!document||!segment||selected.document!==document||selected.segment!==segment||
+          a.sourceUrl!==document.sourceUrl||a.publisher!==document.publisher||a.originalSource!==document.originalSource||a.publishedAt!==document.publishedAt||
+          !['UP','DOWN','NEUTRAL'].includes(a.impact)||!['FACT','RISK','OUTLOOK','CLAIM'].includes(a.kind)||!['LOW','MEDIUM','HIGH'].includes(a.strength)||
+          !text(a.title)||Array.from(a.title).length>24||!text(a.summary)||Array.from(a.summary).length>60||
+          (a.kind==='FACT'&&conditionalNewsSegment(segment.text))||!newsNumbersGrounded(a.title+a.summary,segment.text)||
+          Object.keys(a).sort().join(',')!=='documentId,evidenceId,impact,kind,originalSource,publishedAt,publisher,segmentId,sourceUrl,strength,summary,title')
+          errors.push(`UNGROUNDED_NEWS_ASSESSMENT:${a?.evidenceId??'UNKNOWN'}`);
+        continue;
+      }
       if(!document||!segment||a.evidenceId!==`${a.documentId}:${a.segmentId}`||!['UP','DOWN','NEUTRAL'].includes(a.impact)||
         !['FACT','RISK','OUTLOOK','CLAIM'].includes(a.kind)||!['LOW','MEDIUM','HIGH'].includes(a.strength)||
         !text(a.title)||a.title.length>48||!text(a.summary)||a.summary.length>100||!text(a.quote)||a.quote.length>140||
@@ -144,7 +169,7 @@ export function forecastGate(candidate, pack, {now = new Date(),expectedEvidence
         (a.kind==='FACT'&&/\b(?:may|might|could|would|expected|considering|plans?|if|potential|rumou?r|unconfirmed)\b/i.test(a.quote))||
         [...(a.title+a.summary).matchAll(/\d+(?:\.\d+)?%?/g)].some(m=>!a.quote.includes(m[0]))) errors.push(`UNGROUNDED_NEWS_ASSESSMENT:${a?.evidenceId??'UNKNOWN'}`);
     }
-    if(documents.size && !news.length) errors.push('NEWS_NOT_ANALYZED');
+    if(!newsV2&&documents.size&&!news.length) errors.push('NEWS_NOT_ANALYZED');
   }
   const newsById=new Map(news.map(a=>[a.evidenceId,a]));
   const main = candidate?.mainReasons, counter = candidate?.counterReasons;
@@ -165,7 +190,7 @@ export function forecastGate(candidate, pack, {now = new Date(),expectedEvidence
     if (!signal || Object.keys(a).sort().join(',')!=='evidenceId,impact,kind,strength' || a.impact!==signal.impact || a.kind!==signal.kind || !['LOW','MEDIUM','HIGH'].includes(a.strength)) errors.push('UNGROUNDED_ANALYSIS');
   }
   if ([...signals,...news].some(s=>s && s.impact!==candidate?.primaryDirection && s.impact!=='NEUTRAL') && !counter?.length) errors.push('COUNTER_EVIDENCE_IGNORED');
-  const allowed = ['source','status','probabilityType','forecastHorizonDays','provider','generatedAt','validUntil','evidenceHash','probabilities','primaryDirection','mainReasons','counterReasons','signalAssessments',...(newsContract?['inputContractVersion','promptVersion','inputPackHash','coverageMode','newsAssessments']:[])];
+  const allowed = ['source','status','probabilityType','forecastHorizonDays','provider','generatedAt','validUntil','evidenceHash','probabilities','primaryDirection','mainReasons','counterReasons','signalAssessments',...(newsContract?['inputContractVersion','promptVersion','inputPackHash','coverageMode','newsAssessments',...(newsV2?['newsAssessmentContract']:[])]:[])];
   if (candidate && Object.keys(candidate).some(key=>!allowed.includes(key))) errors.push('UNCONTRACTED_ANALYSIS_FIELD');
   return {gate:errors.length?'FAIL':'PASS',errors,checkedAt:new Date(now).toISOString(),evidenceHash:candidate?.evidenceHash ?? null};
 }
