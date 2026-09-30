@@ -98,7 +98,7 @@ export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_UR
 const escape = value => String(value??'—').replace(/[\r\n|`<>]/g,' ');
 export function bridgeSummary(result) {
   if(result.intakeType==='CHATGPT_SIGNAL_PACKAGE')return `## 情报桥结果\n\n| 项目 | 结果 |\n| --- | --- |\n${[
-    ['结果',result.status],['Intake','ChatGPT Signal Package'],['Signals',result.signalCount??0],['Fresh signals',result.freshSignals??0],['Duplicate events',result.duplicateEvents??0],
+    ['结果',result.status],['Intake','ChatGPT Signal Package'],['Signals',result.signalCount??0],['Fresh signals',result.freshSignals??0],['Duplicate events',result.duplicateEvents??'NOT_CHECKED'],
     ['Source URL present',`${result.sourceUrlPresent??0}/${result.signalCount??0}`],['Core Evidence',result.coreEvidenceGate??'NOT_RUN'],
     ['Core failure details',(result.coreEvidenceErrors??[]).join(', ')||'—'],['Ready for reforecast',result.status==='READY_FOR_REFORECAST'?'YES':'NO'],['Mode',result.mode],['Qwen Called',result.qwenCalled?'YES':'NO'],
     ['Current Forecast Updated',result.currentForecastUpdated?'YES':'NO'],['Failure Code',result.failureCode],
