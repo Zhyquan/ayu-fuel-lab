@@ -5,7 +5,7 @@
   "pack": {
     "generatedAt": "2026-09-30T05:00:00.000Z",
     "forecastHorizonDays": 7,
-    "runType": "CURRENT_REAL_WORLD_RUN",
+    "runType": "SYNTHETIC_REPLAY_NOT_FOR_PUBLICATION",
     "signals": [
       {
         "id": "market-wti",
@@ -175,7 +175,7 @@
         "sourceUrls": [
           "https://www.eia.gov/todayinenergy/prices.php"
         ],
-        "reason": "Original sources verified; linked shipping risk belongs to the same event."
+        "reason": "Synthetic production-shape fixture; no source request performed."
       },
       {
         "category": "CRUDE",
@@ -184,7 +184,7 @@
         "sourceUrls": [
           "https://www.eia.gov/todayinenergy/prices.php"
         ],
-        "reason": "Original sources verified; linked shipping risk belongs to the same event."
+        "reason": "Synthetic production-shape fixture; no source request performed."
       },
       {
         "category": "DISTILLATE_FUNDAMENTALS",
@@ -194,7 +194,7 @@
           "https://www.eia.gov/petroleum/supply/weekly/",
           "https://ir.eia.gov/wpsr/summary.txt"
         ],
-        "reason": "Original sources verified; linked shipping risk belongs to the same event."
+        "reason": "Synthetic production-shape fixture; no source request performed."
       },
       {
         "category": "OPEC_MAJOR_PRODUCERS",
@@ -204,7 +204,7 @@
           "https://www.opec.org/press-releases.html",
           "https://www.brecorder.com/feeds/latest-news"
         ],
-        "reason": "Official OPEC endpoint inaccessible; no current production/export/policy fact admitted."
+        "reason": "Synthetic production-shape fixture; no source request performed."
       },
       {
         "category": "SUPPLY_DISRUPTION",
@@ -214,7 +214,7 @@
           "https://api.gdeltproject.org/api/v2/doc/doc",
           "https://www.brecorder.com/feeds/latest-news"
         ],
-        "reason": "Original sources verified; linked shipping risk belongs to the same event."
+        "reason": "Synthetic production-shape fixture; no source request performed."
       },
       {
         "category": "SHIPPING",
@@ -224,7 +224,7 @@
           "https://api.gdeltproject.org/api/v2/doc/doc",
           "https://www.brecorder.com/feeds/latest-news"
         ],
-        "reason": "Original sources verified; linked shipping risk belongs to the same event."
+        "reason": "Synthetic production-shape fixture; no source request performed."
       },
       {
         "category": "DEMAND_MACRO",
@@ -234,7 +234,7 @@
           "https://api.gdeltproject.org/api/v2/doc/doc",
           "https://www.brecorder.com/feeds/latest-news"
         ],
-        "reason": "Discovery checked; no verified material signal admitted for this category."
+        "reason": "Synthetic production-shape fixture; no source request performed."
       }
     ],
     "recentMarketContext": {
@@ -267,326 +267,8 @@
         }
       ]
     },
-    "discovery": {
-      "provider": "RSS_FALLBACK",
-      "candidateCount": 30,
-      "articleRequests": 5,
-      "candidates": [
-        {
-          "headline": "China, US agree tariff cuts on $60 billion of goods including agriculture, household items",
-          "url": "https://www.brecorder.com/news/40441617/china-us-agree-tariff-cuts-on-60-billion-of-goods-including-agriculture-household-items",
-          "discoveredAt": "Mon, 28 Sep 2026 16:08:27 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Rupee gains against US dollar",
-          "url": "https://www.brecorder.com/news/40441616/intra-day-update-rupee-records-gain-against-us-dollar",
-          "discoveredAt": "Mon, 28 Sep 2026 16:07:46 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Russian oil supply to India tightens on reduced exports, strong Chinese demand",
-          "url": "https://www.brecorder.com/news/40441615/russian-oil-supply-to-india-tightens-on-reduced-exports-strong-chinese-demand",
-          "discoveredAt": "Mon, 28 Sep 2026 16:02:17 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "EXCLUDED",
-          "reason": "NEEDS_REVIEW_UNSUPPORTED_EVENT"
-        },
-        {
-          "headline": "Pakistan becomes first country to join Hong Kong's ValidAP trade verification platform",
-          "url": "https://www.brecorder.com/news/40441613/pakistan-becomes-first-country-to-join-hong-kongs-validap-trade-verification-platform",
-          "discoveredAt": "Mon, 28 Sep 2026 15:57:46 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Indian firms ready $3 billion of debt issues with eye on potential RBI rate hike",
-          "url": "https://www.brecorder.com/news/40441612/indian-firms-ready-3-billion-of-debt-issues-with-eye-on-potential-rbi-rate-hike",
-          "discoveredAt": "Mon, 28 Sep 2026 15:55:59 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "FPCCI seeks one-month extension to the income tax return deadline",
-          "url": "https://www.brecorder.com/news/40441611/fpcci-seeks-one-month-extension-to-the-income-tax-return-deadline",
-          "discoveredAt": "Mon, 28 Sep 2026 15:51:32 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Oil woes push Indian rupee to over one-week low, RBI caps fall near 96/USD",
-          "url": "https://www.brecorder.com/news/40441610/oil-woes-push-indian-rupee-to-over-one-week-low-rbi-caps-fall-near-96usd",
-          "discoveredAt": "Mon, 28 Sep 2026 15:48:19 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "EXCLUDED",
-          "reason": "NEEDS_REVIEW_UNSUPPORTED_EVENT"
-        },
-        {
-          "headline": "Indian shares slide to near six-month low as US-Iran deadlock lifts oil prices",
-          "url": "https://www.brecorder.com/news/40441609/indian-shares-slide-to-near-six-month-low-as-us-iran-deadlock-lifts-oil-prices",
-          "discoveredAt": "Mon, 28 Sep 2026 15:44:01 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "ORIGINAL_VERIFIED"
-        },
-        {
-          "headline": "Three policemen killed in firing on police vehicle in Tank",
-          "url": "https://www.brecorder.com/news/40441608/three-policemen-killed-in-firing-on-police-vehicle-in-tank",
-          "discoveredAt": "Mon, 28 Sep 2026 15:06:37 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Imran Haleem Shaikh to take charge as BankIslami President & CEO from Sept 29",
-          "url": "https://www.brecorder.com/news/40441607/imran-haleem-shaikh-to-take-charge-as-bankislami-president-amp-ceo-from-sept-29",
-          "discoveredAt": "Mon, 28 Sep 2026 15:05:44 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Establish a gas market for boosting exports",
-          "url": "https://www.brecorder.com/news/40441606/establish-a-gas-market-for-boosting-exports",
-          "discoveredAt": "Mon, 28 Sep 2026 14:47:43 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "South African rand slips as US-Iran stalemate pushes oil prices higher",
-          "url": "https://www.brecorder.com/news/40441605/south-african-rand-slips-as-us-iran-stalemate-pushes-oil-prices-higher",
-          "discoveredAt": "Mon, 28 Sep 2026 14:38:22 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "EXCLUDED",
-          "reason": "NEEDS_REVIEW_UNSUPPORTED_EVENT"
-        },
-        {
-          "headline": "Xavi pleased with first week as Netherlands coach, but wants more",
-          "url": "https://www.brecorder.com/news/40441604/xavi-pleased-with-first-week-as-netherlands-coach-but-wants-more",
-          "discoveredAt": "Mon, 28 Sep 2026 14:34:32 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "AKD Securities warns of deepfake scam impersonating Dhedhi, Hina Junaid",
-          "url": "https://www.brecorder.com/news/40441603/akd-securities-warns-of-deepfake-scam-impersonating-dhedhi-hina-junaid",
-          "discoveredAt": "Mon, 28 Sep 2026 14:21:07 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "'Hurting' badminton star Sindhu says Asian Games schedule 'took toll'",
-          "url": "https://www.brecorder.com/news/40441602/hurting-badminton-star-sindhu-says-asian-games-schedule-took-toll",
-          "discoveredAt": "Mon, 28 Sep 2026 14:05:16 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Iran has no plans to negotiate with US: state media",
-          "url": "https://www.brecorder.com/news/40441601/iran-has-no-plans-to-negotiate-with-us-state-media",
-          "discoveredAt": "Mon, 28 Sep 2026 14:02:17 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Gold prices in Pakistan fall Rs12,800 per tola",
-          "url": "https://www.brecorder.com/news/40441599/gold-price-drops-by-rs2700-per-tola-in-pakistan",
-          "discoveredAt": "Mon, 28 Sep 2026 13:55:52 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "India, Pakistan on Asian Games collision course after cricket washout",
-          "url": "https://www.brecorder.com/news/40441596/india-pakistan-on-asian-games-collision-course-after-cricket-washout",
-          "discoveredAt": "Mon, 28 Sep 2026 13:12:36 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "CM Murad approves request to extend Mir Raza judicial commission’s tenure",
-          "url": "https://www.brecorder.com/news/40441595/cm-murad-approves-request-to-extend-mir-raza-judicial-commissions-tenure",
-          "discoveredAt": "Mon, 28 Sep 2026 13:45:51 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Belgium’s new boss Van Bommel relishing clash with Zidane",
-          "url": "https://www.brecorder.com/news/40441594/belgiums-new-boss-van-bommel-relishing-clash-with-zidane",
-          "discoveredAt": "Mon, 28 Sep 2026 13:00:05 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "India's top court says need to fix accountability over Delhi rape cases, media reports",
-          "url": "https://www.brecorder.com/news/40441593/indias-top-court-says-need-to-fix-accountability-over-delhi-rape-cases-media-reports",
-          "discoveredAt": "Mon, 28 Sep 2026 12:55:35 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "European shares rise as British homebuilders surge on buyer support scheme",
-          "url": "https://www.brecorder.com/news/40441592/european-shares-rise-as-british-homebuilders-surge-on-buyer-support-scheme",
-          "discoveredAt": "Mon, 28 Sep 2026 12:50:38 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "MIHAS Awards 2026 celebrates excellence and sets new benchmark for innovation, sustainability and digitalisation across the global halal ecosystem",
-          "url": "https://www.brecorder.com/news/40441591/mihas-awards-2026-celebrates-excellence-and-sets-new-benchmark-for-innovation-sustainability-and-digitalisation-across-the-global-halal-ecosystem",
-          "discoveredAt": "Mon, 28 Sep 2026 12:49:27 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Ireland beat Israel 3-0 to end fractious weekend with Nations League win",
-          "url": "https://www.brecorder.com/news/40441590/ireland-beat-israel-3-0-to-end-fractious-weekend-with-nations-league-win",
-          "discoveredAt": "Mon, 28 Sep 2026 12:46:18 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "World T20 champions India on alert for Afghanistan after Japan scare",
-          "url": "https://www.brecorder.com/news/40441589/world-t20-champions-india-on-alert-for-afghanistan-after-japan-scare",
-          "discoveredAt": "Mon, 28 Sep 2026 12:40:55 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "After turbulent summer, England's cricketers head into winter schedule",
-          "url": "https://www.brecorder.com/news/40441587/after-turbulent-summer-englands-cricketers-head-into-winter-schedule",
-          "discoveredAt": "Mon, 28 Sep 2026 12:32:15 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Attock Refinery plans new 50,000 bpd deep-conversion refinery",
-          "url": "https://www.brecorder.com/news/40441586/attock-refinery-plans-new-50000-bpd-deep-conversion-refinery",
-          "discoveredAt": "Mon, 28 Sep 2026 12:46:29 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "EXCLUDED",
-          "reason": "ARTICLE_VERIFICATION_FAILED"
-        },
-        {
-          "headline": "Thai trailblazer claims Asian Games sprint double in rainy Nagoya",
-          "url": "https://www.brecorder.com/news/40441585/thai-trailblazer-claims-asian-games-sprint-double-in-rainy-nagoya",
-          "discoveredAt": "Mon, 28 Sep 2026 12:26:47 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "Greece stun Germany 1-0 in losing home debut for Klopp",
-          "url": "https://www.brecorder.com/news/40441584/greece-stun-germany-1-0-in-losing-home-debut-for-klopp",
-          "discoveredAt": "Mon, 28 Sep 2026 12:20:11 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        },
-        {
-          "headline": "China weighs allowing ByteDance, Alibaba to buy new Nvidia chips, The Information reports",
-          "url": "https://www.brecorder.com/news/40441583/china-weighs-allowing-bytedance-alibaba-to-buy-new-nvidia-chips-the-information-reports",
-          "discoveredAt": "Mon, 28 Sep 2026 12:14:55 +0500",
-          "discoverySource": "Business Recorder RSS",
-          "status": "IRRELEVANT"
-        }
-      ]
-    },
     "exclusions": [],
-    "fetchLog": [
-      {
-        "url": "https://www.eia.gov/todayinenergy/prices.php",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "3dd186e97ec41865314eaa332896cf9becb28e8da16b381b154474629c707917",
-        "bytes": 74192
-      },
-      {
-        "url": "https://ir.eia.gov/wpsr/psw00.json",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "f4f0db02724c8a1b26886440fdb07dea00cba095487dda051738dc6e110e7967",
-        "bytes": 246866
-      },
-      {
-        "url": "https://ir.eia.gov/wpsr/summary.txt",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "57b3bfd23b51bc1be01ea703430c7842a4e55c039a24b0d1fec304aa0a495a25",
-        "bytes": 1405
-      },
-      {
-        "url": "https://www.eia.gov/petroleum/supply/weekly/",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "7faf928869ae303b57320be9958056ff07acbc0b63f1b38684cb33e458d6ab1a",
-        "bytes": 82907
-      },
-      {
-        "url": "https://www.eia.gov/petroleum/supply/weekly/schedule.php",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "49e403abf2421712804d84f109c11ca1a898cc97d1b2adc0d4814abb8264d455",
-        "bytes": 52318
-      },
-      {
-        "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU,DCOILWTICO,DDFUELNYH",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "73d4f0326d8f4333b96b32a891dc92f024b7f0aa0131bf4dc0accbce4460bce4",
-        "bytes": 268954
-      },
-      {
-        "url": "https://www.opec.org/press-releases.html",
-        "status": "FAILED",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "reason": "HTTP_403"
-      },
-      {
-        "url": "https://api.gdeltproject.org/api/v2/doc/doc",
-        "status": "FAILED",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "reason": "FETCH_FAILED"
-      },
-      {
-        "url": "https://www.brecorder.com/feeds/latest-news",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "e60887300f9e713876e63b4f8b57dcbb7f3488c544caf121ed5733a9db1332a4",
-        "bytes": 204968
-      },
-      {
-        "url": "https://www.brecorder.com/news/40441615/russian-oil-supply-to-india-tightens-on-reduced-exports-strong-chinese-demand",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "3f458386bcc4ea0a28c82b229f3f7bb9dbe61549da7bfdbd03802bdb57d8cbe5",
-        "bytes": 257423
-      },
-      {
-        "url": "https://www.brecorder.com/news/40441610/oil-woes-push-indian-rupee-to-over-one-week-low-rbi-caps-fall-near-96usd",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "83115c5bdb18b824de507f9be05fda1185a0e345c62a1f6ad8c5d24690b31d2b",
-        "bytes": 255479
-      },
-      {
-        "url": "https://www.brecorder.com/news/40441609/indian-shares-slide-to-near-six-month-low-as-us-iran-deadlock-lifts-oil-prices",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "5e143acb2607a43a9173c11cc2c87dfca93f114505b402811bd464f6ac5e7f84",
-        "bytes": 258379
-      },
-      {
-        "url": "https://www.brecorder.com/news/40441605/south-african-rand-slips-as-us-iran-stalemate-pushes-oil-prices-higher",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "a283d0cff40db28e995da6baf099b215981c9d65d5ec35dd373ddb0be5c15d0a",
-        "bytes": 256177
-      },
-      {
-        "url": "https://www.brecorder.com/news/40441586/attock-refinery-plans-new-50000-bpd-deep-conversion-refinery",
-        "status": "OK",
-        "checkedAt": "2026-09-28T11:15:07.714Z",
-        "bodySha256": "588dd7a23d35f3e25b97e271abceb0856558064b95ab0bf6a82f111791971f0f",
-        "bytes": 258481
-      }
-    ],
+    "fetchLog": [],
     "conflicts": [],
     "eventGroups": [
       {
