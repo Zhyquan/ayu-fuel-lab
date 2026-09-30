@@ -84,10 +84,10 @@ test('V2 09 primary UP/DOWN only; ties and highest FLAT still compare UP versus 
   for(const primaryDirection of ['FLAT','SIDEWAYS','constructor']) {const f=fixture();f.candidate.primaryDirection=primaryDirection;assert.ok(gate(f.candidate).errors.includes('INVALID_PRIMARY_DIRECTION'));}
   assert.equal(primaryDirectionFor({DOWN:35,FLAT:30,UP:35}),'DOWN');assert.equal(primaryDirectionFor({DOWN:20,FLAT:55,UP:25}),'UP');
 });
-test('V2 10 expiry at exactly 24h is STALE and UI replaces the judgment',()=>{
+test('V2 10 expiry at exactly 24h is STALE and UI retains the last judgment',()=>{
   const options={now:new Date(candidate.validUntil)}, cache={...candidate,evidencePack:pack};
   assert.equal(validateForecastCache(cache,options).status,'STALE');
-  const html=forecastMarkup(cache,options);assert.ok(html.includes('数据更新中'));assert.equal(html.includes('%'),false);
+  const html=forecastMarkup(cache,options);assert.ok(html.includes('上次判断'));assert.equal(html.includes('数据更新中'),false);assert.ok(html.includes('40%'));
 });
 test('V2 11 failed forecast leaves actual price path independent',async context=>temporary(async directory=>{
   const pricePath=join(directory,'normalized-live-cache.json'),cachePath=join(directory,'forecast-cache.json'),price=priceFixture();

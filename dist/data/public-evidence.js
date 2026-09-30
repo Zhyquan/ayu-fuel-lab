@@ -56,7 +56,7 @@ export function publicEvidenceGate({forecast,evidencePack}, {now=new Date()}={})
   if (forecast?.evidencePack && canonicalJson(forecast.evidencePack)!==canonicalJson(evidencePack)) return fail(['EVIDENCE_PACK_MISMATCH']);
   // Reuse the existing reason/source/date/expiry contract. Hash verification remains upstream.
   const checked=validateForecastCache({...forecast,evidencePack},{now});
-  if (checked.status!=='LIVE') return fail([`FORECAST_NOT_LIVE:${checked.reason}`]);
+  if (!['LIVE','STALE'].includes(checked.status)) return fail([`FORECAST_NOT_DISPLAYABLE:${checked.reason}`]);
   const byId=new Map(evidencePack.signals.map(signal=>[signal.id,signal]));
   const optional=forecast.forecastContract===CORE_FORECAST_CONTRACT?newsEnrichmentGate(forecast,evidencePack,{mode:'FORECAST'}):null;
   const documents=new Map((optional?admittedNewsDocuments(evidencePack).documents:Array.isArray(evidencePack.newsDocuments)?evidencePack.newsDocuments:[]).filter(Boolean).map(document=>[document.documentId,document]));

@@ -3,8 +3,7 @@ import { CORE_FORECAST_CONTRACT } from './intelligence-v2-contract.js';
 const escapeText = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 export function publicEvidenceMarkup(forecast,options={}) {
-  if (forecast.status==='STALE') return '<p class="evidence-unavailable">数据更新中，新的判断依据尚未发布。</p>';
-  if (forecast.status!=='LIVE') return '<p class="evidence-unavailable">当前暂无可展示的判断依据。</p>';
+  if (!['LIVE','STALE'].includes(forecast.status)) return '<p class="evidence-unavailable">当前暂无可展示的判断依据。</p>';
   const projection=publicEvidenceGate({forecast,evidencePack:forecast.evidencePack},options);
   if (projection.gate!=='PASS') return forecast.forecastContract===CORE_FORECAST_CONTRACT?'':'<p class="evidence-unavailable">判断依据暂时无法展示。</p>';
   const cardMarkup=card=>`<article class="evidence-card" data-evidence-id="${escapeText(card.evidenceId)}">

@@ -303,11 +303,14 @@ export function newsEnrichmentGate(input,pack,{mode='MODEL'}={}) {
 export const forecastGate=coreForecastGate;
 
 export function validateForecastCache(cache, {now = new Date()} = {}) {
-  if (cache?.status==='STALE') return { ...unavailableForecast('FORECAST_EXPIRED'),status:'STALE' };
   if (cache?.status==='UNAVAILABLE') return unavailableForecast(cache.reason ?? 'EVIDENCE_UNAVAILABLE');
-  if (validTimestamp(cache?.validUntil) && +new Date(now)>=Date.parse(cache.validUntil)) return { ...unavailableForecast('FORECAST_EXPIRED'),status:'STALE' };
   if (!cache?.evidencePack) return unavailableForecast('MISSING_EVIDENCE_PACK');
+  const stale=validTimestamp(cache.validUntil) && +new Date(now)>=Date.parse(cache.validUntil);
   const {evidencePack,...candidate} = cache;
-  const gate = forecastGate(candidate,evidencePack,{now});
-  return gate.gate==='PASS' ? cache : unavailableForecast(gate.errors.join(','));
+  // Display expired judgments only if the unchanged production gate passed at generation time.
+  if (stale && candidate.status==='STALE') candidate.status='LIVE';
+  try {
+    const gate = forecastGate(candidate,evidencePack,{now:stale?new Date(candidate.generatedAt):now});
+    return gate.gate==='PASS' ? (stale?{...cache,status:'STALE'}:cache) : unavailableForecast(gate.errors.join(','));
+  } catch { return unavailableForecast('INVALID_FORECAST_CACHE'); }
 }

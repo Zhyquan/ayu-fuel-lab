@@ -55,12 +55,12 @@ test('missing source, unparseable date and illegal impact are rejected',()=>{
     const f=fixture();modify(signal(f,'eia-stocks'));assert.equal(publicEvidenceGate(f,options).gate,'FAIL');
   }
 });
-test('LIVE label cannot override expired referenced evidence or forecast',()=>{
+test('invalid evidence still fails; historically valid expired forecast retains its cards',()=>{
   for(const modify of [s=>s.nextReleaseAt=now.toISOString(),s=>s.checkedAt=new Date(+now-86400000).toISOString()]) {
     const f=fixture();modify(signal(f,'eia-stocks'));assert.equal(publicEvidenceGate(f,options).gate,'FAIL');
   }
-  assert.equal(publicEvidenceGate(fixture(),{now:new Date(candidate.validUntil)}).gate,'FAIL');
-  assert.doesNotMatch(publicEvidenceMarkup(cache(fixture()),{now:new Date(candidate.validUntil)}),/evidence-card/);
+  assert.equal(publicEvidenceGate(fixture(),{now:new Date(candidate.validUntil)}).gate,'PASS');
+  assert.match(publicEvidenceMarkup(cache(fixture()),{now:new Date(candidate.validUntil)}),/evidence-card/);
 });
 test('unknown reason type has no guessed summary and does not copy long source text',()=>{
   const f=fixture();f.forecast.mainReasons[1]=ref(signal(f,'market-wti'));
@@ -136,7 +136,7 @@ test('public evidence failure does not hide a valid trend or affect the actual p
   assert.match(forecastMarkup(cache(f),options),/偏涨/);assert.match(publicEvidenceMarkup(cache(f),options),/暂时无法展示/);
   context.mock.method(globalThis,'fetch',async()=>new Response(JSON.stringify({generatedAt:new Date().toISOString(),source:'APIZero',provinces:{福建:{province:'福建',diesel0Price:8.29,unit:'元/升',updatedAt:'2026-09-26',sourceStatus:'LIVE'}}})));
   const result=await getProvinceFuelData('福建',{refresh:true});assert.equal(result.status,'LIVE');assert.equal(result.record.diesel0Price,8.29);
-  assert.doesNotMatch(publicEvidenceMarkup({status:'UNAVAILABLE'}),/<article/);assert.match(publicEvidenceMarkup({status:'STALE'}),/数据更新中/);
+  assert.doesNotMatch(publicEvidenceMarkup({status:'UNAVAILABLE'}),/<article/);assert.doesNotMatch(publicEvidenceMarkup({status:'STALE'}),/<article|数据更新中/);
 });
 test('automated daily supports reviewed inverse movements without copying raw facts or changing the UI',()=>{
   const f=fixture();
