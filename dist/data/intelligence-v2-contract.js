@@ -72,7 +72,13 @@ export function signalFailure(signal, now = new Date()) {
   if (signal.freshness === 'MARKET_PRICE') {
     if (marketObservationLag(signal.eventDate,now) > 1 || !Number.isFinite(signal.observation?.price) || signal.observation.price <= 0 || !Number.isFinite(signal.observation?.change1dPercent)) return 'STALE_MARKET_PRICE';
   } else if (signal.freshness === 'EIA_RELEASE') {
-    if (!validDate(signal.releaseDate) || signal.releaseDate !== signal.latestReleaseDate || signal.publishedAt.slice(0,10) !== signal.releaseDate || !validTimestamp(signal.nextReleaseAt) || time >= Date.parse(signal.nextReleaseAt) || time-Date.parse(signal.publishedAt) > 10*DAY) return 'STALE_EIA_RELEASE';
+    const authority=signal.weeklyReleaseIdentity;
+    // A newly fetched machine authority may still identify the preceding release.
+    // Frozen pre-release snapshots cannot use this to cross their next release time.
+    const recheckedLatest=authority?.sourceDataset==='EIA_WPSR_TABLES_1_2'&&authority.authoritySourceUrl==='https://ir.eia.gov/wpsr/psw00.json'&&authority.sourceKey==='WCESTUS1'&&
+      authority.releaseDate===signal.releaseDate&&authority.periodEndDate===signal.eventDate&&validDate(authority.previousPeriodEndDate)&&
+      Date.parse(signal.eventDate)-Date.parse(authority.previousPeriodEndDate)===7*DAY&&authority.authorityCheckedAt===signal.checkedAt&&Date.parse(signal.checkedAt)>=Date.parse(signal.nextReleaseAt);
+    if (!validDate(signal.releaseDate) || signal.releaseDate !== signal.latestReleaseDate || signal.publishedAt.slice(0,10) !== signal.releaseDate || !validTimestamp(signal.nextReleaseAt) || Date.parse(signal.nextReleaseAt)<=Date.parse(signal.publishedAt) || (time >= Date.parse(signal.nextReleaseAt)&&!recheckedLatest) || time-Date.parse(signal.publishedAt) > 10*DAY) return 'STALE_EIA_RELEASE';
   } else if (signal.freshness === 'CURRENT_POLICY') {
     if (!validTimestamp(signal.policyValidUntil) || time >= Date.parse(signal.policyValidUntil)) return 'EXPIRED_POLICY';
   } else if (signal.freshness === 'BREAKING_72H') {

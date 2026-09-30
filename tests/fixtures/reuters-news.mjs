@@ -1,3 +1,4 @@
+import { weeklySourceFixture } from './eia-weekly-source.mjs';
 // Synthetic wording in the publisher's observed JSON-LD/body structure.
 // These are not copied articles or claims about actual events.
 export const newsTime='2026-09-29T11:20:00.000Z';
@@ -19,12 +20,14 @@ export function newsArticle({headline,body,author=[{name:'Reuters'}],publishedAt
 export const newsSitemap=items=>`<urlset>${items.map(({id,headline,date='2026-09-29'})=>`<url><loc>${newsUrl(id)}</loc><news:news><news:publication_date>${date}</news:publication_date><news:title><![CDATA[${headline}]]></news:title></news:news></url>`).join('')}</urlset>`;
 export function collectorFetch({gdelt=[],rss=[],sitemap=[],articles={},requested=[]}={}) {
   const daily='<h1>September 29, 2026</h1><table summary="Spot Petroleum Prices"><b>Wholesale Spot Petroleum Prices, 9/28/26 Close</b><tr><td class="s1">Crude Oil ($/barrel)</td><td class="s2">WTI</td><td class="d1">95.88</td><td class="up">+2.7</td></tr><tr><td class="s2">Brent</td><td class="d1">120.92</td><td class="up">+3.0</td></tr><tr><td class="s1">Low-Sulfur Diesel ($/gallon)</td><td class="s2">NY Harbor</td><td class="d1">4.88</td><td class="dn">-1.6</td></tr></table>';
-  const weekly='For the week ending September 18, 2026, U.S. refineries processed 16.8 million barrels per day (b/d), down 519,000 b/d from the previous week, at 94.0% capacity utilization. Distillate production decreased to 5.2 million b/d. Distillate inventories decreased 0.4 million barrels, 12% below the five-year average.';
+  const weekly=weeklySourceFixture({releaseDate:'2026-09-23',period:'2026-09-18'});
   return async url=>{
     requested.push(url);
     if(url.includes('todayinenergy/prices.php'))return new Response(daily);
-    if(url.includes('/wpsr/psw00.json'))return new Response(JSON.stringify({metadata:{release_date:'2026-09-23',time_period:{end_date:'2026-09-18'}}}));
-    if(url.includes('/wpsr/summary.txt'))return new Response(weekly);
+    if(url.includes('/wpsr/psw00.json'))return new Response(JSON.stringify(weekly.metadata));
+    if(url.includes('/wpsr/table1.csv'))return new Response(weekly.table1);
+    if(url.includes('/wpsr/table2.csv'))return new Response(weekly.table2);
+    if(url.includes('/wpsr/summary.txt'))return new Response(weekly.summary);
     if(url.includes('schedule.php'))return new Response('Wednesday 10:30 am');
     if(url.includes('/petroleum/supply/weekly/'))return new Response('<a href="archive/2026/2026_09_23/">Latest</a>');
     if(url.includes('fred.stlouisfed.org'))return new Response('observation_date,DCOILBRENTEU,DCOILWTICO,DDFUELNYH\n2026-09-28,120,100,5\n2026-09-25,119,99,5.1');

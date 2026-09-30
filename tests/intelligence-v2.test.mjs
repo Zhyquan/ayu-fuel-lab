@@ -5,6 +5,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { DAY, evidenceGate, filterAndDeduplicateSignals, forecastGate, normalizeAiEstimateTo5PercentSteps, primaryDirectionFor, validateForecastCache, signalFailure, marketObservationLag } from '../dist/data/intelligence-v2-contract.js';
+import { weeklySourceFixture } from './fixtures/eia-weekly-source.mjs';
 import { collectEvidence, SOURCES, parseDailyPrices } from '../scripts/intelligence-v2/collect.mjs';
 import { createForecastProvider } from '../scripts/intelligence-v2/provider.mjs';
 import { evidenceHashFor, saveForecastSnapshot, recordOutcome } from '../scripts/intelligence-v2/history.mjs';
@@ -31,12 +32,12 @@ const daily=`<h1>September 25, 2026</h1><table summary="Spot Petroleum Prices"><
 <tr><td class="s1">Crude Oil ($/barrel)</td><td class="s2">WTI</td><td class="d1">95.88</td><td class="up">+2.7</td></tr>
 <tr><td class="s2">Brent</td><td class="d1">120.92</td><td class="up">+3.0</td></tr>
 <tr><td class="s1">Low-Sulfur Diesel ($/gallon)</td><td class="s2">NY Harbor</td><td class="d1">4.88</td><td class="dn">-1.6</td></tr></table>`;
-const weekly='For the week ending September 18, 2026, U.S. refineries processed 16.8 million barrels per day (b/d), down 519,000 b/d from the previous week, at 94.0% capacity utilization. Distillate production decreased to 5.2 million b/d. Distillate inventories decreased 0.4 million barrels, 12% below the five-year average.';
+const weekly=weeklySourceFixture({releaseDate:'2026-09-23',period:'2026-09-18'});
 const article=()=>`<script type="application/ld+json">${JSON.stringify({'@type':'NewsArticle',headline:'Oil Hormuz deadlock',publisher:{name:'Business Recorder'},datePublished:'2026-09-28T10:44:01Z',author:[{name:'Reuters'}]})}</script><div class='story__content'><p>TEST FIXTURE ONLY: US President TestTrump rejected an Iranian proposal involving Hormuz. A deadlock produced concerns regarding oil supplies.</p></div>`;
 const rss=`<rss>${Array.from({length:15},(_,i)=>`<item><title>${i<2?'Oil Hormuz deadlock':'Unrelated fixture'}</title><link>https://www.brecorder.com/news/${i+1}</link><pubDate>Mon, 28 Sep 2026 10:44:01 GMT</pubDate></item>`).join('')}</rss>`;
 function sourceFetch(url) {
   if (url===SOURCES.opec) return Promise.resolve(new Response('',{status:403}));
-  const body=url===SOURCES.prices?daily:url===SOURCES.summary?weekly:url===SOURCES.metadata?JSON.stringify({metadata:{release_date:'2026-09-23',time_period:{end_date:'2026-09-18'}}}):url===SOURCES.weekly?'<a href="archive/2026/2026_09_23/">Latest</a>':url===SOURCES.schedule?'Wednesday 10:30 am':url===SOURCES.recent?'observation_date,DCOILBRENTEU,DCOILWTICO,DDFUELNYH\n2026-09-16,125,105,5.1\n2026-09-17,123,104,5.1\n2026-09-18,120,103,5\n2026-09-21,118,98,5\n2026-09-22,115,97,4.9':url.startsWith(SOURCES.gdelt)?JSON.stringify({articles:[]}):url===SOURCES.rss?rss:article();
+  const body=url===SOURCES.prices?daily:url===SOURCES.summary?weekly.summary:url===SOURCES.table1?weekly.table1:url===SOURCES.table2?weekly.table2:url===SOURCES.metadata?JSON.stringify(weekly.metadata):url===SOURCES.weekly?'<a href="archive/2026/2026_09_23/">Latest</a>':url===SOURCES.schedule?'Wednesday 10:30 am':url===SOURCES.recent?'observation_date,DCOILBRENTEU,DCOILWTICO,DDFUELNYH\n2026-09-16,125,105,5.1\n2026-09-17,123,104,5.1\n2026-09-18,120,103,5\n2026-09-21,118,98,5\n2026-09-22,115,97,4.9':url.startsWith(SOURCES.gdelt)?JSON.stringify({articles:[]}):url===SOURCES.rss?rss:article();
   return Promise.resolve(new Response(body));
 }
 

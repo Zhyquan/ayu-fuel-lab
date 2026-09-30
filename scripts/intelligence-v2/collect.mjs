@@ -2,17 +2,15 @@ import { createHash } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
-import { CATEGORIES, DAY, coreEvidenceGate, filterAndDeduplicateSignals, marketObservationLag } from '../../dist/data/intelligence-v2-contract.js';
+import { CATEGORIES, coreEvidenceGate, filterAndDeduplicateSignals, marketObservationLag } from '../../dist/data/intelligence-v2-contract.js';
 import { newsCandidatePriority } from './news-event-rules.mjs';
 import { resolveNewsUrl, deduplicateNewsDocuments } from './source-adapters.mjs';
+import { WEEKLY_SOURCES, parseWeeklyMachineRelease } from './eia-weekly.mjs';
 export { verifyNewsArticle, NEWS_EVENT_RULES } from './news-event-rules.mjs';
 
 export const SOURCES = {
   prices:'https://www.eia.gov/todayinenergy/prices.php',
-  weekly:'https://www.eia.gov/petroleum/supply/weekly/',
-  metadata:'https://ir.eia.gov/wpsr/psw00.json',
-  summary:'https://ir.eia.gov/wpsr/summary.txt',
-  schedule:'https://www.eia.gov/petroleum/supply/weekly/schedule.php',
+  ...WEEKLY_SOURCES,
   recent:'https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU,DCOILWTICO,DDFUELNYH',
   opec:'https://www.opec.org/press-releases.html',
   gdelt:'https://api.gdeltproject.org/api/v2/doc/doc',
@@ -25,14 +23,6 @@ const dateOnly = s => { const n = Date.parse(/^\d{4}-\d{2}-\d{2}$/.test(s ?? '')
 const iso = s => new Date(s).toISOString();
 const sign = value => value>0?'UP':value<0?'DOWN':'NEUTRAL';
 const verb = direction => direction==='UP'?'上涨':direction==='DOWN'?'回落':'持平';
-const easternTime = (date,hour=10,minute=30) => {
-  const probe = new Date(`${date}T12:00:00Z`);
-  const part = new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',timeZoneName:'shortOffset'}).formatToParts(probe).find(p=>p.type==='timeZoneName').value;
-  const offset = Number(part.match(/GMT([+-]\d+)/)?.[1]);
-  if (!Number.isFinite(offset)) throw new Error('EIA_TIMEZONE_NOT_PARSED');
-  return iso(`${date}T${String(hour-offset).padStart(2,'0')}:${String(minute).padStart(2,'0')}:00Z`);
-};
-
 export function parseDailyPrices(html, checkedAt) {
   const table = html.match(/<table[^>]*summary="Spot Petroleum Prices"[^>]*>([\s\S]*?)<\/table>/)?.[1];
   const date = table?.match(/Wholesale Spot Petroleum Prices,\s*(\d{1,2}\/\d{1,2}\/\d{2}) Close/)?.[1];
@@ -58,33 +48,6 @@ export function parseDailyPrices(html, checkedAt) {
   }
   if (signals.length!==3) throw new Error('CORE_MARKET_SERIES_MISSING');
   return signals;
-}
-
-export function parseWeeklySummary(summary, metadata, landing, schedule, checkedAt) {
-  const m = metadata.metadata, eventDate = m?.time_period?.end_date, releaseDate = m?.release_date;
-  const latest = landing.match(/archive\/\d{4}\/(\d{4}_\d{2}_\d{2})\//)?.[1]?.replaceAll('_','-');
-  if (!eventDate || !releaseDate || latest!==releaseDate || dateOnly(summary.match(/week ending ([A-Za-z]+ \d{1,2}, \d{4})/)?.[1])!==eventDate) throw new Error('WEEKLY_RELEASE_MISMATCH');
-  const nextWeek = new Date(Date.parse(eventDate)+7*DAY).toISOString().slice(0,10);
-  let nextDate = new Date(Date.parse(nextWeek)+5*DAY).toISOString().slice(0,10), hour = 10, minute = 30;
-  if (new Date(nextDate).getUTCDay()!==3 || !schedule.includes('10:30')) throw new Error('EIA_SCHEDULE_NOT_VERIFIED');
-  for (const row of schedule.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/g)) {
-    const cells = [...row[1].matchAll(/<(?:th|td)[^>]*>([\s\S]*?)<\/(?:th|td)>/g)].map(x=>clean(x[1]));
-    if (cells[0] && /^\w+ \d{1,2}, \d{4}$/.test(cells[0]) && dateOnly(cells[0])===nextWeek) {
-      nextDate = dateOnly(cells[1]); const time = cells[3]?.match(/(\d{1,2}):(\d{2})\s*([ap])\.m\./);
-      if (!time) throw new Error('EIA_EXCEPTION_TIME_NOT_PARSED');
-      hour = Number(time[1])%12+(time[3]==='p'?12:0); minute = Number(time[2]);
-    }
-  }
-  const stocks = summary.match(/Distillate inventories (increased|decreased) ([\d.]+) million barrels, ([\d.]+)% (below|above) the five-year average/i);
-  const production = summary.match(/distillate production (increased|decreased) to ([\d.]+) million b\/d/i);
-  const refinery = summary.match(/refineries processed ([\d.]+) million barrels per day \(b\/d\), (down|up) ([\d,]+) b\/d from the previous week, at ([\d.]+)% capacity utilization/i);
-  if (!stocks || !production || !refinery) throw new Error('WEEKLY_SUMMARY_LAYOUT_CHANGED');
-  const rows = [
-    ['stocks',stocks[1]==='decreased'?'UP':'DOWN',`美国馏分油库存${stocks[1]==='decreased'?'减少':'增加'}`,`库存周变化 ${stocks[1]==='decreased'?'-':'+'}${stocks[2]} 百万桶，较五年均值${stocks[4]==='below'?'低':'高'} ${stocks[3]}%。`,'HIGH'],
-    ['production',production[1]==='decreased'?'UP':'DOWN',`美国馏分油产量${production[1]==='decreased'?'减少':'增加'}`,`馏分油产量${production[1]==='decreased'?'下降':'上升'}至 ${production[2]} 百万桶/日。`,'MEDIUM'],
-    ['refinery-inputs',refinery[2]==='down'?'UP':'DOWN',`美国炼厂原油加工量${refinery[2]==='down'?'减少':'增加'}`,`炼厂加工量 ${refinery[1]} 百万桶/日，周变化 ${refinery[2]==='down'?'-':'+'}${refinery[3]} 桶/日；利用率 ${refinery[4]}%。`,'LOW'],
-  ];
-  return rows.map(([key,impact,headline,fact,importance])=>({id:`eia-${key}`,category:'DISTILLATE_FUNDAMENTALS',eventKey:`eia-weekly-${releaseDate}`,measurementKey:key,headline,fact:`统计周截止 ${eventDate}；${fact}`,displayText:headline,impact,importance,kind:'FACT',eventDate,publishedAt:easternTime(releaseDate),checkedAt,sourceName:'EIA Weekly Petroleum Status Report',sourceOrganization:'EIA',sourceUrl:SOURCES.summary,sourceTier:1,verified:true,freshness:'EIA_RELEASE',releaseDate,latestReleaseDate:latest,nextReleaseAt:easternTime(nextDate,hour,minute)}));
 }
 
 export function parseRecentContext(csv, now) {
@@ -125,10 +88,16 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
     } catch(error) { fetchLog.push({url:url.startsWith(SOURCES.gdelt)?SOURCES.gdelt:url,status:'FAILED',checkedAt:generatedAt,reason:/^(?:HTTP_\d+|SOURCE_TOO_LARGE|ARTICLE_REDIRECTED)$/.test(error.message)?error.message:error.name==='TimeoutError'?'TIMEOUT':'FETCH_FAILED'}); throw error; }
   };
   try { signals.push(...parseDailyPrices(await get(SOURCES.prices),generatedAt)); } catch { exclusions.push({source:'EIA_DAILY',reason:fetchLog.some(f=>f.url===SOURCES.prices&&f.status==='FAILED')?'MARKET_FETCH_FAILED':'MARKET_PARSE_FAILED'}); }
+  let weeklyRelease;
   try {
-    const metadata=JSON.parse(await get(SOURCES.metadata)), summary=await get(SOURCES.summary), landing=await get(SOURCES.weekly), schedule=await get(SOURCES.schedule);
-    signals.push(...parseWeeklySummary(summary,metadata,landing,schedule,generatedAt));
-  } catch { exclusions.push({source:'EIA_WEEKLY',reason:fetchLog.some(f=>[SOURCES.metadata,SOURCES.summary,SOURCES.weekly,SOURCES.schedule].includes(f.url)&&f.status==='FAILED')?'WEEKLY_FETCH_FAILED':'WEEKLY_PARSE_FAILED'}); }
+    const metadata=JSON.parse(await get(SOURCES.metadata)),table1=await get(SOURCES.table1),table2=await get(SOURCES.table2),schedule=await get(SOURCES.schedule);
+    const summary=await get(SOURCES.summary).catch(()=>null),landing=await get(SOURCES.weekly).catch(()=>null);
+    const parsed=parseWeeklyMachineRelease({metadata,table1,table2,schedule,summary,landing,checkedAt:generatedAt});
+    signals.push(...parsed.signals);weeklyRelease={status:'AVAILABLE',identity:parsed.identity,diagnostics:parsed.diagnostics};
+  } catch(error) {
+    const reason=fetchLog.some(f=>[SOURCES.metadata,SOURCES.table1,SOURCES.table2,SOURCES.schedule].includes(f.url)&&f.status==='FAILED')?'WEEKLY_FETCH_FAILED':/^[A-Z0-9_]+$/.test(error.message)?error.message:'WEEKLY_PARSE_FAILED';
+    weeklyRelease={status:'FAILED',reason};exclusions.push({source:'EIA_WEEKLY',reason});
+  }
   let recentMarketContext;
   try { recentMarketContext=parseRecentContext(await get(SOURCES.recent),now); }
   catch { recentMarketContext={status:'UNAVAILABLE',reason:'RECENT_CONTEXT_COLLECTION_FAILED',role:'CONTEXT_ONLY_NO_CURRENT_SIGNAL_WEIGHT'}; }
@@ -195,9 +164,9 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
   const categoryChecks=CATEGORIES.map(category=>{
     const relevant=dedup.signals.filter(s=>s.category===category || s.relatedCategories?.includes(category));
     const officialFailure=category==='OPEC_MAJOR_PRODUCERS' && fetchLog.some(f=>f.url===SOURCES.opec && f.status==='FAILED');
-    return {category,status:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'VERIFIED':officialFailure?'FAILED':'NO_QUALIFIED_SIGNAL',checkedAt:generatedAt,sourceUrls:category===CATEGORIES[0] || category===CATEGORIES[1]?[SOURCES.prices]:category===CATEGORIES[2]?[SOURCES.weekly,SOURCES.summary]:category==='OPEC_MAJOR_PRODUCERS'?[SOURCES.opec,SOURCES.rss]:[SOURCES.gdelt,SOURCES.rss,SOURCES.sitemap],reason:coreOnly&&!relevant.length?'Not fetched in external bridge core-only intake.':relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'Original sources verified; linked shipping risk belongs to the same event.':officialFailure?'Official OPEC endpoint inaccessible; no current production/export/policy fact admitted.':'Discovery checked; no verified material signal admitted for this category.'};
+    return {category,status:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'VERIFIED':officialFailure?'FAILED':'NO_QUALIFIED_SIGNAL',checkedAt:generatedAt,sourceUrls:category===CATEGORIES[0] || category===CATEGORIES[1]?[SOURCES.prices]:category===CATEGORIES[2]?[SOURCES.metadata,SOURCES.table1,SOURCES.table2]:category==='OPEC_MAJOR_PRODUCERS'?[SOURCES.opec,SOURCES.rss]:[SOURCES.gdelt,SOURCES.rss,SOURCES.sitemap],reason:coreOnly&&!relevant.length?'Not fetched in external bridge core-only intake.':relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'Original sources verified; linked shipping risk belongs to the same event.':officialFailure?'Official OPEC endpoint inaccessible; no current production/export/policy fact admitted.':'Discovery checked; no verified material signal admitted for this category.'};
   });
-  const pack={inputContractVersion:'NEWS_MATERIAL_V1',generatedAt,forecastHorizonDays:7,runType:'CURRENT_REAL_WORLD_RUN',signals:dedup.signals,newsDocuments,coverageMode:newsDocuments.length?'NORMAL':'LIMITED',categoryChecks,recentMarketContext,discovery:{provider:discovery,candidateCount:candidates.length,articleRequests,candidates},exclusions:[...exclusions,...dedup.excluded],fetchLog,conflicts:[],eventGroups:[...new Set(dedup.signals.map(s=>s.eventKey))].map(eventKey=>({eventKey,evidenceIds:dedup.signals.filter(s=>s.eventKey===eventKey).map(s=>s.id),weightingRule:'ONE_EVENT_NOT_ARTICLE_COUNT'}))};
+  const pack={weeklyRelease,inputContractVersion:'NEWS_MATERIAL_V1',generatedAt,forecastHorizonDays:7,runType:'CURRENT_REAL_WORLD_RUN',signals:dedup.signals,newsDocuments,coverageMode:newsDocuments.length?'NORMAL':'LIMITED',categoryChecks,recentMarketContext,discovery:{provider:discovery,candidateCount:candidates.length,articleRequests,candidates},exclusions:[...exclusions,...dedup.excluded],fetchLog,conflicts:[],eventGroups:[...new Set(dedup.signals.map(s=>s.eventKey))].map(eventKey=>({eventKey,evidenceIds:dedup.signals.filter(s=>s.eventKey===eventKey).map(s=>s.id),weightingRule:'ONE_EVENT_NOT_ARTICLE_COUNT'}))};
   return {pack,gate:coreEvidenceGate(pack,{now})};
 }
 
@@ -208,7 +177,7 @@ async function main() {
   for (const path of ['CURRENT_EVIDENCE_V2.json','intelligence-v2/current-evidence.json']) await writeFile(resolve(root,path),JSON.stringify(pack,null,2)+'\n');
   await writeFile(resolve(root,'intelligence-v2/pending-intelligence-pack.json'),JSON.stringify({status:gate.status,evidenceGate:gate,evidencePack:pack},null,2)+'\n');
   await writeFile(resolve(root,'intelligence-v2/EVIDENCE_GATE_RESULT.json'),JSON.stringify(gate,null,2)+'\n');
-  await writeFile(resolve(root,'intelligence-v2/collection-diagnostics.json'),JSON.stringify({generatedAt:pack.generatedAt,gate,fetchLog:pack.fetchLog,candidates:pack.discovery.candidates,exclusions:pack.exclusions},null,2)+'\n');
+  await writeFile(resolve(root,'intelligence-v2/collection-diagnostics.json'),JSON.stringify({generatedAt:pack.generatedAt,gate,weeklyRelease:pack.weeklyRelease,fetchLog:pack.fetchLog,candidates:pack.discovery.candidates,exclusions:pack.exclusions},null,2)+'\n');
   console.log(JSON.stringify({runType:pack.runType,...gate,discovery:pack.discovery.provider,candidates:pack.discovery.candidateCount}));
   if (gate.gate!=='PASS') process.exitCode=1;
 }
