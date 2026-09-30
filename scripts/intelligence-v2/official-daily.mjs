@@ -3,7 +3,7 @@ import { resolve, basename } from 'node:path';
 import { randomUUID } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { chinaDate, validDate, validTimestamp } from '../../dist/data/validation.js';
-import { canonicalJson, evidenceGate } from '../../dist/data/intelligence-v2-contract.js';
+import { canonicalJson, coreEvidenceGate } from '../../dist/data/intelligence-v2-contract.js';
 import { evidenceHashFor, saveForecastSnapshot } from './history.mjs';
 import { QWEN_MODEL } from './qwen-provider.mjs';
 import { runForecast } from './run.mjs';
@@ -48,7 +48,7 @@ export async function runOfficialDaily({root,pack,sourceCommit,providerOptions={
     const index=await readOfficialIndex(root);
     if(index.entries.some(e=>e.forecastDate===preflight.forecastDate))return {status:'OFFICIAL_DAILY_ALREADY_EXISTS',published:false};
     const frozen=structuredClone(pack);
-    if(evidenceGate(frozen,{now:clock()}).gate!=='PASS')fail('EVIDENCE_GATE_FAILED');
+    if(coreEvidenceGate(frozen,{now:clock()}).gate!=='PASS')fail('EVIDENCE_GATE_FAILED');
     const result=await runForecast({pack:frozen,provider:'QWEN',providerOptions:{...providerOptions,clock,onAudit:async audit=>atomicJson(resolve(root,PROVIDER_AUDIT_PATH),audit)},now:clock(),persist:false});
     if(result.gate.gate!=='PASS')fail('FORECAST_GATE_FAILED');
     if(chinaDate(result.candidate.generatedAt)!==preflight.forecastDate)fail('OFFICIAL_DAILY_DATE_CHANGED');

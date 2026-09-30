@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
-import { CATEGORIES, DAY, evidenceGate, filterAndDeduplicateSignals, marketObservationLag } from '../../dist/data/intelligence-v2-contract.js';
+import { CATEGORIES, DAY, coreEvidenceGate, filterAndDeduplicateSignals, marketObservationLag } from '../../dist/data/intelligence-v2-contract.js';
 import { verifyNewsArticle, newsCandidatePriority } from './news-event-rules.mjs';
 import { parseNewsMaterial } from './news-material.mjs';
 export { verifyNewsArticle, NEWS_EVENT_RULES } from './news-event-rules.mjs';
@@ -196,7 +196,7 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
     return {category,status:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'VERIFIED':officialFailure?'FAILED':'NO_QUALIFIED_SIGNAL',checkedAt:generatedAt,sourceUrls:category===CATEGORIES[0] || category===CATEGORIES[1]?[SOURCES.prices]:category===CATEGORIES[2]?[SOURCES.weekly,SOURCES.summary]:category==='OPEC_MAJOR_PRODUCERS'?[SOURCES.opec,SOURCES.rss]:[SOURCES.gdelt,SOURCES.rss,SOURCES.sitemap],reason:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'Original sources verified; linked shipping risk belongs to the same event.':officialFailure?'Official OPEC endpoint inaccessible; no current production/export/policy fact admitted.':'Discovery checked; no verified material signal admitted for this category.'};
   });
   const pack={inputContractVersion:'NEWS_MATERIAL_V1',generatedAt,forecastHorizonDays:7,runType:'CURRENT_REAL_WORLD_RUN',signals:dedup.signals,newsDocuments,coverageMode:newsDocuments.length?'NORMAL':'LIMITED',categoryChecks,recentMarketContext,discovery:{provider:discovery,candidateCount:candidates.length,articleRequests,candidates},exclusions:[...exclusions,...dedup.excluded],fetchLog,conflicts:[],eventGroups:[...new Set(dedup.signals.map(s=>s.eventKey))].map(eventKey=>({eventKey,evidenceIds:dedup.signals.filter(s=>s.eventKey===eventKey).map(s=>s.id),weightingRule:'ONE_EVENT_NOT_ARTICLE_COUNT'}))};
-  return {pack,gate:evidenceGate(pack,{now})};
+  return {pack,gate:coreEvidenceGate(pack,{now})};
 }
 
 async function main() {

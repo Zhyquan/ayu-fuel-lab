@@ -6,10 +6,12 @@ export const CATEGORIES = ['INTERNATIONAL_DIESEL','CRUDE','DISTILLATE_FUNDAMENTA
 export const DAY = 86400000;
 export const NEWS_INPUT_CONTRACT = 'NEWS_MATERIAL_V1';
 export const NEWS_ASSESSMENT_CONTRACT = 'NEWS_ASSESSMENT_V2';
+export const CORE_FORECAST_CONTRACT = 'CORE_FORECAST_V1';
+export const coreMarketSignals = pack => (Array.isArray(pack?.signals)?pack.signals:[]).filter(s=>CATEGORIES.slice(0,3).includes(s?.category));
 const text = value => typeof value === 'string' && value.trim().length > 0;
 export const newsSegmentFor = (pack, evidenceId) => {
-  for (const document of pack?.newsDocuments??[]) for (const segment of document.segments??[])
-    if (`${document.documentId}:${segment.segmentId}`===evidenceId) return {document,segment};
+  for (const document of Array.isArray(pack?.newsDocuments)?pack.newsDocuments:[]) for (const segment of Array.isArray(document?.segments)?document.segments:[])
+    if (segment && `${document.documentId}:${segment.segmentId}`===evidenceId) return {document,segment};
   return null;
 };
 export const newsNumbersGrounded = (copy, segment) => {
@@ -128,7 +130,37 @@ export function evidenceGate(pack, {now = new Date()} = {}) {
   return {gate:errors.length?'FAIL':'PASS',status:errors.length?'UNAVAILABLE':'READY',dataValidity:errors.length?'INVALID':'VALID',coverageMode,errors,signalCount:signals.length,newsDocumentCount:Array.isArray(documents)?documents.length:0,independentSourceCount:new Set([...signals.map(s=>s?.sourceOrganization),...(Array.isArray(documents)?documents.map(d=>d?.originalSource):[])].filter(Boolean)).size,independentEventCount:new Set(signals.map(s=>s?.eventKey).filter(Boolean)).size,checkedAt:new Date(now).toISOString()};
 }
 
-export function forecastGate(candidate, pack, {now = new Date(),expectedEvidenceHash} = {}) {
+export function admittedNewsDocuments(pack) {
+  const documents=[], errors=[], seen=new Set();
+  if(pack?.newsDocuments?.length>6)errors.push('NEWS_DOCUMENT_TOO_MANY');
+  for(const document of Array.isArray(pack?.newsDocuments)?pack.newsDocuments.slice(0,6):[]) {
+    if(seen.has(document?.documentId)){errors.push('NEWS_DUPLICATE_DOCUMENT');continue;}
+    seen.add(document?.documentId);
+    const check=evidenceGate({...pack,signals:coreMarketSignals(pack),newsDocuments:[document],coverageMode:'NORMAL'},{now:new Date(pack.generatedAt)});
+    if(check.gate==='PASS')documents.push(document);
+    else errors.push(`NEWS_DOCUMENT_INVALID:${document?.documentId??'UNKNOWN'}`);
+  }
+  if(!Array.isArray(pack?.newsDocuments))errors.push('NEWS_DOCUMENT_SET_INVALID');
+  return {documents,errors};
+}
+
+export function coreEvidenceGate(pack,{now=new Date()}={}) {
+  if(pack?.inputContractVersion!==NEWS_INPUT_CONTRACT)return evidenceGate(pack,{now});
+  const signals=coreMarketSignals(pack);
+  const core=evidenceGate({...pack,signals,newsDocuments:[],coverageMode:'LIMITED'},{now});
+  const admitted=admittedNewsDocuments(pack);
+  const coverageMode=core.gate==='PASS'&&admitted.documents.length&&admitted.errors.length===0&&pack.coverageMode!=='LIMITED'?'NORMAL':core.gate==='PASS'?'LIMITED':'UNAVAILABLE';
+  const sourceErrors=signals.filter(s=>s.sourceOrganization!=='EIA'||!publicUrl(s.sourceUrl)||!['www.eia.gov','ir.eia.gov'].includes(new URL(s.sourceUrl).hostname)).map(s=>`CORE_SOURCE_INVALID:${s.id}`);
+  const errors=[...core.errors,...sourceErrors];
+  for(const [name,category,unit] of [['NY_HARBOR_LOW_SULFUR_DIESEL','INTERNATIONAL_DIESEL','USD/gallon'],['Brent','CRUDE','USD/barrel'],['WTI','CRUDE','USD/barrel']])
+    if(!signals.some(s=>s.category===category&&s.freshness==='MARKET_PRICE'&&s.observation?.name===name&&s.observation.unit===unit))errors.push(`CORE_MARKET_COVERAGE_INVALID:${name}`);
+  return {...core,gate:errors.length?'FAIL':'PASS',status:errors.length?'UNAVAILABLE':'READY',dataValidity:errors.length?'INVALID':'VALID',errors,
+    coverageMode:errors.length?'UNAVAILABLE':coverageMode,newsDocumentCount:admitted.documents.length,newsExclusions:admitted.errors,
+    independentSourceCount:new Set([...signals.map(s=>s.sourceOrganization),...admitted.documents.map(d=>d.originalSource)].filter(Boolean)).size,
+    independentEventCount:new Set((pack.signals??[]).map(s=>s?.eventKey)).size};
+}
+
+function strictForecastGate(candidate, pack, {now = new Date(),expectedEvidenceHash} = {}) {
   const errors = [];
   if (evidenceGate(pack,{now}).gate !== 'PASS') errors.push('EVIDENCE_GATE_FAILED');
   if (!candidate || candidate.source !== INTELLIGENCE_V2_SOURCE || candidate.status !== 'LIVE' || candidate.probabilityType !== PROBABILITY_TYPE || candidate.forecastHorizonDays !== 7 || !['MANUAL','QWEN','OPENAI','OTHER'].includes(candidate.provider)) errors.push('INVALID_FORECAST_CONTRACT');
@@ -194,6 +226,81 @@ export function forecastGate(candidate, pack, {now = new Date(),expectedEvidence
   if (candidate && Object.keys(candidate).some(key=>!allowed.includes(key))) errors.push('UNCONTRACTED_ANALYSIS_FIELD');
   return {gate:errors.length?'FAIL':'PASS',errors,checkedAt:new Date(now).toISOString(),evidenceHash:candidate?.evidenceHash ?? null};
 }
+
+export function coreForecastGate(candidate,pack,options={}) {
+  if(candidate?.forecastContract!==CORE_FORECAST_CONTRACT)return strictForecastGate(candidate,pack,options);
+  const signals=coreMarketSignals(pack), byId=new Map(signals.map(s=>[s.id,s]));
+  const structural=items=>(Array.isArray(items)?items:[]).filter(ref=>byId.has(ref?.evidenceId));
+  const main=structural(candidate.mainReasons), counter=structural(candidate.counterReasons);
+  const normalized={...candidate,coverageMode:'LIMITED',promptVersion:'qwen-forecast-news-v2',newsAssessments:[],mainReasons:main,counterReasons:counter};
+  delete normalized.forecastContract;
+  const corePack={...pack,signals,newsDocuments:[],coverageMode:'LIMITED'};
+  const result=strictForecastGate(normalized,corePack,options), errors=[...result.errors];
+  if(candidate.promptVersion!=='qwen-forecast-core-v1'||!['NORMAL','LIMITED'].includes(candidate.coverageMode)||candidate.newsAssessmentContract!==NEWS_ASSESSMENT_CONTRACT)errors.push('INVALID_CORE_CONTRACT_VERSION');
+  const allowed=['source','status','probabilityType','forecastHorizonDays','provider','generatedAt','validUntil','evidenceHash','probabilities','primaryDirection','mainReasons','counterReasons','signalAssessments','inputContractVersion','newsAssessmentContract','promptVersion','inputPackHash','coverageMode','newsAssessments','forecastContract'];
+  if(Object.keys(candidate).some(key=>!allowed.includes(key)))errors.push('UNCONTRACTED_ANALYSIS_FIELD');
+  for(const reasons of [candidate.mainReasons,candidate.counterReasons]) {
+    if(!Array.isArray(reasons)){errors.push('INVALID_REASON_COUNT');continue;}
+    if(reasons.some(ref=>!byId.has(ref?.evidenceId)&&!/^br-\d+:/.test(ref?.evidenceId??'')))errors.push('UNKNOWN_MARKET_REASON');
+    const events=structural(reasons).map(ref=>byId.get(ref.evidenceId)?.eventKey);
+    if(new Set(events).size!==events.length)errors.push('DUPLICATE_MARKET_REASON_EVENT');
+  }
+  if(coreEvidenceGate(pack,{now:options.now}).gate!=='PASS')errors.push('CORE_EVIDENCE_GATE_FAILED');
+  return {...result,gate:errors.length?'FAIL':'PASS',errors};
+}
+
+export function newsEnrichmentGate(input,pack,{mode='MODEL'}={}) {
+  const admitted=admittedNewsDocuments(pack), documents=new Set(admitted.documents.map(d=>d.documentId));
+  const errors=[...admitted.errors], diagnostics=[], accepted=[], seenDocuments=new Set();
+  const reject=(code,assessmentIndex,fieldName)=>{errors.push(code);diagnostics.push({validationCode:code,assessmentIndex,fieldName});};
+  const items=Array.isArray(input?.newsAssessments)?input.newsAssessments:[];
+  if(!Array.isArray(input?.newsAssessments))errors.push('NEWS_ASSESSMENTS_INVALID');
+  if(items.length>3)errors.push('NEWS_ASSESSMENT_TOO_MANY');
+  const modelKeys='evidenceId,impact,kind,strength,summary,title';
+  const forecastKeys='documentId,evidenceId,impact,kind,originalSource,publishedAt,publisher,segmentId,sourceUrl,strength,summary,title';
+  for(const [index,item] of items.slice(0,3).entries()) {
+    if(!item||typeof item!=='object'||Array.isArray(item)||Object.keys(item).sort().join(',')!==(mode==='FORECAST'?forecastKeys:modelKeys)){reject('NEWS_ASSESSMENT_FIELDS_INVALID',index,'fields');continue;}
+    const selected=newsSegmentFor(pack,item.evidenceId), document=selected?.document, segment=selected?.segment;
+    if(!selected||!documents.has(document.documentId)){reject('NEWS_EVIDENCE_ID_UNKNOWN',index,'evidenceId');continue;}
+    if(seenDocuments.has(document.documentId)){reject('NEWS_DUPLICATE_DOCUMENT',index,'evidenceId');continue;}
+    if(mode==='FORECAST'&&(item.documentId!==document.documentId||item.segmentId!==segment.segmentId||item.sourceUrl!==document.sourceUrl||item.publisher!==document.publisher||item.originalSource!==document.originalSource||item.publishedAt!==document.publishedAt)){reject('NEWS_SOURCE_IDENTITY_INVALID',index,'sourceIdentity');continue;}
+    if(!['UP','DOWN','NEUTRAL'].includes(item.impact)||!['FACT','RISK','OUTLOOK','CLAIM'].includes(item.kind)||!['LOW','MEDIUM','HIGH'].includes(item.strength)){reject('NEWS_ASSESSMENT_ENUM_INVALID',index,'impact/kind/strength');continue;}
+    if(!text(item.title)||Array.from(item.title).length>24||!/[\u3400-\u9fff]/.test(item.title)){reject('NEWS_TITLE_INVALID',index,'title');continue;}
+    if(!text(item.summary)||Array.from(item.summary).length>60||!/[\u3400-\u9fff]/.test(item.summary)){reject('NEWS_SUMMARY_INVALID',index,'summary');continue;}
+    const numberField=['title','summary'].find(field=>!newsNumbersGrounded(item[field],segment.text));
+    if(numberField){reject('NEWS_NEW_NUMBER',index,numberField);continue;}
+    if(item.kind==='FACT'&&conditionalNewsSegment(segment.text)){reject('NEWS_FACT_FROM_CONDITIONAL_SEGMENT',index,'kind');continue;}
+    seenDocuments.add(document.documentId);
+    accepted.push({evidenceId:item.evidenceId,impact:item.impact,kind:item.kind,title:item.title,summary:item.summary,strength:item.strength,
+      documentId:document.documentId,segmentId:segment.segmentId,sourceUrl:document.sourceUrl,publisher:document.publisher,originalSource:document.originalSource,publishedAt:document.publishedAt});
+  }
+  const byId=new Map(accepted.map(item=>[item.evidenceId,item])), primary=input?.primaryDirection??(input?.probabilities?primaryDirectionFor(input.probabilities):null), seenReasons=new Set();
+  const reasonIds=(modelKey,forecastKey)=>(Array.isArray(input?.[modelKey])?input[modelKey]:Array.isArray(input?.[forecastKey])?input[forecastKey].map(ref=>ref?.evidenceId):[]).filter(id=>typeof id==='string'&&id.includes(':'));
+  const select=(modelKey,forecastKey,opposite)=>{
+    const coreIds=new Set(coreMarketSignals(pack).map(s=>s.id));
+    const raw=Array.isArray(input?.[modelKey])?input[modelKey]:Array.isArray(input?.[forecastKey])?input[forecastKey].map(ref=>ref?.evidenceId):[];
+    let room=(opposite?2:3)-raw.filter(id=>coreIds.has(id)).length;
+    return reasonIds(modelKey,forecastKey).filter(id=>{
+    const item=byId.get(id);
+    if(!item){errors.push('NEWS_REASON_NOT_ASSESSED');return false;}
+    if(mode==='FORECAST') {
+      const ref=input[forecastKey].find(r=>r?.evidenceId===id);
+      if(Object.keys(ref).sort().join(',')!=='documentId,evidenceId,segmentId,text'||ref.documentId!==item.documentId||ref.segmentId!==item.segmentId||ref.text!==item.title){errors.push('NEWS_REASON_IDENTITY_INVALID');return false;}
+    }
+    if(seenReasons.has(item.documentId)){errors.push('NEWS_REASON_DUPLICATE_EVENT');return false;}
+    if(item.impact==='NEUTRAL'||(item.impact===primary)===opposite){errors.push('NEWS_REASON_DIRECTION_INVALID');return false;}
+    if(room<=0){errors.push('NEWS_REASON_TOO_MANY');return false;}
+    room--;
+    seenReasons.add(item.documentId);return true;
+    });
+  };
+  const mainReasonEvidenceIds=select('mainReasonEvidenceIds','mainReasons',false);
+  const counterReasonEvidenceIds=select('counterReasonEvidenceIds','counterReasons',true);
+  return {gate:errors.length?'FAIL':'PASS',errors,diagnostics,newsAssessments:accepted,mainReasonEvidenceIds,counterReasonEvidenceIds,
+    coverageMode:errors.length||!admitted.documents.length||pack.coverageMode==='LIMITED'||input?.coverageMode==='LIMITED'?'LIMITED':'NORMAL'};
+}
+
+export const forecastGate=coreForecastGate;
 
 export function validateForecastCache(cache, {now = new Date()} = {}) {
   if (cache?.status==='STALE') return { ...unavailableForecast('FORECAST_EXPIRED'),status:'STALE' };

@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createHash } from 'node:crypto';
-import { canonicalJson, evidenceGate, forecastGate } from '../../dist/data/intelligence-v2-contract.js';
+import { CORE_FORECAST_CONTRACT, canonicalJson, coreEvidenceGate, forecastGate } from '../../dist/data/intelligence-v2-contract.js';
 import { publicEvidenceGate } from '../../dist/data/public-evidence.js';
 import { chinaDate } from '../../dist/data/validation.js';
 import { readOfficialIndex, INDEX_PATH } from './official-daily.mjs';
@@ -40,7 +40,8 @@ export async function verifyGenerated(root,before,{sourceCommit,now=new Date()}=
   if(canonicalJson(await read('intelligence-v2/current-evidence.json'))!==canonicalJson(pack))fail('OFFICIAL_EVIDENCE_MISMATCH');
   const pending=await read('intelligence-v2/pending-intelligence-pack.json');
   if(pending.evidenceGate?.gate!=='PASS'||canonicalJson(pending.evidencePack)!==canonicalJson(pack))fail('OFFICIAL_EVIDENCE_MISMATCH');
-  if(evidenceGate(pack,{now}).gate!=='PASS'||(await read('intelligence-v2/EVIDENCE_GATE_RESULT.json')).gate!=='PASS'||forecastGate(candidate,pack,{now,expectedEvidenceHash:entry.evidenceHash}).gate!=='PASS'||publicEvidenceGate({forecast:candidate,evidencePack:pack},{now}).gate!=='PASS'||(await read('FORECAST_GATE_V2_RESULT.json')).gate!=='PASS')fail('OFFICIAL_GENERATED_GATE_FAILED');
+  if(coreEvidenceGate(pack,{now}).gate!=='PASS'||(await read('intelligence-v2/EVIDENCE_GATE_RESULT.json')).gate!=='PASS'||forecastGate(candidate,pack,{now,expectedEvidenceHash:entry.evidenceHash}).gate!=='PASS'||(await read('FORECAST_GATE_V2_RESULT.json')).gate!=='PASS')fail('OFFICIAL_GENERATED_GATE_FAILED');
+  if(candidate.forecastContract!==CORE_FORECAST_CONTRACT&&publicEvidenceGate({forecast:candidate,evidencePack:pack},{now}).gate!=='PASS')fail('OFFICIAL_GENERATED_GATE_FAILED');
   if(canonicalJson(await read('dist/data/forecast-cache.json'))!==canonicalJson(snapshot)||canonicalJson(await read(`data/forecast-history-v2/${entry.historyFile}`))!==canonicalJson(snapshot))fail('OFFICIAL_CACHE_HISTORY_MISMATCH');
   const audit=await read('intelligence-v2/provider-run.json');
   if(audit.mock!==false||audit.status!=='OK'||audit.provider!=='QWEN'||audit.model!=='qwen3.8-flash'||audit.semanticCallCount!==1||audit.attemptCount<1||audit.attemptCount>3||audit.requestCompletedAt<candidate.generatedAt)fail('OFFICIAL_PROVIDER_AUDIT_INVALID');

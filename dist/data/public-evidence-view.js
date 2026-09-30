@@ -1,11 +1,12 @@
 import { publicEvidenceGate, formatEvidenceDate } from './public-evidence.js';
+import { CORE_FORECAST_CONTRACT } from './intelligence-v2-contract.js';
 const escapeText = value => String(value).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
 export function publicEvidenceMarkup(forecast,options={}) {
   if (forecast.status==='STALE') return '<p class="evidence-unavailable">数据更新中，新的判断依据尚未发布。</p>';
   if (forecast.status!=='LIVE') return '<p class="evidence-unavailable">当前暂无可展示的判断依据。</p>';
   const projection=publicEvidenceGate({forecast,evidencePack:forecast.evidencePack},options);
-  if (projection.gate!=='PASS') return '<p class="evidence-unavailable">判断依据暂时无法展示。</p>';
+  if (projection.gate!=='PASS') return forecast.forecastContract===CORE_FORECAST_CONTRACT?'':'<p class="evidence-unavailable">判断依据暂时无法展示。</p>';
   const cardMarkup=card=>`<article class="evidence-card" data-evidence-id="${escapeText(card.evidenceId)}">
     <p class="evidence-meta"><span class="evidence-label ${card.direction.toLowerCase()}${card.directionLabel.includes('风险')?' risk':''}">${escapeText(card.directionLabel)}</span><span>${escapeText(card.sourceName)}</span><time datetime="${card.date}">${formatEvidenceDate(card.date,options.now)}发布</time></p>
     <h3>${escapeText(card.title)}</h3><p class="evidence-summary">${escapeText(card.summary)}</p>

@@ -1,7 +1,7 @@
 import { readFile, writeFile, rename } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
-import { forecastGate, unavailableForecast } from '../../dist/data/intelligence-v2-contract.js';
+import { CORE_FORECAST_CONTRACT, forecastGate, unavailableForecast } from '../../dist/data/intelligence-v2-contract.js';
 import { publicEvidenceGate } from '../../dist/data/public-evidence.js';
 import { createForecastProvider } from './provider.mjs';
 import { evidenceHashFor, saveForecastSnapshot } from './history.mjs';
@@ -14,7 +14,7 @@ export async function runForecast({pack,manualCandidate,provider='MANUAL',histor
   const checkedAt=provider==='QWEN'?(providerOptions.clock?.()??new Date()):now;
   const gate=forecastGate(candidate,pack,{now:checkedAt,expectedEvidenceHash:evidenceHash});
   const projection=provider==='QWEN'?publicEvidenceGate({forecast:candidate,evidencePack:pack},{now:checkedAt}):null;
-  if(projection?.gate==='FAIL') {gate.gate='FAIL';gate.errors.push('PUBLIC_EVIDENCE_GATE_FAILED');}
+  if(projection?.gate==='FAIL'&&candidate.forecastContract!==CORE_FORECAST_CONTRACT){gate.gate='FAIL';gate.errors.push('PUBLIC_EVIDENCE_GATE_FAILED');}
   if (gate.gate!=='PASS') {
     if(persist&&provider==='MANUAL') await writeFile(cachePath,JSON.stringify(unavailableForecast(gate.errors.join(',')),null,2)+'\n');
     return {gate,history:null};

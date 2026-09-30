@@ -1,4 +1,4 @@
-import { canonicalJson, validateForecastCache } from './intelligence-v2-contract.js';
+import { CORE_FORECAST_CONTRACT, admittedNewsDocuments, canonicalJson, newsEnrichmentGate, validateForecastCache } from './intelligence-v2-contract.js';
 import { chinaDate, validDate } from './validation.js';
 
 const length = value => Array.from(value).length;
@@ -58,14 +58,16 @@ export function publicEvidenceGate({forecast,evidencePack}, {now=new Date()}={})
   const checked=validateForecastCache({...forecast,evidencePack},{now});
   if (checked.status!=='LIVE') return fail([`FORECAST_NOT_LIVE:${checked.reason}`]);
   const byId=new Map(evidencePack.signals.map(signal=>[signal.id,signal]));
-  const documents=new Map((evidencePack.newsDocuments??[]).map(document=>[document.documentId,document]));
-  const newsById=new Map((forecast.newsAssessments??[]).map(item=>[item.evidenceId,item]));
+  const optional=forecast.forecastContract===CORE_FORECAST_CONTRACT?newsEnrichmentGate(forecast,evidencePack,{mode:'FORECAST'}):null;
+  const documents=new Map((optional?admittedNewsDocuments(evidencePack).documents:Array.isArray(evidencePack.newsDocuments)?evidencePack.newsDocuments:[]).filter(Boolean).map(document=>[document.documentId,document]));
+  const newsById=new Map((optional?.newsAssessments??forecast.newsAssessments??[]).map(item=>[item.evidenceId,item]));
   const refs=[...forecast.mainReasons.map(ref=>({...ref,role:'MAIN'})),...forecast.counterReasons.map(ref=>({...ref,role:'COUNTER'}))];
   const cards=[], excluded=[], seen=new Set();
   for (const ref of refs) {
     const signal=byId.get(ref.evidenceId);
     if(!signal) {
       const item=newsById.get(ref.evidenceId), document=documents.get(item?.documentId);
+      if(optional&&(!item||!(ref.role==='MAIN'?optional.mainReasonEvidenceIds:optional.counterReasonEvidenceIds).includes(ref.evidenceId))){excluded.push({evidenceId:ref.evidenceId,reason:'NEWS_ENRICHMENT_DROPPED'});continue;}
       if(!item||!document||!document.segments.some(segment=>segment.segmentId===item.segmentId)||!/[\u3400-\u9fff]/.test(item.title+item.summary)||length(item.title)>24||length(item.summary)>60) return fail(['NO_SAFE_PUBLIC_COPY']);
       const key=`${item.documentId}:${item.impact}`;
       if(seen.has(key)){excluded.push({evidenceId:ref.evidenceId,reason:'SAME_NEWS_DOCUMENT'});continue;}
@@ -77,8 +79,13 @@ export function publicEvidenceGate({forecast,evidencePack}, {now=new Date()}={})
     const key=`${signal.eventKey}:${signal.impact}`;
     if (seen.has(key)) { excluded.push({evidenceId:ref.evidenceId,reason:'SAME_EVENT_AND_DIRECTION'}); continue; }
     seen.add(key);
-    const copy=publicCopy(signal,now);
-    if (!copy || !copy.title || !copy.summary || length(copy.title)>24 || length(copy.summary)>60) return fail(['NO_SAFE_PUBLIC_COPY'],[...excluded,{evidenceId:ref.evidenceId,reason:'NO_SAFE_PUBLIC_COPY'}]);
+    const observed=formatEvidenceDate(signal.eventDate,now);
+    const copy=publicCopy(signal,now)??(optional&&signal.sourceOrganization==='EIA'&&signal.kind==='FACT'&&signal.verified===true&&length(signal.displayText)<=24&&observed?
+      {title:signal.displayText,summary:`截至${observed}的公开数据记录了这一变化。`}:null);
+    if (!copy || !copy.title || !copy.summary || length(copy.title)>24 || length(copy.summary)>60) {
+      if(optional){excluded.push({evidenceId:ref.evidenceId,reason:'NO_SAFE_PUBLIC_COPY'});continue;}
+      return fail(['NO_SAFE_PUBLIC_COPY'],[...excluded,{evidenceId:ref.evidenceId,reason:'NO_SAFE_PUBLIC_COPY'}]);
+    }
     const date=signal.publishedAtPrecision==='DATE_ONLY'?signal.publishedAt.slice(0,10):chinaDate(signal.publishedAt);
     if (!validDate(date) || !signal.sourceOrganization || length(signal.sourceOrganization)>24 || !directionLabel(signal)) return fail(['INVALID_PUBLIC_CARD']);
     cards.push({evidenceId:signal.id,direction:signal.impact,directionLabel:directionLabel(signal),title:copy.title,summary:copy.summary,sourceName:signal.sourceOrganization,date,sourceUrl:signal.sourceUrl,role:ref.role});

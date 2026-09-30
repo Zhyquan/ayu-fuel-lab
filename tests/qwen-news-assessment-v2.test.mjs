@@ -7,7 +7,7 @@ import { spawnSync } from 'node:child_process';
 import { parseNewsMaterial } from '../scripts/intelligence-v2/news-material.mjs';
 import { analysisSchema, createQwenProvider, projectEvidence, qwenSchemaCompatibilityGate, validateAnalysis } from '../scripts/intelligence-v2/qwen-provider.mjs';
 import { evidenceHashFor } from '../scripts/intelligence-v2/history.mjs';
-import { evidenceGate, forecastGate, newsSegmentFor } from '../dist/data/intelligence-v2-contract.js';
+import { evidenceGate, forecastGate, newsSegmentFor, newsEnrichmentGate } from '../dist/data/intelligence-v2-contract.js';
 import { publicEvidenceGate } from '../dist/data/public-evidence.js';
 import { fixture, fakeOptions, response } from './fixtures/qwen-fixture.mjs';
 
@@ -54,7 +54,7 @@ test('production-shaped 6 signals, 3 articles, 3 segments each pass the V2 Forec
   let requestCount=0;
   const provider=createQwenProvider(fakeOptions(f.pack,{clock:()=>f.now,fetchImpl:async()=>{requestCount++;return response(value);}}));
   const candidate=await provider.generateForecast({evidencePack:f.pack,evidenceHash:f.evidenceHash,now:f.now});
-  assert.equal(requestCount,1);assert.equal(candidate.promptVersion,'qwen-forecast-news-v2');
+  assert.equal(requestCount,1);assert.equal(candidate.promptVersion,'qwen-forecast-core-v1');
   assert.equal(candidate.newsAssessmentContract,'NEWS_ASSESSMENT_V2');
   const selected=newsSegmentFor(f.pack,newsId);
   assert.equal(candidate.newsAssessments[0].documentId,selected.document.documentId);
@@ -73,7 +73,9 @@ test('production-shaped 6 signals, 3 articles, 3 segments each pass the V2 Forec
     assert.equal(scan.status,0,scan.stdout);assert.equal(JSON.parse(scan.stdout).gate,'PASS');
   } finally {await rm(directory,{recursive:true,force:true});}
   const altered=structuredClone(candidate);altered.newsAssessments[0].sourceUrl='https://example.com/forged';
-  assert.equal(forecastGate(altered,f.pack,{now:f.now}).gate,'FAIL');
+  assert.equal(forecastGate(altered,f.pack,{now:f.now}).gate,'PASS');
+  assert.equal(newsEnrichmentGate(altered,f.pack,{mode:'FORECAST'}).gate,'FAIL');
+  assert.ok(!publicEvidenceGate({forecast:altered,evidencePack:f.pack},{now:f.now}).cards.some(c=>c.evidenceId===newsId));
 });
 
 test('no news assessment is valid when the model uses only structural reasons despite normal input coverage',async()=>{
@@ -107,7 +109,8 @@ test('V2 validator reports precise safe codes for field, identity, uniqueness, n
     [v=>{v.mainReasonEvidenceIds.push(v.newsAssessments[0].evidenceId);},'NEWS_REASON_DUPLICATE_EVENT'],
   ]){
     const value=structuredClone(base);change(value);
-    assert.throws(()=>validateAnalysis(value,f.pack),error=>error.validationCode===code,code);
+    assert.doesNotThrow(()=>validateAnalysis(value,f.pack));
+    assert.ok(newsEnrichmentGate(value,f.pack).errors.includes(code),code);
   }
   assert.equal(validateAnalysis(base,f.pack).newsAssessments[0].documentId,undefined);
   const structural=structuredClone(base);structural.newsAssessments=[];structural.mainReasonEvidenceIds=['eia-stocks'];
@@ -118,27 +121,28 @@ test('old V1 news forecast remains readable without changing its historical cont
   const f=setup(), value=modelOutput(f.pack);
   const candidate=await createQwenProvider(fakeOptions(f.pack,{clock:()=>f.now,fetchImpl:async()=>response(value)})).generateForecast({evidencePack:f.pack,evidenceHash:f.evidenceHash,now:f.now});
   const old=structuredClone(candidate), a=old.newsAssessments[0], selected=newsSegmentFor(f.pack,a.evidenceId);
-  delete old.newsAssessmentContract;old.promptVersion='qwen-forecast-news-v1';
+  delete old.forecastContract;delete old.newsAssessmentContract;old.promptVersion='qwen-forecast-news-v1';
   old.newsAssessments=[{documentId:a.documentId,segmentId:a.segmentId,evidenceId:a.evidenceId,impact:a.impact,kind:a.kind,title:a.title,summary:a.summary,quote:selected.segment.text,strength:a.strength}];
   for(const field of ['sourceUrl','publisher','originalSource','publishedAt'])delete old.newsAssessments[0][field];
   assert.equal(forecastGate(old,f.pack,{now:f.now}).gate,'PASS');
 });
 
-test('a failed provider run persists only field-level diagnostics and output hash, without model content or news text',async()=>{
+test('dropped news enrichment persists only safe diagnostics and output hash while the core provider succeeds',async()=>{
   const f=setup();
   const directory=await mkdtemp(join(tmpdir(),'qwen-news-v2-')),auditPath=join(directory,'provider-run.json');
   try {
     for(const [change,code,field] of [
       [v=>{v.newsAssessments[0].summary='编造99%的变化。';},'NEWS_NEW_NUMBER','summary'],
       [v=>{v.newsAssessments[0].evidenceId='br-999999:s1-000000000000';},'NEWS_EVIDENCE_ID_UNKNOWN','evidenceId'],
-      [v=>{v.newsAssessments[0].quote='copied';},'NEWS_ASSESSMENT_FIELDS_INVALID','quote'],
+      [v=>{v.newsAssessments[0].quote='copied';},'NEWS_ASSESSMENT_FIELDS_INVALID','fields'],
     ]){
       const value=modelOutput(f.pack);change(value);
       const provider=createQwenProvider(fakeOptions(f.pack,{clock:()=>f.now,fetchImpl:async()=>response(value),onAudit:a=>writeFile(auditPath,JSON.stringify(a))}));
-      await assert.rejects(provider.generateForecast({evidencePack:f.pack,evidenceHash:f.evidenceHash,now:f.now}),new RegExp(code));
+      const candidate=await provider.generateForecast({evidencePack:f.pack,evidenceHash:f.evidenceHash,now:f.now});
+      assert.equal(forecastGate(candidate,f.pack,{now:f.now}).gate,'PASS');
       const saved=await readFile(auditPath,'utf8'),audit=JSON.parse(saved);
-      assert.equal(audit.status,'FAILED');assert.equal(audit.validationStage,'NEWS_ASSESSMENT');
-      assert.equal(audit.validationCode,code);assert.equal(audit.assessmentIndex,0);assert.equal(audit.fieldName,field);
+      assert.equal(audit.status,'OK');assert.equal(audit.newsEnrichment.gate,'FAIL');
+      assert.ok(audit.newsEnrichment.diagnostics.some(d=>d.validationCode===code&&d.assessmentIndex===0&&d.fieldName===field));
       assert.match(audit.outputHash,/^[a-f0-9]{64}$/);assert.equal(audit.attemptCount,1);
       for(const forbidden of ['编造99%','Oil and diesel supply','Authorization','Bearer','DASHSCOPE_API_KEY','segment.text','choices'])assert.ok(!saved.includes(forbidden));
     }

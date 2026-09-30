@@ -15,7 +15,9 @@
     "intelligence:run": "node scripts/run-intelligence.mjs",
     "intelligence:v2:collect": "node scripts/intelligence-v2/collect.mjs",
     "intelligence:v2:run": "node scripts/intelligence-v2/run.mjs",
-    "intelligence:v2:official": "node scripts/intelligence-v2/official-daily.mjs"
+    "intelligence:v2:official": "node scripts/intelligence-v2/official-daily.mjs",
+    "intelligence:v2:replay": "node scripts/intelligence-v2/replay.mjs",
+    "intelligence:v2:contract-fuzz": "node scripts/intelligence-v2/replay.mjs fuzz"
   },
   "engines": { "node": ">=22" }
 }

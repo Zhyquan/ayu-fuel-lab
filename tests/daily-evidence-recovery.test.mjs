@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { parseNewsMaterial } from '../scripts/intelligence-v2/news-material.mjs';
 import { verifyNewsArticle } from '../scripts/intelligence-v2/news-event-rules.mjs';
-import { evidenceGate, forecastGate, validateForecastCache } from '../dist/data/intelligence-v2-contract.js';
+import { evidenceGate, forecastGate, validateForecastCache, newsEnrichmentGate } from '../dist/data/intelligence-v2-contract.js';
 import { createQwenProvider, projectEvidence, validateAnalysis } from '../scripts/intelligence-v2/qwen-provider.mjs';
 import { evidenceHashFor } from '../scripts/intelligence-v2/history.mjs';
 import { publicEvidenceGate } from '../dist/data/public-evidence.js';
@@ -78,16 +78,17 @@ test('LIMITED keeps only true structural reasons and shows one short scope line'
   assert.match(forecastMarkup({...candidate,evidencePack:f.pack},{now:f.now}),/仅据行情与库存/);
 });
 
-test('invented segment, numeric claim, conditional-as-fact, extra source and invalid probability cannot publish',()=>{
+test('invalid optional news is dropped while invalid core probability still blocks publication',()=>{
   const f=make();
   for(const change of [
     v=>v.newsAssessments[0].evidenceId='missing',v=>v.newsAssessments[0].quote='not in frozen text',
     v=>v.newsAssessments[0].summary='库存减少99%',
-    v=>v.newsAssessments[0].sourceUrl='https://example.com',v=>v.probabilities.UP=41,
-  ]){const value=output(f.pack);change(value);assert.throws(()=>validateAnalysis(value,f.pack));}
+    v=>v.newsAssessments[0].sourceUrl='https://example.com',
+  ]){const value=output(f.pack);change(value);assert.doesNotThrow(()=>validateAnalysis(value,f.pack));assert.equal(newsEnrichmentGate(value,f.pack).gate,'FAIL');}
   const conditional=structuredClone(f.pack);conditional.newsDocuments[0].segments[0].text+=' Supply may be interrupted.';
   const conditionalValue=output(conditional);conditionalValue.newsAssessments[0].kind='FACT';
-  assert.throws(()=>validateAnalysis(conditionalValue,conditional),/NEWS_FACT_FROM_CONDITIONAL_SEGMENT/);
+  assert.ok(newsEnrichmentGate(conditionalValue,conditional).errors.includes('NEWS_FACT_FROM_CONDITIONAL_SEGMENT'));
+  const illegal=output(f.pack);illegal.probabilities.UP=41;assert.throws(()=>validateAnalysis(illegal,f.pack),/QWEN_PROBABILITIES_INVALID/);
 });
 
 test('instructions embedded in a news paragraph remain data and receive no tools or environment access',async()=>{
