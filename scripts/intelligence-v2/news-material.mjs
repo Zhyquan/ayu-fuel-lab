@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { articleBody } from './news-event-rules.mjs';
+import { validDate, validTimestamp } from '../../dist/data/validation.js';
 
 const digest = value => createHash('sha256').update(value).digest('hex');
 const clean = value => value.replace(/<(?:script|style|aside)\b[^>]*>[\s\S]*?<\/\1>/gi,' ')
@@ -19,12 +20,13 @@ export function parseNewsMaterial(html,sourceUrl,fetchedAt) {
   for(const match of html.matchAll(/<script[^>]*type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/g)) {
     try { const item=JSON.parse(match[1]);if(item['@type']==='NewsArticle'){metadata=item;break;} } catch {}
   }
-  if(!metadata || !/Business Recorder|Brecorder/i.test(metadata.publisher?.name??''))fail('PUBLISHER_NOT_VERIFIED');
+  if(!metadata || !/^(?:Business Recorder|Brecorder)$/i.test(metadata.publisher?.name??''))fail('PUBLISHER_NOT_VERIFIED');
   const authors=(Array.isArray(metadata.author)?metadata.author:[metadata.author]).map(a=>a?.name).filter(Boolean);
   if(!authors.length)fail('AUTHOR_NOT_VERIFIED');
   const originalSource=authors.includes('Reuters')?'Reuters':'Business Recorder';
   if(!originalSource)fail('ORIGINAL_SOURCE_NOT_VERIFIED');
   const precision=/^\d{4}-\d{2}-\d{2}$/.test(metadata.datePublished??'')?'DATE_ONLY':'SECOND';
+  if(!validTimestamp(fetchedAt)||!(precision==='DATE_ONLY'?validDate(metadata.datePublished):validTimestamp(metadata.datePublished)))fail('ARTICLE_PUBLICATION_TIME_UNVERIFIED');
   const publishedAt=precision==='DATE_ONLY'?`${metadata.datePublished}T00:00:00.000Z`:new Date(metadata.datePublished).toISOString();
   if(!Number.isFinite(Date.parse(publishedAt)) || Date.parse(publishedAt)>Date.parse(fetchedAt) || Date.parse(fetchedAt)-Date.parse(publishedAt)>72*3600000)fail('ARTICLE_PUBLICATION_TIME_UNVERIFIED');
   const markup=articleBody(html);

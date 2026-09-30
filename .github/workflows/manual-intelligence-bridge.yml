@@ -1,0 +1,71 @@
+name: Ayu Fuel · 情报桥
+on:
+  workflow_dispatch:
+    inputs:
+      news_url:
+        description: '粘贴需要验证的原始新闻链接'
+        type: string
+        required: true
+      mode:
+        description: 'VERIFY_ONLY 免费验证；REFRESH_CURRENT 重新判断（需单独授权启用）'
+        type: choice
+        options: [VERIFY_ONLY, REFRESH_CURRENT]
+        default: VERIFY_ONLY
+permissions:
+  contents: read
+concurrency:
+  group: ayu-fuel-manual-bridge
+  cancel-in-progress: false
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '22'
+      - name: Offline regression
+        run: npm test
+      - name: 免费验证新闻（不调用模型）
+        if: inputs.mode == 'VERIFY_ONLY'
+        env:
+          BRIDGE_NEWS_URL: ${{ inputs.news_url }}
+          BRIDGE_MODE: VERIFY_ONLY
+        run: node scripts/intelligence-v2/manual-bridge-cli.mjs
+      - name: 尚未授权重新判断
+        if: inputs.mode == 'REFRESH_CURRENT' && !(vars.BRIDGE_REFRESH_ACTIVATED == 'true' && vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab')
+        env:
+          BRIDGE_MODE: REFRESH_CURRENT
+        run: node scripts/intelligence-v2/manual-bridge-cli.mjs
+      - name: 已授权的 Current 重新判断
+        id: refresh
+        if: inputs.mode == 'REFRESH_CURRENT' && vars.BRIDGE_REFRESH_ACTIVATED == 'true' && vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab'
+        env:
+          BRIDGE_NEWS_URL: ${{ inputs.news_url }}
+          BRIDGE_MODE: REFRESH_CURRENT
+          BRIDGE_REFRESH_ACTIVATED: ${{ vars.BRIDGE_REFRESH_ACTIVATED }}
+          QWEN_API_ACTIVATED: ${{ vars.QWEN_API_ACTIVATED }}
+          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
+        run: node scripts/intelligence-v2/manual-bridge-cli.mjs
+      - name: 受控提交 Current（不写 Official）
+        if: steps.refresh.outputs.ready == 'true'
+        env:
+          BRIDGE_REFRESH_ACTIVATED: ${{ vars.BRIDGE_REFRESH_ACTIVATED }}
+          QWEN_API_ACTIVATED: ${{ vars.QWEN_API_ACTIVATED }}
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/intelligence-v2/commit-current-bridge.mjs
+      - name: Public source scan
+        run: npm run scan
+      - name: 脱敏验证结果
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: bridge-verification-result
+          path: .work/manual-bridge/result.json
+          if-no-files-found: ignore
+          retention-days: 7

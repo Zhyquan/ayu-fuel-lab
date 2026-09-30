@@ -14,6 +14,7 @@ import { evidenceHashFor } from './history.mjs';
 import { runOfficialDaily, INDEX_PATH, PROVIDER_AUDIT_PATH } from './official-daily.mjs';
 import { verifyGenerated } from './commit-official-daily.mjs';
 import { dailyDeliveryReady } from './pages-delivery-ready.mjs';
+import { runBridgeReplay } from './bridge-replay.mjs';
 
 export const loadReplayFixture=async()=>JSON.parse(await readFile(new URL('../../tests/fixtures/forecast-production-shape.json',import.meta.url),'utf8'));
 // An injected transport and isolated environment make these commands incapable of a real model call.
@@ -79,9 +80,10 @@ export async function runReplay() {
     await verifyGenerated(root,before,{sourceCommit,now});
     const pages=await dailyDeliveryReady({root,triggerHeadSha:sourceCommit,runCreatedAt:f.now,now,commitSubject:`data: Official Daily ${result.entry.forecastDate} ${result.entry.forecastId.slice(0,12)}`});
     assert.equal(pages.ready,true);
+    const bridgeReplay=await runBridgeReplay(f,replayOutput);
     const scan=await scanTemporary(root);
     return {gate:'PASS',coreForecastGate:'PASS',publicProjection:'PASS',publicScan:scan.gate,pagesCompatibleOutput:'PASS',mockAuditRejected:true,
-      proof:'SYNTHETIC_NOT_PRODUCTION',inputPackHash:candidate.inputPackHash,fixtureShape:{signals:6,newsDocuments:3},elapsedMs:Math.round(performance.now()-started),realQwenCalls:0};
+      proof:'SYNTHETIC_NOT_PRODUCTION',bridgeReplay,inputPackHash:candidate.inputPackHash,fixtureShape:{signals:6,newsDocuments:3},elapsedMs:Math.round(performance.now()-started),realQwenCalls:0};
   }finally{await rm(root,{recursive:true,force:true});}
 }
 
@@ -162,10 +164,11 @@ export async function runContractFuzz({seed=20260930,count=192}={}) {
       await assert.rejects(createQwenProvider(options).generateForecast({evidencePack:p,evidenceHash:evidenceHashFor(p),now}),/EVIDENCE_GATE_FAILED/);
       assert.equal(calls,0,name);
     }
+    const bridgeReplay=await runBridgeReplay(f,replayOutput);
     const scan=await scanTemporary(root);
     const dimensions=Object.fromEntries(Object.entries(coverage).map(([key,v])=>[key,[...v].sort()]));
     for(const [key,expected]of Object.entries({directions:['DOWN','UP'],mainCounts:[1,2,3],counterCounts:[0,1,2],newsCounts:[0,1,2,3],strengths:['HIGH','LOW','MEDIUM'],modes:['LIMITED','NORMAL']}))assert.deepEqual(dimensions[key],expected,`missing ${key} coverage`);
-    return {gate:'PASS',seed,legalCases:count,homogeneousSyntheticVariants:homogeneousVariants,illegalCases:illegalAnalysis.length+illegalCandidates.length+illegalPacks.length,coverage:dimensions,publicScan:scan.gate,elapsedMs:Math.round(performance.now()-started),realQwenCalls:0};
+    return {gate:'PASS',seed,legalCases:count,homogeneousSyntheticVariants:homogeneousVariants,illegalCases:illegalAnalysis.length+illegalCandidates.length+illegalPacks.length,coverage:dimensions,bridgeReplay,publicScan:scan.gate,elapsedMs:Math.round(performance.now()-started),realQwenCalls:0};
   }finally{await rm(root,{recursive:true,force:true});}
 }
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)) {

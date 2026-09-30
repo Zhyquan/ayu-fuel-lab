@@ -3,8 +3,8 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { CATEGORIES, DAY, coreEvidenceGate, filterAndDeduplicateSignals, marketObservationLag } from '../../dist/data/intelligence-v2-contract.js';
-import { verifyNewsArticle, newsCandidatePriority } from './news-event-rules.mjs';
-import { parseNewsMaterial } from './news-material.mjs';
+import { newsCandidatePriority } from './news-event-rules.mjs';
+import { resolveNewsUrl, deduplicateNewsDocuments } from './source-adapters.mjs';
 export { verifyNewsArticle, NEWS_EVENT_RULES } from './news-event-rules.mjs';
 
 export const SOURCES = {
@@ -166,18 +166,19 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
     if (!/^https:\/\/www\.brecorder\.com\/news\/\d+(?:\/[^?#]*)?$/.test(candidate.url??'') || articleRequests>=6) { candidate.status='NEEDS_VERIFICATION';candidate.reason=articleRequests>=6?'ARTICLE_REQUEST_LIMIT':'UNSUPPORTED_ARTICLE_URL';continue; }
     articleRequests++;
     try {
-      const html=await get(candidate.url);
-      const document=parseNewsMaterial(html,candidate.url,generatedAt);
-      if(newsDocuments.some(existing=>existing.originalSource===document.originalSource&&existing.articleContentHash===document.articleContentHash)) {
-        candidate.status='EXCLUDED';candidate.reason='DUPLICATE_SYNDICATED_CONTENT';continue;
+      const resolved=await resolveNewsUrl(candidate.url,{now,loadHtml:get});
+      const document=resolved.document;
+      const duplicate=deduplicateNewsDocuments([...newsDocuments,document]).excluded.find(item=>item.documentId===document.documentId);
+      if(duplicate) {
+        candidate.status='EXCLUDED';candidate.reason=duplicate.reason;continue;
       }
       newsDocuments.push(document);
       candidate.status='CONTENT_VERIFIED';candidate.documentId=document.documentId;
       candidate.publisher=document.publisher;candidate.originalSource=document.originalSource;
       candidate.publishedAt=document.publishedAt;candidate.articleContentHash=document.articleContentHash;
       candidate.segmentIds=document.segments.map(segment=>segment.segmentId);
-      try { const signal=verifyNewsArticle(html,candidate.url,generatedAt);signals.push(signal);candidate.evidenceId=signal.id;candidate.ruleId=signal.ruleId; }
-      catch(error) { candidate.legacyRuleDisposition=error.message; }
+      if(resolved.legacySignal){signals.push(resolved.legacySignal);candidate.evidenceId=resolved.legacySignal.id;candidate.ruleId=resolved.legacySignal.ruleId;}
+      else candidate.legacyRuleDisposition=resolved.legacyRuleDisposition;
     } catch(error) {
       candidate.status='EXCLUDED';
       const failedFetch=fetchLog.findLast(item=>item.url===candidate.url&&item.status==='FAILED');

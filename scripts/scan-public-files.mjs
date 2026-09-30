@@ -8,7 +8,7 @@ const detectors = [
   { id: 'GITHUB_TOKEN', pattern: /gh[pousr]_[A-Za-z0-9]{20,}/ },
   { id: 'GITHUB_FINE_GRAINED_TOKEN', pattern: /github_pat_[A-Za-z0-9_]{20,}/ },
   { id: 'AWS_ACCESS_KEY_ID', pattern: /AKIA[A-Z0-9]{16}/ },
-  { id: 'OPENAI_STYLE_TOKEN', pattern: /(?<![A-Za-z0-9])sk-[A-Za-z0-9_-]{20,}/ },
+  { id: 'OPENAI_STYLE_TOKEN', pattern: /(?<![A-Za-z0-9])sk-(?:(?:proj|svcacct)-[A-Za-z0-9_-]{20,}|[A-Za-z0-9_]{20,})/ },
   { id: 'PRIVATE_KEY', pattern: /-----BEGIN (?:RSA |OPENSSH |EC )?PRIVATE KEY-----/ },
   { id: 'CREDENTIAL_ASSIGNMENT', pattern: /(?:api[_-]?key|secret|password|access[_-]?token)\s*[=:]\s*["'][^"'\s]{8,}["']/i },
   { id: 'AUTHORIZATION_HEADER', pattern: /authorization["']?\s*[:=]\s*["']?(?:bearer|basic)\s+[A-Za-z0-9._~+/=-]{16,}/i },

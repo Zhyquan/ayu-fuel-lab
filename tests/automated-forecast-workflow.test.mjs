@@ -91,7 +91,7 @@ test('commit helper does not persist credentials or force push and has no wildca
 });
 test('Pages workflow_run trusts only main success, consumes no workflow artifacts and preserves price gates',async()=>{
   const workflow=await read('.github/workflows/update-and-deploy.yml');
-  assert.match(workflow,/workflow_run:\s*\n\s*workflows: \[Intelligence V2 official daily forecast\]/);
+  assert.match(workflow,/workflow_run:\s*\n\s*workflows: \[Intelligence V2 official daily forecast, Ayu Fuel · 情报桥\]/);
   assert.match(workflow,/branches: \[main\]\s*\n\s*types: \[completed\]/);
   assert.match(workflow,/workflow_run\.conclusion == 'success'/);assert.match(workflow,/head_repository\.full_name == 'Zhyquan\/ayu-fuel-lab'/);
   assert.match(workflow,/needs\.daily-delivery\.outputs\.ready == 'true'/);

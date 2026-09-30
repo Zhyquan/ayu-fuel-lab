@@ -5,8 +5,11 @@ import { fileURLToPath } from 'node:url';
 import { validTimestamp } from '../../dist/data/validation.js';
 import { readOfficialIndex } from './official-daily.mjs';
 import { verifyGenerated } from './commit-official-daily.mjs';
+import { BRIDGE_WORKFLOW, currentDeliveryReady } from './current-publication.mjs';
 
-export async function dailyDeliveryReady({root,triggerHeadSha,runCreatedAt,commitSubject,now=new Date()}) {
+export async function dailyDeliveryReady({root,triggerHeadSha,runCreatedAt,commitSubject,now=new Date(),workflowName='Intelligence V2 official daily forecast',runId}) {
+  if(workflowName===BRIDGE_WORKFLOW)return currentDeliveryReady({root,triggerHeadSha,runCreatedAt,commitSubject,now,runId});
+  if(workflowName!=='Intelligence V2 official daily forecast')return {ready:false,reason:'UNKNOWN_FORECAST_PRODUCER'};
   try {
     if(!/^[a-f0-9]{40}$/.test(triggerHeadSha??'')||!validTimestamp(runCreatedAt))return {ready:false,reason:'INVALID_DAILY_TRIGGER'};
     const index=await readOfficialIndex(root), entry=index.entries.at(-1);
@@ -20,7 +23,7 @@ export async function dailyDeliveryReady({root,triggerHeadSha,runCreatedAt,commi
 async function main() {
   const root=fileURLToPath(new URL('../../',import.meta.url));
   const commitSubject=execFileSync('git',['log','-1','--format=%s'],{cwd:root,encoding:'utf8'}).trim();
-  const result=await dailyDeliveryReady({root,triggerHeadSha:process.env.OFFICIAL_TRIGGER_HEAD_SHA,runCreatedAt:process.env.OFFICIAL_TRIGGER_CREATED_AT,commitSubject});
+  const result=await dailyDeliveryReady({root,triggerHeadSha:process.env.OFFICIAL_TRIGGER_HEAD_SHA,runCreatedAt:process.env.OFFICIAL_TRIGGER_CREATED_AT,commitSubject,workflowName:process.env.FORECAST_TRIGGER_WORKFLOW,runId:process.env.FORECAST_TRIGGER_RUN_ID});
   if(process.env.GITHUB_OUTPUT)await writeFile(process.env.GITHUB_OUTPUT,`ready=${result.ready}\n`,{flag:'a'});
   console.log(JSON.stringify(result));
 }

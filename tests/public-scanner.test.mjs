@@ -41,6 +41,19 @@ test('public URL E fake API-key assignment still fails',async()=>{
   assert.equal(result.gate,'FAIL');assert.equal(result.exitCode,1);
   assert.equal(result.findings[0].detector,'OPENAI_STYLE_TOKEN');
 });
+test('SK Energy public article slug is not a token, without exempting URLs or hosts',async()=>{
+  const slug='sk-energy-seeks-mideast-oil-for-november-to-february-loading-sources-say';
+  const urls=[`https://www.brecorder.com/news/40441954/${slug}`,`https://example.com/${slug}`];
+  assert.equal((await scanFiles({'news.json':JSON.stringify({urls})})).gate,'PASS');
+});
+test('long token bodies and project/service token namespaces remain blocked in text, paths and queries',async()=>{
+  const tokens=[modelToken,['sk','proj','fake-body-with-hyphens-and-underscores_123456789'].join('-'),['sk','svcacct','fake-service-token-with-hyphens_123456789'].join('-')];
+  const files=Object.fromEntries(tokens.flatMap((token,i)=>[
+    [`text-${i}.txt`,`"${token}"`],[`path-${i}.txt`,`https://example.com/${token}`],[`query-${i}.txt`,`https://example.com/?token=${token}`],
+  ]));
+  const result=await scanFiles(files);assert.equal(result.gate,'FAIL');assert.equal(result.findings.length,Object.keys(files).length);
+  assert.ok(result.findings.every(f=>f.detector==='OPENAI_STYLE_TOKEN'));
+});
 test('fake tokens after spaces, quotes, equals, slash, colon and newlines remain blocked',async()=>{
   const boundaries=[' ', '"', "'", '=', '/', ':', '\n'];
   const files=Object.fromEntries(boundaries.map((prefix,i)=>[`boundary-${i}.txt`,`${prefix}${modelToken}`]));
