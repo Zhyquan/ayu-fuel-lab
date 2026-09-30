@@ -9,7 +9,7 @@ export function publicEvidenceMarkup(forecast,options={}) {
   const cardMarkup=card=>`<article class="evidence-card" data-evidence-id="${escapeText(card.evidenceId)}">
     <p class="evidence-meta"><span class="evidence-label ${card.direction.toLowerCase()}${card.directionLabel.includes('风险')?' risk':''}">${escapeText(card.directionLabel)}</span><span>${escapeText(card.sourceName)}</span><time datetime="${card.date}">${formatEvidenceDate(card.date,options.now)}发布</time></p>
     <h3>${escapeText(card.title)}</h3><p class="evidence-summary">${escapeText(card.summary)}</p>
-    <a class="evidence-source" href="${escapeText(card.sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="查看${escapeText(card.title)}的原始来源">查看来源 ↗</a>
+    ${card.sourceUrl===null?'':`<a class="evidence-source" href="${escapeText(card.sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="查看${escapeText(card.title)}的原始来源">查看来源 ↗</a>`}
   </article>`;
   return projection.cards.map(cardMarkup).join('');
 }

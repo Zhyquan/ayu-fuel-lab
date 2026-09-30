@@ -1,3 +1,4 @@
+import { runExternalBridgeReplay } from './external-bridge-replay.mjs';
 import assert from 'node:assert/strict';
 import { bridgeScenario, bridgeHtml } from '../../tests/fixtures/bridge-scenario.mjs';
 import { publicEvidenceGate } from '../../dist/data/public-evidence.js';
@@ -20,5 +21,5 @@ export async function runBridgeReplay(fixture,makeOutput) {
   assert.equal((await duplicate.run()).failureCode,'BRIDGE_DUPLICATE_ONLY');assert.equal(duplicate.counts.model,0);cases.push('AUTO_BRIDGE_DUPLICATE');
   const stale=bridgeScenario(fixture,makeOutput,{html:bridgeHtml({date:'2026-09-20T04:00:00Z'})});
   assert.equal((await stale.run()).status,'REJECTED');assert.equal(stale.counts.model,0);cases.push('AUTO_BRIDGE_STALE');
-  return {gate:'PASS',cases,realQwenCalls:0,productionWrites:0};
+  return {gate:'PASS',cases,externalBridge:await runExternalBridgeReplay(fixture),realQwenCalls:0,productionWrites:0};
 }

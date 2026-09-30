@@ -109,7 +109,7 @@ export function parseNewsSitemap(xml) {
   }).filter(candidate=>candidate.headline && candidate.url.startsWith('https://www.brecorder.com/news/')).slice(0,200);
 }
 
-export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=15000}={}) {
+export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=15000,coreOnly=false}={}) {
   const generatedAt=iso(now), signals=[], newsDocuments=[], exclusions=[], fetchLog=[], candidates=[];
   const get = async (url) => {
     try {
@@ -132,8 +132,9 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
   let recentMarketContext;
   try { recentMarketContext=parseRecentContext(await get(SOURCES.recent),now); }
   catch { recentMarketContext={status:'UNAVAILABLE',reason:'RECENT_CONTEXT_COLLECTION_FAILED',role:'CONTEXT_ONLY_NO_CURRENT_SIGNAL_WEIGHT'}; }
+  let discovery=coreOnly?'CORE_ONLY_NO_NEWS_FETCH':'GDELT_DOC',articleRequests=0;
+  if(!coreOnly) {
   try { await get(SOURCES.opec); exclusions.push({source:'OPEC',reason:'POLICY_REQUIRES_EFFECTIVE_DATE_VERIFICATION'}); } catch { /* Source failure remains explicit in fetchLog/categoryChecks. */ }
-  let discovery = 'GDELT_DOC';
   try {
     const query=new URLSearchParams({query:'(oil OR diesel OR gasoil OR OPEC OR Hormuz OR "refinery outage") sourcelang:english',mode:'artlist',format:'json',maxrecords:'15',timespan:'72h',sort:'datedesc'});
     const json=JSON.parse(await get(`${SOURCES.gdelt}?${query}`));
@@ -160,7 +161,6 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
   for(const candidate of selected.slice(30))exclusions.push({...candidate,reason:'DISCOVERY_CANDIDATE_LIMIT'});
   selected.length=Math.min(selected.length,30);
   candidates.splice(0,candidates.length,...selected);
-  let articleRequests=0;
   for (const candidate of candidates) {
     if (!newsCandidatePriority(candidate.headline)) { candidate.status='IRRELEVANT';candidate.reason='NO_ENERGY_RELEVANCE_IN_HEADLINE';continue; }
     if (!/^https:\/\/www\.brecorder\.com\/news\/\d+(?:\/[^?#]*)?$/.test(candidate.url??'') || articleRequests>=6) { candidate.status='NEEDS_VERIFICATION';candidate.reason=articleRequests>=6?'ARTICLE_REQUEST_LIMIT':'UNSUPPORTED_ARTICLE_URL';continue; }
@@ -185,6 +185,7 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
       candidate.reason=failedFetch?.reason??(/^[A-Z0-9_]+$/.test(error.message)?error.message:'ARTICLE_VERIFICATION_FAILED');
     }
   }
+  }
   const news=signals.filter(s=>s.sourceOrganization==='Reuters').sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt));
   const dedup=filterAndDeduplicateSignals([...signals.filter(s=>s.sourceOrganization!=='Reuters'),...news],now);
   for(const excluded of dedup.excluded) {
@@ -194,7 +195,7 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
   const categoryChecks=CATEGORIES.map(category=>{
     const relevant=dedup.signals.filter(s=>s.category===category || s.relatedCategories?.includes(category));
     const officialFailure=category==='OPEC_MAJOR_PRODUCERS' && fetchLog.some(f=>f.url===SOURCES.opec && f.status==='FAILED');
-    return {category,status:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'VERIFIED':officialFailure?'FAILED':'NO_QUALIFIED_SIGNAL',checkedAt:generatedAt,sourceUrls:category===CATEGORIES[0] || category===CATEGORIES[1]?[SOURCES.prices]:category===CATEGORIES[2]?[SOURCES.weekly,SOURCES.summary]:category==='OPEC_MAJOR_PRODUCERS'?[SOURCES.opec,SOURCES.rss]:[SOURCES.gdelt,SOURCES.rss,SOURCES.sitemap],reason:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'Original sources verified; linked shipping risk belongs to the same event.':officialFailure?'Official OPEC endpoint inaccessible; no current production/export/policy fact admitted.':'Discovery checked; no verified material signal admitted for this category.'};
+    return {category,status:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'VERIFIED':officialFailure?'FAILED':'NO_QUALIFIED_SIGNAL',checkedAt:generatedAt,sourceUrls:category===CATEGORIES[0] || category===CATEGORIES[1]?[SOURCES.prices]:category===CATEGORIES[2]?[SOURCES.weekly,SOURCES.summary]:category==='OPEC_MAJOR_PRODUCERS'?[SOURCES.opec,SOURCES.rss]:[SOURCES.gdelt,SOURCES.rss,SOURCES.sitemap],reason:coreOnly&&!relevant.length?'Not fetched in external bridge core-only intake.':relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'Original sources verified; linked shipping risk belongs to the same event.':officialFailure?'Official OPEC endpoint inaccessible; no current production/export/policy fact admitted.':'Discovery checked; no verified material signal admitted for this category.'};
   });
   const pack={inputContractVersion:'NEWS_MATERIAL_V1',generatedAt,forecastHorizonDays:7,runType:'CURRENT_REAL_WORLD_RUN',signals:dedup.signals,newsDocuments,coverageMode:newsDocuments.length?'NORMAL':'LIMITED',categoryChecks,recentMarketContext,discovery:{provider:discovery,candidateCount:candidates.length,articleRequests,candidates},exclusions:[...exclusions,...dedup.excluded],fetchLog,conflicts:[],eventGroups:[...new Set(dedup.signals.map(s=>s.eventKey))].map(eventKey=>({eventKey,evidenceIds:dedup.signals.filter(s=>s.eventKey===eventKey).map(s=>s.id),weightingRule:'ONE_EVENT_NOT_ARTICLE_COUNT'}))};
   return {pack,gate:coreEvidenceGate(pack,{now})};

@@ -1,8 +1,9 @@
+import { externalSignalsGate, evidenceEventKey, EXTERNAL_CATEGORIES } from './external-analyst-contract.js';
 import { validDate, validTimestamp } from './validation.js';
 
 export const INTELLIGENCE_V2_SOURCE = 'AYU_INTELLIGENCE_V2';
 export const PROBABILITY_TYPE = 'AI_SUBJECTIVE_ESTIMATE';
-export const CATEGORIES = ['INTERNATIONAL_DIESEL','CRUDE','DISTILLATE_FUNDAMENTALS','OPEC_MAJOR_PRODUCERS','SUPPLY_DISRUPTION','SHIPPING','DEMAND_MACRO'];
+export const CATEGORIES = EXTERNAL_CATEGORIES;
 export const DAY = 86400000;
 export const NEWS_INPUT_CONTRACT = 'NEWS_MATERIAL_V1';
 export const NEWS_ASSESSMENT_CONTRACT = 'NEWS_ASSESSMENT_V2';
@@ -236,21 +237,32 @@ export function coreForecastGate(candidate,pack,options={}) {
   delete normalized.forecastContract;
   const corePack={...pack,signals,newsDocuments:[],coverageMode:'LIMITED'};
   const result=strictForecastGate(normalized,corePack,options), errors=[...result.errors];
-  if(candidate.promptVersion!=='qwen-forecast-core-v1'||!['NORMAL','LIMITED'].includes(candidate.coverageMode)||candidate.newsAssessmentContract!==NEWS_ASSESSMENT_CONTRACT)errors.push('INVALID_CORE_CONTRACT_VERSION');
+  const external=externalSignalsGate(pack,{now:options.now}), externalById=new Map(external.signals.map(s=>[s.evidenceId,s]));
+  errors.push(...external.errors);
+  const promptVersion=external.signals.length?'qwen-forecast-external-v1':'qwen-forecast-core-v1';
+  if(candidate.promptVersion!==promptVersion||!['NORMAL','LIMITED'].includes(candidate.coverageMode)||candidate.newsAssessmentContract!==NEWS_ASSESSMENT_CONTRACT)errors.push('INVALID_CORE_CONTRACT_VERSION');
   const allowed=['source','status','probabilityType','forecastHorizonDays','provider','generatedAt','validUntil','evidenceHash','probabilities','primaryDirection','mainReasons','counterReasons','signalAssessments','inputContractVersion','newsAssessmentContract','promptVersion','inputPackHash','coverageMode','newsAssessments','forecastContract'];
   if(Object.keys(candidate).some(key=>!allowed.includes(key)))errors.push('UNCONTRACTED_ANALYSIS_FIELD');
   for(const reasons of [candidate.mainReasons,candidate.counterReasons]) {
     if(!Array.isArray(reasons)){errors.push('INVALID_REASON_COUNT');continue;}
-    if(reasons.some(ref=>!byId.has(ref?.evidenceId)&&!/^br-\d+:/.test(ref?.evidenceId??'')))errors.push('UNKNOWN_MARKET_REASON');
+    if(reasons.some(ref=>!byId.has(ref?.evidenceId)&&!externalById.has(ref?.evidenceId)&&!/^br-\d+:/.test(ref?.evidenceId??'')))errors.push('UNKNOWN_MARKET_REASON');
     const events=structural(reasons).map(ref=>byId.get(ref.evidenceId)?.eventKey);
     if(new Set(events).size!==events.length)errors.push('DUPLICATE_MARKET_REASON_EVENT');
   }
+  const allReasons=[...(Array.isArray(candidate.mainReasons)?candidate.mainReasons:[]),...(Array.isArray(candidate.counterReasons)?candidate.counterReasons:[])];
+  for(const [items,opposite]of [[candidate.mainReasons,false],[candidate.counterReasons,true]])for(const ref of Array.isArray(items)?items:[]) {
+    const signal=externalById.get(ref?.evidenceId);if(!signal)continue;
+    if(Object.keys(ref).sort().join(',')!=='evidenceId,text'||ref.text!==signal.title||signal.direction==='NEUTRAL'||(signal.direction===candidate.primaryDirection)===opposite)errors.push('UNGROUNDED_EXTERNAL_REASON');
+    if(allReasons.filter(r=>evidenceEventKey(pack,r.evidenceId)===signal.eventKey).length>1)errors.push('DUPLICATE_REASON_EVENT');
+  }
+  if(allReasons.length>5||candidate.mainReasons?.length>3||candidate.counterReasons?.length>2)errors.push('INVALID_REASON_COUNT');
+  if(external.signals.some(s=>s.direction!==candidate.primaryDirection&&s.direction!=='NEUTRAL')&&!candidate.counterReasons?.length)errors.push('COUNTER_EVIDENCE_IGNORED');
   if(coreEvidenceGate(pack,{now:options.now}).gate!=='PASS')errors.push('CORE_EVIDENCE_GATE_FAILED');
   return {...result,gate:errors.length?'FAIL':'PASS',errors};
 }
 
 export function newsEnrichmentGate(input,pack,{mode='MODEL'}={}) {
-  const admitted=admittedNewsDocuments(pack), documents=new Set(admitted.documents.map(d=>d.documentId));
+  const admitted=admittedNewsDocuments(pack), externalEvents=new Set((pack.externalAnalystSignals??[]).map(s=>s.eventKey)), documents=new Set(admitted.documents.filter(d=>!externalEvents.has(d.eventKey)).map(d=>d.documentId));
   const errors=[...admitted.errors], diagnostics=[], accepted=[], seenDocuments=new Set();
   const reject=(code,assessmentIndex,fieldName)=>{errors.push(code);diagnostics.push({validationCode:code,assessmentIndex,fieldName});};
   const items=Array.isArray(input?.newsAssessments)?input.newsAssessments:[];
@@ -277,7 +289,7 @@ export function newsEnrichmentGate(input,pack,{mode='MODEL'}={}) {
   const byId=new Map(accepted.map(item=>[item.evidenceId,item])), primary=input?.primaryDirection??(input?.probabilities?primaryDirectionFor(input.probabilities):null), seenReasons=new Set();
   const reasonIds=(modelKey,forecastKey)=>(Array.isArray(input?.[modelKey])?input[modelKey]:Array.isArray(input?.[forecastKey])?input[forecastKey].map(ref=>ref?.evidenceId):[]).filter(id=>typeof id==='string'&&id.includes(':'));
   const select=(modelKey,forecastKey,opposite)=>{
-    const coreIds=new Set(coreMarketSignals(pack).map(s=>s.id));
+    const coreIds=new Set([...coreMarketSignals(pack).map(s=>s.id),...(pack.externalAnalystSignals??[]).map(s=>s.evidenceId)]);
     const raw=Array.isArray(input?.[modelKey])?input[modelKey]:Array.isArray(input?.[forecastKey])?input[forecastKey].map(ref=>ref?.evidenceId):[];
     let room=(opposite?2:3)-raw.filter(id=>coreIds.has(id)).length;
     return reasonIds(modelKey,forecastKey).filter(id=>{

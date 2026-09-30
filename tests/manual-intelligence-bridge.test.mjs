@@ -160,7 +160,7 @@ test('Pages accepts only the matching verified Current commit; VERIFY_ONLY canno
 test('default workflow intake, secret boundary, strict publication and safe artifact path are explicit',async()=>{
   const yml=await readFile(new URL('../.github/workflows/manual-intelligence-bridge.yml',import.meta.url),'utf8');
   assert.match(yml,/name: Ayu Fuel · 情报桥/);assert.match(yml,/description: '粘贴需要验证的原始新闻链接'/);
-  assert.match(yml,/type: string\n        required: true/);assert.match(yml,/default: VERIFY_ONLY/);
+  assert.match(yml,/default: CHATGPT_SIGNAL_PACKAGE/);assert.match(yml,/type: string\n        required: false/);assert.match(yml,/default: VERIFY_ONLY/);
   assert.doesNotMatch(yml,/schedule:|\n  push:/);
   const verify=yml.split('- name: 免费验证新闻')[1].split('- name: 尚未授权')[0];assert.doesNotMatch(verify,/secrets\.|DASHSCOPE|GITHUB_TOKEN/);
   assert.match(yml,/vars.BRIDGE_REFRESH_ACTIVATED == 'true'/);assert.match(yml,/path: .work\/manual-bridge\/result.json/);

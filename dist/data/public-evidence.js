@@ -1,3 +1,4 @@
+import { externalSignalsGate } from './external-analyst-contract.js';
 import { CORE_FORECAST_CONTRACT, admittedNewsDocuments, canonicalJson, newsEnrichmentGate, validateForecastCache } from './intelligence-v2-contract.js';
 import { chinaDate, validDate } from './validation.js';
 
@@ -61,9 +62,20 @@ export function publicEvidenceGate({forecast,evidencePack}, {now=new Date()}={})
   const optional=forecast.forecastContract===CORE_FORECAST_CONTRACT?newsEnrichmentGate(forecast,evidencePack,{mode:'FORECAST'}):null;
   const documents=new Map((optional?admittedNewsDocuments(evidencePack).documents:Array.isArray(evidencePack.newsDocuments)?evidencePack.newsDocuments:[]).filter(Boolean).map(document=>[document.documentId,document]));
   const newsById=new Map((optional?.newsAssessments??forecast.newsAssessments??[]).map(item=>[item.evidenceId,item]));
+  const external=externalSignalsGate(evidencePack,{now:checked.status==='STALE'?new Date(forecast.generatedAt):now});
+  if(external.gate!=='PASS')return fail(external.errors);
+  const externalById=new Map(external.signals.map(s=>[s.evidenceId,s]));
   const refs=[...forecast.mainReasons.map(ref=>({...ref,role:'MAIN'})),...forecast.counterReasons.map(ref=>({...ref,role:'COUNTER'}))];
   const cards=[], excluded=[], seen=new Set();
   for (const ref of refs) {
+    const analyst=externalById.get(ref.evidenceId);
+    if(analyst) {
+      const key=`${analyst.eventKey}:${analyst.direction}`;
+      if(seen.has(key)){excluded.push({evidenceId:ref.evidenceId,reason:'SAME_EVENT_AND_DIRECTION'});continue;}
+      seen.add(key);
+      cards.push({evidenceId:analyst.evidenceId,direction:analyst.direction,directionLabel:directionLabel({...analyst,impact:analyst.direction}),title:analyst.title,summary:analyst.summary,sourceName:analyst.source,date:chinaDate(analyst.publishedAt),sourceUrl:analyst.sourceUrl,role:ref.role});
+      continue;
+    }
     const signal=byId.get(ref.evidenceId);
     if(!signal) {
       const item=newsById.get(ref.evidenceId), document=documents.get(item?.documentId);

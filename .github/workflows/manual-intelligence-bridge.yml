@@ -2,10 +2,19 @@ name: Ayu Fuel · 情报桥
 on:
   workflow_dispatch:
     inputs:
+      intake_type:
+        description: '选择情报输入方式'
+        type: choice
+        options: [CHATGPT_SIGNAL_PACKAGE, NEWS_URL]
+        default: CHATGPT_SIGNAL_PACKAGE
+      signal_package:
+        description: '粘贴 ChatGPT 推送的完整 AYU_EXTERNAL_ANALYST_SIGNAL_V1 JSON'
+        type: string
+        required: false
       news_url:
         description: '粘贴需要验证的原始新闻链接'
         type: string
-        required: true
+        required: false
       mode:
         description: 'VERIFY_ONLY 免费验证；REFRESH_CURRENT 重新判断（需单独授权启用）'
         type: choice
@@ -34,18 +43,23 @@ jobs:
       - name: 免费验证新闻（不调用模型）
         if: inputs.mode == 'VERIFY_ONLY'
         env:
+          BRIDGE_INTAKE_TYPE: ${{ inputs.intake_type }}
+          BRIDGE_SIGNAL_PACKAGE: ${{ inputs.signal_package }}
           BRIDGE_NEWS_URL: ${{ inputs.news_url }}
           BRIDGE_MODE: VERIFY_ONLY
         run: node scripts/intelligence-v2/manual-bridge-cli.mjs
       - name: 尚未授权重新判断
         if: inputs.mode == 'REFRESH_CURRENT' && !(vars.BRIDGE_REFRESH_ACTIVATED == 'true' && vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab')
         env:
+          BRIDGE_INTAKE_TYPE: ${{ inputs.intake_type }}
           BRIDGE_MODE: REFRESH_CURRENT
         run: node scripts/intelligence-v2/manual-bridge-cli.mjs
       - name: 已授权的 Current 重新判断
         id: refresh
         if: inputs.mode == 'REFRESH_CURRENT' && vars.BRIDGE_REFRESH_ACTIVATED == 'true' && vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab'
         env:
+          BRIDGE_INTAKE_TYPE: ${{ inputs.intake_type }}
+          BRIDGE_SIGNAL_PACKAGE: ${{ inputs.signal_package }}
           BRIDGE_NEWS_URL: ${{ inputs.news_url }}
           BRIDGE_MODE: REFRESH_CURRENT
           BRIDGE_REFRESH_ACTIVATED: ${{ vars.BRIDGE_REFRESH_ACTIVATED }}

@@ -16,7 +16,9 @@ try {
   const checked=await readForecast({fetchImpl:async()=>new Response(raw)});
   if(['LIVE','STALE'].includes(checked.status))currentCache=checked;
 }catch{}
-const result=await runManualBridge({newsUrl:process.env.BRIDGE_NEWS_URL,mode,currentCache,refreshAuthorized:authorized});
+let autoEvidence=null;
+try{autoEvidence=JSON.parse(await readFile(resolve(root,'CURRENT_EVIDENCE_V2.json'),'utf8'));}catch{}
+const result=await runManualBridge({newsUrl:process.env.BRIDGE_NEWS_URL,signalPackage:process.env.BRIDGE_SIGNAL_PACKAGE,intakeType:process.env.BRIDGE_INTAKE_TYPE??'CHATGPT_SIGNAL_PACKAGE',mode,currentCache,autoEvidence,refreshAuthorized:authorized});
 let ready=false;
 try {
   if(mode==='REFRESH_CURRENT'&&result.status==='CURRENT_READY') {

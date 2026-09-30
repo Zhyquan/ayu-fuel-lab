@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { publicUrl, canonicalJson } from '../../dist/data/intelligence-v2-contract.js';
+import { canonicalSourceUrl } from '../../dist/data/external-analyst-contract.js';
 import { parseNewsMaterial } from './news-material.mjs';
 import { verifyNewsArticle } from './news-event-rules.mjs';
 
@@ -12,7 +13,8 @@ export const SOURCE_ADAPTERS = Object.freeze([
 ]);
 
 export async function resolveNewsUrl(sourceUrl,{fetchImpl=fetch,now=new Date(),timeoutMs=15000,loadHtml}={}) {
-  if(typeof sourceUrl!=='string'||sourceUrl.length>2048||/\s/.test(sourceUrl)||!publicUrl(sourceUrl))fail('HTTPS_URL_INVALID');
+  try{sourceUrl=canonicalSourceUrl(sourceUrl);}catch{fail('HTTPS_URL_INVALID');}
+  if(!publicUrl(sourceUrl))fail('HTTPS_URL_INVALID');
   const adapter=SOURCE_ADAPTERS.find(item=>item.supports(sourceUrl));
   if(!adapter?.parse)fail('SOURCE_UNSUPPORTED');
   let html;
