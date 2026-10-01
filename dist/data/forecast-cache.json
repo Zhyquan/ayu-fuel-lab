@@ -4,12 +4,12 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-01T05:18:32.048Z",
-  "validUntil": "2026-10-02T05:18:32.048Z",
-  "evidenceHash": "9db86f02276d23c6c8b8b48f0487ff597516073bb2543d7be99292bf3dabda09",
+  "generatedAt": "2026-10-01T05:37:15.188Z",
+  "validUntil": "2026-10-02T05:37:15.188Z",
+  "evidenceHash": "d45ae53c8adb236e56c9edb4b4d61d11b7d78d69a3afa299e61836d9a72e93cd",
   "probabilities": {
-    "DOWN": 15,
-    "FLAT": 20,
+    "DOWN": 20,
+    "FLAT": 15,
     "UP": 65
   },
   "primaryDirection": "UP",
@@ -71,7 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-external-v1",
-  "inputPackHash": "e991028261d39efaa5a631e9d8fa83df24f4f455c21c1a6ed67bb2a910b9ff05",
+  "inputPackHash": "52811f1c7a19ba295431f2cdae9c66f00847d5d89b31ac649c8d1ff1b7ecdc79",
   "coverageMode": "LIMITED",
   "newsAssessments": [],
   "evidencePack": {
@@ -84,7 +84,7 @@
         "releaseDate": "2026-09-30",
         "periodEndDate": "2026-09-25",
         "previousPeriodEndDate": "2026-09-18",
-        "authorityCheckedAt": "2026-10-01T05:18:24.845Z"
+        "authorityCheckedAt": "2026-10-01T05:37:06.630Z"
       },
       "diagnostics": [
         {
@@ -98,7 +98,7 @@
       ]
     },
     "inputContractVersion": "NEWS_MATERIAL_V1",
-    "generatedAt": "2026-10-01T05:18:24.845Z",
+    "generatedAt": "2026-10-01T05:37:06.630Z",
     "forecastHorizonDays": 7,
     "runType": "CURRENT_REAL_WORLD_RUN",
     "signals": [
@@ -116,7 +116,7 @@
         "eventDate": "2026-09-29",
         "publishedAt": "2026-09-30T00:00:00.000Z",
         "publishedAtPrecision": "DATE_ONLY",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceName": "EIA Daily Prices / Refinitiv",
         "sourceOrganization": "EIA",
         "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
@@ -145,7 +145,7 @@
         "eventDate": "2026-09-29",
         "publishedAt": "2026-09-30T00:00:00.000Z",
         "publishedAtPrecision": "DATE_ONLY",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceName": "EIA Daily Prices / Refinitiv",
         "sourceOrganization": "EIA",
         "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
@@ -174,7 +174,7 @@
         "eventDate": "2026-09-29",
         "publishedAt": "2026-09-30T00:00:00.000Z",
         "publishedAtPrecision": "DATE_ONLY",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceName": "EIA Daily Prices / Refinitiv",
         "sourceOrganization": "EIA",
         "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
@@ -202,7 +202,7 @@
         "kind": "FACT",
         "eventDate": "2026-09-25",
         "publishedAt": "2026-09-30T14:30:00.000Z",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceName": "EIA Weekly Petroleum Status Report",
         "sourceOrganization": "EIA",
         "sourceUrl": "https://ir.eia.gov/wpsr/table1.csv",
@@ -219,7 +219,7 @@
           "releaseDate": "2026-09-30",
           "periodEndDate": "2026-09-25",
           "previousPeriodEndDate": "2026-09-18",
-          "authorityCheckedAt": "2026-10-01T05:18:24.845Z"
+          "authorityCheckedAt": "2026-10-01T05:37:06.630Z"
         },
         "weeklyObservation": {
           "current": 105.18,
@@ -241,7 +241,7 @@
         "kind": "FACT",
         "eventDate": "2026-09-25",
         "publishedAt": "2026-09-30T14:30:00.000Z",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceName": "EIA Weekly Petroleum Status Report",
         "sourceOrganization": "EIA",
         "sourceUrl": "https://ir.eia.gov/wpsr/table2.csv",
@@ -258,7 +258,7 @@
           "releaseDate": "2026-09-30",
           "periodEndDate": "2026-09-25",
           "previousPeriodEndDate": "2026-09-18",
-          "authorityCheckedAt": "2026-10-01T05:18:24.845Z"
+          "authorityCheckedAt": "2026-10-01T05:37:06.630Z"
         },
         "weeklyObservation": {
           "current": 5003,
@@ -280,7 +280,7 @@
         "kind": "FACT",
         "eventDate": "2026-09-25",
         "publishedAt": "2026-09-30T14:30:00.000Z",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceName": "EIA Weekly Petroleum Status Report",
         "sourceOrganization": "EIA",
         "sourceUrl": "https://ir.eia.gov/wpsr/table2.csv",
@@ -297,7 +297,7 @@
           "releaseDate": "2026-09-30",
           "periodEndDate": "2026-09-25",
           "previousPeriodEndDate": "2026-09-18",
-          "authorityCheckedAt": "2026-10-01T05:18:24.845Z"
+          "authorityCheckedAt": "2026-10-01T05:37:06.630Z"
         },
         "weeklyObservation": {
           "current": 16257,
@@ -317,7 +317,7 @@
       {
         "category": "INTERNATIONAL_DIESEL",
         "status": "VERIFIED",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceUrls": [
           "https://www.eia.gov/todayinenergy/prices.php"
         ],
@@ -326,7 +326,7 @@
       {
         "category": "CRUDE",
         "status": "VERIFIED",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceUrls": [
           "https://www.eia.gov/todayinenergy/prices.php"
         ],
@@ -335,7 +335,7 @@
       {
         "category": "DISTILLATE_FUNDAMENTALS",
         "status": "VERIFIED",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceUrls": [
           "https://ir.eia.gov/wpsr/psw00.json",
           "https://ir.eia.gov/wpsr/table1.csv",
@@ -346,7 +346,7 @@
       {
         "category": "OPEC_MAJOR_PRODUCERS",
         "status": "NO_QUALIFIED_SIGNAL",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceUrls": [
           "https://www.opec.org/press-releases.html",
           "https://www.brecorder.com/feeds/latest-news"
@@ -356,7 +356,7 @@
       {
         "category": "SUPPLY_DISRUPTION",
         "status": "NO_QUALIFIED_SIGNAL",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceUrls": [
           "https://api.gdeltproject.org/api/v2/doc/doc",
           "https://www.brecorder.com/feeds/latest-news",
@@ -367,7 +367,7 @@
       {
         "category": "SHIPPING",
         "status": "NO_QUALIFIED_SIGNAL",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceUrls": [
           "https://api.gdeltproject.org/api/v2/doc/doc",
           "https://www.brecorder.com/feeds/latest-news",
@@ -378,7 +378,7 @@
       {
         "category": "DEMAND_MACRO",
         "status": "NO_QUALIFIED_SIGNAL",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "sourceUrls": [
           "https://api.gdeltproject.org/api/v2/doc/doc",
           "https://www.brecorder.com/feeds/latest-news",
@@ -428,56 +428,56 @@
       {
         "url": "https://www.eia.gov/todayinenergy/prices.php",
         "status": "OK",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "bodySha256": "0b0bcdff71b719f59d88bf37b96478a5ebe5beede4eafc35963dc08f19609b1f",
         "bytes": 74390
       },
       {
         "url": "https://ir.eia.gov/wpsr/psw00.json",
         "status": "OK",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "bodySha256": "b5187561cfc4ed3d3c001b06a8002f09b5971dbf28cc7aad650e198de9c757a0",
         "bytes": 246865
       },
       {
         "url": "https://ir.eia.gov/wpsr/table1.csv",
         "status": "OK",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "bodySha256": "3aa67978a16d9a4a5b4f37bba71f87b914754fd721edd7a9e8cfa72af6901a6a",
         "bytes": 6634
       },
       {
         "url": "https://ir.eia.gov/wpsr/table2.csv",
         "status": "OK",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "bodySha256": "6153a76c6e7636e0695ab2080ea7e4c7fe190e66a528c8ebb818d84e6957c8c2",
         "bytes": 8457
       },
       {
         "url": "https://www.eia.gov/petroleum/supply/weekly/schedule.php",
         "status": "OK",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "bodySha256": "256c6b0213ac45be87bbec060a77a052081a11a196222d48e10ccc1bbe98735c",
         "bytes": 52504
       },
       {
         "url": "https://ir.eia.gov/wpsr/summary.txt",
         "status": "OK",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "bodySha256": "afd7072dd8fa3376fa415ae09dc7add568d22914486818b9260c1bb83444b7fd",
         "bytes": 1402
       },
       {
         "url": "https://www.eia.gov/petroleum/supply/weekly/",
         "status": "OK",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "bodySha256": "2fa30ac37a0329192a1c26f67c254143fb0e83eaf8a391bedd4867e812835080",
         "bytes": 83097
       },
       {
         "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU,DCOILWTICO,DDFUELNYH",
         "status": "OK",
-        "checkedAt": "2026-10-01T05:18:24.845Z",
+        "checkedAt": "2026-10-01T05:37:06.630Z",
         "bodySha256": "5bae5a4fdaa5d8602b4b9cc221ca54b9d7c28061464eb40c042447039d7ce1d3",
         "bytes": 269104
       }
@@ -503,29 +503,29 @@
         "weightingRule": "ONE_EVENT_NOT_ARTICLE_COUNT"
       },
       {
-        "eventKey": "gulf-oil-exports-recover-2026-10-01",
+        "eventKey": "us-diesel-export-ban-consideration-2026-09-30",
         "evidenceIds": [
-          "external-08e63b8d9272"
+          "external-8f191bb28b2e"
         ],
         "weightingRule": "ONE_EVENT_NOT_ARTICLE_COUNT"
       }
     ],
     "externalAnalystSignals": [
       {
-        "eventKey": "gulf-oil-exports-recover-2026-10-01",
-        "category": "CRUDE",
+        "eventKey": "us-diesel-export-ban-consideration-2026-09-30",
+        "category": "INTERNATIONAL_DIESEL",
         "source": "Reuters",
         "eventAt": null,
-        "publishedAt": "2026-10-01T01:10:00Z",
-        "title": "海湾原油出口量恢复至常态水平",
-        "summary": "Goldman Sachs估算，海湾原油出口过去一周恢复至每日2330万桶，已接近2025年平均水平。",
-        "sourceUrl": "https://www.reuters.com/business/energy/oil-prices-barely-changed-investors-assess-us-iran-peace-talks-gulf-exports-2026-10-01/",
-        "kind": "CLAIM",
-        "direction": "DOWN",
+        "publishedAt": "2026-09-30T22:49:00Z",
+        "title": "特朗普称仍每日讨论柴油出口禁令",
+        "summary": "特朗普表示白宫仍在每日讨论限制柴油出口，但尚未决定实施，政府同时评估其他压低柴油价格的措施。",
+        "sourceUrl": "https://www.reuters.com/business/energy/trump-says-he-is-still-considering-diesel-export-ban-2026-09-30/",
+        "kind": "OUTLOOK",
+        "direction": "UP",
         "strength": "MEDIUM",
         "confirmation": "CONDITIONAL",
-        "reason": "海湾原油出口恢复意味着此前受冲突和航运受限压缩的供应正在回流，未来7天可能缓解炼厂原料紧张并压低柴油价格压力。",
-        "evidenceId": "external-08e63b8d9272",
+        "reason": "若美国实施柴油出口限制，将直接压缩全球市场可获得的美国柴油供应，并可能在未来7天推高国际柴油价格。",
+        "evidenceId": "external-8f191bb28b2e",
         "provenance": "EXTERNAL_ANALYST_WITH_URL"
       }
     ]
