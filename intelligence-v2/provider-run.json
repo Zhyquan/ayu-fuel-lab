@@ -1,0 +1,33 @@
+{
+  "provider": "QWEN",
+  "model": "qwen3.8-flash",
+  "promptVersion": "qwen-forecast-core-v1",
+  "inputPackHash": "16c17a8be7ea7ee0438a54137efae62de75b62e2c6acf2d9bacd4947dd0c4ec3",
+  "evidenceHash": "c1900a6e6ad1a5cb899931b82c6aea421bee6c28883dd277090574752d1ac595",
+  "requestStartedAt": "2026-10-01T02:11:22.373Z",
+  "requestCompletedAt": "2026-10-01T02:11:28.592Z",
+  "semanticCallCount": 1,
+  "configuredTransportRetries": 2,
+  "maxExternalRequests": 3,
+  "actualExternalRequestCount": 1,
+  "attemptCount": 1,
+  "httpStatus": 200,
+  "httpStatuses": [
+    200
+  ],
+  "inputPayloadBytes": 12534,
+  "usage": {
+    "input_tokens": 3116,
+    "output_tokens": 266
+  },
+  "status": "OK",
+  "mock": false,
+  "outputHash": "5c606153a2f178c427386d69494467d7fa12c166c3dcb290aefa6b6488128801",
+  "newsEnrichment": {
+    "gate": "PASS",
+    "acceptedCount": 0,
+    "droppedCount": 0,
+    "codes": [],
+    "diagnostics": []
+  }
+}

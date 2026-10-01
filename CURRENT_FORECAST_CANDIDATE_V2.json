@@ -3,14 +3,14 @@
   "status": "LIVE",
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
-  "provider": "MANUAL",
-  "generatedAt": "2026-09-28T11:17:34.176Z",
-  "validUntil": "2026-09-29T11:17:34.176Z",
-  "evidenceHash": "66453209e4ab96362b77d9846d91b7cf9dd287adf3a63ef7d7af4013d904e135",
+  "provider": "QWEN",
+  "generatedAt": "2026-10-01T02:11:28.590Z",
+  "validUntil": "2026-10-02T02:11:28.590Z",
+  "evidenceHash": "c1900a6e6ad1a5cb899931b82c6aea421bee6c28883dd277090574752d1ac595",
   "probabilities": {
-    "DOWN": 35,
-    "FLAT": 25,
-    "UP": 40
+    "DOWN": 20,
+    "FLAT": 15,
+    "UP": 65
   },
   "primaryDirection": "UP",
   "mainReasons": [
@@ -19,36 +19,32 @@
       "text": "美国馏分油库存减少"
     },
     {
-      "evidenceId": "market-brent",
-      "text": "Brent最新日度报价上涨"
-    },
-    {
-      "evidenceId": "news-hormuz-40441609",
-      "text": "霍尔木兹供应仍有不确定风险"
+      "evidenceId": "market-diesel",
+      "text": "纽约港低硫柴油最新日度报价上涨"
     }
   ],
   "counterReasons": [
     {
-      "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价回落"
+      "evidenceId": "market-brent",
+      "text": "Brent最新日度报价回落"
     }
   ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-brent",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-diesel",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -56,25 +52,26 @@
       "evidenceId": "eia-stocks",
       "impact": "UP",
       "kind": "FACT",
-      "strength": "MEDIUM"
+      "strength": "HIGH"
     },
     {
       "evidenceId": "eia-production",
       "impact": "UP",
       "kind": "FACT",
-      "strength": "LOW"
+      "strength": "MEDIUM"
     },
     {
       "evidenceId": "eia-refinery-inputs",
       "impact": "UP",
       "kind": "FACT",
       "strength": "LOW"
-    },
-    {
-      "evidenceId": "news-hormuz-40441609",
-      "impact": "UP",
-      "kind": "RISK",
-      "strength": "MEDIUM"
     }
-  ]
+  ],
+  "inputContractVersion": "NEWS_MATERIAL_V1",
+  "forecastContract": "CORE_FORECAST_V1",
+  "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
+  "promptVersion": "qwen-forecast-core-v1",
+  "inputPackHash": "16c17a8be7ea7ee0438a54137efae62de75b62e2c6acf2d9bacd4947dd0c4ec3",
+  "coverageMode": "LIMITED",
+  "newsAssessments": []
 }

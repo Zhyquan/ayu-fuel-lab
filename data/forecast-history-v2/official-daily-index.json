@@ -1,6 +1,21 @@
 {
   "schemaVersion": 1,
-  "entries": [],
+  "entries": [
+    {
+      "forecastId": "90013ad0f1bbb99d847f3e5fb8040406e66fcc11878afa2af2dfb8715b0b144c",
+      "forecastDate": "2026-10-01",
+      "historyFile": "2026-10-01T02-11-28.590Z-c1900a6e6ad1.json",
+      "forecastHash": "90013ad0f1bbb99d847f3e5fb8040406e66fcc11878afa2af2dfb8715b0b144c",
+      "evidenceHash": "c1900a6e6ad1a5cb899931b82c6aea421bee6c28883dd277090574752d1ac595",
+      "generatedAt": "2026-10-01T02:11:28.590Z",
+      "role": "OFFICIAL_DAILY",
+      "provider": "QWEN",
+      "model": "qwen3.8-flash",
+      "sourceCommit": "3cd739972195426c17f0ad209ff1acb0a093b07b",
+      "inputPackHash": "16c17a8be7ea7ee0438a54137efae62de75b62e2c6acf2d9bacd4947dd0c4ec3",
+      "coverageMode": "LIMITED"
+    }
+  ],
   "legacyHistory": [
     {
       "historyFile": "2026-09-28T11-05-41.503Z-f9730a7579a8.json",

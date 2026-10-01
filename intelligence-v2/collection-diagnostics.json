@@ -1,4 +1,18 @@
 {
+  "generatedAt": "2026-10-01T02:11:06.511Z",
+  "gate": {
+    "gate": "PASS",
+    "status": "READY",
+    "dataValidity": "VALID",
+    "coverageMode": "LIMITED",
+    "errors": [],
+    "signalCount": 6,
+    "newsDocumentCount": 0,
+    "independentSourceCount": 1,
+    "independentEventCount": 2,
+    "checkedAt": "2026-10-01T02:11:06.511Z",
+    "newsExclusions": []
+  },
   "weeklyRelease": {
     "status": "AVAILABLE",
     "identity": {
@@ -21,573 +35,338 @@
       }
     ]
   },
-  "inputContractVersion": "NEWS_MATERIAL_V1",
-  "generatedAt": "2026-10-01T02:11:06.511Z",
-  "forecastHorizonDays": 7,
-  "runType": "CURRENT_REAL_WORLD_RUN",
-  "signals": [
+  "fetchLog": [
     {
-      "id": "market-wti",
-      "category": "CRUDE",
-      "eventKey": "daily-spot-2026-09-29",
-      "measurementKey": "WTI",
-      "headline": "WTI最新日度报价回落",
-      "fact": "2026-09-29 收盘：WTI 96.16 USD/barrel，日变化 -3.2%。",
-      "displayText": "WTI最新日度报价回落",
-      "impact": "DOWN",
-      "importance": "MEDIUM",
-      "kind": "FACT",
-      "eventDate": "2026-09-29",
-      "publishedAt": "2026-09-30T00:00:00.000Z",
-      "publishedAtPrecision": "DATE_ONLY",
+      "url": "https://www.eia.gov/todayinenergy/prices.php",
+      "status": "OK",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceName": "EIA Daily Prices / Refinitiv",
-      "sourceOrganization": "EIA",
-      "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
-      "sourceTier": 1,
-      "verified": true,
-      "freshness": "MARKET_PRICE",
-      "observation": {
-        "name": "WTI",
-        "price": 96.16,
-        "unit": "USD/barrel",
-        "change1dPercent": -3.2
-      },
-      "provenanceNote": "EIA publishes Refinitiv spot observations with permission; not a futures quote. The page gives a publication date, not an exact time; 00:00Z is a date anchor only."
+      "bodySha256": "0b0bcdff71b719f59d88bf37b96478a5ebe5beede4eafc35963dc08f19609b1f",
+      "bytes": 74390
     },
     {
-      "id": "market-brent",
-      "category": "CRUDE",
-      "eventKey": "daily-spot-2026-09-29",
-      "measurementKey": "Brent",
-      "headline": "Brent最新日度报价回落",
-      "fact": "2026-09-29 收盘：Brent 113.96 USD/barrel，日变化 -5%。",
-      "displayText": "Brent最新日度报价回落",
-      "impact": "DOWN",
-      "importance": "MEDIUM",
-      "kind": "FACT",
-      "eventDate": "2026-09-29",
-      "publishedAt": "2026-09-30T00:00:00.000Z",
-      "publishedAtPrecision": "DATE_ONLY",
+      "url": "https://ir.eia.gov/wpsr/psw00.json",
+      "status": "OK",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceName": "EIA Daily Prices / Refinitiv",
-      "sourceOrganization": "EIA",
-      "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
-      "sourceTier": 1,
-      "verified": true,
-      "freshness": "MARKET_PRICE",
-      "observation": {
-        "name": "Brent",
-        "price": 113.96,
-        "unit": "USD/barrel",
-        "change1dPercent": -5
-      },
-      "provenanceNote": "EIA publishes Refinitiv spot observations with permission; not a futures quote. The page gives a publication date, not an exact time; 00:00Z is a date anchor only."
+      "bodySha256": "b5187561cfc4ed3d3c001b06a8002f09b5971dbf28cc7aad650e198de9c757a0",
+      "bytes": 246865
     },
     {
-      "id": "market-diesel",
-      "category": "INTERNATIONAL_DIESEL",
-      "eventKey": "daily-spot-2026-09-29",
-      "measurementKey": "纽约港低硫柴油",
-      "headline": "纽约港低硫柴油最新日度报价上涨",
-      "fact": "2026-09-29 收盘：纽约港低硫柴油 5 USD/gallon，日变化 1.8%。",
-      "displayText": "纽约港低硫柴油最新日度报价上涨",
-      "impact": "UP",
-      "importance": "HIGH",
-      "kind": "FACT",
-      "eventDate": "2026-09-29",
-      "publishedAt": "2026-09-30T00:00:00.000Z",
-      "publishedAtPrecision": "DATE_ONLY",
+      "url": "https://ir.eia.gov/wpsr/table1.csv",
+      "status": "OK",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceName": "EIA Daily Prices / Refinitiv",
-      "sourceOrganization": "EIA",
-      "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
-      "sourceTier": 1,
-      "verified": true,
-      "freshness": "MARKET_PRICE",
-      "observation": {
-        "name": "NY_HARBOR_LOW_SULFUR_DIESEL",
-        "price": 5,
-        "unit": "USD/gallon",
-        "change1dPercent": 1.8
-      },
-      "provenanceNote": "EIA publishes Refinitiv spot observations with permission; not a futures quote. The page gives a publication date, not an exact time; 00:00Z is a date anchor only."
+      "bodySha256": "3aa67978a16d9a4a5b4f37bba71f87b914754fd721edd7a9e8cfa72af6901a6a",
+      "bytes": 6634
     },
     {
-      "id": "eia-stocks",
-      "category": "DISTILLATE_FUNDAMENTALS",
-      "eventKey": "eia-weekly-2026-09-30",
-      "measurementKey": "stocks",
-      "headline": "美国馏分油库存减少",
-      "fact": "统计周截止 2026-09-25；库存周变化 -2.251 百万桶。",
-      "displayText": "美国馏分油库存减少",
-      "impact": "UP",
-      "importance": "HIGH",
-      "kind": "FACT",
-      "eventDate": "2026-09-25",
-      "publishedAt": "2026-09-30T14:30:00.000Z",
+      "url": "https://ir.eia.gov/wpsr/table2.csv",
+      "status": "OK",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceName": "EIA Weekly Petroleum Status Report",
-      "sourceOrganization": "EIA",
-      "sourceUrl": "https://ir.eia.gov/wpsr/table1.csv",
-      "sourceTier": 1,
-      "verified": true,
-      "freshness": "EIA_RELEASE",
-      "releaseDate": "2026-09-30",
-      "latestReleaseDate": "2026-09-30",
-      "nextReleaseAt": "2026-10-07T14:30:00.000Z",
-      "weeklyReleaseIdentity": {
-        "sourceDataset": "EIA_WPSR_TABLES_1_2",
-        "authoritySourceUrl": "https://ir.eia.gov/wpsr/psw00.json",
-        "sourceKey": "WCESTUS1",
-        "releaseDate": "2026-09-30",
-        "periodEndDate": "2026-09-25",
-        "previousPeriodEndDate": "2026-09-18",
-        "authorityCheckedAt": "2026-10-01T02:11:06.511Z"
-      },
-      "weeklyObservation": {
-        "current": 105.18,
-        "previous": 107.431,
-        "change": -2.251,
-        "unit": "百万桶"
-      }
+      "bodySha256": "6153a76c6e7636e0695ab2080ea7e4c7fe190e66a528c8ebb818d84e6957c8c2",
+      "bytes": 8457
     },
     {
-      "id": "eia-production",
-      "category": "DISTILLATE_FUNDAMENTALS",
-      "eventKey": "eia-weekly-2026-09-30",
-      "measurementKey": "production",
-      "headline": "美国馏分油产量减少",
-      "fact": "统计周截止 2026-09-25；馏分油产量 5003 千桶/日，周变化 -156 千桶/日。",
-      "displayText": "美国馏分油产量减少",
-      "impact": "UP",
-      "importance": "MEDIUM",
-      "kind": "FACT",
-      "eventDate": "2026-09-25",
-      "publishedAt": "2026-09-30T14:30:00.000Z",
+      "url": "https://www.eia.gov/petroleum/supply/weekly/schedule.php",
+      "status": "OK",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceName": "EIA Weekly Petroleum Status Report",
-      "sourceOrganization": "EIA",
-      "sourceUrl": "https://ir.eia.gov/wpsr/table2.csv",
-      "sourceTier": 1,
-      "verified": true,
-      "freshness": "EIA_RELEASE",
-      "releaseDate": "2026-09-30",
-      "latestReleaseDate": "2026-09-30",
-      "nextReleaseAt": "2026-10-07T14:30:00.000Z",
-      "weeklyReleaseIdentity": {
-        "sourceDataset": "EIA_WPSR_TABLES_1_2",
-        "authoritySourceUrl": "https://ir.eia.gov/wpsr/psw00.json",
-        "sourceKey": "WCESTUS1",
-        "releaseDate": "2026-09-30",
-        "periodEndDate": "2026-09-25",
-        "previousPeriodEndDate": "2026-09-18",
-        "authorityCheckedAt": "2026-10-01T02:11:06.511Z"
-      },
-      "weeklyObservation": {
-        "current": 5003,
-        "previous": 5159,
-        "change": -156,
-        "unit": "千桶/日"
-      }
+      "bodySha256": "256c6b0213ac45be87bbec060a77a052081a11a196222d48e10ccc1bbe98735c",
+      "bytes": 52504
     },
     {
-      "id": "eia-refinery-inputs",
-      "category": "DISTILLATE_FUNDAMENTALS",
-      "eventKey": "eia-weekly-2026-09-30",
-      "measurementKey": "refinery-inputs",
-      "headline": "美国炼厂原油加工量减少",
-      "fact": "统计周截止 2026-09-25；炼厂原油加工量 16257 千桶/日，周变化 -554 千桶/日；利用率 92.5%。",
-      "displayText": "美国炼厂原油加工量减少",
-      "impact": "UP",
-      "importance": "LOW",
-      "kind": "FACT",
-      "eventDate": "2026-09-25",
-      "publishedAt": "2026-09-30T14:30:00.000Z",
+      "url": "https://ir.eia.gov/wpsr/summary.txt",
+      "status": "OK",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceName": "EIA Weekly Petroleum Status Report",
-      "sourceOrganization": "EIA",
-      "sourceUrl": "https://ir.eia.gov/wpsr/table2.csv",
-      "sourceTier": 1,
-      "verified": true,
-      "freshness": "EIA_RELEASE",
-      "releaseDate": "2026-09-30",
-      "latestReleaseDate": "2026-09-30",
-      "nextReleaseAt": "2026-10-07T14:30:00.000Z",
-      "weeklyReleaseIdentity": {
-        "sourceDataset": "EIA_WPSR_TABLES_1_2",
-        "authoritySourceUrl": "https://ir.eia.gov/wpsr/psw00.json",
-        "sourceKey": "WCESTUS1",
-        "releaseDate": "2026-09-30",
-        "periodEndDate": "2026-09-25",
-        "previousPeriodEndDate": "2026-09-18",
-        "authorityCheckedAt": "2026-10-01T02:11:06.511Z"
-      },
-      "weeklyObservation": {
-        "current": 16257,
-        "previous": 16811,
-        "change": -554,
-        "unit": "千桶/日",
-        "utilizationPercent": {
-          "current": 92.5,
-          "previous": 94
-        }
-      }
-    }
-  ],
-  "newsDocuments": [],
-  "coverageMode": "LIMITED",
-  "categoryChecks": [
-    {
-      "category": "INTERNATIONAL_DIESEL",
-      "status": "VERIFIED",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceUrls": [
-        "https://www.eia.gov/todayinenergy/prices.php"
-      ],
-      "reason": "Original sources verified; linked shipping risk belongs to the same event."
+      "bodySha256": "afd7072dd8fa3376fa415ae09dc7add568d22914486818b9260c1bb83444b7fd",
+      "bytes": 1402
     },
     {
-      "category": "CRUDE",
-      "status": "VERIFIED",
+      "url": "https://www.eia.gov/petroleum/supply/weekly/",
+      "status": "OK",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceUrls": [
-        "https://www.eia.gov/todayinenergy/prices.php"
-      ],
-      "reason": "Original sources verified; linked shipping risk belongs to the same event."
+      "bodySha256": "2fa30ac37a0329192a1c26f67c254143fb0e83eaf8a391bedd4867e812835080",
+      "bytes": 83097
     },
     {
-      "category": "DISTILLATE_FUNDAMENTALS",
-      "status": "VERIFIED",
+      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU,DCOILWTICO,DDFUELNYH",
+      "status": "OK",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceUrls": [
-        "https://ir.eia.gov/wpsr/psw00.json",
-        "https://ir.eia.gov/wpsr/table1.csv",
-        "https://ir.eia.gov/wpsr/table2.csv"
-      ],
-      "reason": "Original sources verified; linked shipping risk belongs to the same event."
+      "bodySha256": "5bae5a4fdaa5d8602b4b9cc221ca54b9d7c28061464eb40c042447039d7ce1d3",
+      "bytes": 269104
     },
     {
-      "category": "OPEC_MAJOR_PRODUCERS",
+      "url": "https://www.opec.org/press-releases.html",
       "status": "FAILED",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceUrls": [
-        "https://www.opec.org/press-releases.html",
-        "https://www.brecorder.com/feeds/latest-news"
-      ],
-      "reason": "Official OPEC endpoint inaccessible; no current production/export/policy fact admitted."
+      "reason": "HTTP_403"
     },
     {
-      "category": "SUPPLY_DISRUPTION",
-      "status": "NO_QUALIFIED_SIGNAL",
+      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
+      "status": "FAILED",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceUrls": [
-        "https://api.gdeltproject.org/api/v2/doc/doc",
-        "https://www.brecorder.com/feeds/latest-news",
-        "https://www.brecorder.com/feeds/sitemap"
-      ],
-      "reason": "Discovery checked; no verified material signal admitted for this category."
+      "reason": "HTTP_429"
     },
     {
-      "category": "SHIPPING",
-      "status": "NO_QUALIFIED_SIGNAL",
+      "url": "https://www.brecorder.com/feeds/latest-news",
+      "status": "OK",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceUrls": [
-        "https://api.gdeltproject.org/api/v2/doc/doc",
-        "https://www.brecorder.com/feeds/latest-news",
-        "https://www.brecorder.com/feeds/sitemap"
-      ],
-      "reason": "Discovery checked; no verified material signal admitted for this category."
+      "bodySha256": "9486099d5847ca56ceca526c612e72a8609dd8e68eec2c1585020743800d33ff",
+      "bytes": 209074
     },
     {
-      "category": "DEMAND_MACRO",
-      "status": "NO_QUALIFIED_SIGNAL",
+      "url": "https://www.brecorder.com/feeds/sitemap",
+      "status": "OK",
       "checkedAt": "2026-10-01T02:11:06.511Z",
-      "sourceUrls": [
-        "https://api.gdeltproject.org/api/v2/doc/doc",
-        "https://www.brecorder.com/feeds/latest-news",
-        "https://www.brecorder.com/feeds/sitemap"
-      ],
-      "reason": "Discovery checked; no verified material signal admitted for this category."
+      "bodySha256": "1e2da00a09eaeae2e77aa4bba211e6d3296de0d6da31538cd1e69b7db4ec7fd3",
+      "bytes": 50003
+    },
+    {
+      "url": "https://www.brecorder.com/news/40442094/oil-prices-rise-by-about-usd1bbl",
+      "status": "FAILED",
+      "checkedAt": "2026-10-01T02:11:06.511Z",
+      "reason": "HTTP_403"
     }
   ],
-  "recentMarketContext": {
-    "status": "AVAILABLE",
-    "asOf": "2026-09-29",
-    "windowStart": "2026-09-18",
-    "role": "CONTEXT_ONLY_NO_CURRENT_SIGNAL_WEIGHT",
-    "reason": "FRED publication lag is explicit; these observations do not replace the latest price snapshot.",
-    "series": [
-      {
-        "name": "DCOILBRENTEU",
-        "firstPrice": 119.66,
-        "lastPrice": 113.96,
-        "direction": "DOWN",
-        "sourceUrl": "https://fred.stlouisfed.org/series/DCOILBRENTEU"
-      },
-      {
-        "name": "DCOILWTICO",
-        "firstPrice": 101.44,
-        "lastPrice": 96.16,
-        "direction": "DOWN",
-        "sourceUrl": "https://fred.stlouisfed.org/series/DCOILWTICO"
-      },
-      {
-        "name": "DDFUELNYH",
-        "firstPrice": 5.16,
-        "lastPrice": 4.999,
-        "direction": "DOWN",
-        "sourceUrl": "https://fred.stlouisfed.org/series/DDFUELNYH"
-      }
-    ]
-  },
-  "discovery": {
-    "provider": "RSS_FALLBACK_WITH_NEWS_SITEMAP",
-    "candidateCount": 30,
-    "articleRequests": 1,
-    "candidates": [
-      {
-        "headline": "Oil prices rise by about USD1/bbl",
-        "url": "https://www.brecorder.com/news/40442094/oil-prices-rise-by-about-usd1bbl",
-        "discoveredAt": "Thu, 01 Oct 2026 06:36:41 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "EXCLUDED",
-        "reason": "HTTP_403"
-      },
-      {
-        "headline": "Pakistan, China entering new phase of CPEC: PM",
-        "url": "https://www.brecorder.com/news/40442085/pakistan-china-entering-new-phase-of-cpec-pm",
-        "discoveredAt": "Thu, 01 Oct 2026 06:59:23 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Talat Mehmood elected KCCI President",
-        "url": "https://www.brecorder.com/news/40442086/talat-mehmood-elected-kcci-president",
-        "discoveredAt": "Thu, 01 Oct 2026 06:57:20 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "India opposition parties call for protests over ‘vote theft’",
-        "url": "https://www.brecorder.com/news/40442087/india-opposition-parties-call-for-protests-over-vote-theft",
-        "discoveredAt": "Thu, 01 Oct 2026 06:52:31 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Every employment-related dispute: HC’s jurisdiction under Article 199 not available: FCC",
-        "url": "https://www.brecorder.com/news/40442088/every-employment-related-dispute-hcs-jurisdiction-under-article-199-not-available-fcc",
-        "discoveredAt": "Thu, 01 Oct 2026 06:50:37 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "APTMA calls for a competitive business environment",
-        "url": "https://www.brecorder.com/news/40442089/aptma-calls-for-a-competitive-business-environment",
-        "discoveredAt": "Thu, 01 Oct 2026 06:49:50 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "FBR busts Rs9.41bn wealth statement fraud",
-        "url": "https://www.brecorder.com/news/40442090/fbr-busts-rs941bn-wealth-statement-fraud",
-        "discoveredAt": "Thu, 01 Oct 2026 06:45:40 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Govt considers allowing private firms to directly import LNG: report",
-        "url": "https://www.brecorder.com/news/40442091/govt-considers-allowing-private-firms-to-directly-import-lng-report",
-        "discoveredAt": "Thu, 01 Oct 2026 06:43:51 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "LPG price hiked by Rs20.68",
-        "url": "https://www.brecorder.com/news/40442092/lpg-price-hiked-by-rs2068",
-        "discoveredAt": "Thu, 01 Oct 2026 06:41:32 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Income tax returns surge 45pc YoY to 5.77m by Sept 30",
-        "url": "https://www.brecorder.com/news/40442093/income-tax-returns-surge-45pc-yoy-to-577m-by-sept-30",
-        "discoveredAt": "Thu, 01 Oct 2026 06:40:34 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Petrol price reduced by 14 paise, HSD’s by Rs1.89",
-        "url": "https://www.brecorder.com/news/40442095/petrol-price-reduced-by-14-paise-hsds-by-rs189",
-        "discoveredAt": "Thu, 01 Oct 2026 06:33:03 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "US-led coalition ends mission in Iraq",
-        "url": "https://www.brecorder.com/news/40442096/us-led-coalition-ends-mission-in-iraq",
-        "discoveredAt": "Thu, 01 Oct 2026 06:31:58 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Israel PM says pilot of rerouted flight tried to crash flydubai plane",
-        "url": "https://www.brecorder.com/news/40442084/israel-pm-says-pilot-of-rerouted-flight-tried-to-crash-flydubai-plane",
-        "discoveredAt": "Thu, 01 Oct 2026 06:24:16 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "The Weather",
-        "url": "https://www.brecorder.com/news/40442026/the-weather",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Faisalabad’s role in policymaking to be enhanced: FCCI president",
-        "url": "https://www.brecorder.com/news/40442029/faisalabads-role-in-policymaking-to-be-enhanced-fcci-president",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Moot underscores need for placing workers at the centre of climate policies",
-        "url": "https://www.brecorder.com/news/40442030/moot-underscores-need-for-placing-workers-at-the-centre-of-climate-policies",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "CM Punjab heaps praise on forces",
-        "url": "https://www.brecorder.com/news/40442031/cm-punjab-heaps-praise-on-forces",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Delimitation of constituencies: The deadline for voters’ objections expires tomorrow",
-        "url": "https://www.brecorder.com/news/40442032/delimitation-of-constituencies-the-deadline-for-voters-objections-expires-tomorrow",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "PVMA elects office-bearers",
-        "url": "https://www.brecorder.com/news/40442033/pvma-elects-office-bearers",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "PAA elects new CEC for 2026-2028 term",
-        "url": "https://www.brecorder.com/news/40442035/paa-elects-new-cec-for-2026-2028-term",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Sindh CM to attend investment conference in China: Sharjeel",
-        "url": "https://www.brecorder.com/news/40442036/sindh-cm-to-attend-investment-conference-in-china-sharjeel",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Saeed praises Saylani’s digital educational initiatives",
-        "url": "https://www.brecorder.com/news/40442037/saeed-praises-saylanis-digital-educational-initiatives",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Ongoing IMF review",
-        "url": "https://www.brecorder.com/news/40442040/ongoing-imf-review",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Tackling the smog challenge",
-        "url": "https://www.brecorder.com/news/40442041/tackling-the-smog-challenge",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Investment confidence: Still waiting for commitment",
-        "url": "https://www.brecorder.com/news/40442044/investment-confidence-still-waiting-for-commitment",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Cherat Cement Company Limited",
-        "url": "https://www.brecorder.com/news/40442045/cherat-cement-company-limited",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Former federal secretaries visit FGEHA",
-        "url": "https://www.brecorder.com/news/40442062/former-federal-secretaries-visit-fgeha",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "Shoab unanimously elected P@SHA chairman",
-        "url": "https://www.brecorder.com/news/40442063/shoab-unanimously-elected-p-at-sha-chairman",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "CM Punjab inaugurates mobile police station vans",
-        "url": "https://www.brecorder.com/news/40442064/cm-punjab-inaugurates-mobile-police-station-vans",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      },
-      {
-        "headline": "LESCO commissions two 132kV grid stations",
-        "url": "https://www.brecorder.com/news/40442065/lesco-commissions-two-132kv-grid-stations",
-        "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
-        "discoverySource": "Business Recorder RSS",
-        "status": "IRRELEVANT",
-        "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
-      }
-    ]
-  },
+  "candidates": [
+    {
+      "headline": "Oil prices rise by about USD1/bbl",
+      "url": "https://www.brecorder.com/news/40442094/oil-prices-rise-by-about-usd1bbl",
+      "discoveredAt": "Thu, 01 Oct 2026 06:36:41 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "EXCLUDED",
+      "reason": "HTTP_403"
+    },
+    {
+      "headline": "Pakistan, China entering new phase of CPEC: PM",
+      "url": "https://www.brecorder.com/news/40442085/pakistan-china-entering-new-phase-of-cpec-pm",
+      "discoveredAt": "Thu, 01 Oct 2026 06:59:23 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Talat Mehmood elected KCCI President",
+      "url": "https://www.brecorder.com/news/40442086/talat-mehmood-elected-kcci-president",
+      "discoveredAt": "Thu, 01 Oct 2026 06:57:20 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "India opposition parties call for protests over ‘vote theft’",
+      "url": "https://www.brecorder.com/news/40442087/india-opposition-parties-call-for-protests-over-vote-theft",
+      "discoveredAt": "Thu, 01 Oct 2026 06:52:31 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Every employment-related dispute: HC’s jurisdiction under Article 199 not available: FCC",
+      "url": "https://www.brecorder.com/news/40442088/every-employment-related-dispute-hcs-jurisdiction-under-article-199-not-available-fcc",
+      "discoveredAt": "Thu, 01 Oct 2026 06:50:37 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "APTMA calls for a competitive business environment",
+      "url": "https://www.brecorder.com/news/40442089/aptma-calls-for-a-competitive-business-environment",
+      "discoveredAt": "Thu, 01 Oct 2026 06:49:50 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "FBR busts Rs9.41bn wealth statement fraud",
+      "url": "https://www.brecorder.com/news/40442090/fbr-busts-rs941bn-wealth-statement-fraud",
+      "discoveredAt": "Thu, 01 Oct 2026 06:45:40 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Govt considers allowing private firms to directly import LNG: report",
+      "url": "https://www.brecorder.com/news/40442091/govt-considers-allowing-private-firms-to-directly-import-lng-report",
+      "discoveredAt": "Thu, 01 Oct 2026 06:43:51 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "LPG price hiked by Rs20.68",
+      "url": "https://www.brecorder.com/news/40442092/lpg-price-hiked-by-rs2068",
+      "discoveredAt": "Thu, 01 Oct 2026 06:41:32 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Income tax returns surge 45pc YoY to 5.77m by Sept 30",
+      "url": "https://www.brecorder.com/news/40442093/income-tax-returns-surge-45pc-yoy-to-577m-by-sept-30",
+      "discoveredAt": "Thu, 01 Oct 2026 06:40:34 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Petrol price reduced by 14 paise, HSD’s by Rs1.89",
+      "url": "https://www.brecorder.com/news/40442095/petrol-price-reduced-by-14-paise-hsds-by-rs189",
+      "discoveredAt": "Thu, 01 Oct 2026 06:33:03 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "US-led coalition ends mission in Iraq",
+      "url": "https://www.brecorder.com/news/40442096/us-led-coalition-ends-mission-in-iraq",
+      "discoveredAt": "Thu, 01 Oct 2026 06:31:58 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Israel PM says pilot of rerouted flight tried to crash flydubai plane",
+      "url": "https://www.brecorder.com/news/40442084/israel-pm-says-pilot-of-rerouted-flight-tried-to-crash-flydubai-plane",
+      "discoveredAt": "Thu, 01 Oct 2026 06:24:16 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "The Weather",
+      "url": "https://www.brecorder.com/news/40442026/the-weather",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Faisalabad’s role in policymaking to be enhanced: FCCI president",
+      "url": "https://www.brecorder.com/news/40442029/faisalabads-role-in-policymaking-to-be-enhanced-fcci-president",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Moot underscores need for placing workers at the centre of climate policies",
+      "url": "https://www.brecorder.com/news/40442030/moot-underscores-need-for-placing-workers-at-the-centre-of-climate-policies",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "CM Punjab heaps praise on forces",
+      "url": "https://www.brecorder.com/news/40442031/cm-punjab-heaps-praise-on-forces",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Delimitation of constituencies: The deadline for voters’ objections expires tomorrow",
+      "url": "https://www.brecorder.com/news/40442032/delimitation-of-constituencies-the-deadline-for-voters-objections-expires-tomorrow",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "PVMA elects office-bearers",
+      "url": "https://www.brecorder.com/news/40442033/pvma-elects-office-bearers",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "PAA elects new CEC for 2026-2028 term",
+      "url": "https://www.brecorder.com/news/40442035/paa-elects-new-cec-for-2026-2028-term",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Sindh CM to attend investment conference in China: Sharjeel",
+      "url": "https://www.brecorder.com/news/40442036/sindh-cm-to-attend-investment-conference-in-china-sharjeel",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Saeed praises Saylani’s digital educational initiatives",
+      "url": "https://www.brecorder.com/news/40442037/saeed-praises-saylanis-digital-educational-initiatives",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Ongoing IMF review",
+      "url": "https://www.brecorder.com/news/40442040/ongoing-imf-review",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Tackling the smog challenge",
+      "url": "https://www.brecorder.com/news/40442041/tackling-the-smog-challenge",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Investment confidence: Still waiting for commitment",
+      "url": "https://www.brecorder.com/news/40442044/investment-confidence-still-waiting-for-commitment",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Cherat Cement Company Limited",
+      "url": "https://www.brecorder.com/news/40442045/cherat-cement-company-limited",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Former federal secretaries visit FGEHA",
+      "url": "https://www.brecorder.com/news/40442062/former-federal-secretaries-visit-fgeha",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "Shoab unanimously elected P@SHA chairman",
+      "url": "https://www.brecorder.com/news/40442063/shoab-unanimously-elected-p-at-sha-chairman",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "CM Punjab inaugurates mobile police station vans",
+      "url": "https://www.brecorder.com/news/40442064/cm-punjab-inaugurates-mobile-police-station-vans",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "LESCO commissions two 132kV grid stations",
+      "url": "https://www.brecorder.com/news/40442065/lesco-commissions-two-132kv-grid-stations",
+      "discoveredAt": "Thu, 01 Oct 2026 05:39:56 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    }
+  ],
   "exclusions": [
     {
       "headline": "Oil prices rise by about USD1/bbl",
@@ -1288,117 +1067,6 @@
       "discoveredAt": "2026-10-01",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    }
-  ],
-  "fetchLog": [
-    {
-      "url": "https://www.eia.gov/todayinenergy/prices.php",
-      "status": "OK",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "bodySha256": "0b0bcdff71b719f59d88bf37b96478a5ebe5beede4eafc35963dc08f19609b1f",
-      "bytes": 74390
-    },
-    {
-      "url": "https://ir.eia.gov/wpsr/psw00.json",
-      "status": "OK",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "bodySha256": "b5187561cfc4ed3d3c001b06a8002f09b5971dbf28cc7aad650e198de9c757a0",
-      "bytes": 246865
-    },
-    {
-      "url": "https://ir.eia.gov/wpsr/table1.csv",
-      "status": "OK",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "bodySha256": "3aa67978a16d9a4a5b4f37bba71f87b914754fd721edd7a9e8cfa72af6901a6a",
-      "bytes": 6634
-    },
-    {
-      "url": "https://ir.eia.gov/wpsr/table2.csv",
-      "status": "OK",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "bodySha256": "6153a76c6e7636e0695ab2080ea7e4c7fe190e66a528c8ebb818d84e6957c8c2",
-      "bytes": 8457
-    },
-    {
-      "url": "https://www.eia.gov/petroleum/supply/weekly/schedule.php",
-      "status": "OK",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "bodySha256": "256c6b0213ac45be87bbec060a77a052081a11a196222d48e10ccc1bbe98735c",
-      "bytes": 52504
-    },
-    {
-      "url": "https://ir.eia.gov/wpsr/summary.txt",
-      "status": "OK",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "bodySha256": "afd7072dd8fa3376fa415ae09dc7add568d22914486818b9260c1bb83444b7fd",
-      "bytes": 1402
-    },
-    {
-      "url": "https://www.eia.gov/petroleum/supply/weekly/",
-      "status": "OK",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "bodySha256": "2fa30ac37a0329192a1c26f67c254143fb0e83eaf8a391bedd4867e812835080",
-      "bytes": 83097
-    },
-    {
-      "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU,DCOILWTICO,DDFUELNYH",
-      "status": "OK",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "bodySha256": "5bae5a4fdaa5d8602b4b9cc221ca54b9d7c28061464eb40c042447039d7ce1d3",
-      "bytes": 269104
-    },
-    {
-      "url": "https://www.opec.org/press-releases.html",
-      "status": "FAILED",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "reason": "HTTP_403"
-    },
-    {
-      "url": "https://api.gdeltproject.org/api/v2/doc/doc",
-      "status": "FAILED",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "reason": "HTTP_429"
-    },
-    {
-      "url": "https://www.brecorder.com/feeds/latest-news",
-      "status": "OK",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "bodySha256": "9486099d5847ca56ceca526c612e72a8609dd8e68eec2c1585020743800d33ff",
-      "bytes": 209074
-    },
-    {
-      "url": "https://www.brecorder.com/feeds/sitemap",
-      "status": "OK",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "bodySha256": "1e2da00a09eaeae2e77aa4bba211e6d3296de0d6da31538cd1e69b7db4ec7fd3",
-      "bytes": 50003
-    },
-    {
-      "url": "https://www.brecorder.com/news/40442094/oil-prices-rise-by-about-usd1bbl",
-      "status": "FAILED",
-      "checkedAt": "2026-10-01T02:11:06.511Z",
-      "reason": "HTTP_403"
-    }
-  ],
-  "conflicts": [],
-  "eventGroups": [
-    {
-      "eventKey": "daily-spot-2026-09-29",
-      "evidenceIds": [
-        "market-wti",
-        "market-brent",
-        "market-diesel"
-      ],
-      "weightingRule": "ONE_EVENT_NOT_ARTICLE_COUNT"
-    },
-    {
-      "eventKey": "eia-weekly-2026-09-30",
-      "evidenceIds": [
-        "eia-stocks",
-        "eia-production",
-        "eia-refinery-inputs"
-      ],
-      "weightingRule": "ONE_EVENT_NOT_ARTICLE_COUNT"
     }
   ]
 }
