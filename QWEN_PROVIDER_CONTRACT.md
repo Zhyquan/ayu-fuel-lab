@@ -28,7 +28,7 @@
 - eventGroups、categoryChecks、recentMarketContext、conflicts、forecastHorizonDays。
 - 这些嵌套结构也按字段白名单投影，不传 discovery、fetchLog、HTML、历史 Forecast 或研究文件。
 
-单次请求体上限 65,536 bytes，响应上限相同。不给模型 tools 或 Web Search；来源 URL 仅为证据数据。Prompt 版本为 qwen-forecast-v1，协议沿用 ANALYSIS_PROTOCOL.md。
+单次请求体上限 65,536 bytes，响应上限相同。不给模型 tools 或 Web Search；来源 URL 仅为证据数据。本次整数概率合同的 Prompt 版本添加 `-integer-1pct` 后缀；Official/Core 与 Current/External 同步，旧历史版本继续兼容。协议沿用 ANALYSIS_PROTOCOL.md。
 
 ## 模型输出与可信构造
 
@@ -36,7 +36,7 @@
 
 模型只返回四个字段：
 
-1. probabilities：DOWN / FLAT / UP，各 5–90，步长 5，总和 100。
+1. probabilities：DOWN / FLAT / UP，各为 0–100 的整数，精度 1 个百分点，总和严格为 100；5 的倍数仍合法，不归一化或自动修补非法概率。
 2. mainReasonEvidenceIds：1–3 个有效、同主方向且不重复的 ID。
 3. counterReasonEvidenceIds：0–2 个有效反向 ID；存在反向证据时不得为空。
 4. strengthAssessments：全部 signals 恰好一次，只有 evidenceId 与 LOW / MEDIUM / HIGH。

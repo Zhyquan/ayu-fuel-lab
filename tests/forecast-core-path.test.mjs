@@ -163,3 +163,42 @@ test('fixed-seed contract suite covers 192 valid combinations and 25 invalid cor
   const result=await runContractFuzz();assert.equal(result.gate,'PASS');assert.equal(result.legalCases,192);assert.equal(result.illegalCases,25);
   assert.deepEqual(result.coverage.mainCounts,[1,2,3]);assert.deepEqual(result.coverage.counterCounts,[0,1,2]);assert.equal(result.realQwenCalls,0);
 });
+
+// Exercise the same schema, provider, artifact Gate and browser consumer used by production.
+for(const probabilities of [
+  {DOWN:63,FLAT:16,UP:21},{DOWN:61,FLAT:18,UP:21},{DOWN:62,FLAT:17,UP:21},
+  {DOWN:65,FLAT:15,UP:20},{DOWN:0,FLAT:0,UP:100},{DOWN:100,FLAT:0,UP:0},{DOWN:0,FLAT:100,UP:0},
+])test(`integer probability contract preserves ${JSON.stringify(probabilities)} end to end`,async()=>{
+  const {pack}=setup(),value=replayOutput(pack,{probabilities}),schema=analysisSchema(pack);
+  assert.equal(qwenSchemaCompatibilityGate(schema).gate,'PASS');
+  for(const key of ['DOWN','FLAT','UP']) {
+    const property=schema.properties.probabilities.properties[key];
+    assert.equal(property.type,'integer');assert.deepEqual(property.enum,Array.from({length:101},(_,i)=>i));
+    assert.ok(property.enum.includes(probabilities[key]));
+  }
+  assert.deepEqual(validateAnalysis(value,pack).probabilities,probabilities);
+  const candidate=await replayCandidate(pack,value,now);
+  assert.equal(coreForecastGate(candidate,pack,{now,expectedEvidenceHash:evidenceHashFor(pack)}).gate,'PASS');
+  assert.deepEqual(candidate.probabilities,probabilities);assert.equal(candidate.probabilityType,'AI_SUBJECTIVE_ESTIMATE');
+  const cache={...candidate,evidencePack:pack},readback=await readForecast({now,fetchImpl:async()=>new Response(JSON.stringify(cache))});
+  assert.equal(readback.status,'LIVE');assert.deepEqual(readback.probabilities,probabilities);
+  assert.equal(publicEvidenceGate({forecast:readback,evidencePack:pack},{now}).gate,'PASS');
+  const html=forecastMarkup(readback,{now});
+  for(const n of Object.values(probabilities))assert.ok(html.includes(`<strong>${n}%</strong>`));
+  assert.doesNotMatch(html,/\d+\.\d+%/);
+});
+
+for(const probabilities of [
+  {DOWN:63.5,FLAT:16.5,UP:20},{DOWN:63,FLAT:16,UP:20},
+  {DOWN:-1,FLAT:20,UP:81},{DOWN:101,FLAT:0,UP:-1},
+])test(`invalid integer probability contract rejects ${JSON.stringify(probabilities)} without repair`,async()=>{
+  const {pack}=setup(),value=replayOutput(pack,{probabilities});
+  assert.throws(()=>validateAnalysis(value,pack),/QWEN_PROBABILITIES_INVALID/);
+  const provider=createQwenProvider(replayProviderOptions(value,now));
+  await assert.rejects(provider.generateForecast({evidencePack:pack,evidenceHash:evidenceHashFor(pack),now}),/QWEN_PROBABILITIES_INVALID/);
+  assert.equal(provider.lastRun.actualExternalRequestCount,1);assert.equal(provider.lastRun.mock,true);
+  const candidate=await replayCandidate(pack,replayOutput(pack),now);
+  candidate.probabilities=probabilities;
+  assert.ok(coreForecastGate(candidate,pack,{now,expectedEvidenceHash:evidenceHashFor(pack)}).errors.includes('INVALID_PROBABILITIES'));
+  assert.equal((await readForecast({now,fetchImpl:async()=>new Response(JSON.stringify({...candidate,evidencePack:pack}))})).status,'UNAVAILABLE');
+});

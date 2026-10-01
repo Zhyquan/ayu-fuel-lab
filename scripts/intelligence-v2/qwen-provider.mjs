@@ -59,7 +59,7 @@ export function validateAnalysis(value,pack) {
   if(newsContract&&Object.hasOwn(value??{},'newsAssessments'))keys.push('newsAssessments');
   if(!exactKeys(value,keys)||!exactKeys(value.probabilities,['DOWN','FLAT','UP']))fail('QWEN_SCHEMA_INVALID');
   const p=value.probabilities;
-  if(Object.values(p).some(n=>!Number.isInteger(n)||n<5||n>90||n%5!==0)||p.DOWN+p.FLAT+p.UP!==100)fail('QWEN_PROBABILITIES_INVALID');
+  if(Object.values(p).some(n=>!Number.isInteger(n)||n<0||n>100)||p.DOWN+p.FLAT+p.UP!==100)fail('QWEN_PROBABILITIES_INVALID');
   const signals=newsContract?coreMarketSignals(pack):pack.signals;
   const byId=new Map(signals.map(s=>[s.id,s])), primary=primaryDirectionFor(p), refs=[];
   const external=externalSignalsGate(pack,{now:new Date(pack.generatedAt)});

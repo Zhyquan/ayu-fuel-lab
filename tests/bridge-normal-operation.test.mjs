@@ -88,8 +88,13 @@ test('normal refresh and a failed successor preserve all Official files and Last
   for(const directory of ['data/forecast-history-v2','.work','dist/data'])await mkdir(join(root,directory),{recursive:true});
   for(const path of paths)await writeFile(join(root,path),`FROZEN ${path}`);
   const cachePath=join(root,'dist/data/forecast-cache.json');await writeFile(cachePath,'OLD_GOOD');
-  const good=await externalScenario(fixture).run({mode:'REFRESH_CURRENT',persist:true,cachePath});
-  assert.equal(good.currentForecastUpdated,true);const accepted=await readFile(cachePath);
+  const good=await externalScenario(fixture,{mutateOutput:v=>{v.probabilities={DOWN:21,FLAT:16,UP:63};}}).run({mode:'REFRESH_CURRENT',persist:true,cachePath});
+  assert.deepEqual(good.snapshot.probabilities,{DOWN:21,FLAT:16,UP:63});
+  assert.equal(good.currentForecastUpdated,true);
+  const nextPackage=externalPackage(fixture.now);nextPackage.signals[0].eventKey='synthetic-next-integer-event';
+  const next=await externalScenario(fixture,{packageValue:nextPackage,mutateOutput:v=>{v.probabilities={DOWN:21,FLAT:17,UP:62};}}).run({mode:'REFRESH_CURRENT',persist:true,cachePath,currentCache:good.snapshot});
+  assert.equal(next.currentForecastUpdated,true);assert.deepEqual(next.snapshot.probabilities,{DOWN:21,FLAT:17,UP:62});
+  const accepted=await readFile(cachePath);
   const failed=await externalScenario(fixture,{mutateOutput:v=>{v.probabilities.UP=45;}}).run({mode:'REFRESH_CURRENT',persist:true,cachePath});
   assert.equal(failed.status,'REJECTED');assert.equal(failed.qwenCalled,true);assert.equal(failed.actualExternalRequestCount,1);
   assert.equal(failed.currentForecastUpdated,false);assert.deepEqual(await readFile(cachePath),accepted);

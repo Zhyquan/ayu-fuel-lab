@@ -27,22 +27,6 @@ export const publicUrl = value => {
 export const canonicalJson = value => JSON.stringify(value, (_, item) => item && typeof item === 'object' && !Array.isArray(item) ? Object.fromEntries(Object.keys(item).sort().map(key => [key,item[key]])) : item);
 export const unavailableForecast = reason => ({source:INTELLIGENCE_V2_SOURCE,status:'UNAVAILABLE',reason,probabilities:null,primaryDirection:null});
 
-// Normalize provider estimates explicitly. The quality gate never repairs bad input.
-export function normalizeAiEstimateTo5PercentSteps(value) {
-  const keys = ['DOWN','FLAT','UP'];
-  if (!value || keys.some(key => !Number.isFinite(value[key]) || value[key] < 0)) throw new Error('INVALID_ESTIMATE');
-  const total = keys.reduce((sum,key) => sum + value[key],0);
-  if (!total) throw new Error('EMPTY_ESTIMATE');
-  const target = keys.map(key => value[key] * 100 / total);
-  let best, distance = Infinity;
-  for (let down = 5; down <= 90; down += 5) for (let flat = 5; flat <= 90; flat += 5) {
-    const up = 100 - down - flat;
-    if (up < 5 || up > 90) continue;
-    const score = [down,flat,up].reduce((sum,n,i) => sum + (n-target[i])**2,0);
-    if (score < distance) { distance = score; best = {DOWN:down,FLAT:flat,UP:up}; }
-  }
-  return best;
-}
 export const primaryDirectionFor = p => p.UP > p.DOWN ? 'UP' : 'DOWN';
 
 // A limited publication-lag calendar, not a futures model or exchange calendar.
@@ -177,10 +161,10 @@ function strictForecastGate(candidate, pack, {now = new Date(),expectedEvidenceH
   const newsContract=pack?.inputContractVersion===NEWS_INPUT_CONTRACT;
   if(newsContract && (candidate?.inputContractVersion!==NEWS_INPUT_CONTRACT || candidate?.coverageMode!==pack.coverageMode || !text(candidate?.promptVersion) || !/^[a-f0-9]{64}$/.test(candidate?.inputPackHash??''))) errors.push('INVALID_INPUT_IDENTITY');
   const newsV2=newsContract&&candidate?.newsAssessmentContract===NEWS_ASSESSMENT_CONTRACT;
-  if(newsV2&&candidate.promptVersion!=='qwen-forecast-news-v2') errors.push('INVALID_NEWS_ASSESSMENT_VERSION');
-  if(newsContract&&candidate?.promptVersion==='qwen-forecast-news-v2'&&!newsV2) errors.push('INVALID_NEWS_ASSESSMENT_VERSION');
+  if(newsV2&&!['qwen-forecast-news-v2','qwen-forecast-news-v2-integer-1pct'].includes(candidate.promptVersion)) errors.push('INVALID_NEWS_ASSESSMENT_VERSION');
+  if(newsContract&&['qwen-forecast-news-v2','qwen-forecast-news-v2-integer-1pct'].includes(candidate?.promptVersion)&&!newsV2) errors.push('INVALID_NEWS_ASSESSMENT_VERSION');
   const p = candidate?.probabilities;
-  if (!p || Object.keys(p).sort().join(',')!=='DOWN,FLAT,UP' || ['DOWN','FLAT','UP'].some(key=>!Number.isFinite(p[key]) || p[key]%5!==0 || p[key]<5 || p[key]>90) || p.DOWN+p.FLAT+p.UP!==100) errors.push('INVALID_PROBABILITIES');
+  if (!p || Object.keys(p).sort().join(',')!=='DOWN,FLAT,UP' || ['DOWN','FLAT','UP'].some(key=>!Number.isInteger(p[key]) || p[key]<0 || p[key]>100) || p.DOWN+p.FLAT+p.UP!==100) errors.push('INVALID_PROBABILITIES');
   if (!['UP','DOWN'].includes(candidate?.primaryDirection) || (p && candidate.primaryDirection!==primaryDirectionFor(p))) errors.push('INVALID_PRIMARY_DIRECTION');
   const signals = Array.isArray(pack?.signals) ? pack.signals : [];
   const byId = new Map(signals.filter(Boolean).map(s=>[s.id,s]));
@@ -246,7 +230,7 @@ export function coreForecastGate(candidate,pack,options={}) {
   const external=externalSignalsGate(pack,{now:options.now}), externalById=new Map(external.signals.map(s=>[s.evidenceId,s]));
   errors.push(...external.errors);
   const promptVersion=external.signals.length?'qwen-forecast-external-v1':'qwen-forecast-core-v1';
-  if(candidate.promptVersion!==promptVersion||!['NORMAL','LIMITED'].includes(candidate.coverageMode)||candidate.newsAssessmentContract!==NEWS_ASSESSMENT_CONTRACT)errors.push('INVALID_CORE_CONTRACT_VERSION');
+  if(![promptVersion,`${promptVersion}-integer-1pct`].includes(candidate.promptVersion)||!['NORMAL','LIMITED'].includes(candidate.coverageMode)||candidate.newsAssessmentContract!==NEWS_ASSESSMENT_CONTRACT)errors.push('INVALID_CORE_CONTRACT_VERSION');
   const allowed=['source','status','probabilityType','forecastHorizonDays','provider','generatedAt','validUntil','evidenceHash','probabilities','primaryDirection','mainReasons','counterReasons','signalAssessments','inputContractVersion','newsAssessmentContract','promptVersion','inputPackHash','coverageMode','newsAssessments','forecastContract'];
   if(Object.keys(candidate).some(key=>!allowed.includes(key)))errors.push('UNCONTRACTED_ANALYSIS_FIELD');
   for(const reasons of [candidate.mainReasons,candidate.counterReasons]) {

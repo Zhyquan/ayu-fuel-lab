@@ -10,7 +10,7 @@ import { evidenceHashFor } from './history.mjs';
 export async function runExternalBridgeReplay(fixture,{count=128}={}) {
   let payloadChars=0;
   for(let i=0;i<count;i++) {
-    const p=externalPackage(fixture.now),probabilities=i%2?{DOWN:50,FLAT:20,UP:30}:{DOWN:30,FLAT:20,UP:50};
+    const p=externalPackage(fixture.now),probabilities=[{DOWN:61,FLAT:18,UP:21},{DOWN:21,FLAT:16,UP:63},{DOWN:65,FLAT:15,UP:20},{DOWN:20,FLAT:15,UP:65}][i%4];
     const primary=primaryDirectionFor(probabilities),role=[null,'main','counter'][i%3];
     p.signals[0].direction=role==='counter'?(primary==='UP'?'DOWN':'UP'):primary;
     p.signals[0].strength=['LOW','MEDIUM','HIGH'][i%3];

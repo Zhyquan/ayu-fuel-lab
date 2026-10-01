@@ -4,7 +4,7 @@ import { readFile, writeFile, mkdtemp, rm, readdir } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join, resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { DAY, evidenceGate, filterAndDeduplicateSignals, forecastGate, normalizeAiEstimateTo5PercentSteps, primaryDirectionFor, validateForecastCache, signalFailure, marketObservationLag } from '../dist/data/intelligence-v2-contract.js';
+import { DAY, evidenceGate, filterAndDeduplicateSignals, forecastGate, primaryDirectionFor, validateForecastCache, signalFailure, marketObservationLag } from '../dist/data/intelligence-v2-contract.js';
 import { weeklySourceFixture } from './fixtures/eia-weekly-source.mjs';
 import { collectEvidence, SOURCES, parseDailyPrices } from '../scripts/intelligence-v2/collect.mjs';
 import { createForecastProvider } from '../scripts/intelligence-v2/provider.mjs';
@@ -74,12 +74,8 @@ test('V2 06 AI-added fact, hidden narrative and forged Evidence ID all fail',()=
 test('V2 07 probability total must be exactly 100',()=>{
   const f=fixture();f.candidate.probabilities.UP+=5;assert.ok(gate(f.candidate).errors.includes('INVALID_PROBABILITIES'));
 });
-test('V2 08 non 5% step, string, non-finite and out-of-range probabilities fail',()=>{
-  for(const value of [41,'40',NaN,Infinity,0,95]) {const f=fixture();f.candidate.probabilities.UP=value;assert.equal(gate(f.candidate).gate,'FAIL');}
-  for(const input of [{DOWN:57.42,FLAT:18.31,UP:24.27},{DOWN:0,FLAT:100,UP:0}]) {
-    const p=normalizeAiEstimateTo5PercentSteps(input);assert.equal(p.DOWN+p.FLAT+p.UP,100);assert.ok(Object.values(p).every(n=>n%5===0&&n>=5&&n<=90));
-  }
-  assert.throws(()=>normalizeAiEstimateTo5PercentSteps({DOWN:0,FLAT:0,UP:0}));
+test('V2 08 fractional, string, non-finite and out-of-range probabilities fail',()=>{
+  for(const value of [40.5,'40',NaN,Infinity,-1,101]) {const f=fixture();f.candidate.probabilities.UP=value;assert.equal(gate(f.candidate).gate,'FAIL');}
 });
 test('V2 09 primary UP/DOWN only; ties and highest FLAT still compare UP versus DOWN',()=>{
   for(const primaryDirection of ['FLAT','SIDEWAYS','constructor']) {const f=fixture();f.candidate.primaryDirection=primaryDirection;assert.ok(gate(f.candidate).errors.includes('INVALID_PRIMARY_DIRECTION'));}

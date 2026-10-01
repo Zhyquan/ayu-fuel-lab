@@ -52,7 +52,7 @@ for(const [name,modify,error]of [
   ['duplicate main IDs',v=>v.mainReasonEvidenceIds=['eia-stocks','eia-stocks'],'QWEN_REASON_INVALID'],
   ['duplicate counter IDs',v=>v.counterReasonEvidenceIds=['market-diesel','market-diesel'],'QWEN_REASON_INVALID'],
   ['bad sum',v=>v.probabilities.FLAT=30,'QWEN_PROBABILITIES_INVALID'],
-  ['bad step',v=>{v.probabilities.UP=41;v.probabilities.DOWN=34;},'QWEN_PROBABILITIES_INVALID'],
+  ['fractional probability',v=>{v.probabilities.UP=40.5;v.probabilities.DOWN=34.5;},'QWEN_PROBABILITIES_INVALID'],
   ['missing assessment',v=>v.strengthAssessments.pop(),'QWEN_ASSESSMENTS_INVALID'],
   ['duplicate assessment',v=>v.strengthAssessments[1]=v.strengthAssessments[0],'QWEN_ASSESSMENTS_INVALID'],
   ['extra assessment',v=>v.strengthAssessments.push({...v.strengthAssessments[0]}),'QWEN_ASSESSMENTS_INVALID'],
@@ -141,5 +141,15 @@ test('schema compatibility allowlist recurses without treating property names or
   ]) {
     const result=qwenSchemaCompatibilityGate({type:'array',items:{type:'string',[keyword]:value}});
     assert.equal(result.gate,'FAIL');assert.ok(result.errors.some(error=>error.endsWith(`:${keyword}`)));
+  }
+});
+
+test('all Forecast prompts use the integer contract and retain subjective estimates',async()=>{
+  for(const name of ['qwen-forecast-v1','qwen-forecast-core-v1','qwen-forecast-external-v1','qwen-forecast-news-v1','qwen-forecast-news-v2']) {
+    const {SYSTEM_PROMPT,PROMPT_VERSION}=await import(`../scripts/intelligence-v2/prompts/${name}.mjs`);
+    assert.match(SYSTEM_PROMPT,/0–100的整数/);assert.match(SYSTEM_PROMPT,/三项之和严格等于100/);
+    assert.match(SYSTEM_PROMPT,/不要为了看起来更精确而人为制造小数或随机个位数/);
+    assert.match(SYSTEM_PROMPT,/AI_SUBJECTIVE_ESTIMATE/);assert.match(PROMPT_VERSION,/-integer-1pct$/);
+    assert.doesNotMatch(SYSTEM_PROMPT,/5整数倍|5[％%].*步长|5.*的倍数/);
   }
 });

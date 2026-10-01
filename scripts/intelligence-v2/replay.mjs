@@ -43,11 +43,12 @@ async function assertPublic(candidate,pack,now) {
   assert.equal(coreForecastGate(candidate,pack,{now:new Date(now),expectedEvidenceHash:evidenceHashFor(pack)}).gate,'PASS');
   const cache=JSON.parse(JSON.stringify({...candidate,evidencePack:pack}));
   const readback=await readForecast({now:new Date(now),fetchImpl:async()=>new Response(JSON.stringify(cache))});
-  assert.equal(readback.status,'LIVE');
+  assert.equal(readback.status,'LIVE');assert.deepEqual(readback.probabilities,candidate.probabilities);
   const publicGate=publicEvidenceGate({forecast:readback,evidencePack:readback.evidencePack},{now:new Date(now)});
   assert.equal(publicGate.gate,'PASS',publicGate.errors.join(','));
   const html=forecastMarkup(readback,{now:new Date(now)})+publicEvidenceMarkup(readback,{now:new Date(now)});
   assert.match(html,/偏涨|偏跌/);assert.match(html,/AI综合估计/);assert.match(html,/查看来源/);
+  for(const value of Object.values(candidate.probabilities))assert.ok(html.includes(`<strong>${value}%</strong>`));
   assert.doesNotMatch(html,/暂时无法展示|系统失败/);
   return {cache,cards:publicGate.cards,html};
 }
@@ -64,12 +65,13 @@ export async function runReplay() {
     const evidenceGate=coreEvidenceGate(f.pack,{now});
     for(const [path,value] of [[INDEX_PATH,before],['CURRENT_EVIDENCE_V2.json',f.pack],['intelligence-v2/current-evidence.json',f.pack],['intelligence-v2/EVIDENCE_GATE_RESULT.json',evidenceGate],['intelligence-v2/pending-intelligence-pack.json',{evidencePack:f.pack,evidenceGate}]])
       await writeFile(join(root,path),JSON.stringify(value));
-    const output=replayOutput(f.pack,{newsCount:3});
+    const output=replayOutput(f.pack,{probabilities:{DOWN:21,FLAT:16,UP:63},newsCount:3});
     output.mainReasonEvidenceIds.push(output.newsAssessments[0].evidenceId);
     // The real official writer, immutable history and index operate only in this disposable root.
     const result=await runOfficialDaily({root,pack:f.pack,sourceCommit,clock:()=>now,providerOptions:replayProviderOptions(output,now)});
     const cache=JSON.parse(await readFile(join(root,'dist/data/forecast-cache.json'),'utf8'));
     const {evidencePack,...candidate}=cache;
+    assert.deepEqual(candidate.probabilities,output.probabilities);
     const projected=await assertPublic(candidate,evidencePack,now);
     await writeFile(join(root,'dist/cards.json'),JSON.stringify(projected.cards));
     await writeFile(join(root,'dist/index.html'),projected.html);
@@ -83,7 +85,7 @@ export async function runReplay() {
     const bridgeReplay=await runBridgeReplay(f,replayOutput);
     const scan=await scanTemporary(root);
     return {gate:'PASS',coreForecastGate:'PASS',publicProjection:'PASS',publicScan:scan.gate,pagesCompatibleOutput:'PASS',mockAuditRejected:true,
-      proof:'SYNTHETIC_NOT_PRODUCTION',bridgeReplay,inputPackHash:candidate.inputPackHash,fixtureShape:{signals:6,newsDocuments:3},elapsedMs:Math.round(performance.now()-started),realQwenCalls:0};
+      proof:'SYNTHETIC_NOT_PRODUCTION',probabilities:candidate.probabilities,bridgeReplay,inputPackHash:candidate.inputPackHash,fixtureShape:{signals:6,newsDocuments:3},elapsedMs:Math.round(performance.now()-started),realQwenCalls:0};
   }finally{await rm(root,{recursive:true,force:true});}
 }
 
@@ -92,9 +94,9 @@ export async function runContractFuzz({seed=20260930,count=192}={}) {
   const started=performance.now(), f=await loadReplayFixture(),now=new Date(f.now);
   let state=seed>>>0;const next=()=>state=(Math.imul(state,1664525)+1013904223)>>>0;
   const probabilities=[];
-  for(let DOWN=5;DOWN<=90;DOWN+=5)for(let FLAT=5;FLAT<=90;FLAT+=5){const UP=100-DOWN-FLAT;if(UP>=5&&UP<=90)probabilities.push({DOWN,FLAT,UP});}
+  for(let DOWN=0;DOWN<=100;DOWN++)for(let FLAT=0;FLAT<=100-DOWN;FLAT++){const UP=100-DOWN-FLAT;probabilities.push({DOWN,FLAT,UP});}
   for(let i=probabilities.length-1;i>0;i--){const j=next()%(i+1);[probabilities[i],probabilities[j]]=[probabilities[j],probabilities[i]];}
-  const coverage={directions:new Set(),mainCounts:new Set(),counterCounts:new Set(),newsCounts:new Set(),strengths:new Set(),modes:new Set()};
+  const coverage={probabilityPrecision:new Set(),directions:new Set(),mainCounts:new Set(),counterCounts:new Set(),newsCounts:new Set(),strengths:new Set(),modes:new Set()};
   const root=await mkdtemp(join(tmpdir(),'ayu-core-fuzz-'));let homogeneousVariants=0;
   try {
     await mkdir(join(root,'dist/data'),{recursive:true});
@@ -121,6 +123,7 @@ export async function runContractFuzz({seed=20260930,count=192}={}) {
         for(const a of value.newsAssessments.filter(a=>a.impact!==primary))if(value.counterReasonEvidenceIds.length<1+i%2)value.counterReasonEvidenceIds.push(a.evidenceId);
       }
       const original=canonicalJson(pack),candidate=await replayCandidate(pack,value,now);
+      assert.deepEqual(candidate.probabilities,p);coverage.probabilityPrecision.add(Object.values(p).some(n=>n%5!==0)?'INTEGER_1PCT':'EXISTING_5_MULTIPLE');
       const projected=await assertPublic(candidate,pack,now);
       assert.equal(canonicalJson(pack),original,`mutated fixture at seed ${seed}, case ${i}`);
       assert.equal(newsEnrichmentGate(candidate,pack,{mode:'FORECAST'}).gate,'PASS');
@@ -129,7 +132,7 @@ export async function runContractFuzz({seed=20260930,count=192}={}) {
     }
     const base=replayOutput(f.pack),candidate=await replayCandidate(f.pack,base,now);
     const illegalAnalysis=[
-      ['NON_5_STEP',v=>{v.probabilities={DOWN:36,FLAT:24,UP:40};}],
+      ['FRACTIONAL',v=>{v.probabilities={DOWN:35.5,FLAT:24.5,UP:40};}],
       ['BAD_SUM',v=>{v.probabilities.UP=45;}],
       ['UNKNOWN_MARKET',v=>{v.mainReasonEvidenceIds=['market-unknown'];}],
       ['DUPLICATE_MAIN',v=>{v.mainReasonEvidenceIds=['eia-stocks','eia-stocks'];}],
@@ -139,7 +142,7 @@ export async function runContractFuzz({seed=20260930,count=192}={}) {
     ];
     for(const [name,mutate]of illegalAnalysis){const value=structuredClone(base);mutate(value);assert.throws(()=>validateAnalysis(value,f.pack),undefined,name);}
     const illegalCandidates=[
-      ['NON_5_STEP',c=>{c.probabilities={DOWN:36,FLAT:24,UP:40};}],['BAD_SUM',c=>{c.probabilities.UP=45;}],
+      ['FRACTIONAL',c=>{c.probabilities={DOWN:35.5,FLAT:24.5,UP:40};}],['BAD_SUM',c=>{c.probabilities.UP=45;}],
       ['UNKNOWN_MARKET',c=>{c.mainReasons[0].evidenceId='market-unknown';}],['DUPLICATE_MAIN',c=>{c.mainReasons.push(c.mainReasons[0]);}],
       ['SAME_EVENT',c=>{c.mainReasons=[{evidenceId:'eia-stocks',text:'美国馏分油库存减少'},{evidenceId:'eia-production',text:'美国馏分油产量减少'}];}],
       ['REVERSE_REASON',c=>{c.primaryDirection='DOWN';}],['MISSING_ASSESSMENT',c=>{c.signalAssessments.pop();}],
@@ -166,6 +169,7 @@ export async function runContractFuzz({seed=20260930,count=192}={}) {
     }
     const bridgeReplay=await runBridgeReplay(f,replayOutput);
     const scan=await scanTemporary(root);
+    assert.equal(coverage.probabilityPrecision.has('INTEGER_1PCT'),true);
     const dimensions=Object.fromEntries(Object.entries(coverage).map(([key,v])=>[key,[...v].sort()]));
     for(const [key,expected]of Object.entries({directions:['DOWN','UP'],mainCounts:[1,2,3],counterCounts:[0,1,2],newsCounts:[0,1,2,3],strengths:['HIGH','LOW','MEDIUM'],modes:['LIMITED','NORMAL']}))assert.deepEqual(dimensions[key],expected,`missing ${key} coverage`);
     return {gate:'PASS',seed,legalCases:count,homogeneousSyntheticVariants:homogeneousVariants,illegalCases:illegalAnalysis.length+illegalCandidates.length+illegalPacks.length,coverage:dimensions,bridgeReplay,publicScan:scan.gate,elapsedMs:Math.round(performance.now()-started),realQwenCalls:0};
