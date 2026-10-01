@@ -6,6 +6,7 @@ import { resolveNewsUrl, deduplicateNewsDocuments } from './source-adapters.mjs'
 import { collectEvidence } from './collect.mjs';
 import { runForecast } from './run.mjs';
 import { evidenceHashFor } from './history.mjs';
+import { currentHash } from './current-publication.mjs';
 
 const fail = code => { throw new Error(code); };
 export function mergeBridgeEvidence(pack,document) {
@@ -27,22 +28,32 @@ export async function replaceCurrentForecast(path,snapshot,{write=writeFile,move
 }
 
 export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_URL',mode='VERIFY_ONLY',resolveOptions={},collect=collectEvidence,clock=()=>new Date(),
-  currentCache=null,autoEvidence=null,providerOptions={},refreshAuthorized=false,cachePath,persist=false,writeOptions}={}) {
+  currentCache=null,autoEvidence=null,providerOptions={},activationAuthorized=false,cachePath,persist=false,writeOptions}={}) {
   const result={status:'REJECTED',mode,intakeType,sourceUrl:null,source:null,publishedAt:null,publishedAtPrecision:null,freshness:'NOT_CHECKED',
     duplicate:'NOT_CHECKED',evidenceAdmission:'NOT_ADMITTED',qwenCalled:false,coreForecastGate:'NOT_RUN',newsEnrichmentGate:'NOT_RUN',
-    newsUsedInReasons:false,publicCard:false,currentForecastUpdated:false,failureCode:null};
+    newsUsedInReasons:false,publicCard:false,externalSignalsAdmitted:0,externalSignalsUsedInReasons:0,publicCards:0,actualExternalRequestCount:0,
+    forecastId:null,currentForecastUpdated:false,failureCode:null};
   try {
     if(!['VERIFY_ONLY','REFRESH_CURRENT'].includes(mode))fail('BRIDGE_MODE_INVALID');
-    if(mode==='REFRESH_CURRENT'&&!refreshAuthorized)fail('BRIDGE_REFRESH_NOT_AUTHORIZED');
+    if(mode==='REFRESH_CURRENT'&&!activationAuthorized)fail('QWEN_API_NOT_ACTIVATED');
     if(!['NEWS_URL','CHATGPT_SIGNAL_PACKAGE'].includes(intakeType))fail('BRIDGE_INTAKE_INVALID');
     let document=null, normalized=null;
     if(intakeType==='CHATGPT_SIGNAL_PACKAGE') {
       normalized=validateExternalAnalystSignalPackage(signalPackage,{now:clock()});
       Object.assign(result,{signalCount:normalized.signals.length,freshSignals:normalized.signals.length,sourceUrlPresent:normalized.signals.filter(s=>s.sourceUrl!==null).length,freshness:'PASS'});
+      const previous=currentCache?.evidencePack?.externalAnalystSignals??[];
+      if(normalized.signals.every(s=>previous.some(p=>p.eventKey===s.eventKey))) {
+        result.duplicate='DUPLICATE';result.duplicateEvents=normalized.signals.length;fail('BRIDGE_DUPLICATE_ONLY');
+      }
     } else {
       const resolved=await resolveNewsUrl(newsUrl,{...resolveOptions,now:clock()});document=resolved.document;
       Object.assign(result,{sourceUrl:document.sourceUrl,source:document.originalSource,publishedAt:document.publishedAt,publishedAtPrecision:document.publishedAtPrecision,
         freshness:'PASS',verificationChecks:resolved.checks,documentId:document.documentId,articleContentHash:document.articleContentHash});
+      // Previous accepted Current evidence also prevents repeated manual submissions.
+      if(currentCache?.evidencePack?.newsDocuments?.length) {
+        const previous=deduplicateNewsDocuments([...currentCache.evidencePack.newsDocuments,document]);
+        if(previous.excluded.some(d=>d.documentId===document.documentId)){result.duplicate='DUPLICATE';fail('BRIDGE_DUPLICATE_ONLY');}
+      }
     }
     const collected=await collect({now:clock(),coreOnly:intakeType==='CHATGPT_SIGNAL_PACKAGE'});
     const core=coreEvidenceGate(collected.pack,{now:clock()});
@@ -53,12 +64,8 @@ export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_UR
     if(normalized) {
       const merged=mergeExternalSignals(collected.pack,normalized,{currentCache,autoEvidence,now:clock()});
       pack=merged.pack;result.duplicateEvents=merged.duplicateEvents;result.excluded=merged.excluded;
+      result.externalSignalsAdmitted=pack.externalAnalystSignals.length;
     } else {
-      // Previous accepted Current evidence also prevents repeated manual submissions.
-      if(currentCache?.evidencePack?.newsDocuments?.length) {
-        const previous=deduplicateNewsDocuments([...currentCache.evidencePack.newsDocuments,document]);
-        if(previous.excluded.some(d=>d.documentId===document.documentId)){result.duplicate='DUPLICATE';fail('BRIDGE_DUPLICATE_ONLY');}
-      }
       const merged=mergeBridgeEvidence(collected.pack,document);
       if(merged.duplicate){result.duplicate='DUPLICATE';fail('BRIDGE_DUPLICATE_ONLY');}
       pack=merged.pack;result.verificationChecks.push('NOT_DUPLICATE');
@@ -69,10 +76,11 @@ export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_UR
     result.inputShape={signals:pack.signals.length,newsDocuments:pack.newsDocuments.length,...(normalized?{externalAnalystSignals:pack.externalAnalystSignals.length}:{})};
     if(mode==='VERIFY_ONLY'){result.status='READY_FOR_REFORECAST';return result;}
     // Existing provider/prompt/schema and nonpersisting runner; never enter the Official writer.
-    const analysis=await runForecast({pack,provider:'QWEN',providerOptions:{...providerOptions,activationAuthorized:true,maxTransportRetries:0,maxExternalRequests:1,onAudit:async audit=>{
-      result.qwenCalled=Boolean(audit.attemptCount);result.providerAudit=audit;await providerOptions.onAudit?.(audit);
+    const analysis=await runForecast({pack,provider:'QWEN',providerOptions:{...providerOptions,activationAuthorized,maxTransportRetries:0,maxExternalRequests:1,onAudit:async audit=>{
+      result.actualExternalRequestCount=audit.actualExternalRequestCount??0;
+      result.qwenCalled=result.actualExternalRequestCount>0;result.providerAudit=audit;await providerOptions.onAudit?.(audit);
     }},now:clock(),persist:false});
-    result.qwenCalled=Boolean(analysis.providerAudit?.attemptCount);
+    result.qwenCalled=result.actualExternalRequestCount>0;
     result.coreForecastGate=analysis.gate.gate;
     if(analysis.gate.gate!=='PASS')fail('CORE_FORECAST_GATE_FAILED');
     const {candidate,evidencePack}=analysis;
@@ -84,9 +92,12 @@ export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_UR
     if(cards.gate!=='PASS')fail('PUBLIC_EVIDENCE_GATE_FAILED');
     const selected=[...candidate.mainReasons,...candidate.counterReasons].filter(r=>normalized?pack.externalAnalystSignals.some(s=>s.evidenceId===r.evidenceId):r.documentId===document.documentId);
     result.newsUsedInReasons=selected.length>0;
+    result.externalSignalsUsedInReasons=normalized?selected.length:0;
+    result.publicCards=cards.cards.length;
     result.publicCard=cards.cards.some(card=>selected.some(ref=>ref.evidenceId===card.evidenceId));
     if(selected.some(ref=>!cards.cards.some(card=>card.evidenceId===ref.evidenceId)))fail('BRIDGE_PUBLIC_CARD_MISSING');
     const snapshot={...candidate,evidencePack};
+    result.forecastId=currentHash(snapshot);
     if(persist){if(!cachePath)fail('CURRENT_CACHE_PATH_REQUIRED');await replaceCurrentForecast(cachePath,snapshot,writeOptions);result.currentForecastUpdated=true;}
     return {...result,status:'CURRENT_READY',snapshot,providerAudit:analysis.providerAudit};
   } catch(error) {
@@ -97,17 +108,22 @@ export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_UR
 
 const escape = value => String(value??'—').replace(/[\r\n|`<>]/g,' ');
 export function bridgeSummary(result) {
-  if(result.intakeType==='CHATGPT_SIGNAL_PACKAGE')return `## 情报桥结果\n\n| 项目 | 结果 |\n| --- | --- |\n${[
+  const operation=[
+    ['External signals received',result.signalCount??'NOT_CHECKED'],['External signals admitted',result.externalSignalsAdmitted??0],
+    ['Fresh Core Evidence',result.coreEvidenceGate??'NOT_RUN'],['Qwen called',result.qwenCalled?'YES':'NO'],
+    ['actualExternalRequestCount',result.actualExternalRequestCount??0],['Core Forecast Gate',result.coreForecastGate],
+    ['External Signals Used In Reasons',result.externalSignalsUsedInReasons??0],['Public Cards',result.publicCards??0],
+    ['Current Forecast Updated',result.currentForecastUpdated?'YES':'NO'],['Forecast ID',result.forecastId],['Failure Code',result.failureCode],
+  ];
+  const date=result.publishedAtPrecision==='DATE_ONLY'?result.publishedAt?.slice(0,10):result.publishedAt;
+  const rows=result.intakeType==='CHATGPT_SIGNAL_PACKAGE'?[
     ['结果',result.status],['Intake','ChatGPT Signal Package'],['Signals',result.signalCount??0],['Fresh signals',result.freshSignals??0],['Duplicate events',result.duplicateEvents??'NOT_CHECKED'],
     ['Source URL present',`${result.sourceUrlPresent??0}/${result.signalCount??0}`],['Core Evidence',result.coreEvidenceGate??'NOT_RUN'],
-    ['Core failure details',(result.coreEvidenceErrors??[]).join(', ')||'—'],['Ready for reforecast',result.status==='READY_FOR_REFORECAST'?'YES':'NO'],['Mode',result.mode],['Qwen Called',result.qwenCalled?'YES':'NO'],
-    ['Current Forecast Updated',result.currentForecastUpdated?'YES':'NO'],['Failure Code',result.failureCode],
-  ].map(([label,value])=>`| ${label} | ${escape(value)} |`).join('\n')}\n`;
-  const date=result.publishedAtPrecision==='DATE_ONLY'?result.publishedAt?.slice(0,10):result.publishedAt;
-  return `## 情报桥结果\n\n| 项目 | 结果 |\n| --- | --- |\n${[
+    ['Core failure details',(result.coreEvidenceErrors??[]).join(', ')||'—'],['Ready for reforecast',result.status==='READY_FOR_REFORECAST'?'YES':'NO'],['Mode',result.mode],
+  ]:[
     ['结果',result.status],['URL',result.sourceUrl??'未接纳，不展示原值'],['Source',result.source],['Published At',date],['Freshness',result.freshness],
-    ['Duplicate',result.duplicate],['Evidence Admission',result.evidenceAdmission],['Mode',result.mode],['Qwen Called',result.qwenCalled],
-    ['Core Forecast Gate',result.coreForecastGate],['News Enrichment Gate',result.newsEnrichmentGate],['News Used In Reasons',result.newsUsedInReasons],
-    ['Public Card',result.publicCard],['Current Forecast Updated',result.currentForecastUpdated],['Failure Code',result.failureCode],
-  ].map(([label,value])=>`| ${label} | ${escape(value)} |`).join('\n')}\n`;
+    ['Duplicate',result.duplicate],['Evidence Admission',result.evidenceAdmission],['Mode',result.mode],
+    ['News Enrichment Gate',result.newsEnrichmentGate],['News Used In Reasons',result.newsUsedInReasons],['Public Card',result.publicCard],
+  ];
+  return `## 情报桥结果\n\n| 项目 | 结果 |\n| --- | --- |\n${[...rows,...operation].map(([label,value])=>`| ${label} | ${escape(value)} |`).join('\n')}\n`;
 }

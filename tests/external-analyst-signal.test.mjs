@@ -171,11 +171,11 @@ test('Current success/failure atomic path protects last good and all Official fi
     const scan=spawnSync(process.execPath,[join(root,'scripts/scan-public-files.mjs')],{encoding:'utf8',env:{}});assert.equal(scan.status,0,scan.stdout);
   }finally{await rm(root,{recursive:true,force:true});}
 });
-test('workflow defaults package/VERIFY_ONLY, takes env not shell interpolation, exposes no secret in free branch',async()=>{
+test('workflow defaults package/REFRESH_CURRENT, takes env not shell interpolation, exposes no secret in free branch',async()=>{
   const yml=await readFile(new URL('../.github/workflows/manual-intelligence-bridge.yml',import.meta.url),'utf8');
-  assert.match(yml,/default: CHATGPT_SIGNAL_PACKAGE/);assert.match(yml,/default: VERIFY_ONLY/);
+  assert.match(yml,/default: CHATGPT_SIGNAL_PACKAGE/);assert.match(yml,/default: REFRESH_CURRENT/);
   assert.match(yml,/粘贴 ChatGPT 推送的完整 AYU_EXTERNAL_ANALYST_SIGNAL_V1 JSON/);assert.match(yml,/BRIDGE_SIGNAL_PACKAGE: \$\{\{ inputs.signal_package \}\}/);
-  const verify=yml.split('- name: 免费验证新闻')[1].split('- name: 尚未授权')[0];assert.doesNotMatch(verify,/secrets\.|DASHSCOPE/);
+  const verify=yml.split('- name: 免费验证新闻')[1].split('- name: 刷新条件')[0];assert.doesNotMatch(verify,/secrets\.|DASHSCOPE/);
 });
 
 test('optional AUTO news cannot exceed reason/card slots already occupied by Core and external signals',async()=>{

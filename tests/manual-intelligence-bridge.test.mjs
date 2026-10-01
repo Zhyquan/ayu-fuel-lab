@@ -160,17 +160,17 @@ test('Pages accepts only the matching verified Current commit; VERIFY_ONLY canno
 test('default workflow intake, secret boundary, strict publication and safe artifact path are explicit',async()=>{
   const yml=await readFile(new URL('../.github/workflows/manual-intelligence-bridge.yml',import.meta.url),'utf8');
   assert.match(yml,/name: Ayu Fuel · 情报桥/);assert.match(yml,/description: '粘贴需要验证的原始新闻链接'/);
-  assert.match(yml,/default: CHATGPT_SIGNAL_PACKAGE/);assert.match(yml,/type: string\n        required: false/);assert.match(yml,/default: VERIFY_ONLY/);
+  assert.match(yml,/default: CHATGPT_SIGNAL_PACKAGE/);assert.match(yml,/type: string\n        required: false/);assert.match(yml,/default: REFRESH_CURRENT/);
   assert.doesNotMatch(yml,/schedule:|\n  push:/);
-  const verify=yml.split('- name: 免费验证新闻')[1].split('- name: 尚未授权')[0];assert.doesNotMatch(verify,/secrets\.|DASHSCOPE|GITHUB_TOKEN/);
-  assert.match(yml,/vars.BRIDGE_REFRESH_ACTIVATED == 'true'/);assert.match(yml,/path: .work\/manual-bridge\/result.json/);
+  const verify=yml.split('- name: 免费验证新闻')[1].split('- name: 刷新条件')[0];assert.doesNotMatch(verify,/secrets\.|DASHSCOPE|GITHUB_TOKEN/);
+  assert.match(yml,/vars.QWEN_API_ACTIVATED == 'true'/);assert.match(yml,/path: .work\/manual-bridge\/result.json/);
   assert.doesNotMatch(yml,/path: .*snapshot|path: .*origin/);
   const source=await readFile(new URL('../scripts/intelligence-v2/manual-bridge.mjs',import.meta.url),'utf8');
   assert.doesNotMatch(source,/runOfficialDaily|reservation|official-daily-index/);
 });
-test('unauthorized refresh fails before all network and does not read credentials',async()=>{
-  const s=setup(),result=await s.run({mode:'REFRESH_CURRENT',refreshAuthorized:false});
-  assert.equal(result.failureCode,'BRIDGE_REFRESH_NOT_AUTHORIZED');assert.deepEqual(s.counts,{source:0,model:0,collect:0});
+test('Qwen kill switch rejects refresh before all network and does not read credentials',async()=>{
+  const s=setup(),result=await s.run({mode:'REFRESH_CURRENT',activationAuthorized:false});
+  assert.equal(result.failureCode,'QWEN_API_NOT_ACTIVATED');assert.deepEqual(s.counts,{source:0,model:0,collect:0});
   const cli=spawnSync(process.execPath,['scripts/intelligence-v2/commit-current-bridge.mjs'],{env:{},encoding:'utf8'});
   assert.equal(cli.status,1);assert.match(cli.stderr,/CURRENT_COMMIT_NOT_AUTHORIZED/);
 });

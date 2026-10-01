@@ -12,7 +12,7 @@ export function currentChangesAllowed(records) {
   return records.map(r=>r.path);
 }
 async function main() {
-  if(process.env.BRIDGE_REFRESH_ACTIVATED!=='true'||process.env.QWEN_API_ACTIVATED!=='true'||process.env.GITHUB_ACTIONS!=='true'||
+  if(process.env.QWEN_API_ACTIVATED!=='true'||process.env.GITHUB_ACTIONS!=='true'||
     process.env.GITHUB_REF!=='refs/heads/main'||process.env.GITHUB_REPOSITORY!=='Zhyquan/ayu-fuel-lab')fail('CURRENT_COMMIT_NOT_AUTHORIZED');
   const root=fileURLToPath(new URL('../../',import.meta.url)), directory=resolve(root,'.work/manual-bridge');
   const snapshot=JSON.parse(await readFile(resolve(directory,'snapshot.json'),'utf8'));

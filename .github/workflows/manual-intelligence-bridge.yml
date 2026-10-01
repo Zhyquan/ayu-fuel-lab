@@ -16,10 +16,10 @@ on:
         type: string
         required: false
       mode:
-        description: 'VERIFY_ONLY 免费验证；REFRESH_CURRENT 重新判断（需单独授权启用）'
+        description: 'REFRESH_CURRENT：验证通过后重新计算并更新当前预测（会调用一次 Qwen）；VERIFY_ONLY：仅免费验证情报，不调用模型'
         type: choice
-        options: [VERIFY_ONLY, REFRESH_CURRENT]
-        default: VERIFY_ONLY
+        options: [REFRESH_CURRENT, VERIFY_ONLY]
+        default: REFRESH_CURRENT
 permissions:
   contents: read
 concurrency:
@@ -48,28 +48,27 @@ jobs:
           BRIDGE_NEWS_URL: ${{ inputs.news_url }}
           BRIDGE_MODE: VERIFY_ONLY
         run: node scripts/intelligence-v2/manual-bridge-cli.mjs
-      - name: 尚未授权重新判断
-        if: inputs.mode == 'REFRESH_CURRENT' && !(vars.BRIDGE_REFRESH_ACTIVATED == 'true' && vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab')
+      - name: 刷新条件未满足
+        if: inputs.mode == 'REFRESH_CURRENT' && !(vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab')
         env:
           BRIDGE_INTAKE_TYPE: ${{ inputs.intake_type }}
           BRIDGE_MODE: REFRESH_CURRENT
+          QWEN_API_ACTIVATED: ${{ vars.QWEN_API_ACTIVATED }}
         run: node scripts/intelligence-v2/manual-bridge-cli.mjs
-      - name: 已授权的 Current 重新判断
+      - name: 验证情报并更新 Current
         id: refresh
-        if: inputs.mode == 'REFRESH_CURRENT' && vars.BRIDGE_REFRESH_ACTIVATED == 'true' && vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab'
+        if: inputs.mode == 'REFRESH_CURRENT' && vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab'
         env:
           BRIDGE_INTAKE_TYPE: ${{ inputs.intake_type }}
           BRIDGE_SIGNAL_PACKAGE: ${{ inputs.signal_package }}
           BRIDGE_NEWS_URL: ${{ inputs.news_url }}
           BRIDGE_MODE: REFRESH_CURRENT
-          BRIDGE_REFRESH_ACTIVATED: ${{ vars.BRIDGE_REFRESH_ACTIVATED }}
           QWEN_API_ACTIVATED: ${{ vars.QWEN_API_ACTIVATED }}
           DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
         run: node scripts/intelligence-v2/manual-bridge-cli.mjs
       - name: 受控提交 Current（不写 Official）
         if: steps.refresh.outputs.ready == 'true'
         env:
-          BRIDGE_REFRESH_ACTIVATED: ${{ vars.BRIDGE_REFRESH_ACTIVATED }}
           QWEN_API_ACTIVATED: ${{ vars.QWEN_API_ACTIVATED }}
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/intelligence-v2/commit-current-bridge.mjs

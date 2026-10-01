@@ -9,7 +9,7 @@ export function externalPackage(now='2026-09-30T05:00:00.000Z') {
 }
 export function externalScenario(fixture,{packageValue=externalPackage(fixture.now),pack=fixture.pack,role='main',mutateOutput}={}) {
   const counts={article:0,model:0,collect:0};let modelInput,requestBody,collectionOptions;
-  const options={intakeType:'CHATGPT_SIGNAL_PACKAGE',signalPackage:JSON.stringify(packageValue),clock:()=>new Date(fixture.now),refreshAuthorized:true,
+  const options={intakeType:'CHATGPT_SIGNAL_PACKAGE',signalPackage:JSON.stringify(packageValue),clock:()=>new Date(fixture.now),activationAuthorized:true,
     resolveOptions:{fetchImpl:async()=>{counts.article++;throw new Error('ARTICLE_FETCH_FORBIDDEN');}},
     collect:async value=>{counts.collect++;collectionOptions=value;return {pack:structuredClone(pack)};},
     providerOptions:{mock:true,environment:{DASHSCOPE_API_KEY:'test'},clock:()=>new Date(fixture.now),wait:async()=>{},fetchImpl:async(_url,request)=>{

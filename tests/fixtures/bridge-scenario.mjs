@@ -10,7 +10,7 @@ export function bridgeHtml({date='2026-09-30T04:00:00.000Z',publisher='Business 
 // Both transports are injected. No real source/model network or environment credentials.
 export function bridgeScenario(fixture,makeOutput,{role=null,mutateOutput,html=bridgeHtml(),pack=fixture.pack}={}) {
   const counts={source:0,model:0,collect:0};let modelInput=null;
-  const options={newsUrl:bridgeUrl,clock:()=>new Date(fixture.now),refreshAuthorized:true,
+  const options={newsUrl:bridgeUrl,clock:()=>new Date(fixture.now),activationAuthorized:true,
     resolveOptions:{fetchImpl:async()=>{counts.source++;return new Response(html);}},
     collect:async()=>{counts.collect++;return {pack:structuredClone(pack)};},
     providerOptions:{mock:true,environment:{DASHSCOPE_API_KEY:'test'},clock:()=>new Date(fixture.now),wait:async()=>{},fetchImpl:async(_url,request)=>{

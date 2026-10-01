@@ -1,5 +1,16 @@
 # Ayu Fuel Lab · 渔船柴油参考价
 
+## 情报桥日常运营
+
+打开 [Ayu Fuel · 情报桥](https://github.com/Zhyquan/ayu-fuel-lab/actions/workflows/manual-intelligence-bridge.yml)，点击 **Run workflow**，分支选择 **main**。
+默认输入方式为 **CHATGPT_SIGNAL_PACKAGE**：粘贴完整 `AYU_EXTERNAL_ANALYST_SIGNAL_V1` JSON，保留默认 **REFRESH_CURRENT**，再点击 **Run workflow**。
+
+- `REFRESH_CURRENT`：免费检查情报合同、时效、来源一致性和事件去重，采集并验证新鲜核心数据；全部通过后调用一次 `qwen3.8-flash`，更新 Current 并发布网站。用户每次主动提交均已获长期费用授权。
+- `VERIFY_ONLY`：可选的免费验证工具，不调用模型、不更新预测。
+- `QWEN_API_ACTIVATED` 是全局总开关。每次 Bridge 最多一次 HTTP 请求，超时、429、5xx 不重试；重新点击才是新的运行。
+- 只更新 Current，不修改 Official Daily、Official 历史或推理 reservation。失败保留 Last Known Good。
+- 运行结果记录接收/接纳数量、实际模型请求次数、采用依据、卡片、Forecast ID 和失败码。情报未被采用时不强制展示卡片。
+
 独立公开测试 V0。界面提供 11 个沿海省级地区的 0# 柴油参考价，数据层保留大陆 31 个省级行政区。
 无登录、无付费服务、无历史图表。V0.1 加入明确标为估算的吨价，以及可降级的真实原油趋势规则。
 
