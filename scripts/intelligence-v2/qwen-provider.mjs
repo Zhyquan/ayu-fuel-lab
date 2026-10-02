@@ -15,6 +15,11 @@ export const MAX_TRANSPORT_RETRIES = 2;
 export const MAX_INPUT_BYTES = 65536;
 const schema = JSON.parse(await readFile(new URL('../../QWEN_FORECAST_SCHEMA.json',import.meta.url),'utf8'));
 const fail = code => { throw new Error(code); };
+const reasonFail = (validationCode,fieldName,reasonIndex) => {
+  const error=new Error('QWEN_REASON_INVALID');
+  Object.assign(error,{validationCode,fieldName,...(reasonIndex===undefined?{}:{reasonIndex})});
+  throw error;
+};
 const exactKeys = (value,keys) => value && typeof value==='object' && !Array.isArray(value) && Object.keys(value).sort().join(',')===[...keys].sort().join(',');
 export const QWEN_SCHEMA_KEYWORDS=Object.freeze(['type','properties','required','items','enum','description','title','additionalProperties']);
 
@@ -68,18 +73,26 @@ export function validateAnalysis(value,pack) {
   const structural=ids=>Array.isArray(ids)?ids.filter(id=>!newsContract||typeof id!=='string'||(!/^br-\d+:/.test(id)&&!externalById.has(id))):ids;
   for(const [key,min,max,opposite] of [['mainReasonEvidenceIds',1,3,false],['counterReasonEvidenceIds',0,2,true]]) {
     const ids=structural(value[key]);
-    if(!Array.isArray(ids)||ids.length<min||ids.length>max||new Set(ids).size!==ids.length)fail('QWEN_REASON_INVALID');
+    if(!Array.isArray(ids))reasonFail('REASON_LIST_INVALID',key);
+    if(ids.length<min||ids.length>max)reasonFail('REASON_COUNT_INVALID',key);
+    const duplicate=ids.findIndex((id,index)=>ids.indexOf(id)!==index);
+    if(duplicate!==-1)reasonFail('REASON_DUPLICATE_ID',key,value[key].lastIndexOf(ids[duplicate]));
     const events=new Set();
     for(const id of ids) {
       const signal=byId.get(id);
-      if(!signal||refs.includes(id)||signal.impact==='NEUTRAL'||(signal.impact===primary)===opposite||events.has(signal.eventKey))fail('QWEN_REASON_INVALID');
+      const index=value[key].indexOf(id);
+      if(!signal)reasonFail('REASON_UNKNOWN_ID',key,index);
+      if(refs.includes(id))reasonFail('REASON_REUSED_ID',key,index);
+      if(signal.impact==='NEUTRAL')reasonFail('REASON_NEUTRAL_SIGNAL',key,index);
+      if((signal.impact===primary)===opposite)reasonFail('REASON_DIRECTION_MISMATCH',key,index);
+      if(events.has(signal.eventKey))reasonFail('REASON_DUPLICATE_EVENT',key,index);
       refs.push(id);events.add(signal.eventKey);
     }
   }
   if(signals.some(s=>s.impact!==primary&&s.impact!=='NEUTRAL')&&!structural(value.counterReasonEvidenceIds).length)fail('QWEN_COUNTER_REQUIRED');
   const allReasons=[...value.mainReasonEvidenceIds,...value.counterReasonEvidenceIds];
   for(const [key,opposite]of [['mainReasonEvidenceIds',false],['counterReasonEvidenceIds',true]]) {
-    if(value[key].filter(id=>byId.has(id)||externalById.has(id)).length>(opposite?2:3))fail('QWEN_REASON_INVALID');
+    if(value[key].filter(id=>byId.has(id)||externalById.has(id)).length>(opposite?2:3))reasonFail('REASON_COUNT_INVALID',key);
     for(const id of value[key]) {
       const signal=externalById.get(id);if(!signal)continue;
       if(signal.direction==='NEUTRAL'||(signal.direction===primary)===opposite)fail('QWEN_EXTERNAL_REASON_DIRECTION_INVALID');
@@ -148,7 +161,7 @@ export function createQwenProvider(options={}) {
       const newsContract=pack.inputContractVersion===NEWS_INPUT_CONTRACT;
       const promptVersion=external.signals.length?EXTERNAL_PROMPT_VERSION:newsContract?NEWS_PROMPT_VERSION:PROMPT_VERSION;
       const systemPrompt=external.signals.length?EXTERNAL_SYSTEM_PROMPT:newsContract?NEWS_SYSTEM_PROMPT:SYSTEM_PROMPT;
-      const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,
+      const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,max_tokens:2048,
         messages:[{role:'system',content:systemPrompt},{role:'user',content:`Frozen Evidence Pack (${evidenceHash}); model input hash ${inputPackHash}\n${input}`}],
         response_format:{type:'json_schema',json_schema:{name:'QWEN_ANALYSIS_OUTPUT',strict:true,schema:analysisSchema(pack)}}});
       if(Buffer.byteLength(body)>MAX_INPUT_BYTES)fail('QWEN_PAYLOAD_TOO_LARGE');
@@ -192,7 +205,10 @@ export function createQwenProvider(options={}) {
         if(forecastGate(candidate,pack,{now:new Date(clock()),expectedEvidenceHash:evidenceHash}).gate!=='PASS')fail('FORECAST_GATE_FAILED');
         lastRun.status='OK';return candidate;
       } catch(error) {
-        if(/^[A-Z0-9_]+$/.test(error?.message??'')){lastRun.validationStage='CORE_FORECAST';lastRun.validationCode=error.message;}
+        if(/^[A-Z0-9_]+$/.test(error?.message??'')){
+          lastRun.validationStage='CORE_FORECAST';lastRun.validationCode=error.validationCode??error.message;
+          if(error.validationCode){lastRun.legacyValidationCode=error.message;lastRun.fieldName=error.fieldName;if(error.reasonIndex!==undefined)lastRun.reasonIndex=error.reasonIndex;}
+        }
         throw error;
       } finally {lastRun.requestCompletedAt=new Date(clock()).toISOString();await options.onAudit?.(structuredClone(lastRun));}
     },

@@ -17,7 +17,7 @@ test('Qwen strict request and grounded candidate pass the existing Forecast and 
   assert.equal(body.model,'qwen3.8-flash');assert.equal(body.enable_thinking,false);assert.equal(body.stream,false);
   assert.equal(body.response_format.type,'json_schema');assert.equal(body.response_format.json_schema.strict,true);
   assert.equal(body.response_format.json_schema.schema.additionalProperties,false);
-  assert.equal(body.max_tokens,undefined);
+  assert.equal(body.max_tokens,2048);
   assert.equal(request.redirect,'error');assert.equal(body.tools,undefined);assert.equal(body.enable_search,undefined);
   assert.equal(candidate.provider,'QWEN');assert.equal(candidate.source,'AYU_INTELLIGENCE_V2');assert.equal(candidate.primaryDirection,'UP');
   assert.equal(candidate.generatedAt,clock().toISOString());assert.equal(Date.parse(candidate.validUntil)-Date.parse(candidate.generatedAt),DAY);
