@@ -89,3 +89,15 @@ test('recent server collection receipt avoids a duplicate article fetch; old/mis
  assert.equal(r.publishedAt,document.publishedAt);assert.equal(r.actualExternalRequestCount,0);
  cached.fetchLog=[];const second=await s.run({autoEvidence:cached});assert.equal(second.sourceReadMethod,'DIRECT_FETCH');
 });
+
+test('production duplicate-counter failure receives code-derived selection groups without changing validation',async()=>{
+ const {reasonSelectionHints,validateAnalysis,projectEvidence}=await import('../scripts/intelligence-v2/qwen-provider.mjs');
+ const pack=structuredClone(fixture.pack),hints=reasonSelectionHints(pack);
+ for(const direction of ['UP','DOWN'])for(const group of hints[direction]) {
+  assert.equal(new Set(group.chooseAtMostOneFrom).size,group.chooseAtMostOneFrom.length);
+  for(const id of group.chooseAtMostOneFrom)assert.ok(pack.signals.some(s=>s.id===id&&s.impact===direction&&s.eventKey===group.eventKey));
+ }
+ const output=replayOutput(projectEvidence(pack),{probabilities:{DOWN:65,FLAT:15,UP:20}});
+ output.counterReasonEvidenceIds=['eia-stocks','eia-production'];
+ assert.throws(()=>validateAnalysis(output,pack),e=>e.validationCode==='REASON_DUPLICATE_EVENT');
+});

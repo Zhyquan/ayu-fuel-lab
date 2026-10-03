@@ -105,6 +105,11 @@ export function validateAnalysis(value,pack) {
     assessments.some(s=>!exactKeys(s,['evidenceId','strength'])||!signalIds.has(s.evidenceId)||!['LOW','MEDIUM','HIGH'].includes(s.strength)))fail('QWEN_ASSESSMENTS_INVALID');
   return structuredClone(value);
 }
+// Deterministic selection hints for the existing event/direction rule; no weighting or probability changes.
+export function reasonSelectionHints(pack) {
+  const signals=pack.inputContractVersion===NEWS_INPUT_CONTRACT?coreMarketSignals(pack):pack.signals;
+  return Object.fromEntries(['UP','DOWN'].map(direction=>[direction,[...new Set(signals.filter(s=>s.impact===direction).map(s=>s.eventKey))].map(eventKey=>({eventKey,chooseAtMostOneFrom:signals.filter(s=>s.impact===direction&&s.eventKey===eventKey).map(s=>s.id)}))]));
+}
 export function projectEvidence(pack) {
   const pick=(value,keys)=>Object.fromEntries(keys.filter(key=>value?.[key]!==undefined).map(key=>[key,value[key]]));
   const signals=pack.inputContractVersion===NEWS_INPUT_CONTRACT?coreMarketSignals(pack):pack.signals;
@@ -160,7 +165,9 @@ export function createQwenProvider(options={}) {
       const inputPackHash=createHash('sha256').update(input).digest('hex');
       const newsContract=pack.inputContractVersion===NEWS_INPUT_CONTRACT;
       const promptVersion=external.signals.length?EXTERNAL_PROMPT_VERSION:newsContract?NEWS_PROMPT_VERSION:PROMPT_VERSION;
-      const systemPrompt=external.signals.length?EXTERNAL_SYSTEM_PROMPT:newsContract?NEWS_SYSTEM_PROMPT:SYSTEM_PROMPT;
+      const basePrompt=external.signals.length?EXTERNAL_SYSTEM_PROMPT:newsContract?NEWS_SYSTEM_PROMPT:SYSTEM_PROMPT;
+      const systemPrompt=basePrompt+`\n可信代码已按方向列出结构化理由可选组：${JSON.stringify(reasonSelectionHints(pack))}。每个chooseAtMostOneFrom最多取一个ID，尤其反向理由也不能从同一组取两个ID。先按证据判断概率，再为主方向及反方向各选对应组的代表；这不改变全部signals参与分析和strengthAssessments的要求。`;
+
       const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,max_tokens:2048,
         messages:[{role:'system',content:systemPrompt},{role:'user',content:`Frozen Evidence Pack (${evidenceHash}); model input hash ${inputPackHash}\n${input}`}],
         response_format:{type:'json_schema',json_schema:{name:'QWEN_ANALYSIS_OUTPUT',strict:true,schema:analysisSchema(pack)}}});
