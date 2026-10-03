@@ -166,7 +166,13 @@ export function createQwenProvider(options={}) {
       const newsContract=pack.inputContractVersion===NEWS_INPUT_CONTRACT;
       const promptVersion=external.signals.length?EXTERNAL_PROMPT_VERSION:newsContract?NEWS_PROMPT_VERSION:PROMPT_VERSION;
       const basePrompt=external.signals.length?EXTERNAL_SYSTEM_PROMPT:newsContract?NEWS_SYSTEM_PROMPT:SYSTEM_PROMPT;
-      const systemPrompt=basePrompt+`\n可信代码已按方向列出结构化理由可选组：${JSON.stringify(reasonSelectionHints(pack))}。每个chooseAtMostOneFrom最多取一个ID，尤其反向理由也不能从同一组取两个ID。先按证据判断概率，再为主方向及反方向各选对应组的代表；这不改变全部signals参与分析和strengthAssessments的要求。`;
+      const groups=reasonSelectionHints(pack);
+      const selectionPlans={
+        whenUPGreaterThanDOWN:{mainGroups:groups.UP,counterGroups:groups.DOWN},
+        otherwiseIncludingTie:{mainGroups:groups.DOWN,counterGroups:groups.UP},
+      };
+      const systemPrompt=basePrompt+`\n最后填写理由时，严格采用以下与概率对应的分支：${JSON.stringify(selectionPlans)}。mainReasonEvidenceIds只能从对应mainGroups取ID；counterReasonEvidenceIds只能从对应counterGroups取ID。每组chooseAtMostOneFrom最多取一个。若counterGroups非空，counterReasonEvidenceIds不可为空。signals中的impact是这里的价格方向分类，不是库存或产量数字的增减方向：库存减少的UP不能放入偏跌主理由。全部signals仍参与分析和strengthAssessments；不得为套用分支改写概率。`;
+
 
       const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,max_tokens:2048,
         messages:[{role:'system',content:systemPrompt},{role:'user',content:`Frozen Evidence Pack (${evidenceHash}); model input hash ${inputPackHash}\n${input}`}],
