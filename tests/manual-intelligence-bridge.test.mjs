@@ -62,10 +62,10 @@ test('publication precision and authorship use source metadata, never a footer o
   const stale=bridgeHtml({date:'2026-09-20'}).replace('"datePublished"','"dateModified":"2026-09-30","datePublished"');
   assert.equal((await setup({html:stale}).run()).status,'REJECTED');
 });
-test('AUTO duplicate and repeated Current submission receive no new event weight',async()=>{
+test('AUTO overlap stays one copy; repeated Current submission receives no new event weight',async()=>{
   const document=await resolvedDocument();
   const auto=setup({pack:{...fixture.pack,newsDocuments:[document]}}),a=await auto.run();
-  assert.equal(a.failureCode,'BRIDGE_DUPLICATE_ONLY');assert.equal(auto.counts.model,0);
+  assert.equal(a.status,'READY_FOR_REFORECAST');assert.equal(auto.counts.model,0);
   const repeated=setup(),b=await repeated.run({currentCache:{evidencePack:{newsDocuments:[document]}}});
   assert.equal(b.failureCode,'BRIDGE_DUPLICATE_ONLY');assert.equal(repeated.counts.model,0);
 });
@@ -163,7 +163,7 @@ test('default workflow intake, secret boundary, strict publication and safe arti
   assert.match(yml,/default: CHATGPT_SIGNAL_PACKAGE/);assert.match(yml,/type: string\n        required: false/);assert.match(yml,/default: REFRESH_CURRENT/);
   assert.doesNotMatch(yml,/schedule:|\n  push:/);
   const verify=yml.split('- name: 免费验证新闻')[1].split('- name: 刷新条件')[0];assert.doesNotMatch(verify,/secrets\.|DASHSCOPE|GITHUB_TOKEN/);
-  assert.match(yml,/vars.QWEN_API_ACTIVATED == 'true'/);assert.match(yml,/path: .work\/manual-bridge\/result.json/);
+  assert.match(yml,/vars.QWEN_API_ACTIVATED == 'true'/);assert.match(yml,/path: \|\n\s+\.work\/manual-bridge\/result.json\n\s+\.work\/manual-bridge\/accepted-evidence.json/);
   assert.doesNotMatch(yml,/path: .*snapshot|path: .*origin/);
   const source=await readFile(new URL('../scripts/intelligence-v2/manual-bridge.mjs',import.meta.url),'utf8');
   assert.doesNotMatch(source,/runOfficialDaily|reservation|official-daily-index/);

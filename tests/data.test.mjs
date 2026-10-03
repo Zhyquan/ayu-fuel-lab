@@ -83,7 +83,7 @@ test('single-province failure does not interrupt collection; gate still blocks p
   };
   const result = await collectFuelPrices({ fetchImpl, wait: async ms => waits.push(ms), onProgress: () => {} });
   assert.equal(calls.length, 31); assert.equal(result.summary.succeeded, 30);
-  assert.ok(waits.every(ms => ms >= 2000)); assert.equal(result.cache.provinces['广东'].sourceStatus, 'LIVE');
+  assert.ok(waits.every(ms => ms >= 500)); assert.equal(result.cache.provinces['广东'].sourceStatus, 'LIVE');
   assert.equal(validatePublicData(result.cache, { startedAt: new Date(Date.now() - 10000).toISOString() }).gate, 'FAIL');
 });
 test('daily quota failure stops further network requests and cannot pass gate', async () => {

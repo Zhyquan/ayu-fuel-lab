@@ -19,7 +19,13 @@ export async function runExternalBridgeReplay(fixture,{count=128}={}) {
       Object.assign(value,replayOutput(input,{probabilities,newsCount:i%4}));
       if(role){const key=role==='main'?'mainReasonEvidenceIds':'counterReasonEvidenceIds';value[key]=[value[key][0],input.externalAnalystSignals[0].evidenceId];}
     }});
-    const result=await scenario.run({mode:'REFRESH_CURRENT'});assert.equal(result.status,'CURRENT_READY',`external replay ${i}: ${result.failureCode}`);
+    const result=await scenario.run({mode:'REFRESH_CURRENT'});
+    if(p.signals[0].strength==='LOW') {
+      assert.equal(result.status,'ACCEPTED_NO_RECOMPUTE');assert.equal(scenario.counts.model,0);
+      assert.ok(result.acceptedCollection.acceptedEvidence.some(e=>e.influenceBasis==='EXTERNAL_ANALYST'&&e.displayEligible));
+      continue;
+    }
+    assert.equal(result.status,'CURRENT_READY',`external replay ${i}: ${result.failureCode}`);
     const {evidencePack,...candidate}=result.snapshot,now=new Date(fixture.now);
     assert.equal(forecastGate(candidate,evidencePack,{now,expectedEvidenceHash:evidenceHashFor(evidencePack)}).gate,'PASS');
     assert.equal((await readForecast({now,fetchImpl:async()=>new Response(JSON.stringify(result.snapshot))})).status,'LIVE');

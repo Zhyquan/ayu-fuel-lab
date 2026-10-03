@@ -16,7 +16,7 @@ on:
         type: string
         required: false
       mode:
-        description: 'REFRESH_CURRENT：验证通过后重新计算并更新当前预测（会调用一次 Qwen）；VERIFY_ONLY：仅免费验证情报，不调用模型'
+        description: 'REFRESH_CURRENT：接纳情报，达到重算条件才调用一次 Qwen；VERIFY_ONLY：仅免费验证情报，不调用模型'
         type: choice
         options: [REFRESH_CURRENT, VERIFY_ONLY]
         default: REFRESH_CURRENT
@@ -79,6 +79,8 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: bridge-verification-result
-          path: .work/manual-bridge/result.json
+          path: |
+            .work/manual-bridge/result.json
+            .work/manual-bridge/accepted-evidence.json
           if-no-files-found: ignore
           retention-days: 7

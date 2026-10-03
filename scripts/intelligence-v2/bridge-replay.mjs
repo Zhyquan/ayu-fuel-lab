@@ -18,7 +18,7 @@ export async function runBridgeReplay(fixture,makeOutput) {
   }
   const scenario=bridgeScenario(fixture,makeOutput),document=(await resolveNewsUrl(scenario.options.newsUrl,{...scenario.options.resolveOptions,now:new Date(fixture.now)})).document;
   const duplicate=bridgeScenario(fixture,makeOutput,{pack:{...fixture.pack,newsDocuments:[...fixture.pack.newsDocuments,document]}});
-  assert.equal((await duplicate.run()).failureCode,'BRIDGE_DUPLICATE_ONLY');assert.equal(duplicate.counts.model,0);cases.push('AUTO_BRIDGE_DUPLICATE');
+  assert.equal((await duplicate.run()).status,'READY_FOR_REFORECAST');assert.equal(duplicate.counts.model,0);cases.push('AUTO_BRIDGE_OVERLAP_ONE_COPY');
   const stale=bridgeScenario(fixture,makeOutput,{html:bridgeHtml({date:'2026-09-20T04:00:00Z'})});
   assert.equal((await stale.run()).status,'REJECTED');assert.equal(stale.counts.model,0);cases.push('AUTO_BRIDGE_STALE');
   return {gate:'PASS',cases,externalBridge:await runExternalBridgeReplay(fixture),realQwenCalls:0,productionWrites:0};

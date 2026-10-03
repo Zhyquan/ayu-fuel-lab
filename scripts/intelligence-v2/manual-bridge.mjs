@@ -1,3 +1,4 @@
+import { buildAcceptedEvidence, recomputeEligibility } from './accepted-evidence.mjs';
 import { validateExternalAnalystSignalPackage, mergeExternalSignals } from './external-analyst-signals.mjs';
 import { writeFile, rename, unlink } from 'node:fs/promises';
 import { admittedNewsDocuments, coreEvidenceGate, forecastGate, newsEnrichmentGate, NEWS_INPUT_CONTRACT } from '../../dist/data/intelligence-v2-contract.js';
@@ -11,7 +12,11 @@ import { currentHash } from './current-publication.mjs';
 const fail = code => { throw new Error(code); };
 export function mergeBridgeEvidence(pack,document) {
   if(pack.inputContractVersion!==NEWS_INPUT_CONTRACT)fail('NEWS_INPUT_CONTRACT_REQUIRED');
-  const auto=admittedNewsDocuments(pack), dedup=deduplicateNewsDocuments([...auto.documents,document]);
+  const auto=admittedNewsDocuments(pack);
+  const existing=auto.documents.find(d=>d.documentId===document.documentId);
+  if(existing && existing.articleContentHash!==document.articleContentHash)return {duplicate:{documentId:document.documentId,reason:'DOCUMENT_CONTENT_CHANGED'},pack:null};
+  // Collection overlap is not a previous Forecast/Bridge acceptance. Keep one copy.
+  const dedup=deduplicateNewsDocuments([...auto.documents.filter(d=>d.documentId!==document.documentId),document]);
   const duplicate=dedup.excluded.find(item=>item.documentId===document.documentId);
   if(duplicate)return {duplicate,pack:null};
   const documents=[document,...dedup.documents.filter(d=>d.documentId!==document.documentId)];
@@ -28,7 +33,7 @@ export async function replaceCurrentForecast(path,snapshot,{write=writeFile,move
 }
 
 export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_URL',mode='VERIFY_ONLY',resolveOptions={},collect=collectEvidence,clock=()=>new Date(),
-  currentCache=null,autoEvidence=null,providerOptions={},activationAuthorized=false,cachePath,persist=false,writeOptions}={}) {
+  currentCache=null,autoEvidence=null,acceptedEvidence=[],onAcceptedEvidence=async()=>{},providerOptions={},activationAuthorized=false,cachePath,persist=false,writeOptions}={}) {
   const result={status:'REJECTED',mode,intakeType,sourceUrl:null,source:null,publishedAt:null,publishedAtPrecision:null,freshness:'NOT_CHECKED',
     duplicate:'NOT_CHECKED',evidenceAdmission:'NOT_ADMITTED',qwenCalled:false,coreForecastGate:'NOT_RUN',newsEnrichmentGate:'NOT_RUN',
     newsUsedInReasons:false,publicCard:false,externalSignalsAdmitted:0,externalSignalsUsedInReasons:0,publicCards:0,actualExternalRequestCount:0,
@@ -74,7 +79,12 @@ export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_UR
     if(coreEvidenceGate(pack,{now:clock()}).gate!=='PASS')fail('CORE_EVIDENCE_GATE_FAILED');
     result.evidenceAdmission='PASS';result.coverageMode=coreEvidenceGate(pack,{now:clock()}).coverageMode;
     result.inputShape={signals:pack.signals.length,newsDocuments:pack.newsDocuments.length,...(normalized?{externalAnalystSignals:pack.externalAnalystSignals.length}:{})};
-    if(mode==='VERIFY_ONLY'){result.status='READY_FOR_REFORECAST';return result;}
+    result.recomputeEligibility=recomputeEligibility({pack,document,externalSignals:pack.externalAnalystSignals??[],previous:acceptedEvidence,now:clock()});
+    result.acceptedCollection=buildAcceptedEvidence({pack,previous:acceptedEvidence,now:clock()});
+    // Delivery of admitted news must not depend on a successful paid inference.
+    if(mode==='REFRESH_CURRENT')await onAcceptedEvidence(result.acceptedCollection);
+    if(mode==='VERIFY_ONLY'){result.status=result.recomputeEligibility.eligible?'READY_FOR_REFORECAST':'ACCEPTED_NO_RECOMPUTE';return result;}
+    if(!result.recomputeEligibility.eligible){result.status='ACCEPTED_NO_RECOMPUTE';return result;}
     // Existing provider/prompt/schema and nonpersisting runner; never enter the Official writer.
     const analysis=await runForecast({pack,provider:'QWEN',providerOptions:{...providerOptions,activationAuthorized,maxTransportRetries:0,maxExternalRequests:1,onAudit:async audit=>{
       result.actualExternalRequestCount=audit.actualExternalRequestCount??0;
@@ -96,6 +106,8 @@ export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_UR
     result.publicCards=cards.cards.length;
     result.publicCard=cards.cards.some(card=>selected.some(ref=>ref.evidenceId===card.evidenceId));
     if(selected.some(ref=>!cards.cards.some(card=>card.evidenceId===ref.evidenceId)))fail('BRIDGE_PUBLIC_CARD_MISSING');
+    result.acceptedCollection=buildAcceptedEvidence({pack:evidencePack,forecast:candidate,previous:acceptedEvidence,now:clock()});
+    await onAcceptedEvidence(result.acceptedCollection);
     const snapshot={...candidate,evidencePack};
     result.forecastId=currentHash(snapshot);
     if(persist){if(!cachePath)fail('CURRENT_CACHE_PATH_REQUIRED');await replaceCurrentForecast(cachePath,snapshot,writeOptions);result.currentForecastUpdated=true;}

@@ -90,7 +90,7 @@ test('intelligence 15: price Actions retain price update/gate; V2 removes unused
  const workflow=await read('.github/workflows/update-and-deploy.yml');
  assert.ok(workflow.includes('run: npm run update\n'));assert.ok(workflow.includes('run: npm run gate\n'));
  assert.equal(workflow.includes('npm run update:trend'),false);assert.equal(workflow.includes('npm run gate:trend'),false);
- assert.equal(hashText(await read('scripts/update-fuel-prices.mjs')),'8f7f4394ab643e70b0c697e8a10bc4227fb7ec803d0d3d09cf90d085dba83715');
+ assert.equal(hashText(await read('scripts/update-fuel-prices.mjs')),'efe84684792f593ae43234c4199ed3e147f05fbf81788e6dd8099dbd99c127a5');
 });
 test('intelligence: pending human review still fails and active-source request errors degrade safely',async context=>{
  const f=fixture();f.humanReview.status='PENDING';assert.ok(run(f).issues.includes('HUMAN_REVIEW_PENDING'));

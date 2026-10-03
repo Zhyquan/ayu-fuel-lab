@@ -18,7 +18,7 @@ export async function collectFuelPrices({ names = provinces.map(p => p.name), fe
     records[province] = result.record;
     evidence.push(result.evidence);
     onProgress(`${province}: ${result.record.sourceStatus}${result.record.failureReason ? ` (${result.record.failureReason})` : ''}`);
-    let waitMs = 2000;
+    let waitMs = 500;
     if (result.record.failureReason === 'RATE_LIMITED') {
       const header = result.evidence.headers['retry-after'];
       const retryMs = /^\d+$/.test(header ?? '') ? Number(header) * 1000 : Number.isFinite(Date.parse(header)) ? Math.max(0, Date.parse(header) - Date.now()) : 30000;
@@ -45,7 +45,7 @@ async function main() {
   await mkdir(evidenceDir, { recursive: true });
   const runId = result.cache.generatedAt.replace(/[:.]/g, '-');
   const evidencePath = resolve(evidenceDir, `${runId}.json`);
-  await writeFile(evidencePath, JSON.stringify({ generatedAt: result.cache.generatedAt, anonymous: true, requestIntervalMs: 2000, ...result.summary, responses: result.evidence }, null, 2) + '\n');
+  await writeFile(evidencePath, JSON.stringify({ generatedAt: result.cache.generatedAt, anonymous: true, requestIntervalMs: 500, ...result.summary, responses: result.evidence }, null, 2) + '\n');
   const cachePath = resolve(site, 'dist/data/normalized-live-cache.json');
   const temporaryPath = `${cachePath}.${runId}.tmp`;
   await writeFile(temporaryPath, JSON.stringify(result.cache, null, 2) + '\n');

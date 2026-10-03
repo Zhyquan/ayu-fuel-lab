@@ -15,7 +15,7 @@ const workflow=await readFile(new URL('../.github/workflows/manual-intelligence-
 test('operational default retains free option, trusted main guard and serial writer; no temporary switch',()=>{
   assert.match(workflow,/options: \[REFRESH_CURRENT, VERIFY_ONLY\]\n        default: REFRESH_CURRENT/);
   assert.match(workflow,/default: CHATGPT_SIGNAL_PACKAGE/);
-  assert.match(workflow,/验证通过后重新计算并更新当前预测（会调用一次 Qwen）/);
+  assert.match(workflow,/接纳情报，达到重算条件才调用一次 Qwen/);
   assert.match(workflow,/仅免费验证情报，不调用模型/);
   assert.doesNotMatch(workflow,/BRIDGE_REFRESH_(?:ACTIVATED|NOT_AUTHORIZED)/);
   assert.match(workflow,/group: ayu-fuel-manual-bridge\n  cancel-in-progress: false/);
