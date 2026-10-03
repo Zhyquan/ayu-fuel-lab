@@ -10,7 +10,7 @@ Isolated branch feature/fuel-optimization-v2 includes reason diagnostic recovery
 5. Existing trigger checks: source/body/date and duplicate admission, fresh core gate, activation. No independent materiality decision.
 6. Collections already arrays; model input max6 news, assessment max3, main/counter max3/2, public reason cards max5. These model context/cost and reason constraints are distinct from a related-news feed.
 7. publicEvidenceGate iterates only mainReasons/counterReasons. An admitted unselected article is omitted. Mini private projection consumes these cards only.
-8. Last identified publisher source origin/codex/fuel-forecast-publisher-recovery ee94b2b supports dynamic evidence array. Client maps fuel.evidence and renders wx:for with no numeric truncation. This source is a historical delivery checkpoint, NOT asserted current authoritative baseline; current source identity requested before writes.
+8. Last identified publisher source origin/codex/fuel-forecast-publisher-recovery ee94b2b supports dynamic evidence array. Client maps fuel.evidence and renders wx:for with no numeric truncation. This source is a historical delivery checkpoint. JOOBS subsequently confirmed separate frozen identities: API43 source56de2d3, Client305221, composition311c984e, operator publisher4962231. They are not a single merge baseline; a fresh Test read failed because the existing local session expired. No cloud mutation occurred.
 
 Latest observed Official run 37103694139 was workflow-success but model/commit stages SKIPPED after reservation recheck. Follow-up Pages run success alone cannot establish data publication. Historical integration worktree ac2d01f6 is older than publisher recovery and must not be used for forward-port.
 
