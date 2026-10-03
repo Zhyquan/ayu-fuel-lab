@@ -7,6 +7,7 @@ import { resolveNewsUrl, deduplicateNewsDocuments } from './source-adapters.mjs'
 import { collectEvidence } from './collect.mjs';
 import { runForecast } from './run.mjs';
 import { evidenceHashFor } from './history.mjs';
+import { canonicalSourceUrl } from '../../dist/data/external-analyst-contract.js';
 import { currentHash } from './current-publication.mjs';
 
 const fail = code => { throw new Error(code); };
@@ -51,7 +52,18 @@ export async function runManualBridge({newsUrl,signalPackage,intakeType='NEWS_UR
         result.duplicate='DUPLICATE';result.duplicateEvents=normalized.signals.length;fail('BRIDGE_DUPLICATE_ONLY');
       }
     } else {
-      const resolved=await resolveNewsUrl(newsUrl,{...resolveOptions,now:clock()});document=resolved.document;
+      let cached=null;
+      // Reuse only a recent server-collected, gated document with its original fetch receipt.
+      // This is not supplied by the external signal JSON and never invents a new fetch time.
+      if(autoEvidence && coreEvidenceGate(autoEvidence,{now:clock()}).gate==='PASS') {
+        const url=canonicalSourceUrl(newsUrl);
+        cached=admittedNewsDocuments(autoEvidence).documents.find(d=>d.sourceUrl===url &&
+          +clock()-Date.parse(d.fetchedAt)>=0 && +clock()-Date.parse(d.fetchedAt)<3600000 &&
+          autoEvidence.fetchLog?.some(f=>f.url===url && f.status==='OK' && /^[a-f0-9]{64}$/.test(f.bodySha256??'') && f.checkedAt===d.fetchedAt));
+      }
+      const resolved=cached?{document:cached,checks:['SERVER_COLLECTION_RECEIPT','ORIGINAL_FETCH_TIME_PRESERVED','SOURCE_BODY_GATE_PASS']}:
+        await resolveNewsUrl(newsUrl,{...resolveOptions,now:clock()});
+      document=resolved.document;result.sourceReadMethod=cached?'FROZEN_COLLECTION':'DIRECT_FETCH';
       Object.assign(result,{sourceUrl:document.sourceUrl,source:document.originalSource,publishedAt:document.publishedAt,publishedAtPrecision:document.publishedAtPrecision,
         freshness:'PASS',verificationChecks:resolved.checks,documentId:document.documentId,articleContentHash:document.articleContentHash});
       // Previous accepted Current evidence also prevents repeated manual submissions.

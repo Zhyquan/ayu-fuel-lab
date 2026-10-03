@@ -79,3 +79,13 @@ test('same fresh article in collection is not a prior published acceptance or a 
  const r=await overlapping.run({mode:'REFRESH_CURRENT'});
  assert.equal(r.status,'CURRENT_READY');assert.equal(r.snapshot.evidencePack.newsDocuments.filter(d=>d.documentId===document.documentId).length,1);
 });
+
+test('recent server collection receipt avoids a duplicate article fetch; old/missing receipt cannot',async()=>{
+ const s=bridgeScenario(fixture,replayOutput);const {resolveNewsUrl}=await import('../scripts/intelligence-v2/source-adapters.mjs');
+ const document=(await resolveNewsUrl(s.options.newsUrl,{...s.options.resolveOptions,now:new Date(fixture.now)})).document;
+ const cached={...structuredClone(fixture.pack),newsDocuments:[document],fetchLog:[{url:document.sourceUrl,status:'OK',bodySha256:'a'.repeat(64),checkedAt:document.fetchedAt}]};
+ const before=s.counts.source,r=await s.run({autoEvidence:cached});
+ assert.equal(r.sourceReadMethod,'FROZEN_COLLECTION');assert.equal(s.counts.source,before);
+ assert.equal(r.publishedAt,document.publishedAt);assert.equal(r.actualExternalRequestCount,0);
+ cached.fetchLog=[];const second=await s.run({autoEvidence:cached});assert.equal(second.sourceReadMethod,'DIRECT_FETCH');
+});
