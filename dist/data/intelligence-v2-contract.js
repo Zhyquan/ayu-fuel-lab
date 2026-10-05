@@ -230,7 +230,7 @@ export function coreForecastGate(candidate,pack,options={}) {
   const external=externalSignalsGate(pack,{now:options.now}), externalById=new Map(external.signals.map(s=>[s.evidenceId,s]));
   errors.push(...external.errors);
   const promptVersion=external.signals.length?'qwen-forecast-external-v1':'qwen-forecast-core-v1';
-  if(![promptVersion,`${promptVersion}-integer-1pct`].includes(candidate.promptVersion)||!['NORMAL','LIMITED'].includes(candidate.coverageMode)||candidate.newsAssessmentContract!==NEWS_ASSESSMENT_CONTRACT)errors.push('INVALID_CORE_CONTRACT_VERSION');
+  if(![promptVersion,`${promptVersion}-integer-1pct`,`${promptVersion}-integer-1pct-reason-selection-v1`].includes(candidate.promptVersion)||!['NORMAL','LIMITED'].includes(candidate.coverageMode)||candidate.newsAssessmentContract!==NEWS_ASSESSMENT_CONTRACT)errors.push('INVALID_CORE_CONTRACT_VERSION');
   const allowed=['source','status','probabilityType','forecastHorizonDays','provider','generatedAt','validUntil','evidenceHash','probabilities','primaryDirection','mainReasons','counterReasons','signalAssessments','inputContractVersion','newsAssessmentContract','promptVersion','inputPackHash','coverageMode','newsAssessments','forecastContract'];
   if(Object.keys(candidate).some(key=>!allowed.includes(key)))errors.push('UNCONTRACTED_ANALYSIS_FIELD');
   for(const reasons of [candidate.mainReasons,candidate.counterReasons]) {

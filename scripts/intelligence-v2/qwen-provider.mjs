@@ -15,6 +15,12 @@ export const MAX_TRANSPORT_RETRIES = 2;
 export const MAX_INPUT_BYTES = 65536;
 const schema = JSON.parse(await readFile(new URL('../../QWEN_FORECAST_SCHEMA.json',import.meta.url),'utf8'));
 const fail = code => { throw new Error(code); };
+export const REASON_CONTRACT_VERSION = 'reason-selection-v1';
+const reasonFail = (validationCode,fieldName,reasonIndex) => {
+  const error=new Error('QWEN_REASON_INVALID');
+  Object.assign(error,{validationCode,fieldName,...(reasonIndex===undefined?{}:{reasonIndex})});
+  throw error;
+};
 const exactKeys = (value,keys) => value && typeof value==='object' && !Array.isArray(value) && Object.keys(value).sort().join(',')===[...keys].sort().join(',');
 export const QWEN_SCHEMA_KEYWORDS=Object.freeze(['type','properties','required','items','enum','description','title','additionalProperties']);
 
@@ -68,18 +74,27 @@ export function validateAnalysis(value,pack) {
   const structural=ids=>Array.isArray(ids)?ids.filter(id=>!newsContract||typeof id!=='string'||(!/^br-\d+:/.test(id)&&!externalById.has(id))):ids;
   for(const [key,min,max,opposite] of [['mainReasonEvidenceIds',1,3,false],['counterReasonEvidenceIds',0,2,true]]) {
     const ids=structural(value[key]);
-    if(!Array.isArray(ids)||ids.length<min||ids.length>max||new Set(ids).size!==ids.length)fail('QWEN_REASON_INVALID');
+    if(!Array.isArray(ids))reasonFail('REASON_LIST_INVALID',key);
+    if(ids.length<min||ids.length>max)reasonFail('REASON_COUNT_INVALID',key);
+    const duplicate=ids.findIndex((id,index)=>ids.indexOf(id)!==index);
+    if(duplicate!==-1)reasonFail('REASON_DUPLICATE_ID',key,value[key].lastIndexOf(ids[duplicate]));
     const events=new Set();
     for(const id of ids) {
       const signal=byId.get(id);
-      if(!signal||refs.includes(id)||signal.impact==='NEUTRAL'||(signal.impact===primary)===opposite||events.has(signal.eventKey))fail('QWEN_REASON_INVALID');
+      const index=value[key].indexOf(id);
+      if(typeof id!=='string'||!id)reasonFail('REASON_MALFORMED_ID',key,index);
+      if(!signal)reasonFail('REASON_UNKNOWN_ID',key,index);
+      if(refs.includes(id))reasonFail('REASON_REUSED_ID',key,index);
+      if(signal.impact==='NEUTRAL')reasonFail('REASON_NEUTRAL_SIGNAL',key,index);
+      if((signal.impact===primary)===opposite)reasonFail('REASON_DIRECTION_MISMATCH',key,index);
+      if(events.has(signal.eventKey))reasonFail('REASON_DUPLICATE_EVENT',key,index);
       refs.push(id);events.add(signal.eventKey);
     }
   }
   if(signals.some(s=>s.impact!==primary&&s.impact!=='NEUTRAL')&&!structural(value.counterReasonEvidenceIds).length)fail('QWEN_COUNTER_REQUIRED');
   const allReasons=[...value.mainReasonEvidenceIds,...value.counterReasonEvidenceIds];
   for(const [key,opposite]of [['mainReasonEvidenceIds',false],['counterReasonEvidenceIds',true]]) {
-    if(value[key].filter(id=>byId.has(id)||externalById.has(id)).length>(opposite?2:3))fail('QWEN_REASON_INVALID');
+    if(value[key].filter(id=>byId.has(id)||externalById.has(id)).length>(opposite?2:3))reasonFail('REASON_COUNT_INVALID',key);
     for(const id of value[key]) {
       const signal=externalById.get(id);if(!signal)continue;
       if(signal.direction==='NEUTRAL'||(signal.direction===primary)===opposite)fail('QWEN_EXTERNAL_REASON_DIRECTION_INVALID');
@@ -91,6 +106,11 @@ export function validateAnalysis(value,pack) {
   if(!Array.isArray(assessments)||assessments.length!==signalIds.size||new Set(assessments.map(s=>s?.evidenceId)).size!==signalIds.size||
     assessments.some(s=>!exactKeys(s,['evidenceId','strength'])||!signalIds.has(s.evidenceId)||!['LOW','MEDIUM','HIGH'].includes(s.strength)))fail('QWEN_ASSESSMENTS_INVALID');
   return structuredClone(value);
+}
+// These hints expose the existing validator rule without changing weights or probabilities.
+export function reasonSelectionHints(pack) {
+  const signals=pack.inputContractVersion===NEWS_INPUT_CONTRACT?coreMarketSignals(pack):pack.signals;
+  return Object.fromEntries(['UP','DOWN'].map(direction=>[direction,[...new Set(signals.filter(s=>s.impact===direction).map(s=>s.eventKey))].map(eventKey=>({eventKey,chooseAtMostOneFrom:signals.filter(s=>s.impact===direction&&s.eventKey===eventKey).map(s=>s.id)}))]));
 }
 export function projectEvidence(pack) {
   const pick=(value,keys)=>Object.fromEntries(keys.filter(key=>value?.[key]!==undefined).map(key=>[key,value[key]]));
@@ -146,8 +166,12 @@ export function createQwenProvider(options={}) {
       const input=canonicalJson(projectEvidence(pack));
       const inputPackHash=createHash('sha256').update(input).digest('hex');
       const newsContract=pack.inputContractVersion===NEWS_INPUT_CONTRACT;
-      const promptVersion=external.signals.length?EXTERNAL_PROMPT_VERSION:newsContract?NEWS_PROMPT_VERSION:PROMPT_VERSION;
-      const systemPrompt=external.signals.length?EXTERNAL_SYSTEM_PROMPT:newsContract?NEWS_SYSTEM_PROMPT:SYSTEM_PROMPT;
+      const baseVersion=external.signals.length?EXTERNAL_PROMPT_VERSION:newsContract?NEWS_PROMPT_VERSION:PROMPT_VERSION;
+      const promptVersion=`${baseVersion}-${REASON_CONTRACT_VERSION}`;
+      const basePrompt=external.signals.length?EXTERNAL_SYSTEM_PROMPT:newsContract?NEWS_SYSTEM_PROMPT:SYSTEM_PROMPT;
+      const groups=reasonSelectionHints(pack);
+      const selectionPlans={whenUPGreaterThanDOWN:{mainGroups:groups.UP,counterGroups:groups.DOWN},otherwiseIncludingTie:{mainGroups:groups.DOWN,counterGroups:groups.UP}};
+      const systemPrompt=basePrompt+`\n结构化理由选择规则：UP概率大于DOWN时主方向为UP，否则为DOWN（含相等）。mainReasonEvidenceIds中的结构化signal ID只能来自对应mainGroups，counterReasonEvidenceIds中的结构化signal ID只能来自对应counterGroups：${JSON.stringify(selectionPlans)}。每个方向每组chooseAtMostOneFrom最多取一个；结构化主理由1到3条、反理由0到2条，上限不是必须填满的数量。有反向结构化signal时必须选至少一个结构化反理由。只输出已提供的ID，不输出对象或理由文本；同一个ID不能重复或跨数组复用，NEUTRAL不能作为方向性理由。impact是价格方向，不是库存或产量数字增减方向。全部signals仍参与分析和strengthAssessments；不得为通过校验改写概率。上述分组仅限制结构化signal理由，不排除按原合同合法评估的可选新闻或外部情报ID。理由选择不改变新闻展示资格。`;
       const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,
         messages:[{role:'system',content:systemPrompt},{role:'user',content:`Frozen Evidence Pack (${evidenceHash}); model input hash ${inputPackHash}\n${input}`}],
         response_format:{type:'json_schema',json_schema:{name:'QWEN_ANALYSIS_OUTPUT',strict:true,schema:analysisSchema(pack)}}});
@@ -192,7 +216,10 @@ export function createQwenProvider(options={}) {
         if(forecastGate(candidate,pack,{now:new Date(clock()),expectedEvidenceHash:evidenceHash}).gate!=='PASS')fail('FORECAST_GATE_FAILED');
         lastRun.status='OK';return candidate;
       } catch(error) {
-        if(/^[A-Z0-9_]+$/.test(error?.message??'')){lastRun.validationStage='CORE_FORECAST';lastRun.validationCode=error.message;}
+        if(/^[A-Z0-9_]+$/.test(error?.message??'')){
+          lastRun.validationStage='CORE_FORECAST';lastRun.validationCode=error.validationCode??error.message;
+          if(error.validationCode){lastRun.legacyValidationCode=error.message;lastRun.fieldName=error.fieldName;if(error.reasonIndex!==undefined)lastRun.reasonIndex=error.reasonIndex;}
+        }
         throw error;
       } finally {lastRun.requestCompletedAt=new Date(clock()).toISOString();await options.onAudit?.(structuredClone(lastRun));}
     },
