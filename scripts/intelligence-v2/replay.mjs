@@ -24,8 +24,9 @@ export function replayOutput(pack,{probabilities={DOWN:35,FLAT:25,UP:40},newsCou
   const primary=primaryDirectionFor(probabilities), signals=coreMarketSignals(pack);
   const unique=(impact)=>signals.filter(s=>s.impact===impact).filter((s,i,all)=>all.findIndex(x=>x.eventKey===s.eventKey)===i);
   const opposite=primary==='UP'?'DOWN':'UP';
-  return {probabilities,mainReasonEvidenceIds:unique(primary).slice(0,2).map(s=>s.id),counterReasonEvidenceIds:unique(opposite).slice(0,2).map(s=>s.id),
+  return {probabilities,upReasonEvidenceIds:unique('UP').slice(0,2).map(s=>s.id),downReasonEvidenceIds:unique('DOWN').slice(0,2).map(s=>s.id),
     strengthAssessments:signals.map(s=>({evidenceId:s.id,strength})),
+    newsReasonEvidenceIds:[],
     newsAssessments:(pack.newsDocuments??[]).slice(0,newsCount).map((d,i)=>({evidenceId:`${d.documentId}:${d.segments[0].segmentId}`,impact:i===1?opposite:primary,kind:'RISK',title:'柴油市场供需变化',summary:'报道讨论柴油供需变化及市场影响。',strength}))};
 }
 export async function replayCandidate(pack,value,now) {
@@ -66,7 +67,7 @@ export async function runReplay() {
     for(const [path,value] of [[INDEX_PATH,before],['CURRENT_EVIDENCE_V2.json',f.pack],['intelligence-v2/current-evidence.json',f.pack],['intelligence-v2/EVIDENCE_GATE_RESULT.json',evidenceGate],['intelligence-v2/pending-intelligence-pack.json',{evidencePack:f.pack,evidenceGate}]])
       await writeFile(join(root,path),JSON.stringify(value));
     const output=replayOutput(f.pack,{probabilities:{DOWN:21,FLAT:16,UP:63},newsCount:3});
-    output.mainReasonEvidenceIds.push(output.newsAssessments[0].evidenceId);
+    output.newsReasonEvidenceIds.push(output.newsAssessments[0].evidenceId);
     // The real official writer, immutable history and index operate only in this disposable root.
     const result=await runOfficialDaily({root,pack:f.pack,sourceCommit,clock:()=>now,providerOptions:replayProviderOptions(output,now)});
     const cache=JSON.parse(await readFile(join(root,'dist/data/forecast-cache.json'),'utf8'));
@@ -115,12 +116,13 @@ export async function runContractFuzz({seed=20260930,count=192}={}) {
       const strength=['LOW','MEDIUM','HIGH'][i%3],newsCount=i%4;
       const value=replayOutput(pack,{probabilities:p,newsCount,strength});
       const target=1+i%3;
-      value.mainReasonEvidenceIds=value.mainReasonEvidenceIds.slice(0,target);
-      for(const a of value.newsAssessments.filter(a=>a.impact===primary))if(value.mainReasonEvidenceIds.length<target)value.mainReasonEvidenceIds.push(a.evidenceId);
-      if(i%8===0)value.counterReasonEvidenceIds=[];
+      const mainKey=primary==='UP'?'upReasonEvidenceIds':'downReasonEvidenceIds',counterKey=primary==='UP'?'downReasonEvidenceIds':'upReasonEvidenceIds';
+      value[mainKey]=value[mainKey].slice(0,target);
+      for(const a of value.newsAssessments.filter(a=>a.impact===primary))if(value[mainKey].length+value.newsReasonEvidenceIds.length<target)value.newsReasonEvidenceIds.push(a.evidenceId);
+      if(i%8===0)value[counterKey]=[];
       else {
-        value.counterReasonEvidenceIds=value.counterReasonEvidenceIds.slice(0,1+i%2);
-        for(const a of value.newsAssessments.filter(a=>a.impact!==primary))if(value.counterReasonEvidenceIds.length<1+i%2)value.counterReasonEvidenceIds.push(a.evidenceId);
+        value[counterKey]=value[counterKey].slice(0,1+i%2);
+        for(const a of value.newsAssessments.filter(a=>a.impact!==primary))if(value[counterKey].length+value.newsReasonEvidenceIds.filter(id=>value.newsAssessments.find(a=>a.evidenceId===id)?.impact!==primary).length<1+i%2)value.newsReasonEvidenceIds.push(a.evidenceId);
       }
       const original=canonicalJson(pack),candidate=await replayCandidate(pack,value,now);
       assert.deepEqual(candidate.probabilities,p);coverage.probabilityPrecision.add(Object.values(p).some(n=>n%5!==0)?'INTEGER_1PCT':'EXISTING_5_MULTIPLE');
@@ -134,10 +136,10 @@ export async function runContractFuzz({seed=20260930,count=192}={}) {
     const illegalAnalysis=[
       ['FRACTIONAL',v=>{v.probabilities={DOWN:35.5,FLAT:24.5,UP:40};}],
       ['BAD_SUM',v=>{v.probabilities.UP=45;}],
-      ['UNKNOWN_MARKET',v=>{v.mainReasonEvidenceIds=['market-unknown'];}],
-      ['DUPLICATE_MAIN',v=>{v.mainReasonEvidenceIds=['eia-stocks','eia-stocks'];}],
-      ['SAME_EVENT',v=>{v.mainReasonEvidenceIds=['eia-stocks','eia-production'];}],
-      ['REVERSE_REASON',v=>{v.mainReasonEvidenceIds=['market-diesel'];}],
+      ['UNKNOWN_MARKET',v=>{v.upReasonEvidenceIds=['market-unknown'];}],
+      ['DUPLICATE_MAIN',v=>{v.upReasonEvidenceIds=['eia-stocks','eia-stocks'];}],
+      ['SAME_EVENT',v=>{v.upReasonEvidenceIds=['eia-stocks','eia-production'];}],
+      ['REVERSE_REASON',v=>{v.upReasonEvidenceIds=['market-diesel'];}],
       ['MISSING_ASSESSMENT',v=>{v.strengthAssessments.pop();}],
     ];
     for(const [name,mutate]of illegalAnalysis){const value=structuredClone(base);mutate(value);assert.throws(()=>validateAnalysis(value,f.pack),undefined,name);}

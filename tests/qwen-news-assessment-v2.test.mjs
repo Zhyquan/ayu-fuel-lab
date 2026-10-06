@@ -32,7 +32,7 @@ const setup=()=>{
 };
 const modelOutput=(pack,selected=pack.newsDocuments[0].segments[0])=>{
   const evidenceId=`${pack.newsDocuments[0].documentId}:${selected.segmentId}`;
-  return {probabilities:{DOWN:35,FLAT:25,UP:40},mainReasonEvidenceIds:['eia-stocks',evidenceId],counterReasonEvidenceIds:['market-diesel'],
+  return {probabilities:{DOWN:35,FLAT:25,UP:40},upReasonEvidenceIds:['eia-stocks'],newsReasonEvidenceIds:[evidenceId],downReasonEvidenceIds:['market-diesel'],
     strengthAssessments:pack.signals.map(s=>({evidenceId:s.id,strength:'MEDIUM'})),
     newsAssessments:[{evidenceId,impact:'UP',kind:'RISK',title:'柴油供应收紧4%',summary:'报道提到柴油供应收紧4%。',strength:'MEDIUM'}]};
 };
@@ -54,7 +54,7 @@ test('production-shaped 6 signals, 3 articles, 3 segments each pass the V2 Forec
   let requestCount=0;
   const provider=createQwenProvider(fakeOptions(f.pack,{clock:()=>f.now,fetchImpl:async()=>{requestCount++;return response(value);}}));
   const candidate=await provider.generateForecast({evidencePack:f.pack,evidenceHash:f.evidenceHash,now:f.now});
-  assert.equal(requestCount,1);assert.equal(candidate.promptVersion,'qwen-forecast-core-v1-integer-1pct-reason-selection-v1');
+  assert.equal(requestCount,1);assert.equal(candidate.promptVersion,'qwen-forecast-core-v1-integer-1pct-direction-pools-v2');
   assert.equal(candidate.newsAssessmentContract,'NEWS_ASSESSMENT_V2');
   const selected=newsSegmentFor(f.pack,newsId);
   assert.equal(candidate.newsAssessments[0].documentId,selected.document.documentId);
@@ -79,7 +79,7 @@ test('production-shaped 6 signals, 3 articles, 3 segments each pass the V2 Forec
 });
 
 test('no news assessment is valid when the model uses only structural reasons despite normal input coverage',async()=>{
-  const f=setup(), value=modelOutput(f.pack);value.newsAssessments=[];value.mainReasonEvidenceIds=['eia-stocks'];
+  const f=setup(), value=modelOutput(f.pack);value.newsAssessments=[];value.newsReasonEvidenceIds=[];value.upReasonEvidenceIds=['eia-stocks'];
   const candidate=await createQwenProvider(fakeOptions(f.pack,{clock:()=>f.now,fetchImpl:async()=>response(value)})).generateForecast({evidencePack:f.pack,evidenceHash:f.evidenceHash,now:f.now});
   assert.equal(candidate.coverageMode,'NORMAL');assert.deepEqual(candidate.newsAssessments,[]);
   assert.equal(forecastGate(candidate,f.pack,{now:f.now}).gate,'PASS');
@@ -106,14 +106,14 @@ test('V2 validator reports precise safe codes for field, identity, uniqueness, n
     [v=>{v.newsAssessments[0].summary='柴油供应收紧99%。';},'NEWS_NEW_NUMBER'],
     [v=>{v.newsAssessments[0].kind='FACT';v.newsAssessments[0].evidenceId=`${f.pack.newsDocuments[2].documentId}:${f.pack.newsDocuments[2].segments[2].segmentId}`;v.newsAssessments[0].title='柴油市场前景';v.newsAssessments[0].summary='报道讨论柴油市场前景。';},'NEWS_FACT_FROM_CONDITIONAL_SEGMENT'],
     [v=>{v.newsAssessments=[];},'NEWS_REASON_NOT_ASSESSED'],
-    [v=>{v.mainReasonEvidenceIds.push(v.newsAssessments[0].evidenceId);},'NEWS_REASON_DUPLICATE_EVENT'],
+    [v=>{v.newsReasonEvidenceIds.push(v.newsAssessments[0].evidenceId);},'NEWS_REASON_DUPLICATE_EVENT'],
   ]){
     const value=structuredClone(base);change(value);
     assert.doesNotThrow(()=>validateAnalysis(value,f.pack));
     assert.ok(newsEnrichmentGate(value,f.pack).errors.includes(code),code);
   }
   assert.equal(validateAnalysis(base,f.pack).newsAssessments[0].documentId,undefined);
-  const structural=structuredClone(base);structural.newsAssessments=[];structural.mainReasonEvidenceIds=['eia-stocks'];
+  const structural=structuredClone(base);structural.newsAssessments=[];structural.upReasonEvidenceIds=['eia-stocks'];
   assert.doesNotThrow(()=>validateAnalysis(structural,f.pack));
 });
 

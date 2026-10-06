@@ -15,7 +15,7 @@ export const MAX_TRANSPORT_RETRIES = 2;
 export const MAX_INPUT_BYTES = 65536;
 const schema = JSON.parse(await readFile(new URL('../../QWEN_FORECAST_SCHEMA.json',import.meta.url),'utf8'));
 const fail = code => { throw new Error(code); };
-export const REASON_CONTRACT_VERSION = 'reason-selection-v1';
+export const REASON_CONTRACT_VERSION = 'direction-pools-v2';
 const reasonFail = (validationCode,fieldName,reasonIndex) => {
   const error=new Error('QWEN_REASON_INVALID');
   Object.assign(error,{validationCode,fieldName,...(reasonIndex===undefined?{}:{reasonIndex})});
@@ -46,7 +46,9 @@ export function analysisSchema(pack) {
   const signals=newsContract?coreMarketSignals(pack):pack.signals;
   const external=pack.externalAnalystSignals??[];
   const ids=[...signals.map(s=>s.id),...external.map(s=>s.evidenceId),...documents.flatMap(d=>d.segments.map(s=>`${d.documentId}:${s.segmentId}`))];
-  for (const key of ['mainReasonEvidenceIds','counterReasonEvidenceIds']) result.properties[key].items={type:'string',enum:ids};
+  const directionalArray=values=>values.length?{type:'array',items:{type:'string',enum:values}}:{type:'array',enum:[[]],items:{type:'string'}};
+  for(const [key,direction]of [['upReasonEvidenceIds','UP'],['downReasonEvidenceIds','DOWN']])
+    result.properties[key]=directionalArray([...signals.filter(s=>s.impact===direction).map(s=>s.id),...external.filter(s=>s.direction===direction).map(s=>s.evidenceId)]);
   const assessments=result.properties.strengthAssessments;
   assessments.items.properties.evidenceId={type:'string',enum:ids};
   if(newsContract) {
@@ -54,54 +56,54 @@ export function analysisSchema(pack) {
     const properties={evidenceId:{type:'string',enum:documents.flatMap(d=>d.segments.map(s=>`${d.documentId}:${s.segmentId}`))},impact:{type:'string',enum:['UP','DOWN','NEUTRAL']},kind:{type:'string',enum:['FACT','RISK','OUTLOOK','CLAIM']},title:{type:'string'},summary:{type:'string'},strength:{type:'string',enum:['LOW','MEDIUM','HIGH']}};
     if(!documents.length)delete properties.evidenceId.enum;
     result.properties.newsAssessments={type:'array',items:{type:'object',additionalProperties:false,required:Object.keys(properties),properties}};
-    result.required.push('newsAssessments');
+    result.properties.newsReasonEvidenceIds=directionalArray(documents.flatMap(d=>d.segments.map(s=>`${d.documentId}:${s.segmentId}`)));
+    result.required.push('newsAssessments','newsReasonEvidenceIds');
   }
   if(qwenSchemaCompatibilityGate(result).gate!=='PASS')fail('QWEN_SCHEMA_COMPATIBILITY_FAILED');
   return result;
 }
+// Pools have a fixed direction. Priority projection is part of the V2 contract, not repair.
+export function projectReasonPools(value) {
+  const up=primaryDirectionFor(value.probabilities)==='UP';
+  return {mainReasonEvidenceIds:(up?value.upReasonEvidenceIds:value.downReasonEvidenceIds).slice(0,3),
+    counterReasonEvidenceIds:(up?value.downReasonEvidenceIds:value.upReasonEvidenceIds).slice(0,2)};
+}
 export function validateAnalysis(value,pack) {
   const newsContract=pack.inputContractVersion===NEWS_INPUT_CONTRACT;
-  const keys=['probabilities','mainReasonEvidenceIds','counterReasonEvidenceIds','strengthAssessments'];
-  if(newsContract&&Object.hasOwn(value??{},'newsAssessments'))keys.push('newsAssessments');
+  const keys=['probabilities','upReasonEvidenceIds','downReasonEvidenceIds','strengthAssessments'];
+  if(newsContract)for(const key of ['newsAssessments','newsReasonEvidenceIds'])if(Object.hasOwn(value??{},key))keys.push(key);
   if(!exactKeys(value,keys)||!exactKeys(value.probabilities,['DOWN','FLAT','UP']))fail('QWEN_SCHEMA_INVALID');
   const p=value.probabilities;
   if(Object.values(p).some(n=>!Number.isInteger(n)||n<0||n>100)||p.DOWN+p.FLAT+p.UP!==100)fail('QWEN_PROBABILITIES_INVALID');
   const signals=newsContract?coreMarketSignals(pack):pack.signals;
-  const byId=new Map(signals.map(s=>[s.id,s])), primary=primaryDirectionFor(p), refs=[];
+  const byId=new Map(signals.map(s=>[s.id,s])), refs=[];
   const external=externalSignalsGate(pack,{now:new Date(pack.generatedAt)});
   if(external.gate!=='PASS')fail(external.errors[0]);
   const externalById=new Map(external.signals.map(s=>[s.evidenceId,s]));
-  const structural=ids=>Array.isArray(ids)?ids.filter(id=>!newsContract||typeof id!=='string'||(!/^br-\d+:/.test(id)&&!externalById.has(id))):ids;
-  for(const [key,min,max,opposite] of [['mainReasonEvidenceIds',1,3,false],['counterReasonEvidenceIds',0,2,true]]) {
-    const ids=structural(value[key]);
+  for(const [key,direction]of [['upReasonEvidenceIds','UP'],['downReasonEvidenceIds','DOWN']]) {
+    const ids=value[key];
     if(!Array.isArray(ids))reasonFail('REASON_LIST_INVALID',key);
-    if(ids.length<min||ids.length>max)reasonFail('REASON_COUNT_INVALID',key);
+    if(ids.length>3)reasonFail('REASON_COUNT_INVALID',key);
     const duplicate=ids.findIndex((id,index)=>ids.indexOf(id)!==index);
-    if(duplicate!==-1)reasonFail('REASON_DUPLICATE_ID',key,value[key].lastIndexOf(ids[duplicate]));
+    if(duplicate!==-1)reasonFail('REASON_DUPLICATE_ID',key,ids.lastIndexOf(ids[duplicate]));
     const events=new Set();
-    for(const id of ids) {
-      const signal=byId.get(id);
-      const index=value[key].indexOf(id);
+    for(const [index,id]of ids.entries()) {
+      const signal=byId.get(id)??externalById.get(id);
       if(typeof id!=='string'||!id)reasonFail('REASON_MALFORMED_ID',key,index);
       if(!signal)reasonFail('REASON_UNKNOWN_ID',key,index);
       if(refs.includes(id))reasonFail('REASON_REUSED_ID',key,index);
-      if(signal.impact==='NEUTRAL')reasonFail('REASON_NEUTRAL_SIGNAL',key,index);
-      if((signal.impact===primary)===opposite)reasonFail('REASON_DIRECTION_MISMATCH',key,index);
+      const impact=byId.has(id)?signal.impact:signal.direction;
+      if(impact==='NEUTRAL')reasonFail('REASON_NEUTRAL_SIGNAL',key,index);
+      if(impact!==direction)reasonFail('REASON_DIRECTION_MISMATCH',key,index);
       if(events.has(signal.eventKey))reasonFail('REASON_DUPLICATE_EVENT',key,index);
       refs.push(id);events.add(signal.eventKey);
     }
   }
-  if(signals.some(s=>s.impact!==primary&&s.impact!=='NEUTRAL')&&!structural(value.counterReasonEvidenceIds).length)fail('QWEN_COUNTER_REQUIRED');
-  const allReasons=[...value.mainReasonEvidenceIds,...value.counterReasonEvidenceIds];
-  for(const [key,opposite]of [['mainReasonEvidenceIds',false],['counterReasonEvidenceIds',true]]) {
-    if(value[key].filter(id=>byId.has(id)||externalById.has(id)).length>(opposite?2:3))reasonFail('REASON_COUNT_INVALID',key);
-    for(const id of value[key]) {
-      const signal=externalById.get(id);if(!signal)continue;
-      if(signal.direction==='NEUTRAL'||(signal.direction===primary)===opposite)fail('QWEN_EXTERNAL_REASON_DIRECTION_INVALID');
-      if(allReasons.filter(ref=>evidenceEventKey(pack,ref)===signal.eventKey).length>1)fail('DUPLICATE_REASON_EVENT');
-    }
-  }
-  if(external.signals.some(s=>s.direction!==primary&&s.direction!=='NEUTRAL')&&!value.counterReasonEvidenceIds.length)fail('QWEN_COUNTER_REQUIRED');
+  const roles=projectReasonPools(value),primary=primaryDirectionFor(p),mainKey=primary==='UP'?'upReasonEvidenceIds':'downReasonEvidenceIds';
+  if(!roles.mainReasonEvidenceIds.some(id=>byId.has(id)))reasonFail('REASON_COUNT_INVALID',mainKey);
+  if(signals.some(s=>s.impact!==primary&&s.impact!=='NEUTRAL')&&!roles.counterReasonEvidenceIds.some(id=>byId.has(id)))fail('QWEN_COUNTER_REQUIRED');
+  for(const signal of external.signals)if(refs.includes(signal.evidenceId)&&refs.filter(id=>evidenceEventKey(pack,id)===signal.eventKey).length>1)fail('DUPLICATE_REASON_EVENT');
+  if(external.signals.some(s=>s.direction!==primary&&s.direction!=='NEUTRAL')&&!roles.counterReasonEvidenceIds.length)fail('QWEN_COUNTER_REQUIRED');
   const assessments=value.strengthAssessments, signalIds=new Set(signals.map(s=>s.id));
   if(!Array.isArray(assessments)||assessments.length!==signalIds.size||new Set(assessments.map(s=>s?.evidenceId)).size!==signalIds.size||
     assessments.some(s=>!exactKeys(s,['evidenceId','strength'])||!signalIds.has(s.evidenceId)||!['LOW','MEDIUM','HIGH'].includes(s.strength)))fail('QWEN_ASSESSMENTS_INVALID');
@@ -170,8 +172,7 @@ export function createQwenProvider(options={}) {
       const promptVersion=`${baseVersion}-${REASON_CONTRACT_VERSION}`;
       const basePrompt=external.signals.length?EXTERNAL_SYSTEM_PROMPT:newsContract?NEWS_SYSTEM_PROMPT:SYSTEM_PROMPT;
       const groups=reasonSelectionHints(pack);
-      const selectionPlans={whenUPGreaterThanDOWN:{mainGroups:groups.UP,counterGroups:groups.DOWN},otherwiseIncludingTie:{mainGroups:groups.DOWN,counterGroups:groups.UP}};
-      const systemPrompt=basePrompt+`\n结构化理由选择规则：UP概率大于DOWN时主方向为UP，否则为DOWN（含相等）。mainReasonEvidenceIds中的结构化signal ID只能来自对应mainGroups，counterReasonEvidenceIds中的结构化signal ID只能来自对应counterGroups：${JSON.stringify(selectionPlans)}。每个方向每组chooseAtMostOneFrom最多取一个；结构化主理由1到3条、反理由0到2条，上限不是必须填满的数量。有反向结构化signal时必须选至少一个结构化反理由。只输出已提供的ID，不输出对象或理由文本；同一个ID不能重复或跨数组复用，NEUTRAL不能作为方向性理由。impact是价格方向，不是库存或产量数字增减方向。全部signals仍参与分析和strengthAssessments；不得为通过校验改写概率。上述分组仅限制结构化signal理由，不排除按原合同合法评估的可选新闻或外部情报ID。理由选择不改变新闻展示资格。`;
+      const systemPrompt=basePrompt+`\n理由合同 ${REASON_CONTRACT_VERSION}：upReasonEvidenceIds 永久只选利涨结构化/外部ID，downReasonEvidenceIds 永久只选利跌ID，各0到3条，按重要性排序。可选组：${JSON.stringify(groups)}。同一方向每个eventKey最多一个ID，ID不得重复或跨池复用，NEUTRAL不能入池；每个有该方向结构化signal的池须优先保留结构化理由。impact/direction 是价格影响方向，不是库存或产量增减。模型只输出方向池，不输出main/counter角色；代码按UP>DOWN为UP、否则DOWN（含平票）投影，主池前3条、反池前2条。全部signals仍参与分析和strengthAssessments，概率按证据判断，不为选择理由改写概率。newsReasonEvidenceIds独立选择最多3个新闻segment ID，可为空，新闻角色只由已验证newsAssessment impact派生；newsAssessments展示集合不因未选理由而删除。`;
       const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,
         messages:[{role:'system',content:systemPrompt},{role:'user',content:`Frozen Evidence Pack (${evidenceHash}); model input hash ${inputPackHash}\n${input}`}],
         response_format:{type:'json_schema',json_schema:{name:'QWEN_ANALYSIS_OUTPUT',strict:true,schema:analysisSchema(pack)}}});
@@ -199,7 +200,8 @@ export function createQwenProvider(options={}) {
         lastRun.outputHash=createHash('sha256').update(choice.message.content).digest('hex');
         let analysis;try{analysis=JSON.parse(choice.message.content);}catch{fail('QWEN_SCHEMA_INVALID');}
         validateAnalysis(analysis,pack);
-        const news=newsContract?newsEnrichmentGate(analysis,pack,{mode:'MODEL'}):null;
+        const roles=projectReasonPools(analysis);
+        const news=newsContract?newsEnrichmentGate({...analysis,...roles},pack,{mode:'MODEL'}):null;
         if(news)lastRun.newsEnrichment={gate:news.gate,acceptedCount:news.newsAssessments.length,droppedCount:Math.max(0,(Array.isArray(analysis.newsAssessments)?analysis.newsAssessments.length:0)-news.newsAssessments.length),codes:[...new Set(news.errors)],diagnostics:news.diagnostics};
         const generatedAt=new Date(clock()).toISOString();
         const byId=new Map((newsContract?coreMarketSignals(pack):pack.signals).map(s=>[s.id,s]));
@@ -207,9 +209,8 @@ export function createQwenProvider(options={}) {
         const externalById=new Map(external.signals.map(s=>[s.evidenceId,s]));
         const newsById=new Map(newsAssessments.map(a=>[a.evidenceId,a]));
         const reason=id=>byId.has(id)?{evidenceId:id,text:byId.get(id).displayText}:externalById.has(id)?{evidenceId:id,text:externalById.get(id).title}:{evidenceId:id,text:newsById.get(id).title,documentId:newsById.get(id).documentId,segmentId:newsById.get(id).segmentId};
-        const selected=(ids,allowedNews)=>[...new Set(ids)].filter(id=>byId.has(id)||externalById.has(id)||allowedNews?.includes(id));
         const candidate={source:INTELLIGENCE_V2_SOURCE,status:'LIVE',probabilityType:PROBABILITY_TYPE,forecastHorizonDays:7,provider:'QWEN',generatedAt,validUntil:new Date(Date.parse(generatedAt)+DAY).toISOString(),evidenceHash,
-          probabilities:analysis.probabilities,primaryDirection:primaryDirectionFor(analysis.probabilities),mainReasons:selected(analysis.mainReasonEvidenceIds,news?.mainReasonEvidenceIds).map(reason),counterReasons:selected(analysis.counterReasonEvidenceIds,news?.counterReasonEvidenceIds).map(reason),
+          probabilities:analysis.probabilities,primaryDirection:primaryDirectionFor(analysis.probabilities),mainReasons:[...roles.mainReasonEvidenceIds,...(news?.mainReasonEvidenceIds??[])].map(reason),counterReasons:[...roles.counterReasonEvidenceIds,...(news?.counterReasonEvidenceIds??[])].map(reason),
           signalAssessments:analysis.strengthAssessments.map(({evidenceId,strength})=>({evidenceId,impact:byId.get(evidenceId).impact,kind:byId.get(evidenceId).kind,strength})),
           ...(newsContract?{inputContractVersion:NEWS_INPUT_CONTRACT,forecastContract:CORE_FORECAST_CONTRACT,newsAssessmentContract:NEWS_ASSESSMENT_CONTRACT,promptVersion,inputPackHash,coverageMode:news.coverageMode,newsAssessments}:{}),
         };

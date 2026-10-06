@@ -19,7 +19,7 @@ const make=(withNews=true)=>{
 };
 const output=pack=>{
   const doc=pack.newsDocuments[0], segment=doc?.segments[0], evidenceId=segment?`${doc.documentId}:${segment.segmentId}`:null;
-  return {probabilities:{DOWN:35,FLAT:25,UP:40},mainReasonEvidenceIds:['eia-stocks',...(evidenceId?[evidenceId]:[])],counterReasonEvidenceIds:['market-diesel'],strengthAssessments:pack.signals.map(s=>({evidenceId:s.id,strength:'MEDIUM'})),
+  return {probabilities:{DOWN:35,FLAT:25,UP:40},upReasonEvidenceIds:['eia-stocks'],newsReasonEvidenceIds:evidenceId?[evidenceId]:[],downReasonEvidenceIds:['market-diesel'],strengthAssessments:pack.signals.map(s=>({evidenceId:s.id,strength:'MEDIUM'})),
     newsAssessments:doc?[{evidenceId,impact:'UP',kind:'RISK',title:'柴油供应偏紧风险',summary:'报道提到供应偏紧和运输可用性。',strength:'MEDIUM'}]:[]};
 };
 

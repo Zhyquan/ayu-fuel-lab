@@ -14,7 +14,7 @@ export function fixture(at=testTime) {
   return {pack,evidenceHash:evidenceHashFor(pack),now:new Date(at)};
 }
 export function analysis(pack) {
-  return {probabilities:{DOWN:35,FLAT:25,UP:40},mainReasonEvidenceIds:['eia-stocks','market-brent',pack.signals.find(s=>s.kind==='RISK').id],counterReasonEvidenceIds:['market-diesel'],strengthAssessments:pack.signals.map(s=>({evidenceId:s.id,strength:'MEDIUM'}))};
+  return {probabilities:{DOWN:35,FLAT:25,UP:40},upReasonEvidenceIds:['eia-stocks','market-brent',pack.signals.find(s=>s.kind==='RISK').id],downReasonEvidenceIds:['market-diesel'],strengthAssessments:pack.signals.map(s=>({evidenceId:s.id,strength:'MEDIUM'}))};
 }
 export function response(output,{status=200,finish='stop',content=JSON.stringify(output)}={}) {
   return new Response(JSON.stringify({choices:[{finish_reason:finish,message:{role:'assistant',content}}],usage:{prompt_tokens:100,completion_tokens:50}}),{status});

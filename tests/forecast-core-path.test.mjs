@@ -32,7 +32,7 @@ for(const [name,change,code] of [
   ['forged model source',v=>{v.newsAssessments[0].sourceUrl='https://example.com/forged';},'NEWS_ASSESSMENT_FIELDS_INVALID'],
 ])test(`core forecast survives optional news: ${name}`,async()=>{
   const {pack}=setup(),value=replayOutput(pack,{newsCount:1});change(value,pack);
-  if(name!=='empty assessments')value.mainReasonEvidenceIds.push(`${pack.newsDocuments[0].documentId}:${pack.newsDocuments[0].segments[0].segmentId}`);
+  if(name!=='empty assessments')value.newsReasonEvidenceIds.push(`${pack.newsDocuments[0].documentId}:${pack.newsDocuments[0].segments[0].segmentId}`);
   const frozen=canonicalJson(pack),p=structuredClone(value.probabilities);
   assert.doesNotThrow(()=>validateAnalysis(value,pack));
   const news=newsEnrichmentGate(value,pack);
@@ -52,8 +52,8 @@ for(const [name,change,code] of [
 
 test('a valid news card remains when another optional news card is dropped',async()=>{
   const {pack}=setup(),value=replayOutput(pack,{newsCount:3});value.newsAssessments[1].summary='编造99%变化。';
-  value.mainReasonEvidenceIds.push(value.newsAssessments[0].evidenceId);
-  value.counterReasonEvidenceIds.push(value.newsAssessments[1].evidenceId);
+  value.newsReasonEvidenceIds.push(value.newsAssessments[0].evidenceId);
+  value.newsReasonEvidenceIds.push(value.newsAssessments[1].evidenceId);
   const candidate=await replayCandidate(pack,value,now);
   assert.equal(candidate.newsAssessments.length,2);assert.equal(candidate.counterReasons.length,1);assert.equal(candidate.coverageMode,'LIMITED');
   const cards=publicEvidenceGate({forecast:candidate,evidencePack:pack},{now}).cards;
@@ -62,7 +62,7 @@ test('a valid news card remains when another optional news card is dropped',asyn
 });
 
 test('post-generation optional news corruption cannot block core browser readback or project unsafe cards',async()=>{
-  const {pack}=setup(),value=replayOutput(pack,{newsCount:1});value.mainReasonEvidenceIds.push(value.newsAssessments[0].evidenceId);
+  const {pack}=setup(),value=replayOutput(pack,{newsCount:1});value.newsReasonEvidenceIds.push(value.newsAssessments[0].evidenceId);
   const candidate=await replayCandidate(pack,value,now),id=value.newsAssessments[0].evidenceId;
   for(const mutate of [c=>{c.newsAssessments[0].sourceUrl='https://example.com/forged';},c=>{c.newsAssessments[0].title='';},c=>{c.mainReasons.find(r=>r.evidenceId===id).text='伪造标题';}]){
     const c=structuredClone(candidate);mutate(c);
@@ -73,7 +73,7 @@ test('post-generation optional news corruption cannot block core browser readbac
 });
 
 test('an excluded duplicate document cannot overwrite the admitted original source in public projection',async()=>{
-  const {pack}=setup(),value=replayOutput(pack,{newsCount:1});value.mainReasonEvidenceIds.push(value.newsAssessments[0].evidenceId);
+  const {pack}=setup(),value=replayOutput(pack,{newsCount:1});value.newsReasonEvidenceIds.push(value.newsAssessments[0].evidenceId);
   pack.newsDocuments.push({...structuredClone(pack.newsDocuments[0]),sourceUrl:'https://example.com/forged'});
   const candidate=await replayCandidate(pack,value,now);
   assert.equal(candidate.coverageMode,'LIMITED');assert.equal(coreForecastGate(candidate,pack,{now}).gate,'PASS');
@@ -98,11 +98,11 @@ for(const [name,mutate]of [
 
 test('unknown or duplicate news reasons are dropped without replacing structured reasons',async()=>{
   const {pack}=setup(),value=replayOutput(pack,{newsCount:1});
-  value.mainReasonEvidenceIds.push(value.newsAssessments[0].evidenceId,value.newsAssessments[0].evidenceId,'br-999999:s1-000000000000');
+  value.newsReasonEvidenceIds.push(value.newsAssessments[0].evidenceId,value.newsAssessments[0].evidenceId,'br-999999:s1-000000000000');
   const candidate=await replayCandidate(pack,value,now);
   assert.equal(coreForecastGate(candidate,pack,{now}).gate,'PASS');assert.equal(candidate.mainReasons.length,3);
   assert.equal(candidate.coverageMode,'LIMITED');
-  const invalid=structuredClone(value);invalid.mainReasonEvidenceIds=invalid.mainReasonEvidenceIds.filter(id=>id.includes(':'));
+  const invalid=structuredClone(value);invalid.upReasonEvidenceIds=invalid.upReasonEvidenceIds.filter(id=>id.includes(':'));
   assert.throws(()=>validateAnalysis(invalid,pack),/QWEN_REASON_INVALID/);
 });
 
@@ -135,7 +135,7 @@ test('the production run writer publishes core-only results to an isolated cache
 });
 
 test('a card projection failure does not fail the production core runner and renders no empty/error card',async()=>{
-  const {pack}=setup(),value=replayOutput(pack);value.mainReasonEvidenceIds=['market-wti'];
+  const {pack}=setup(),value=replayOutput(pack);value.upReasonEvidenceIds=['market-wti'];
   pack.signals.find(s=>s.id==='market-wti').displayText='合成结构化标题'.repeat(5);
   pack.signals.find(s=>s.id==='market-diesel').displayText='合成结构化标题'.repeat(5);
   // Core source copy is valid, but exceeds the public card's shorter display bound.
@@ -152,7 +152,7 @@ test('core structured schema and current replay fixture share the production val
   const {pack}=setup(),schema=analysisSchema(pack);assert.equal(qwenSchemaCompatibilityGate(schema).gate,'PASS');
   assert.equal(schema.additionalProperties,false);
   assert.equal(schema.properties.strengthAssessments.items.properties.evidenceId.enum.length,6);
-  assert.ok(schema.properties.mainReasonEvidenceIds.items.enum.includes('market-diesel'));
+  assert.ok(schema.properties.downReasonEvidenceIds.items.enum.includes('market-diesel'));assert.ok(!schema.properties.upReasonEvidenceIds.items.enum.includes('market-diesel'));
   assert.deepEqual(Object.keys(schema.properties.newsAssessments.items.properties),['evidenceId','impact','kind','title','summary','strength']);
 });
 

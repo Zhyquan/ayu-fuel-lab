@@ -3,8 +3,8 @@
   "additionalProperties": false,
   "required": [
     "probabilities",
-    "mainReasonEvidenceIds",
-    "counterReasonEvidenceIds",
+    "upReasonEvidenceIds",
+    "downReasonEvidenceIds",
     "strengthAssessments"
   ],
   "properties": {
@@ -31,13 +31,13 @@
         }
       }
     },
-    "mainReasonEvidenceIds": {
+    "upReasonEvidenceIds": {
       "type": "array",
       "items": {
         "type": "string"
       }
     },
-    "counterReasonEvidenceIds": {
+    "downReasonEvidenceIds": {
       "type": "array",
       "items": {
         "type": "string"

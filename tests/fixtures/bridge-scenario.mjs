@@ -20,7 +20,7 @@ export function bridgeScenario(fixture,makeOutput,{role=null,mutateOutput,html=b
       if(role&&document){
         const evidenceId=`${document.documentId}:${document.segments[0].segmentId}`;
         output.newsAssessments.push({evidenceId,impact:role==='main'?'UP':'DOWN',kind:'RISK',title:'柴油供需变化风险',summary:'报道讨论柴油供需变化的可能影响。',strength:'MEDIUM'});
-        output[role==='main'?'mainReasonEvidenceIds':'counterReasonEvidenceIds'].push(evidenceId);
+        output.newsReasonEvidenceIds.push(evidenceId);
       }
       mutateOutput?.(output,modelInput);
       return new Response(JSON.stringify({choices:[{finish_reason:'stop',message:{role:'assistant',content:JSON.stringify(output)}}],usage:{prompt_tokens:100,completion_tokens:50}}));

@@ -1,0 +1,535 @@
+{
+  "fixtureKind": "CONSTRUCTED_COUNTEREXAMPLE_NOT_ORIGINAL_QWEN_RESPONSE",
+  "baseSha": "9c1bc31319be8d98bd2a1794bbf6e08531ac0bea",
+  "knownId": "market-diesel",
+  "knownImpact": "DOWN",
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "probabilities",
+      "mainReasonEvidenceIds",
+      "counterReasonEvidenceIds",
+      "strengthAssessments",
+      "newsAssessments"
+    ],
+    "properties": {
+      "probabilities": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "DOWN",
+          "FLAT",
+          "UP"
+        ],
+        "properties": {
+          "DOWN": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100
+            ]
+          },
+          "FLAT": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100
+            ]
+          },
+          "UP": {
+            "type": "integer",
+            "enum": [
+              0,
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14,
+              15,
+              16,
+              17,
+              18,
+              19,
+              20,
+              21,
+              22,
+              23,
+              24,
+              25,
+              26,
+              27,
+              28,
+              29,
+              30,
+              31,
+              32,
+              33,
+              34,
+              35,
+              36,
+              37,
+              38,
+              39,
+              40,
+              41,
+              42,
+              43,
+              44,
+              45,
+              46,
+              47,
+              48,
+              49,
+              50,
+              51,
+              52,
+              53,
+              54,
+              55,
+              56,
+              57,
+              58,
+              59,
+              60,
+              61,
+              62,
+              63,
+              64,
+              65,
+              66,
+              67,
+              68,
+              69,
+              70,
+              71,
+              72,
+              73,
+              74,
+              75,
+              76,
+              77,
+              78,
+              79,
+              80,
+              81,
+              82,
+              83,
+              84,
+              85,
+              86,
+              87,
+              88,
+              89,
+              90,
+              91,
+              92,
+              93,
+              94,
+              95,
+              96,
+              97,
+              98,
+              99,
+              100
+            ]
+          }
+        }
+      },
+      "mainReasonEvidenceIds": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "market-wti",
+            "market-brent",
+            "market-diesel",
+            "eia-stocks",
+            "eia-production",
+            "eia-refinery-inputs",
+            "br-987654:s1-11403b02e267",
+            "br-987654:s2-89a291588901",
+            "br-987654:s3-c32bba9ed02c",
+            "br-987655:s1-11403b02e267",
+            "br-987655:s2-89a291588901",
+            "br-987655:s3-c32bba9ed02c",
+            "br-987656:s1-11403b02e267",
+            "br-987656:s2-89a291588901",
+            "br-987656:s3-c32bba9ed02c"
+          ]
+        }
+      },
+      "counterReasonEvidenceIds": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "market-wti",
+            "market-brent",
+            "market-diesel",
+            "eia-stocks",
+            "eia-production",
+            "eia-refinery-inputs",
+            "br-987654:s1-11403b02e267",
+            "br-987654:s2-89a291588901",
+            "br-987654:s3-c32bba9ed02c",
+            "br-987655:s1-11403b02e267",
+            "br-987655:s2-89a291588901",
+            "br-987655:s3-c32bba9ed02c",
+            "br-987656:s1-11403b02e267",
+            "br-987656:s2-89a291588901",
+            "br-987656:s3-c32bba9ed02c"
+          ]
+        }
+      },
+      "strengthAssessments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "evidenceId",
+            "strength"
+          ],
+          "properties": {
+            "evidenceId": {
+              "type": "string",
+              "enum": [
+                "market-wti",
+                "market-brent",
+                "market-diesel",
+                "eia-stocks",
+                "eia-production",
+                "eia-refinery-inputs"
+              ]
+            },
+            "strength": {
+              "type": "string",
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+              ]
+            }
+          }
+        }
+      },
+      "newsAssessments": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "evidenceId",
+            "impact",
+            "kind",
+            "title",
+            "summary",
+            "strength"
+          ],
+          "properties": {
+            "evidenceId": {
+              "type": "string",
+              "enum": [
+                "br-987654:s1-11403b02e267",
+                "br-987654:s2-89a291588901",
+                "br-987654:s3-c32bba9ed02c",
+                "br-987655:s1-11403b02e267",
+                "br-987655:s2-89a291588901",
+                "br-987655:s3-c32bba9ed02c",
+                "br-987656:s1-11403b02e267",
+                "br-987656:s2-89a291588901",
+                "br-987656:s3-c32bba9ed02c"
+              ]
+            },
+            "impact": {
+              "type": "string",
+              "enum": [
+                "UP",
+                "DOWN",
+                "NEUTRAL"
+              ]
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "FACT",
+                "RISK",
+                "OUTLOOK",
+                "CLAIM"
+              ]
+            },
+            "title": {
+              "type": "string"
+            },
+            "summary": {
+              "type": "string"
+            },
+            "strength": {
+              "type": "string",
+              "enum": [
+                "LOW",
+                "MEDIUM",
+                "HIGH"
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "value": {
+    "probabilities": {
+      "DOWN": 35,
+      "FLAT": 25,
+      "UP": 40
+    },
+    "mainReasonEvidenceIds": [
+      "market-diesel"
+    ],
+    "counterReasonEvidenceIds": [
+      "market-diesel"
+    ],
+    "strengthAssessments": [
+      {
+        "evidenceId": "market-wti",
+        "strength": "MEDIUM"
+      },
+      {
+        "evidenceId": "market-brent",
+        "strength": "MEDIUM"
+      },
+      {
+        "evidenceId": "market-diesel",
+        "strength": "MEDIUM"
+      },
+      {
+        "evidenceId": "eia-stocks",
+        "strength": "MEDIUM"
+      },
+      {
+        "evidenceId": "eia-production",
+        "strength": "MEDIUM"
+      },
+      {
+        "evidenceId": "eia-refinery-inputs",
+        "strength": "MEDIUM"
+      }
+    ],
+    "newsAssessments": []
+  },
+  "enumAdmitsWrongRole": true,
+  "validation": {
+    "code": "REASON_DIRECTION_MISMATCH",
+    "fieldName": "mainReasonEvidenceIds",
+    "reasonIndex": 0
+  },
+  "realQwenCalls": 0
+}

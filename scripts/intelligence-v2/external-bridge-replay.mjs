@@ -17,7 +17,7 @@ export async function runExternalBridgeReplay(fixture,{count=128}={}) {
     p.signals[0].sourceUrl=i%2?null:p.signals[0].sourceUrl;
     const scenario=externalScenario(fixture,{packageValue:p,role:null,mutateOutput:(value,input)=>{
       Object.assign(value,replayOutput(input,{probabilities,newsCount:i%4}));
-      if(role){const key=role==='main'?'mainReasonEvidenceIds':'counterReasonEvidenceIds';value[key]=[value[key][0],input.externalAnalystSignals[0].evidenceId];}
+      if(role){const key=input.externalAnalystSignals[0].direction==='UP'?'upReasonEvidenceIds':'downReasonEvidenceIds';value[key]=[value[key][0],input.externalAnalystSignals[0].evidenceId];}
     }});
     const result=await scenario.run({mode:'REFRESH_CURRENT'});assert.equal(result.status,'CURRENT_READY',`external replay ${i}: ${result.failureCode}`);
     const {evidencePack,...candidate}=result.snapshot,now=new Date(fixture.now);

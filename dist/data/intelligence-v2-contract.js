@@ -230,7 +230,7 @@ export function coreForecastGate(candidate,pack,options={}) {
   const external=externalSignalsGate(pack,{now:options.now}), externalById=new Map(external.signals.map(s=>[s.evidenceId,s]));
   errors.push(...external.errors);
   const promptVersion=external.signals.length?'qwen-forecast-external-v1':'qwen-forecast-core-v1';
-  if(![promptVersion,`${promptVersion}-integer-1pct`,`${promptVersion}-integer-1pct-reason-selection-v1`].includes(candidate.promptVersion)||!['NORMAL','LIMITED'].includes(candidate.coverageMode)||candidate.newsAssessmentContract!==NEWS_ASSESSMENT_CONTRACT)errors.push('INVALID_CORE_CONTRACT_VERSION');
+  if(![promptVersion,`${promptVersion}-integer-1pct`,`${promptVersion}-integer-1pct-reason-selection-v1`,`${promptVersion}-integer-1pct-direction-pools-v2`].includes(candidate.promptVersion)||!['NORMAL','LIMITED'].includes(candidate.coverageMode)||candidate.newsAssessmentContract!==NEWS_ASSESSMENT_CONTRACT)errors.push('INVALID_CORE_CONTRACT_VERSION');
   const allowed=['source','status','probabilityType','forecastHorizonDays','provider','generatedAt','validUntil','evidenceHash','probabilities','primaryDirection','mainReasons','counterReasons','signalAssessments','inputContractVersion','newsAssessmentContract','promptVersion','inputPackHash','coverageMode','newsAssessments','forecastContract'];
   if(Object.keys(candidate).some(key=>!allowed.includes(key)))errors.push('UNCONTRACTED_ANALYSIS_FIELD');
   for(const reasons of [candidate.mainReasons,candidate.counterReasons]) {
@@ -277,10 +277,28 @@ export function newsEnrichmentGate(input,pack,{mode='MODEL'}={}) {
       documentId:document.documentId,segmentId:segment.segmentId,sourceUrl:document.sourceUrl,publisher:document.publisher,originalSource:document.originalSource,publishedAt:document.publishedAt});
   }
   const byId=new Map(accepted.map(item=>[item.evidenceId,item])), primary=input?.primaryDirection??(input?.probabilities?primaryDirectionFor(input.probabilities):null), seenReasons=new Set();
-  const reasonIds=(modelKey,forecastKey)=>(Array.isArray(input?.[modelKey])?input[modelKey]:Array.isArray(input?.[forecastKey])?input[forecastKey].map(ref=>ref?.evidenceId):[]).filter(id=>typeof id==='string'&&id.includes(':'));
+  let newsRefs=null;
+  if(mode==='MODEL'&&(Object.hasOwn(input??{},'newsReasonEvidenceIds')||Object.hasOwn(input??{},'upReasonEvidenceIds'))) {
+    const refs=input.newsReasonEvidenceIds;
+    if(!Array.isArray(refs)||refs.length>3||refs.some(id=>typeof id!=='string'||!id)){errors.push('NEWS_REASON_COLLECTION_INVALID');newsRefs=[];}
+    else {
+      newsRefs=refs;
+      for(const id of refs) {
+        if(!byId.has(id))errors.push('NEWS_REASON_NOT_ASSESSED');
+        else if(byId.get(id).impact==='NEUTRAL')errors.push('NEWS_REASON_DIRECTION_INVALID');
+      }
+    }
+  }
+  const rawReasons=(modelKey,forecastKey)=>{
+    const raw=Array.isArray(input?.[modelKey])?input[modelKey]:Array.isArray(input?.[forecastKey])?input[forecastKey].map(ref=>ref?.evidenceId):[];
+    if(newsRefs===null)return raw;
+    const direction=modelKey==='mainReasonEvidenceIds'?primary:primary==='UP'?'DOWN':'UP';
+    return [...raw,...newsRefs.filter(id=>byId.get(id)?.impact===direction)];
+  };
+  const reasonIds=(modelKey,forecastKey)=>rawReasons(modelKey,forecastKey).filter(id=>typeof id==='string'&&id.includes(':'));
   const select=(modelKey,forecastKey,opposite)=>{
     const coreIds=new Set([...coreMarketSignals(pack).map(s=>s.id),...(pack.externalAnalystSignals??[]).map(s=>s.evidenceId)]);
-    const raw=Array.isArray(input?.[modelKey])?input[modelKey]:Array.isArray(input?.[forecastKey])?input[forecastKey].map(ref=>ref?.evidenceId):[];
+    const raw=rawReasons(modelKey,forecastKey);
     let room=(opposite?2:3)-raw.filter(id=>coreIds.has(id)).length;
     return reasonIds(modelKey,forecastKey).filter(id=>{
     const item=byId.get(id);

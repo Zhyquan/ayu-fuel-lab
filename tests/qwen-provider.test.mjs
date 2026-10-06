@@ -44,21 +44,21 @@ test('missing key, unactivated native transport, failed Evidence and mismatched 
   }
 });
 for(const [name,modify,error]of [
-  ['unknown ID',v=>v.mainReasonEvidenceIds[0]='outside-pack','QWEN_REASON_INVALID'],
-  ['empty ID',v=>v.mainReasonEvidenceIds[0]='','QWEN_REASON_INVALID'],
-  ['zero main reasons',v=>v.mainReasonEvidenceIds=[],'QWEN_REASON_INVALID'],
-  ['four main reasons',v=>v.mainReasonEvidenceIds=['eia-stocks','market-brent','news-hormuz-40441609','eia-production'],'QWEN_REASON_INVALID'],
-  ['three counter reasons',v=>v.counterReasonEvidenceIds=['market-diesel','market-wti','market-diesel'],'QWEN_REASON_INVALID'],
-  ['duplicate main IDs',v=>v.mainReasonEvidenceIds=['eia-stocks','eia-stocks'],'QWEN_REASON_INVALID'],
-  ['duplicate counter IDs',v=>v.counterReasonEvidenceIds=['market-diesel','market-diesel'],'QWEN_REASON_INVALID'],
+  ['unknown ID',v=>v.upReasonEvidenceIds[0]='outside-pack','QWEN_REASON_INVALID'],
+  ['empty ID',v=>v.upReasonEvidenceIds[0]='','QWEN_REASON_INVALID'],
+  ['zero main reasons',v=>v.upReasonEvidenceIds=[],'QWEN_REASON_INVALID'],
+  ['four main reasons',v=>v.upReasonEvidenceIds=['eia-stocks','market-brent','news-hormuz-40441609','eia-production'],'QWEN_REASON_INVALID'],
+  ['three counter reasons',v=>v.downReasonEvidenceIds=['market-diesel','market-wti','market-diesel'],'QWEN_REASON_INVALID'],
+  ['duplicate main IDs',v=>v.upReasonEvidenceIds=['eia-stocks','eia-stocks'],'QWEN_REASON_INVALID'],
+  ['duplicate counter IDs',v=>v.downReasonEvidenceIds=['market-diesel','market-diesel'],'QWEN_REASON_INVALID'],
   ['bad sum',v=>v.probabilities.FLAT=30,'QWEN_PROBABILITIES_INVALID'],
   ['fractional probability',v=>{v.probabilities.UP=40.5;v.probabilities.DOWN=34.5;},'QWEN_PROBABILITIES_INVALID'],
   ['missing assessment',v=>v.strengthAssessments.pop(),'QWEN_ASSESSMENTS_INVALID'],
   ['duplicate assessment',v=>v.strengthAssessments[1]=v.strengthAssessments[0],'QWEN_ASSESSMENTS_INVALID'],
   ['extra assessment',v=>v.strengthAssessments.push({...v.strengthAssessments[0]}),'QWEN_ASSESSMENTS_INVALID'],
-  ['missing counter',v=>v.counterReasonEvidenceIds=[],'QWEN_COUNTER_REQUIRED'],
-  ['reversed main reason',v=>v.mainReasonEvidenceIds=['market-diesel'],'QWEN_REASON_INVALID'],
-  ['correlated event voting',v=>v.mainReasonEvidenceIds=['eia-stocks','eia-production'],'QWEN_REASON_INVALID'],
+  ['missing counter',v=>v.downReasonEvidenceIds=[],'QWEN_COUNTER_REQUIRED'],
+  ['reversed main reason',v=>v.upReasonEvidenceIds=['market-diesel'],'QWEN_REASON_INVALID'],
+  ['correlated event voting',v=>v.upReasonEvidenceIds=['eia-stocks','eia-production'],'QWEN_REASON_INVALID'],
   ...['source','provider','generatedAt','validUntil','evidenceHash','primaryDirection','reasonText','sourceUrl'].map(key=>[key,v=>v[key]='invented','QWEN_SCHEMA_INVALID']),
   ['invented impact',v=>v.strengthAssessments[0].impact='DOWN','QWEN_ASSESSMENTS_INVALID'],
   ['invented kind',v=>v.strengthAssessments[0].kind='FACT','QWEN_ASSESSMENTS_INVALID'],
@@ -94,7 +94,7 @@ test('fences, truncation, oversized response and tool outputs fail without repai
 });
 test('tie deterministically means DOWN; strength is the only model-supplied assessment field',async()=>{
   const f=fixture(), value=analysis(f.pack);
-  value.probabilities={DOWN:40,FLAT:20,UP:40};value.mainReasonEvidenceIds=['market-diesel'];value.counterReasonEvidenceIds=['eia-stocks','market-brent'];
+  value.probabilities={DOWN:40,FLAT:20,UP:40};
   const candidate=await createQwenProvider(fakeOptions(f.pack,{fetchImpl:async()=>response(value)})).generateForecast({evidencePack:f.pack,evidenceHash:f.evidenceHash,now:f.now});
   assert.equal(candidate.primaryDirection,'DOWN');assert.equal(candidate.generatedAt,testTime);
 });
@@ -119,8 +119,8 @@ test('endpoint override only accepts Beijing official HTTPS; oversized input is 
 test('remote schema uses only documented-compatible keywords and keeps dynamic evidence enums',()=>{
   const {pack}=fixture(), schema=analysisSchema(pack);
   assert.deepEqual(schema.required,Object.keys(schema.properties));
-  assert.deepEqual(schema.properties.mainReasonEvidenceIds.items.enum,pack.signals.map(s=>s.id));
-  assert.deepEqual(schema.properties.counterReasonEvidenceIds.items.enum,pack.signals.map(s=>s.id));
+  assert.deepEqual(schema.properties.upReasonEvidenceIds.items.enum,pack.signals.filter(s=>s.impact==='UP').map(s=>s.id));
+  assert.deepEqual(schema.properties.downReasonEvidenceIds.items.enum,pack.signals.filter(s=>s.impact==='DOWN').map(s=>s.id));
   assert.deepEqual(schema.properties.strengthAssessments.items.properties.evidenceId.enum,pack.signals.map(s=>s.id));
   assert.equal(schema.additionalProperties,false);
   assert.equal(schema.properties.probabilities.additionalProperties,false);

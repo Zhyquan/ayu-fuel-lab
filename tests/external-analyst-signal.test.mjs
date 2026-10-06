@@ -95,7 +95,7 @@ for(const role of [null,'main','counter'])test(`selected ${role??'none'} externa
   const cards=publicEvidenceGate({forecast:candidate,evidencePack:pack},{now});assert.equal(cards.gate,'PASS');
   const card=cards.cards.find(c=>c.evidenceId===id);assert.equal(Boolean(card),Boolean(role));
   if(role){assert.equal(card.title,p.signals[0].title);assert.equal(card.summary,p.signals[0].summary);assert.equal(card.sourceName,'Reuters');assert.equal(card.role,role.toUpperCase());}
-  assert.ok(s.requestBody.response_format.json_schema.schema.properties.mainReasonEvidenceIds.items.enum.includes(id));
+  assert.ok(s.requestBody.response_format.json_schema.schema.properties[p.signals[0].direction==='UP'?'upReasonEvidenceIds':'downReasonEvidenceIds'].items.enum.includes(id));
   assert.ok(!('externalAssessments'in s.requestBody.response_format.json_schema.schema.properties));
   assert.equal(qwenSchemaCompatibilityGate(analysisSchema(pack)).gate,'PASS');
 });
@@ -122,8 +122,8 @@ test('same explicit AUTO event keeps provenance but only one prompt/event vote; 
   assert.ok(merged.excluded.some(e=>e.reason==='DUPLICATE_SYNDICATED_CONTENT'));
   assert.ok(merged.pack.eventGroups.find(g=>g.eventKey===p.signals[0].eventKey).evidenceIds.includes(id));
   assert.equal(projectEvidence(merged.pack).newsDocuments.length,1);
-  const bad=setup({pack,mutateOutput:(v)=>{v.mainReasonEvidenceIds=['eia-stocks',id,`${pack.newsDocuments[0].documentId}:${pack.newsDocuments[0].segments[0].segmentId}`];}});
-  assert.equal((await bad.run({mode:'REFRESH_CURRENT'})).failureCode,'DUPLICATE_REASON_EVENT');
+  const bad=setup({pack,mutateOutput:(v)=>{v.upReasonEvidenceIds=['eia-stocks',id];v.newsReasonEvidenceIds=[`${pack.newsDocuments[0].documentId}:${pack.newsDocuments[0].segments[0].segmentId}`];}});
+  const dropped=await bad.run({mode:'REFRESH_CURRENT'});assert.equal(dropped.status,'CURRENT_READY');assert.equal(dropped.newsEnrichmentGate,'FAIL');assert.ok(dropped.providerAudit.newsEnrichment.codes.includes('NEWS_REASON_NOT_ASSESSED'));assert.ok(!dropped.snapshot.mainReasons.some(r=>r.evidenceId.includes(':')));
   const good=await setup({pack}).run({mode:'REFRESH_CURRENT'});assert.equal(good.status,'CURRENT_READY');
   const candidate=structuredClone(good.snapshot);delete candidate.evidencePack;
   candidate.mainReasons.push({evidenceId:`${pack.newsDocuments[0].documentId}:${pack.newsDocuments[0].segments[0].segmentId}`,documentId:pack.newsDocuments[0].documentId,segmentId:pack.newsDocuments[0].segments[0].segmentId,text:'合成'});
@@ -135,7 +135,7 @@ test('repeat event in accepted Current is rejected and partial package repeats a
   p.signals.push({...p.signals[0],eventKey:'synthetic-new-event'});
   const result=await setup({packageValue:p}).run({currentCache:previous});assert.equal(result.status,'READY_FOR_REFORECAST');assert.equal(result.duplicateEvents,1);assert.ok(result.excluded.some(e=>e.reason==='EXTERNAL_PREVIOUS_EVENT'));
 });
-for(const [name,mutate]of [['unknown external',v=>{v.mainReasonEvidenceIds.push('external-000000000000');}],['neutral external',(_v,_input)=>{}],['reversed external',(v,input)=>{v.mainReasonEvidenceIds=['eia-stocks'];v.counterReasonEvidenceIds=['market-diesel',input.externalAnalystSignals[0].evidenceId];}],['external only main',v=>{v.mainReasonEvidenceIds=v.mainReasonEvidenceIds.filter(id=>id.startsWith('external-'));}],['missing core counter',v=>{v.counterReasonEvidenceIds=[];}]])test(`external cannot bypass core reason controls: ${name}`,async()=>{
+for(const [name,mutate]of [['unknown external',v=>{v.upReasonEvidenceIds.push('external-000000000000');}],['neutral external',(_v,_input)=>{}],['reversed external',(v,input)=>{v.upReasonEvidenceIds=['eia-stocks'];v.downReasonEvidenceIds=['market-diesel',input.externalAnalystSignals[0].evidenceId];}],['external only main',v=>{v.upReasonEvidenceIds=v.upReasonEvidenceIds.filter(id=>id.startsWith('external-'));}],['missing core counter',v=>{v.downReasonEvidenceIds=[];}]])test(`external cannot bypass core reason controls: ${name}`,async()=>{
   const p=externalPackage(f.now);if(name==='neutral external')p.signals[0].direction='NEUTRAL';
   const s=setup({packageValue:p,mutateOutput:mutate}),result=await s.run({mode:'REFRESH_CURRENT'});assert.equal(result.status,'REJECTED');assert.equal(result.currentForecastUpdated,false);
 });
@@ -182,7 +182,7 @@ test('optional AUTO news cannot exceed reason/card slots already occupied by Cor
   const scenario=setup({mutateOutput:(value,input)=>{
     const document=input.newsDocuments[0],id=`${document.documentId}:${document.segments[0].segmentId}`;
     value.newsAssessments=[{evidenceId:id,impact:'UP',kind:'RISK',title:'合成新闻风险',summary:'合成材料讨论柴油市场风险。',strength:'MEDIUM'}];
-    value.mainReasonEvidenceIds=['eia-stocks','market-brent',input.externalAnalystSignals[0].evidenceId,id];
+    value.upReasonEvidenceIds=['eia-stocks','market-brent',input.externalAnalystSignals[0].evidenceId];value.newsReasonEvidenceIds=[id];
   }});
   const result=await scenario.run({mode:'REFRESH_CURRENT'});assert.equal(result.status,'CURRENT_READY',result.failureCode);
   assert.equal(result.snapshot.mainReasons.length,3);assert.equal(result.newsEnrichmentGate,'FAIL');assert.ok(result.providerAudit.newsEnrichment.codes.includes('NEWS_REASON_TOO_MANY'));

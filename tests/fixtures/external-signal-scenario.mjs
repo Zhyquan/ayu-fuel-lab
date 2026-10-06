@@ -16,7 +16,7 @@ export function externalScenario(fixture,{packageValue=externalPackage(fixture.n
       counts.model++;requestBody=JSON.parse(request.body);const content=requestBody.messages[1].content;modelInput=JSON.parse(content.slice(content.indexOf('\n')+1));
       const value=replayOutput(modelInput), external=modelInput.externalAnalystSignals[0];
       if(role&&external) {
-        const key=role==='main'?'mainReasonEvidenceIds':'counterReasonEvidenceIds';value[key]=[...value[key].slice(0,1),external.evidenceId];
+        const key=external.direction==='UP'?'upReasonEvidenceIds':'downReasonEvidenceIds';value[key]=[...value[key].slice(0,1),external.evidenceId];
       }
       mutateOutput?.(value,modelInput);
       return new Response(JSON.stringify({choices:[{finish_reason:'stop',message:{role:'assistant',content:JSON.stringify(value)}}],usage:{prompt_tokens:100,completion_tokens:50}}));
