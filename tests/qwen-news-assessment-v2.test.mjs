@@ -54,7 +54,7 @@ test('production-shaped 6 signals, 3 articles, 3 segments each pass the V2 Forec
   let requestCount=0;
   const provider=createQwenProvider(fakeOptions(f.pack,{clock:()=>f.now,fetchImpl:async()=>{requestCount++;return response(value);}}));
   const candidate=await provider.generateForecast({evidencePack:f.pack,evidenceHash:f.evidenceHash,now:f.now});
-  assert.equal(requestCount,1);assert.equal(candidate.promptVersion,'qwen-forecast-core-v1-integer-1pct-direction-pools-v2');
+  assert.equal(requestCount,1);assert.equal(candidate.promptVersion,'qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1');
   assert.equal(candidate.newsAssessmentContract,'NEWS_ASSESSMENT_V2');
   const selected=newsSegmentFor(f.pack,newsId);
   assert.equal(candidate.newsAssessments[0].documentId,selected.document.documentId);

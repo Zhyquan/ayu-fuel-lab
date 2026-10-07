@@ -25,8 +25,9 @@ const failures=[
   ['duplicate identity',v=>v.upReasonEvidenceIds=['eia-stocks','eia-stocks'],'REASON_DUPLICATE_ID','upReasonEvidenceIds',1],
   ['cross-array reuse',v=>v.downReasonEvidenceIds=[v.upReasonEvidenceIds[0]],'REASON_REUSED_ID','downReasonEvidenceIds',0],
   ['wrong main direction',v=>v.upReasonEvidenceIds=['market-diesel'],'REASON_DIRECTION_MISMATCH','upReasonEvidenceIds',0],
-  ['wrong counter direction',v=>v.downReasonEvidenceIds=['market-brent'],'REASON_DIRECTION_MISMATCH','downReasonEvidenceIds',0],
+  ['wrong counter direction',v=>v.downReasonEvidenceIds=['market-wti'],'REASON_DIRECTION_MISMATCH','downReasonEvidenceIds',0],
   ['repeated event',v=>v.upReasonEvidenceIds=['eia-stocks','eia-production'],'REASON_DUPLICATE_EVENT','upReasonEvidenceIds',1],
+  ['known ID outside the event representative pool',v=>v.upReasonEvidenceIds=['eia-production'],'REASON_NOT_IN_EVENT_POOL','upReasonEvidenceIds',0],
 ];
 for(const [name,modify,code,field,index]of failures)test(`same-shape reason failure remains rejected with safe diagnosis: ${name}`,async()=>{
   const f=await fixture(),value=replayOutput(f.pack);modify(value);
@@ -54,7 +55,7 @@ test('selection prompt mirrors existing IDs/direction/event rules without exclud
   assert.equal(projected.signals.length,6);assert.equal(projected.newsDocuments.length,1);
   for(const direction of ['UP','DOWN']) {
     assert.equal(new Set(groups[direction].map(g=>g.eventKey)).size,groups[direction].length);
-    for(const g of groups[direction])assert.deepEqual(g.chooseAtMostOneFrom,projected.signals.filter(s=>s.impact===direction&&s.eventKey===g.eventKey).map(s=>s.id));
+    for(const g of groups[direction])assert.deepEqual(g.relatedEvidenceIds,projected.signals.filter(s=>s.impact===direction&&s.eventKey===g.eventKey).map(s=>s.id));
   }
   let request;
   const value=replayOutput(f.pack,{newsCount:1});value.newsReasonEvidenceIds.push(value.newsAssessments[0].evidenceId);
@@ -96,10 +97,12 @@ test('legal UP, DOWN and tie reasons pass without probability repair; invalid ou
     const historyDirectory=join(root,'history'),cachePath=join(root,'cache.json');await mkdir(historyDirectory);
     const candidate=await replayCandidate(f.pack,replayOutput(f.pack),new Date(f.now));
     const prior=JSON.stringify({...candidate,evidencePack:f.pack});await writeFile(cachePath,prior);await writeFile(join(historyDirectory,'accepted.json'),prior);
-    const value=replayOutput(f.pack);value.upReasonEvidenceIds=['outside-pack'];
-    let calls=0;const options=replayProviderOptions(value,f.now),fakeFetch=options.fetchImpl;options.fetchImpl=async(...args)=>{calls++;return fakeFetch(...args);};
-    await assert.rejects(runForecast({pack:f.pack,provider:'QWEN',historyDirectory,cachePath,now:new Date(f.now),providerOptions:options}),/QWEN_REASON_INVALID/);
-    assert.equal(calls,1);assert.equal(await readFile(cachePath,'utf8'),prior);
-    assert.deepEqual(await readdir(historyDirectory),['accepted.json']);assert.equal(await readFile(join(historyDirectory,'accepted.json'),'utf8'),prior);
+    for(const ids of [['outside-pack'],['eia-stocks','eia-production']]) {
+      const value=replayOutput(f.pack);value.upReasonEvidenceIds=ids;
+      let calls=0;const options=replayProviderOptions(value,f.now),fakeFetch=options.fetchImpl;options.fetchImpl=async(...args)=>{calls++;return fakeFetch(...args);};
+      await assert.rejects(runForecast({pack:f.pack,provider:'QWEN',historyDirectory,cachePath,now:new Date(f.now),providerOptions:options}),/QWEN_REASON_INVALID/);
+      assert.equal(calls,1);assert.equal(await readFile(cachePath,'utf8'),prior);
+      assert.deepEqual(await readdir(historyDirectory),['accepted.json']);assert.equal(await readFile(join(historyDirectory,'accepted.json'),'utf8'),prior);
+    }
   }finally{await rm(root,{recursive:true,force:true});}
 });

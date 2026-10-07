@@ -51,7 +51,8 @@ test('concurrent generators are locked before model use',async t=>{
 });
 for(const mode of ['evidence','missing-key','transport','schema','public-copy'])test(`failed ${mode} preserves old cache and history; no manual fallback`,async t=>{
   const root=await workspace(t), f=fixture();let calls=0;
-  const options={fetchImpl:async()=>{calls++;if(mode==='transport')throw new Error('timeout');const value=analysis(f.pack);if(mode==='schema')value.freeText='invented';if(mode==='public-copy')value.upReasonEvidenceIds=['market-wti','eia-stocks'];return response(value);}};
+  const options={fetchImpl:async()=>{calls++;if(mode==='transport')throw new Error('timeout');const value=analysis(f.pack);if(mode==='schema')value.freeText='invented';if(mode==='public-copy')value.upReasonEvidenceIds=['market-brent','eia-stocks'];return response(value);}};
+  if(mode==='public-copy')f.pack.signals.find(s=>s.id==='market-brent').displayText='尚无公开短摘要的合成信号';
   if(mode==='evidence')f.pack.signals=[];
   if(mode==='missing-key')options.environment={};
   await assert.rejects(run(root,f,options),/EVIDENCE_GATE_FAILED|DASHSCOPE_API_KEY_REQUIRED|QWEN_TRANSPORT_FAILED|QWEN_SCHEMA_INVALID|FORECAST_GATE_FAILED/);

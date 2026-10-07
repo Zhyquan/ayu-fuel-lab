@@ -1,0 +1,81 @@
+{
+  "fixtureKind": "CONSTRUCTED_DUPLICATE_EVENT_COUNTEREXAMPLE_NOT_ORIGINAL_QWEN_RESPONSE",
+  "baseSha": "7c5612b5d35b35995998b53541421fe303bfbad9",
+  "inputFixture": "forecast-production-shape.json",
+  "evidence": [
+    {
+      "id": "eia-stocks",
+      "eventKey": "eia-weekly-2026-09-23",
+      "impact": "UP",
+      "importance": "HIGH"
+    },
+    {
+      "id": "eia-production",
+      "eventKey": "eia-weekly-2026-09-23",
+      "impact": "UP",
+      "importance": "MEDIUM"
+    }
+  ],
+  "schema": {
+    "upReasonEvidenceIds": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "market-wti",
+          "market-brent",
+          "eia-stocks",
+          "eia-production",
+          "eia-refinery-inputs"
+        ]
+      }
+    }
+  },
+  "value": {
+    "probabilities": {
+      "DOWN": 35,
+      "FLAT": 25,
+      "UP": 40
+    },
+    "upReasonEvidenceIds": [
+      "eia-stocks",
+      "eia-production"
+    ],
+    "downReasonEvidenceIds": [
+      "market-diesel"
+    ],
+    "strengthAssessments": [
+      {
+        "evidenceId": "market-wti",
+        "strength": "MEDIUM"
+      },
+      {
+        "evidenceId": "market-brent",
+        "strength": "MEDIUM"
+      },
+      {
+        "evidenceId": "market-diesel",
+        "strength": "MEDIUM"
+      },
+      {
+        "evidenceId": "eia-stocks",
+        "strength": "MEDIUM"
+      },
+      {
+        "evidenceId": "eia-production",
+        "strength": "MEDIUM"
+      },
+      {
+        "evidenceId": "eia-refinery-inputs",
+        "strength": "MEDIUM"
+      }
+    ],
+    "newsReasonEvidenceIds": [],
+    "newsAssessments": []
+  },
+  "validation": {
+    "code": "REASON_DUPLICATE_EVENT",
+    "fieldName": "upReasonEvidenceIds",
+    "reasonIndex": 1
+  }
+}

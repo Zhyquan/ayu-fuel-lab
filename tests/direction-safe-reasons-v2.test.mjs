@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { loadReplayFixture, replayOutput, replayCandidate } from '../scripts/intelligence-v2/replay.mjs';
-import { analysisSchema, projectEvidence, projectReasonPools, validateAnalysis, qwenSchemaCompatibilityGate, REASON_CONTRACT_VERSION } from '../scripts/intelligence-v2/qwen-provider.mjs';
+import { analysisSchema, projectEvidence, projectReasonPools, reasonSelectionHints, validateAnalysis, qwenSchemaCompatibilityGate, REASON_CONTRACT_VERSION } from '../scripts/intelligence-v2/qwen-provider.mjs';
 import { coreEvidenceGate, coreForecastGate, newsEnrichmentGate, primaryDirectionFor, validateForecastCache } from '../dist/data/intelligence-v2-contract.js';
 import { externalPackage, externalScenario } from './fixtures/external-signal-scenario.mjs';
 import { publicEvidenceGate } from '../dist/data/public-evidence.js';
@@ -27,7 +27,7 @@ test('V2 schema partitions known UP/DOWN IDs and excludes NEUTRAL and news from 
   assert.equal(qwenSchemaCompatibilityGate(schema).gate,'PASS');assert.equal(schema.additionalProperties,false);
   assert.ok(!Object.hasOwn(schema.properties,'mainReasonEvidenceIds'));assert.ok(!Object.hasOwn(schema.properties,'counterReasonEvidenceIds'));
   for(const [field,direction]of [['upReasonEvidenceIds','UP'],['downReasonEvidenceIds','DOWN']]) {
-    assert.deepEqual(schema.properties[field].items.enum,f.pack.signals.filter(s=>s.impact===direction).map(s=>s.id));
+    assert.deepEqual(schema.properties[field].items.enum,reasonSelectionHints(f.pack)[direction].map(g=>g.reasonEvidenceId));
     assert.ok(!schema.properties[field].items.enum.includes('eia-production'));
     assert.ok(schema.properties[field].items.enum.every(id=>!id.includes(':')));
   }
@@ -40,7 +40,7 @@ test('V2 schema partitions known UP/DOWN IDs and excludes NEUTRAL and news from 
   }
 });
 
-for(const [field,id,index]of [['upReasonEvidenceIds','market-diesel',0],['downReasonEvidenceIds','market-brent',0],['upReasonEvidenceIds','market-diesel',2]])
+for(const [field,id,index]of [['upReasonEvidenceIds','market-diesel',0],['downReasonEvidenceIds','market-wti',0],['upReasonEvidenceIds','market-diesel',2]])
 test(`wrong-direction ID is excluded by schema and still rejected locally: ${field}/${index}`,async()=>{
   const f=await loadReplayFixture(),value=replayOutput(f.pack),schema=analysisSchema(f.pack);
   assert.ok(!schema.properties[field].items.enum.includes(id));
@@ -60,11 +60,11 @@ test(`known-direction pools project deterministically without probability repair
   assert.deepEqual(candidate.counterReasons.map(r=>r.evidenceId),roles.counterReasonEvidenceIds);
   assert.equal(coreForecastGate(candidate,f.pack,{now:new Date(f.now)}).gate,'PASS');
   for(const key of ['upReasonEvidenceIds','downReasonEvidenceIds','newsReasonEvidenceIds'])assert.ok(!Object.hasOwn(candidate,key));
-  for(const version of ['qwen-forecast-core-v1-integer-1pct','qwen-forecast-core-v1-integer-1pct-reason-selection-v1',candidate.promptVersion])
+  for(const version of ['qwen-forecast-core-v1-integer-1pct','qwen-forecast-core-v1-integer-1pct-reason-selection-v1','qwen-forecast-core-v1-integer-1pct-direction-pools-v2',candidate.promptVersion])
     assert.equal(validateForecastCache({...candidate,promptVersion:version,evidencePack:f.pack},{now:new Date(f.now)}).status,'LIVE');
   const bad=structuredClone(candidate);bad.mainReasons[0]=bad.counterReasons[0];
   assert.equal(coreForecastGate(bad,f.pack,{now:new Date(f.now)}).gate,'FAIL');
-  assert.equal(REASON_CONTRACT_VERSION,'direction-pools-v2');
+  assert.equal(REASON_CONTRACT_VERSION,'direction-pools-v2-event-safe-v1');
 });
 
 test('priority projection validates the entire pool first, then retains at most 3 main / 2 counter',async()=>{
@@ -92,7 +92,7 @@ test('an empty directional universe is constrained to the empty array, without w
   const value=replayOutput(f.pack);assert.deepEqual(value.downReasonEvidenceIds,[]);
   assert.doesNotThrow(()=>validateAnalysis(value,f.pack));
   const candidate=await replayCandidate(f.pack,value,f.now);assert.deepEqual(candidate.counterReasons,[]);
-  value.downReasonEvidenceIds=['market-diesel'];assert.throws(()=>validateAnalysis(value,f.pack),e=>e.validationCode==='REASON_DIRECTION_MISMATCH');
+  value.downReasonEvidenceIds=['eia-production'];assert.throws(()=>validateAnalysis(value,f.pack),e=>e.validationCode==='REASON_DIRECTION_MISMATCH');
 });
 
 for(const direction of ['UP','DOWN','NEUTRAL'])test(`External frozen direction has the same schema/local restriction: ${direction}`,async()=>{

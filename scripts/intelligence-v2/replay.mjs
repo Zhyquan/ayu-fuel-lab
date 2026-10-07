@@ -9,7 +9,7 @@ import { publicEvidenceGate } from '../../dist/data/public-evidence.js';
 import { publicEvidenceMarkup } from '../../dist/data/public-evidence-view.js';
 import { forecastMarkup } from '../../dist/data/intelligence-v2-view.js';
 import { readForecast } from '../../dist/data/intelligence-v2-service.js';
-import { createQwenProvider, projectEvidence, validateAnalysis } from './qwen-provider.mjs';
+import { createQwenProvider, projectEvidence, reasonSelectionHints, validateAnalysis } from './qwen-provider.mjs';
 import { evidenceHashFor } from './history.mjs';
 import { runOfficialDaily, INDEX_PATH, PROVIDER_AUDIT_PATH } from './official-daily.mjs';
 import { verifyGenerated } from './commit-official-daily.mjs';
@@ -22,9 +22,10 @@ export const replayProviderOptions=(value,now)=>({mock:true,environment:{DASHSCO
   fetchImpl:async()=>new Response(JSON.stringify({choices:[{finish_reason:'stop',message:{role:'assistant',content:JSON.stringify(value)}}],usage:{prompt_tokens:100,completion_tokens:50}}),{status:200})});
 export function replayOutput(pack,{probabilities={DOWN:35,FLAT:25,UP:40},newsCount=0,strength='MEDIUM'}={}) {
   const primary=primaryDirectionFor(probabilities), signals=coreMarketSignals(pack);
-  const unique=(impact)=>signals.filter(s=>s.impact===impact).filter((s,i,all)=>all.findIndex(x=>x.eventKey===s.eventKey)===i);
+  const groups=reasonSelectionHints(pack);
+  const unique=(impact)=>groups[impact].filter(g=>signals.some(s=>s.id===g.reasonEvidenceId)).map(g=>g.reasonEvidenceId);
   const opposite=primary==='UP'?'DOWN':'UP';
-  return {probabilities,upReasonEvidenceIds:unique('UP').slice(0,2).map(s=>s.id),downReasonEvidenceIds:unique('DOWN').slice(0,2).map(s=>s.id),
+  return {probabilities,upReasonEvidenceIds:unique('UP').slice(0,2),downReasonEvidenceIds:unique('DOWN').slice(0,2),
     strengthAssessments:signals.map(s=>({evidenceId:s.id,strength})),
     newsReasonEvidenceIds:[],
     newsAssessments:(pack.newsDocuments??[]).slice(0,newsCount).map((d,i)=>({evidenceId:`${d.documentId}:${d.segments[0].segmentId}`,impact:i===1?opposite:primary,kind:'RISK',title:'柴油市场供需变化',summary:'报道讨论柴油供需变化及市场影响。',strength}))};
@@ -108,7 +109,7 @@ export async function runContractFuzz({seed=20260930,count=192}={}) {
         homogeneousVariants++;
         for(const s of pack.signals) {
           s.impact=primary;
-          if(s.observation){s.observation.change1dPercent=(primary==='UP'?1:-1)*Math.abs(s.observation.change1dPercent);s.displayText=`${s.observation.name}报价${primary==='UP'?'上涨':'回落'}`;s.fact=`合成变体：${s.displayText}，日变化 ${s.observation.change1dPercent}%。`;}
+          if(s.observation){s.observation.change1dPercent=(primary==='UP'?1:-1)*Math.abs(s.observation.change1dPercent);s.displayText=`${s.id==='market-diesel'?'纽约港低硫柴油':s.observation.name}最新日度报价${primary==='UP'?'上涨':'回落'}`;s.fact=`合成变体：${s.displayText}，日变化 ${s.observation.change1dPercent}%。`;}
           else {s.displayText=primary==='UP'?'美国馏分油供应收紧':'美国馏分油供应缓解';s.fact=`合成变体：${s.displayText}。`;}
         }
       }

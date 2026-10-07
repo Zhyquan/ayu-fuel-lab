@@ -135,8 +135,8 @@ test('the production run writer publishes core-only results to an isolated cache
 });
 
 test('a card projection failure does not fail the production core runner and renders no empty/error card',async()=>{
-  const {pack}=setup(),value=replayOutput(pack);value.upReasonEvidenceIds=['market-wti'];
-  pack.signals.find(s=>s.id==='market-wti').displayText='合成结构化标题'.repeat(5);
+  const {pack}=setup(),value=replayOutput(pack);value.upReasonEvidenceIds=['market-brent'];
+  pack.signals.find(s=>s.id==='market-brent').displayText='合成结构化标题'.repeat(5);
   pack.signals.find(s=>s.id==='market-diesel').displayText='合成结构化标题'.repeat(5);
   // Core source copy is valid, but exceeds the public card's shorter display bound.
   const result=await runForecast({pack,provider:'QWEN',now,providerOptions:replayProviderOptions(value,now),persist:false});

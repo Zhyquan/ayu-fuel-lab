@@ -127,8 +127,8 @@ test('invalid forecast, public projection, Qwen or write failure all preserve La
       ['write',setup(),{writeOptions:{write:async()=>{throw new Error('SYNTHETIC_WRITE_FAILURE');}}},'SYNTHETIC_WRITE_FAILURE'],
       ['rename',setup(),{writeOptions:{move:async()=>{throw new Error('SYNTHETIC_RENAME_FAILURE');}}},'SYNTHETIC_RENAME_FAILURE'],
     ];
-    const pack=structuredClone(fixture.pack);for(const s of pack.signals.filter(s=>['market-wti','market-diesel'].includes(s.id)))s.displayText='合成结构化标题'.repeat(5);
-    cases.push(['public card',setup({pack,mutateOutput:v=>{v.upReasonEvidenceIds=['market-wti'];}}),{},'PUBLIC_EVIDENCE_GATE_FAILED']);
+    const pack=structuredClone(fixture.pack);for(const s of pack.signals.filter(s=>['market-brent','market-diesel'].includes(s.id)))s.displayText='合成结构化标题'.repeat(5);
+    cases.push(['public card',setup({pack,mutateOutput:v=>{v.upReasonEvidenceIds=['market-brent'];}}),{},'PUBLIC_EVIDENCE_GATE_FAILED']);
     for(const [label,s,extra,code]of cases){
       const result=await s.run({mode:'REFRESH_CURRENT',persist:true,cachePath,...extra});
       assert.equal(result.status,'REJECTED',label);assert.equal(result.failureCode,code,label);

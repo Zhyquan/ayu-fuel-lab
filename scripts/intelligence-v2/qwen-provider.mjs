@@ -15,7 +15,7 @@ export const MAX_TRANSPORT_RETRIES = 2;
 export const MAX_INPUT_BYTES = 65536;
 const schema = JSON.parse(await readFile(new URL('../../QWEN_FORECAST_SCHEMA.json',import.meta.url),'utf8'));
 const fail = code => { throw new Error(code); };
-export const REASON_CONTRACT_VERSION = 'direction-pools-v2';
+export const REASON_CONTRACT_VERSION = 'direction-pools-v2-event-safe-v1';
 const reasonFail = (validationCode,fieldName,reasonIndex) => {
   const error=new Error('QWEN_REASON_INVALID');
   Object.assign(error,{validationCode,fieldName,...(reasonIndex===undefined?{}:{reasonIndex})});
@@ -47,8 +47,9 @@ export function analysisSchema(pack) {
   const external=pack.externalAnalystSignals??[];
   const ids=[...signals.map(s=>s.id),...external.map(s=>s.evidenceId),...documents.flatMap(d=>d.segments.map(s=>`${d.documentId}:${s.segmentId}`))];
   const directionalArray=values=>values.length?{type:'array',items:{type:'string',enum:values}}:{type:'array',enum:[[]],items:{type:'string'}};
+  const groups=reasonSelectionHints(pack);
   for(const [key,direction]of [['upReasonEvidenceIds','UP'],['downReasonEvidenceIds','DOWN']])
-    result.properties[key]=directionalArray([...signals.filter(s=>s.impact===direction).map(s=>s.id),...external.filter(s=>s.direction===direction).map(s=>s.evidenceId)]);
+    result.properties[key]=directionalArray(groups[direction].map(g=>g.reasonEvidenceId));
   const assessments=result.properties.strengthAssessments;
   assessments.items.properties.evidenceId={type:'string',enum:ids};
   if(newsContract) {
@@ -99,6 +100,10 @@ export function validateAnalysis(value,pack) {
       refs.push(id);events.add(signal.eventKey);
     }
   }
+  const groups=reasonSelectionHints(pack);
+  for(const [key,direction]of [['upReasonEvidenceIds','UP'],['downReasonEvidenceIds','DOWN']])
+    for(const [index,id]of value[key].entries())
+      if(!groups[direction].some(g=>g.reasonEvidenceId===id))reasonFail('REASON_NOT_IN_EVENT_POOL',key,index);
   const roles=projectReasonPools(value),primary=primaryDirectionFor(p),mainKey=primary==='UP'?'upReasonEvidenceIds':'downReasonEvidenceIds';
   if(!roles.mainReasonEvidenceIds.some(id=>byId.has(id)))reasonFail('REASON_COUNT_INVALID',mainKey);
   if(signals.some(s=>s.impact!==primary&&s.impact!=='NEUTRAL')&&!roles.counterReasonEvidenceIds.some(id=>byId.has(id)))fail('QWEN_COUNTER_REQUIRED');
@@ -109,10 +114,19 @@ export function validateAnalysis(value,pack) {
     assessments.some(s=>!exactKeys(s,['evidenceId','strength'])||!signalIds.has(s.evidenceId)||!['LOW','MEDIUM','HIGH'].includes(s.strength)))fail('QWEN_ASSESSMENTS_INVALID');
   return structuredClone(value);
 }
-// These hints expose the existing validator rule without changing weights or probabilities.
+// One existing ID represents each directional event; all measurements remain in the input.
 export function reasonSelectionHints(pack) {
   const signals=pack.inputContractVersion===NEWS_INPUT_CONTRACT?coreMarketSignals(pack):pack.signals;
-  return Object.fromEntries(['UP','DOWN'].map(direction=>[direction,[...new Set(signals.filter(s=>s.impact===direction).map(s=>s.eventKey))].map(eventKey=>({eventKey,chooseAtMostOneFrom:signals.filter(s=>s.impact===direction&&s.eventKey===eventKey).map(s=>s.id)}))]));
+  const external=(pack.externalAnalystSignals??[]).map(s=>({id:s.evidenceId,eventKey:s.eventKey,impact:s.direction,importance:s.strength}));
+  const rank={LOW:0,MEDIUM:1,HIGH:2};
+  return Object.fromEntries(['UP','DOWN'].map(direction=>{
+    const candidates=[...signals,...external].filter(s=>s.impact===direction);
+    return [direction,[...new Set(candidates.map(s=>s.eventKey))].map(eventKey=>{
+      const related=candidates.filter(s=>s.eventKey===eventKey),structured=signals.filter(s=>s.impact===direction&&s.eventKey===eventKey);
+      const representative=(structured.length?structured:related).reduce((a,b)=>rank[b.importance]>rank[a.importance]||(rank[b.importance]===rank[a.importance]&&b.id<a.id)?b:a);
+      return {eventKey,reasonEvidenceId:representative.id,relatedEvidenceIds:related.map(s=>s.id)};
+    })];
+  }));
 }
 export function projectEvidence(pack) {
   const pick=(value,keys)=>Object.fromEntries(keys.filter(key=>value?.[key]!==undefined).map(key=>[key,value[key]]));
@@ -172,7 +186,7 @@ export function createQwenProvider(options={}) {
       const promptVersion=`${baseVersion}-${REASON_CONTRACT_VERSION}`;
       const basePrompt=external.signals.length?EXTERNAL_SYSTEM_PROMPT:newsContract?NEWS_SYSTEM_PROMPT:SYSTEM_PROMPT;
       const groups=reasonSelectionHints(pack);
-      const systemPrompt=basePrompt+`\n理由合同 ${REASON_CONTRACT_VERSION}：upReasonEvidenceIds 永久只选利涨结构化/外部ID，downReasonEvidenceIds 永久只选利跌ID，各0到3条，按重要性排序。可选组：${JSON.stringify(groups)}。同一方向每个eventKey最多一个ID，ID不得重复或跨池复用，NEUTRAL不能入池；每个有该方向结构化signal的池须优先保留结构化理由。impact/direction 是价格影响方向，不是库存或产量增减。模型只输出方向池，不输出main/counter角色；代码按UP>DOWN为UP、否则DOWN（含平票）投影，主池前3条、反池前2条。全部signals仍参与分析和strengthAssessments，概率按证据判断，不为选择理由改写概率。newsReasonEvidenceIds独立选择最多3个新闻segment ID，可为空，新闻角色只由已验证newsAssessment impact派生；newsAssessments展示集合不因未选理由而删除。`;
+      const systemPrompt=basePrompt+`\n理由合同 ${REASON_CONTRACT_VERSION}：upReasonEvidenceIds 永久只选利涨结构化/外部ID，downReasonEvidenceIds 永久只选利跌ID，各0到3条，按重要性排序。可选组：${JSON.stringify(groups)}。每组只允许选择 reasonEvidenceId；relatedEvidenceIds 是该事件的其他测量，不是额外可选理由。每池数量不得超过该方向的事件组数，不需要凑满3条。同一方向每个eventKey最多一个ID，ID不得重复或跨池复用，NEUTRAL不能入池；每个有该方向结构化signal的池须优先保留结构化理由。impact/direction 是价格影响方向，不是库存或产量增减。模型只输出方向池，不输出main/counter角色；代码按UP>DOWN为UP、否则DOWN（含平票）投影，主池前3条、反池前2条。全部signals仍参与分析和strengthAssessments，代表ID只约束理由身份、不决定权重，概率按证据判断，不为选择理由改写概率。newsReasonEvidenceIds独立选择最多3个新闻segment ID，可为空，新闻角色只由已验证newsAssessment impact派生；newsAssessments展示集合不因未选理由而删除。`;
       const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,
         messages:[{role:'system',content:systemPrompt},{role:'user',content:`Frozen Evidence Pack (${evidenceHash}); model input hash ${inputPackHash}\n${input}`}],
         response_format:{type:'json_schema',json_schema:{name:'QWEN_ANALYSIS_OUTPUT',strict:true,schema:analysisSchema(pack)}}});

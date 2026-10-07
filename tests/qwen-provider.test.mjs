@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { createQwenProvider, validateAnalysis, analysisSchema, projectEvidence, qwenSchemaCompatibilityGate, QWEN_SCHEMA_KEYWORDS, MAX_TRANSPORT_RETRIES, MAX_PROVIDER_CALLS_PER_RUN } from '../scripts/intelligence-v2/qwen-provider.mjs';
+import { createQwenProvider, validateAnalysis, analysisSchema, projectEvidence, reasonSelectionHints, qwenSchemaCompatibilityGate, QWEN_SCHEMA_KEYWORDS, MAX_TRANSPORT_RETRIES, MAX_PROVIDER_CALLS_PER_RUN } from '../scripts/intelligence-v2/qwen-provider.mjs';
 import { evidenceHashFor } from '../scripts/intelligence-v2/history.mjs';
 import { forecastGate, DAY } from '../dist/data/intelligence-v2-contract.js';
 import { runForecast } from '../scripts/intelligence-v2/run.mjs';
@@ -119,8 +119,8 @@ test('endpoint override only accepts Beijing official HTTPS; oversized input is 
 test('remote schema uses only documented-compatible keywords and keeps dynamic evidence enums',()=>{
   const {pack}=fixture(), schema=analysisSchema(pack);
   assert.deepEqual(schema.required,Object.keys(schema.properties));
-  assert.deepEqual(schema.properties.upReasonEvidenceIds.items.enum,pack.signals.filter(s=>s.impact==='UP').map(s=>s.id));
-  assert.deepEqual(schema.properties.downReasonEvidenceIds.items.enum,pack.signals.filter(s=>s.impact==='DOWN').map(s=>s.id));
+  assert.deepEqual(schema.properties.upReasonEvidenceIds.items.enum,reasonSelectionHints(pack).UP.map(g=>g.reasonEvidenceId));
+  assert.deepEqual(schema.properties.downReasonEvidenceIds.items.enum,reasonSelectionHints(pack).DOWN.map(g=>g.reasonEvidenceId));
   assert.deepEqual(schema.properties.strengthAssessments.items.properties.evidenceId.enum,pack.signals.map(s=>s.id));
   assert.equal(schema.additionalProperties,false);
   assert.equal(schema.properties.probabilities.additionalProperties,false);
