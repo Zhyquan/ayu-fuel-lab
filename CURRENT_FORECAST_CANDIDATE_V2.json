@@ -4,35 +4,39 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-01T02:11:28.590Z",
-  "validUntil": "2026-10-02T02:11:28.590Z",
-  "evidenceHash": "c1900a6e6ad1a5cb899931b82c6aea421bee6c28883dd277090574752d1ac595",
+  "generatedAt": "2026-10-08T02:44:37.477Z",
+  "validUntil": "2026-10-09T02:44:37.477Z",
+  "evidenceHash": "70212389e3516b6b5502368ff5ddf0a6cdd9fcdf2ae929d5234833c5f9847dd0",
   "probabilities": {
-    "DOWN": 20,
-    "FLAT": 15,
-    "UP": 65
+    "DOWN": 30,
+    "FLAT": 25,
+    "UP": 45
   },
   "primaryDirection": "UP",
   "mainReasons": [
     {
-      "evidenceId": "eia-stocks",
-      "text": "美国馏分油库存减少"
-    },
-    {
       "evidenceId": "market-diesel",
       "text": "纽约港低硫柴油最新日度报价上涨"
+    },
+    {
+      "evidenceId": "eia-stocks",
+      "text": "美国馏分油库存减少"
     }
   ],
   "counterReasons": [
     {
       "evidenceId": "market-brent",
       "text": "Brent最新日度报价回落"
+    },
+    {
+      "evidenceId": "eia-production",
+      "text": "美国馏分油产量增加"
     }
   ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
@@ -56,13 +60,13 @@
     },
     {
       "evidenceId": "eia-production",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "eia-refinery-inputs",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "LOW"
     }
@@ -70,8 +74,8 @@
   "inputContractVersion": "NEWS_MATERIAL_V1",
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
-  "promptVersion": "qwen-forecast-core-v1",
-  "inputPackHash": "16c17a8be7ea7ee0438a54137efae62de75b62e2c6acf2d9bacd4947dd0c4ec3",
-  "coverageMode": "LIMITED",
+  "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
+  "inputPackHash": "8d7ee4eb8fbd5cb2f872d96f63c6684e93ec0bd43a90941a976058b6a9347500",
+  "coverageMode": "NORMAL",
   "newsAssessments": []
 }
