@@ -4,13 +4,13 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-08T02:44:37.477Z",
-  "validUntil": "2026-10-09T02:44:37.477Z",
-  "evidenceHash": "70212389e3516b6b5502368ff5ddf0a6cdd9fcdf2ae929d5234833c5f9847dd0",
+  "generatedAt": "2026-10-09T02:59:23.116Z",
+  "validUntil": "2026-10-10T02:59:23.116Z",
+  "evidenceHash": "62cf26f969e5b7c0e2d1c43d251c05bc8e9bd624c0726124350f50dcdd511b7f",
   "probabilities": {
-    "DOWN": 30,
-    "FLAT": 25,
-    "UP": 45
+    "DOWN": 25,
+    "FLAT": 15,
+    "UP": 60
   },
   "primaryDirection": "UP",
   "mainReasons": [
@@ -25,8 +25,8 @@
   ],
   "counterReasons": [
     {
-      "evidenceId": "market-brent",
-      "text": "Brent最新日度报价回落"
+      "evidenceId": "market-wti",
+      "text": "WTI最新日度报价回落"
     },
     {
       "evidenceId": "eia-production",
@@ -34,18 +34,6 @@
     }
   ],
   "signalAssessments": [
-    {
-      "evidenceId": "market-wti",
-      "impact": "UP",
-      "kind": "FACT",
-      "strength": "MEDIUM"
-    },
-    {
-      "evidenceId": "market-brent",
-      "impact": "DOWN",
-      "kind": "FACT",
-      "strength": "MEDIUM"
-    },
     {
       "evidenceId": "market-diesel",
       "impact": "UP",
@@ -57,6 +45,18 @@
       "impact": "UP",
       "kind": "FACT",
       "strength": "HIGH"
+    },
+    {
+      "evidenceId": "market-brent",
+      "impact": "UP",
+      "kind": "FACT",
+      "strength": "MEDIUM"
+    },
+    {
+      "evidenceId": "market-wti",
+      "impact": "DOWN",
+      "kind": "FACT",
+      "strength": "MEDIUM"
     },
     {
       "evidenceId": "eia-production",
@@ -75,7 +75,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "8d7ee4eb8fbd5cb2f872d96f63c6684e93ec0bd43a90941a976058b6a9347500",
+  "inputPackHash": "5092b0b1eebe64368c100c0a7d25d6a6d74bb0da5449359e04d1471aa90aa62c",
   "coverageMode": "NORMAL",
   "newsAssessments": []
 }
