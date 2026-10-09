@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "FUEL_ACCEPTED_EVIDENCE_V2",
+  "generatedAt": "2026-10-09T12:05:36.457Z",
+  "inputHash": "78a475e08d80d816219bbeecd89170c9d8ede9620a55154cee823d9ae7d1aea8",
+  "acceptedEvidence": [
+    {
+      "id": "external-7266ff329b88",
+      "evidenceId": "external-7266ff329b88",
+      "eventKey": "rc2-test-diesel-neutral-card-20261009120536457",
+      "title": "测试情报：柴油市场日常观察，无新增方向信号",
+      "summary": "TEST-only：用于验证能源情报卡片的动态更新链路。未报告库存、供给或需求变化，不作为真实市场消息或未来7天方向依据。",
+      "source": "RC2 TEST analyst",
+      "sourceName": "外部分析 · RC2 TEST analyst",
+      "publisher": "RC2 TEST analyst",
+      "sourceUrl": null,
+      "publishedAt": "2026-10-09T12:05:36.457Z",
+      "date": "2026-10-09",
+      "publishedAtPrecision": "SECOND",
+      "type": "CLAIM",
+      "relevance": "DEMAND_MACRO",
+      "forecastInfluence": "LOW",
+      "influenceBasis": "EXTERNAL_ANALYST",
+      "displayEligible": true,
+      "displayPriority": 30,
+      "policy": "ACCEPTED_LOW_INFLUENCE",
+      "contentHash": "e1c13854193fb9b8550eb7c9ea7b094cd59759d38273193c37325adb34bbe58c",
+      "inputHash": "78a475e08d80d816219bbeecd89170c9d8ede9620a55154cee823d9ae7d1aea8",
+      "relationship": "RELATED_ONLY",
+      "forecastHash": null,
+      "direction": "NEUTRAL",
+      "directionLabel": "相关分析"
+    }
+  ],
+  "exclusions": [],
+  "collectionHash": "ef87961bf1213b29372756da16e3db35859339967172469bcebad83623f38f52"
+}
