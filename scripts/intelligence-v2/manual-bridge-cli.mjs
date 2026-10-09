@@ -1,7 +1,7 @@
 import { mkdir, readFile, writeFile, appendFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runManualBridge, bridgeSummary } from './manual-bridge.mjs';
+import { runManualBridge, bridgeSummary, replaceCurrentForecast } from './manual-bridge.mjs';
 import { currentPublication, CURRENT_CACHE_PATH } from './current-publication.mjs';
 import { readForecast } from '../../dist/data/intelligence-v2-service.js';
 
@@ -18,7 +18,7 @@ try {
 }catch{}
 let autoEvidence=null;
 try{autoEvidence=JSON.parse(await readFile(resolve(root,'CURRENT_EVIDENCE_V2.json'),'utf8'));}catch{}
-const result=await runManualBridge({newsUrl:process.env.BRIDGE_NEWS_URL,signalPackage:process.env.BRIDGE_SIGNAL_PACKAGE,intakeType:process.env.BRIDGE_INTAKE_TYPE??'CHATGPT_SIGNAL_PACKAGE',mode,currentCache,autoEvidence,activationAuthorized:authorized});
+const result=await runManualBridge({newsUrl:process.env.BRIDGE_NEWS_URL,signalPackage:process.env.BRIDGE_SIGNAL_PACKAGE,intakeType:process.env.BRIDGE_INTAKE_TYPE??'CHATGPT_SIGNAL_PACKAGE',mode,currentCache,autoEvidence,activationAuthorized:authorized,onAcceptedEvidence:collection=>replaceCurrentForecast(resolve(directory,'accepted-evidence.json'),collection)});
 let ready=false;
 try {
   if(mode==='REFRESH_CURRENT'&&result.status==='CURRENT_READY') {
@@ -29,6 +29,7 @@ try {
     ready=true;
   }
 }catch(error){result.status='REJECTED';result.failureCode=/^[A-Z0-9_]+$/.test(error.message)?error.message:'CURRENT_STAGING_FAILED';}
+if(result.acceptedCollection)await writeFile(resolve(directory,'accepted-evidence.json'),JSON.stringify(result.acceptedCollection,null,2)+'\n');
 const {snapshot,providerAudit,...safe}=result;
 if(providerAudit)safe.providerMetrics={
   ...Object.fromEntries(['provider','model','status','configuredTransportRetries','maxExternalRequests','actualExternalRequestCount','attemptCount','httpStatus','validationCode'].map(key=>[key,providerAudit[key]??null])),

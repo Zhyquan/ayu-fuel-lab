@@ -8,7 +8,7 @@ import { forecastGate, primaryDirectionFor } from '../../dist/data/intelligence-
 import { evidenceHashFor } from './history.mjs';
 
 export async function runExternalBridgeReplay(fixture,{count=128}={}) {
-  let payloadChars=0;
+  let payloadChars=0,acceptedNoRecomputeCases=0;
   for(let i=0;i<count;i++) {
     const p=externalPackage(fixture.now),probabilities=[{DOWN:61,FLAT:18,UP:21},{DOWN:21,FLAT:16,UP:63},{DOWN:65,FLAT:15,UP:20},{DOWN:20,FLAT:15,UP:65}][i%4];
     const primary=primaryDirectionFor(probabilities),role=[null,'main','counter'][i%3];
@@ -19,7 +19,15 @@ export async function runExternalBridgeReplay(fixture,{count=128}={}) {
       Object.assign(value,replayOutput(input,{probabilities,newsCount:i%4}));
       if(role){const key=input.externalAnalystSignals[0].direction==='UP'?'upReasonEvidenceIds':'downReasonEvidenceIds';value[key]=[value[key][0],input.externalAnalystSignals[0].evidenceId];}
     }});
-    const result=await scenario.run({mode:'REFRESH_CURRENT'});assert.equal(result.status,'CURRENT_READY',`external replay ${i}: ${result.failureCode}`);
+    const result=await scenario.run({mode:'REFRESH_CURRENT'});
+    if(p.signals[0].strength==='LOW') {
+      assert.equal(result.status,'ACCEPTED_NO_RECOMPUTE');assert.equal(result.recomputeEligibility.reason,'LOW_MATERIALITY');
+      const row=result.acceptedCollection.acceptedEvidence.find(e=>e.influenceBasis==='EXTERNAL_ANALYST');
+      assert.equal(row.displayEligible,true);assert.equal(row.policy,'ACCEPTED_LOW_INFLUENCE');assert.equal(row.forecastHash,null);
+      assert.equal(scenario.counts.model,0);assert.equal(result.actualExternalRequestCount,0);
+      acceptedNoRecomputeCases++;continue;
+    }
+    assert.equal(result.status,'CURRENT_READY',`external replay ${i}: ${result.failureCode}`);
     const {evidencePack,...candidate}=result.snapshot,now=new Date(fixture.now);
     assert.equal(forecastGate(candidate,evidencePack,{now,expectedEvidenceHash:evidenceHashFor(evidencePack)}).gate,'PASS');
     assert.equal((await readForecast({now,fetchImpl:async()=>new Response(JSON.stringify(result.snapshot))})).status,'LIVE');
@@ -29,5 +37,5 @@ export async function runExternalBridgeReplay(fixture,{count=128}={}) {
     assert.equal(scenario.counts.article,0);assert.equal(scenario.counts.model,1);
     payloadChars=Math.max(payloadChars,JSON.stringify(scenario.modelInput.externalAnalystSignals).length);
   }
-  return {gate:'PASS',legalCases:count,externalPayloadMaxChars:payloadChars,approxTokens:Math.ceil(payloadChars/2),proof:'FIXED_SYNTHETIC_REPLAY_NOT_PUBLICATION',realQwenCalls:0,productionWrites:0};
+  return {gate:'PASS',legalCases:count,acceptedNoRecomputeCases,externalPayloadMaxChars:payloadChars,approxTokens:Math.ceil(payloadChars/2),proof:'FIXED_SYNTHETIC_REPLAY_NOT_PUBLICATION',realQwenCalls:0,productionWrites:0};
 }

@@ -3,7 +3,7 @@ import { runManualBridge } from '../../scripts/intelligence-v2/manual-bridge.mjs
 export const bridgeUrl='https://www.brecorder.com/news/999000/synthetic-bridge-diesel';
 export function bridgeHtml({date='2026-09-30T04:00:00.000Z',publisher='Business Recorder',author='Reuters',body}={}) {
   const metadata={'@type':'NewsArticle',publisher:{name:publisher},author:{name:author},datePublished:date,headline:'Synthetic fixture: diesel market supply review'};
-  const text=body??'Synthetic bridge fixture: diesel traders reviewed refinery supply and oil demand across several regions. The report discusses a potential change in fuel supply rather than a confirmed disruption.';
+  const text=body??'Synthetic bridge fixture: diesel inventories decreased in a controlled supply test. Traders reviewed refinery supply and oil demand. These are invented test observations, not real events.';
   return `<script type="application/ld+json">${JSON.stringify(metadata)}</script><div class="story__content"><p>${text}</p></div>`;
 }
 
