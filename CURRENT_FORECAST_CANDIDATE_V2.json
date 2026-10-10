@@ -4,13 +4,13 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-09T02:59:23.116Z",
-  "validUntil": "2026-10-10T02:59:23.116Z",
-  "evidenceHash": "62cf26f969e5b7c0e2d1c43d251c05bc8e9bd624c0726124350f50dcdd511b7f",
+  "generatedAt": "2026-10-10T02:22:18.148Z",
+  "validUntil": "2026-10-11T02:22:18.148Z",
+  "evidenceHash": "dd83ecae381cb68a6cc5b6928382725d9a821304f661aeea0865f3ae597bb03e",
   "probabilities": {
     "DOWN": 25,
-    "FLAT": 15,
-    "UP": 60
+    "FLAT": 10,
+    "UP": 65
   },
   "primaryDirection": "UP",
   "mainReasons": [
@@ -21,19 +21,33 @@
     {
       "evidenceId": "eia-stocks",
       "text": "美国馏分油库存减少"
+    },
+    {
+      "evidenceId": "br-40443543:s1-4b8d2b185393",
+      "text": "飓风致美湾原油停产超七成",
+      "documentId": "br-40443543",
+      "segmentId": "s1-4b8d2b185393"
     }
   ],
   "counterReasons": [
-    {
-      "evidenceId": "market-wti",
-      "text": "WTI最新日度报价回落"
-    },
     {
       "evidenceId": "eia-production",
       "text": "美国馏分油产量增加"
     }
   ],
   "signalAssessments": [
+    {
+      "evidenceId": "market-wti",
+      "impact": "UP",
+      "kind": "FACT",
+      "strength": "MEDIUM"
+    },
+    {
+      "evidenceId": "market-brent",
+      "impact": "UP",
+      "kind": "FACT",
+      "strength": "MEDIUM"
+    },
     {
       "evidenceId": "market-diesel",
       "impact": "UP",
@@ -45,18 +59,6 @@
       "impact": "UP",
       "kind": "FACT",
       "strength": "HIGH"
-    },
-    {
-      "evidenceId": "market-brent",
-      "impact": "UP",
-      "kind": "FACT",
-      "strength": "MEDIUM"
-    },
-    {
-      "evidenceId": "market-wti",
-      "impact": "DOWN",
-      "kind": "FACT",
-      "strength": "MEDIUM"
     },
     {
       "evidenceId": "eia-production",
@@ -75,7 +77,22 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "5092b0b1eebe64368c100c0a7d25d6a6d74bb0da5449359e04d1471aa90aa62c",
-  "coverageMode": "NORMAL",
-  "newsAssessments": []
+  "inputPackHash": "adc5edf4f0d878a705477285a02aa86a6a45008f945bc030f09260e72d5292cc",
+  "coverageMode": "LIMITED",
+  "newsAssessments": [
+    {
+      "evidenceId": "br-40443543:s1-4b8d2b185393",
+      "impact": "UP",
+      "kind": "FACT",
+      "title": "飓风致美湾原油停产超七成",
+      "summary": "飓风Isaias逼近墨西哥湾北部，石油公司关闭了美国水域超过70%的原油产量。",
+      "strength": "HIGH",
+      "documentId": "br-40443543",
+      "segmentId": "s1-4b8d2b185393",
+      "sourceUrl": "https://www.brecorder.com/news/40443543/oil-prices-settle-higher",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-10-09T23:39:01.000Z"
+    }
+  ]
 }
