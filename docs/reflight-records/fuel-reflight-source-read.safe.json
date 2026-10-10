@@ -1,0 +1,208 @@
+{
+  "scope": "ISOLATED_LOCAL_PUBLIC_READ_AND_OFFLINE_REPLAY",
+  "realQwenCalls": 0,
+  "cloudWrites": 0,
+  "before": {
+    "generatedAt": "2026-10-10T19:14:36.869Z",
+    "elapsedMs": 22676,
+    "gate": "PASS",
+    "coverageMode": "LIMITED",
+    "signalCount": 6,
+    "newsCount": 0,
+    "successfulRequests": 10,
+    "failedRequests": 6,
+    "failures": [
+      {
+        "sourceFailure": "www.opec.org:HTTP_403",
+        "count": 1
+      },
+      {
+        "sourceFailure": "api.gdeltproject.org:TIMEOUT",
+        "count": 1
+      },
+      {
+        "sourceFailure": "www.brecorder.com:HTTP_403",
+        "count": 4
+      }
+    ]
+  },
+  "afterPublicRead": {
+    "generatedAt": "2026-10-10T19:25:54.916Z",
+    "metrics": {
+      "sourceCount": 6,
+      "successfulRequests": 10,
+      "failedRequests": 6,
+      "acceptedNews": 4,
+      "retainedNews": 4,
+      "rejectedNews": 4,
+      "duplicateDiscoveries": 30,
+      "latestSuccessfulCheckAt": "2026-10-10T19:25:54.916Z",
+      "duplicateRate": 0.23076923076923078,
+      "oldestPublicationAgeMs": 92780086,
+      "elapsedMs": 26177
+    },
+    "gate": "PASS",
+    "coverageModeAsObserved": "NORMAL",
+    "freshNewsCount": 0,
+    "failures": [
+      {
+        "sourceFailure": "www.opec.org:HTTP_403",
+        "count": 1
+      },
+      {
+        "sourceFailure": "api.gdeltproject.org:HTTP_429",
+        "count": 1
+      },
+      {
+        "sourceFailure": "www.brecorder.com:HTTP_403",
+        "count": 4
+      }
+    ],
+    "forecastTrigger": {
+      "contract": "RECOMPUTE_ELIGIBILITY_V2",
+      "eligible": false,
+      "reason": "NO_MATERIAL_NEW_EVIDENCE",
+      "materialEvidenceIds": [],
+      "comparedForecastHash": "82514d565a3a664b262ab4ddf02528a5bfce9ecbda72dd0dbb0b66fc3eb010c7"
+    },
+    "collectionHash": "f416341cfe0558ce4dc628e628870e709d3aee03cd24a66d6618069c92862bb2",
+    "rows": [
+      {
+        "id": "br-40443531",
+        "publishedAt": "2026-10-09T23:39:01.000Z",
+        "contentHash": "554c41596841054f011acbb2d4d9ae6c8e71989e4b84f0e47425498b11b3e20d",
+        "relationship": "RELATED_ONLY",
+        "forecastHash": null,
+        "forecastInfluence": "LOW",
+        "influenceBasis": "TRIGGER_PREASSESSMENT_ONLY"
+      },
+      {
+        "id": "br-40443543",
+        "publishedAt": "2026-10-09T23:39:01.000Z",
+        "contentHash": "f2b6250674c260c99dbfb4eaa515f40bc08ba5175c87a3998d3d0ffc83584e4b",
+        "relationship": "RELATED_ONLY",
+        "forecastHash": null,
+        "forecastInfluence": "LOW",
+        "influenceBasis": "TRIGGER_PREASSESSMENT_ONLY"
+      },
+      {
+        "id": "br-40443474",
+        "publishedAt": "2026-10-09T19:55:00.000Z",
+        "contentHash": "8c51bcc30f60b6bfb3bbe8854136985061e98a969229516e3da875f57e46446b",
+        "relationship": "RELATED_ONLY",
+        "forecastHash": null,
+        "forecastInfluence": "LOW",
+        "influenceBasis": "TRIGGER_PREASSESSMENT_ONLY"
+      },
+      {
+        "id": "br-40443304",
+        "publishedAt": "2026-10-09T17:40:01.000Z",
+        "contentHash": "e59198adbab1952082cc8c2011b396bf8ddcc8b6d2df203202367e2edbc8cb48",
+        "relationship": "RELATED_ONLY",
+        "forecastHash": null,
+        "forecastInfluence": "LOW",
+        "influenceBasis": "TRIGGER_PREASSESSMENT_ONLY"
+      }
+    ],
+    "retainedReceipts": [
+      {
+        "documentId": "br-40443543",
+        "sourceReadMethod": "PREVIOUS_VERIFIED_COLLECTION",
+        "fetchedAt": "2026-10-10T02:21:48.706Z",
+        "publishedAt": "2026-10-09T23:39:01.000Z",
+        "source": "www.brecorder.com",
+        "receiptStatus": "OK",
+        "receiptCheckedAt": "2026-10-10T02:21:48.706Z",
+        "receiptBodySha256": "e85ceee108b27a64d498b12ada473a498f94014d408be57159bc0b6bd0f82218"
+      },
+      {
+        "documentId": "br-40443531",
+        "sourceReadMethod": "PREVIOUS_VERIFIED_COLLECTION",
+        "fetchedAt": "2026-10-10T02:21:48.706Z",
+        "publishedAt": "2026-10-09T23:39:01.000Z",
+        "source": "www.brecorder.com",
+        "receiptStatus": "OK",
+        "receiptCheckedAt": "2026-10-10T02:21:48.706Z",
+        "receiptBodySha256": "2bf084851ca1e38addcbe2a23f515140a688d623371c404415ef7f3e22e0dbcc"
+      },
+      {
+        "documentId": "br-40443474",
+        "sourceReadMethod": "PREVIOUS_VERIFIED_COLLECTION",
+        "fetchedAt": "2026-10-10T02:21:48.706Z",
+        "publishedAt": "2026-10-09T19:55:00.000Z",
+        "source": "www.brecorder.com",
+        "receiptStatus": "OK",
+        "receiptCheckedAt": "2026-10-10T02:21:48.706Z",
+        "receiptBodySha256": "a044b2866651f6ecb3f84461f5d2db1c5458fe3e7c83ccb2e33cd7d7f6524f18"
+      },
+      {
+        "documentId": "br-40443304",
+        "sourceReadMethod": "PREVIOUS_VERIFIED_COLLECTION",
+        "fetchedAt": "2026-10-10T02:21:48.706Z",
+        "publishedAt": "2026-10-09T17:40:01.000Z",
+        "source": "www.brecorder.com",
+        "receiptStatus": "OK",
+        "receiptCheckedAt": "2026-10-10T02:21:48.706Z",
+        "receiptBodySha256": "f89795c576e5f26d06ba9a0bb8ac2c647719593d9cee220886f773411a913b6f"
+      }
+    ]
+  },
+  "finalPolicyOfflineReplay": {
+    "basis": "EXACT_AFTER_PUBLIC_PACK_NO_NEW_FETCH",
+    "generatedAt": "2026-10-10T19:26:21.093Z",
+    "coverageMode": "LIMITED",
+    "gate": "PASS",
+    "collectionHash": "0a51e830b9a0e6881139496689d0ee7c4948bf77245c6d3981e2797bd4e5cecc",
+    "forecastTrigger": {
+      "contract": "RECOMPUTE_ELIGIBILITY_V2",
+      "eligible": false,
+      "reason": "NO_MATERIAL_NEW_EVIDENCE",
+      "materialEvidenceIds": [],
+      "comparedForecastHash": "82514d565a3a664b262ab4ddf02528a5bfce9ecbda72dd0dbb0b66fc3eb010c7"
+    },
+    "rows": [
+      {
+        "id": "br-40443531",
+        "publishedAt": "2026-10-09T23:39:01.000Z",
+        "contentHash": "554c41596841054f011acbb2d4d9ae6c8e71989e4b84f0e47425498b11b3e20d",
+        "relationship": "RELATED_ONLY",
+        "forecastHash": null,
+        "forecastInfluence": "LOW",
+        "influenceBasis": "TRIGGER_PREASSESSMENT_ONLY"
+      },
+      {
+        "id": "br-40443543",
+        "publishedAt": "2026-10-09T23:39:01.000Z",
+        "contentHash": "f2b6250674c260c99dbfb4eaa515f40bc08ba5175c87a3998d3d0ffc83584e4b",
+        "relationship": "RELATED_ONLY",
+        "forecastHash": null,
+        "forecastInfluence": "LOW",
+        "influenceBasis": "TRIGGER_PREASSESSMENT_ONLY"
+      },
+      {
+        "id": "br-40443474",
+        "publishedAt": "2026-10-09T19:55:00.000Z",
+        "contentHash": "8c51bcc30f60b6bfb3bbe8854136985061e98a969229516e3da875f57e46446b",
+        "relationship": "RELATED_ONLY",
+        "forecastHash": null,
+        "forecastInfluence": "LOW",
+        "influenceBasis": "TRIGGER_PREASSESSMENT_ONLY"
+      },
+      {
+        "id": "br-40443304",
+        "publishedAt": "2026-10-09T17:40:01.000Z",
+        "contentHash": "e59198adbab1952082cc8c2011b396bf8ddcc8b6d2df203202367e2edbc8cb48",
+        "relationship": "RELATED_ONLY",
+        "forecastHash": null,
+        "forecastInfluence": "LOW",
+        "influenceBasis": "TRIGGER_PREASSESSMENT_ONLY"
+      }
+    ]
+  },
+  "limitations": [
+    "No fresh news body succeeded in either public read; four after-read news documents retained original verified receipts and times.",
+    "After public read happened before the final all-retained coverage policy fix; final policy replay marks LIMITED without asserting another real read.",
+    "Independent accepted news publication has a local/operator consumer adapter; installed automatic Test delivery is not proven.",
+    "Existing model target remains international NY Harbor diesel spot direction, not domestic seven-day price adjustment."
+  ]
+}
