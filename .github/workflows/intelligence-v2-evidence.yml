@@ -5,7 +5,7 @@ on:
     - cron: '30 18,23,5,10 * * *'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write
 concurrency:
   group: intelligence-v2-evidence-${{ github.ref }}
   cancel-in-progress: false
@@ -21,15 +21,27 @@ jobs:
         with:
           node-version: '22'
       - name: Collect bounded public evidence and run Evidence Gate
+        id: collection
+        continue-on-error: true
+        env:
+          EVIDENCE_OUTPUT_ROOT: .work/news-refresh
         run: npm run intelligence:v2:collect
+      - name: Commit only accepted Fuel evidence
+        if: github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          ACCEPTED_EVIDENCE_STAGE_PATH: .work/news-refresh/data/accepted-evidence.json
+        run: node scripts/intelligence-v2/commit-accepted-evidence.mjs
       - name: Upload pending pack even when evidence is insufficient
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: pending-intelligence-pack
           path: |
-            intelligence-v2/pending-intelligence-pack.json
-            intelligence-v2/EVIDENCE_GATE_RESULT.json
-            intelligence-v2/collection-diagnostics.json
+            .work/news-refresh/intelligence-v2/pending-intelligence-pack.json
+            .work/news-refresh/intelligence-v2/EVIDENCE_GATE_RESULT.json
+            .work/news-refresh/intelligence-v2/collection-diagnostics.json
+            .work/news-refresh/data/accepted-evidence.json
+          include-hidden-files: true
           retention-days: 7
-# Phase A never calls a paid provider, commits a forecast, or deploys Pages.
+# Collection never calls a paid provider; material changes enter the reserved Official path.

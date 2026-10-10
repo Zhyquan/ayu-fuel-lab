@@ -59,10 +59,10 @@ test('previous event dedup rejects before fresh core collection or Qwen',async()
   assert.equal(result.actualExternalRequestCount,0);assert.deepEqual(s.counts,{article:0,model:0,collect:0});
 });
 
-test('core invalid refresh rejects with zero model requests; VERIFY_ONLY always stays free',async()=>{
+test('invalid Core preserves accepted cards with zero model requests; VERIFY_ONLY always stays free',async()=>{
   const pack=structuredClone(fixture.pack);pack.signals=pack.signals.filter(s=>s.id!=='market-diesel');
   const failed=externalScenario(fixture,{pack}),result=await failed.run({mode:'REFRESH_CURRENT'});
-  assert.equal(result.failureCode,'CORE_EVIDENCE_GATE_FAILED');assert.equal(result.actualExternalRequestCount,0);assert.equal(failed.counts.model,0);
+  assert.equal(result.status,'ACCEPTED_NO_RECOMPUTE');assert.equal(result.recomputeEligibility.reason,'CORE_INVALID');assert.equal(result.actualExternalRequestCount,0);assert.equal(failed.counts.model,0);assert.ok(!('snapshot' in result));
   const free=externalScenario(fixture),checked=await free.run({mode:'VERIFY_ONLY',activationAuthorized:false});
   assert.equal(checked.status,'READY_FOR_REFORECAST');assert.equal(checked.actualExternalRequestCount,0);assert.equal(free.counts.model,0);
   assert.equal(checked.currentForecastUpdated,false);

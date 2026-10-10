@@ -62,7 +62,7 @@ export function publicEvidenceGate({forecast,evidencePack}, {now=new Date()}={})
   const optional=forecast.forecastContract===CORE_FORECAST_CONTRACT?newsEnrichmentGate(forecast,evidencePack,{mode:'FORECAST'}):null;
   const documents=new Map((optional?admittedNewsDocuments(evidencePack).documents:Array.isArray(evidencePack.newsDocuments)?evidencePack.newsDocuments:[]).filter(Boolean).map(document=>[document.documentId,document]));
   const newsById=new Map((optional?.newsAssessments??forecast.newsAssessments??[]).map(item=>[item.evidenceId,item]));
-  const external=externalSignalsGate(evidencePack,{now:checked.status==='STALE'?new Date(forecast.generatedAt):now});
+  const external=externalSignalsGate(evidencePack,{now:new Date(forecast.generatedAt)});
   if(external.gate!=='PASS')return fail(external.errors);
   const externalById=new Map(external.signals.map(s=>[s.evidenceId,s]));
   const refs=[...forecast.mainReasons.map(ref=>({...ref,role:'MAIN'})),...forecast.counterReasons.map(ref=>({...ref,role:'COUNTER'}))];

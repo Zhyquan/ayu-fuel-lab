@@ -1,7 +1,8 @@
 import { mkdir, readFile, writeFile, appendFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { runManualBridge, bridgeSummary } from './manual-bridge.mjs';
+import { runManualBridge, bridgeSummary, replaceCurrentForecast } from './manual-bridge.mjs';
+import { readAcceptedCollection } from './accepted-news-refresh.mjs';
 import { currentPublication, CURRENT_CACHE_PATH } from './current-publication.mjs';
 import { readForecast } from '../../dist/data/intelligence-v2-service.js';
 
@@ -18,7 +19,9 @@ try {
 }catch{}
 let autoEvidence=null;
 try{autoEvidence=JSON.parse(await readFile(resolve(root,'CURRENT_EVIDENCE_V2.json'),'utf8'));}catch{}
-const result=await runManualBridge({newsUrl:process.env.BRIDGE_NEWS_URL,signalPackage:process.env.BRIDGE_SIGNAL_PACKAGE,intakeType:process.env.BRIDGE_INTAKE_TYPE??'CHATGPT_SIGNAL_PACKAGE',mode,currentCache,autoEvidence,activationAuthorized:authorized});
+const previous=await readAcceptedCollection(root);
+const result=await runManualBridge({newsUrl:process.env.BRIDGE_NEWS_URL,signalPackage:process.env.BRIDGE_SIGNAL_PACKAGE,intakeType:process.env.BRIDGE_INTAKE_TYPE??'CHATGPT_SIGNAL_PACKAGE',mode,currentCache,autoEvidence,acceptedEvidence:previous?.acceptedEvidence??[],activationAuthorized:authorized,
+  onAcceptedEvidence:collection=>replaceCurrentForecast(resolve(directory,'accepted-evidence.json'),collection)});
 let ready=false;
 try {
   if(mode==='REFRESH_CURRENT'&&result.status==='CURRENT_READY') {
@@ -29,12 +32,14 @@ try {
     ready=true;
   }
 }catch(error){result.status='REJECTED';result.failureCode=/^[A-Z0-9_]+$/.test(error.message)?error.message:'CURRENT_STAGING_FAILED';}
-const {snapshot,providerAudit,...safe}=result;
+if(result.acceptedCollection)await replaceCurrentForecast(resolve(directory,'accepted-evidence.json'),result.acceptedCollection);
+const {snapshot,providerAudit,acceptedCollection,...safe}=result;
+safe.acceptedEvidenceCount=acceptedCollection?.acceptedEvidence.length??0;
 if(providerAudit)safe.providerMetrics={
   ...Object.fromEntries(['provider','model','status','configuredTransportRetries','maxExternalRequests','actualExternalRequestCount','attemptCount','httpStatus','validationCode'].map(key=>[key,providerAudit[key]??null])),
   inputTokens:providerAudit.usage?.input_tokens??null,outputTokens:providerAudit.usage?.output_tokens??null,
 };
 await writeFile(resolve(directory,'result.json'),JSON.stringify(safe,null,2)+'\n');
 if(process.env.GITHUB_STEP_SUMMARY)await appendFile(process.env.GITHUB_STEP_SUMMARY,bridgeSummary(safe));
-if(process.env.GITHUB_OUTPUT)await appendFile(process.env.GITHUB_OUTPUT,`ready=${ready}\n`);
+if(process.env.GITHUB_OUTPUT)await appendFile(process.env.GITHUB_OUTPUT,`ready=${ready}\nnews_ready=${mode==='REFRESH_CURRENT'&&Boolean(acceptedCollection)}\n`);
 console.log(JSON.stringify(safe));

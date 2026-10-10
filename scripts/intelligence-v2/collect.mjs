@@ -1,8 +1,10 @@
 import { createHash } from 'node:crypto';
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { fileURLToPath } from 'node:url';
-import { resolve } from 'node:path';
-import { CATEGORIES, coreEvidenceGate, filterAndDeduplicateSignals, marketObservationLag } from '../../dist/data/intelligence-v2-contract.js';
+import { resolve, dirname } from 'node:path';
+import { CATEGORIES, admittedNewsDocuments, coreEvidenceGate, filterAndDeduplicateSignals, marketObservationLag } from '../../dist/data/intelligence-v2-contract.js';
+import { readForecast } from '../../dist/data/intelligence-v2-service.js';
+import { ACCEPTED_EVIDENCE_PATH, readAcceptedCollection, runAcceptedNewsRefresh } from './accepted-news-refresh.mjs';
 import { newsCandidatePriority } from './news-event-rules.mjs';
 import { resolveNewsUrl, deduplicateNewsDocuments } from './source-adapters.mjs';
 import { WEEKLY_SOURCES, parseWeeklyMachineRelease } from './eia-weekly.mjs';
@@ -72,7 +74,7 @@ export function parseNewsSitemap(xml) {
   }).filter(candidate=>candidate.headline && candidate.url.startsWith('https://www.brecorder.com/news/')).slice(0,200);
 }
 
-export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=15000,coreOnly=false}={}) {
+export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=15000,coreOnly=false,previousPack=null}={}) {
   const generatedAt=iso(now), signals=[], newsDocuments=[], exclusions=[], fetchLog=[], candidates=[];
   const get = async (url) => {
     try {
@@ -101,7 +103,7 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
   let recentMarketContext;
   try { recentMarketContext=parseRecentContext(await get(SOURCES.recent),now); }
   catch { recentMarketContext={status:'UNAVAILABLE',reason:'RECENT_CONTEXT_COLLECTION_FAILED',role:'CONTEXT_ONLY_NO_CURRENT_SIGNAL_WEIGHT'}; }
-  let discovery=coreOnly?'CORE_ONLY_NO_NEWS_FETCH':'GDELT_DOC',articleRequests=0;
+  let discovery=coreOnly?'CORE_ONLY_NO_NEWS_FETCH':'GDELT_DOC',articleRequests=0,discoveredCount=0;
   if(!coreOnly) {
   try { await get(SOURCES.opec); exclusions.push({source:'OPEC',reason:'POLICY_REQUIRES_EFFECTIVE_DATE_VERIFICATION'}); } catch { /* Source failure remains explicit in fetchLog/categoryChecks. */ }
   try {
@@ -120,6 +122,7 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
     const found=parseNewsSitemap(await get(SOURCES.sitemap));
     if(found.length) {candidates.push(...found);discovery+='_WITH_NEWS_SITEMAP';}
   } catch { exclusions.push({source:'NEWS_SITEMAP',reason:'DISCOVERY_FAILED'}); }
+  discoveredCount=candidates.length;
   candidates.sort((a,b)=>newsCandidatePriority(b.headline)-newsCandidatePriority(a.headline));
   const seenArticles=new Set();
   const selected=candidates.filter(candidate=>{
@@ -155,6 +158,14 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
     }
   }
   }
+  const freshNewsCount=newsDocuments.length,retainedDocuments=[];
+  if(!coreOnly&&previousPack)for(const document of admittedNewsDocuments(previousPack,{now}).documents) {
+    const receipt=[...(previousPack.fetchLog??[]),...(previousPack.retainedDocuments??[]).map(d=>d.receipt)].find(f=>f?.url===document.sourceUrl&&f.status==='OK'&&f.checkedAt===document.fetchedAt&&/^[a-f0-9]{64}$/.test(f.bodySha256??''));
+    if(!receipt||+now-Date.parse(document.publishedAt)>72*3600000||newsDocuments.some(d=>d.documentId===document.documentId))continue;
+    const merged=deduplicateNewsDocuments([...newsDocuments,document]);
+    if(merged.excluded.some(d=>d.documentId===document.documentId))continue;
+    newsDocuments.push(structuredClone(document));retainedDocuments.push({documentId:document.documentId,sourceReadMethod:'PREVIOUS_VERIFIED_COLLECTION',fetchedAt:document.fetchedAt,publishedAt:document.publishedAt,receipt:structuredClone(receipt)});
+  }
   const news=signals.filter(s=>s.sourceOrganization==='Reuters').sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt));
   const dedup=filterAndDeduplicateSignals([...signals.filter(s=>s.sourceOrganization!=='Reuters'),...news],now);
   for(const excluded of dedup.excluded) {
@@ -166,18 +177,31 @@ export async function collectEvidence({fetchImpl=fetch,now=new Date(),timeoutMs=
     const officialFailure=category==='OPEC_MAJOR_PRODUCERS' && fetchLog.some(f=>f.url===SOURCES.opec && f.status==='FAILED');
     return {category,status:relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'VERIFIED':officialFailure?'FAILED':'NO_QUALIFIED_SIGNAL',checkedAt:generatedAt,sourceUrls:category===CATEGORIES[0] || category===CATEGORIES[1]?[SOURCES.prices]:category===CATEGORIES[2]?[SOURCES.metadata,SOURCES.table1,SOURCES.table2]:category==='OPEC_MAJOR_PRODUCERS'?[SOURCES.opec,SOURCES.rss]:[SOURCES.gdelt,SOURCES.rss,SOURCES.sitemap],reason:coreOnly&&!relevant.length?'Not fetched in external bridge core-only intake.':relevant.length && category!=='OPEC_MAJOR_PRODUCERS'?'Original sources verified; linked shipping risk belongs to the same event.':officialFailure?'Official OPEC endpoint inaccessible; no current production/export/policy fact admitted.':'Discovery checked; no verified material signal admitted for this category.'};
   });
-  const pack={weeklyRelease,inputContractVersion:'NEWS_MATERIAL_V1',generatedAt,forecastHorizonDays:7,runType:'CURRENT_REAL_WORLD_RUN',signals:dedup.signals,newsDocuments,coverageMode:newsDocuments.length?'NORMAL':'LIMITED',categoryChecks,recentMarketContext,discovery:{provider:discovery,candidateCount:candidates.length,articleRequests,candidates},exclusions:[...exclusions,...dedup.excluded],fetchLog,conflicts:[],eventGroups:[...new Set(dedup.signals.map(s=>s.eventKey))].map(eventKey=>({eventKey,evidenceIds:dedup.signals.filter(s=>s.eventKey===eventKey).map(s=>s.id),weightingRule:'ONE_EVENT_NOT_ARTICLE_COUNT'}))};
+  const pack={weeklyRelease,inputContractVersion:'NEWS_MATERIAL_V1',generatedAt,forecastHorizonDays:7,runType:'CURRENT_REAL_WORLD_RUN',signals:dedup.signals,newsDocuments:newsDocuments.slice(0,6),retainedDocuments:retainedDocuments.filter(d=>newsDocuments.slice(0,6).some(n=>n.documentId===d.documentId)),coverageMode:freshNewsCount?'NORMAL':'LIMITED',categoryChecks,recentMarketContext,discovery:{provider:discovery,candidateCount:candidates.length,discoveredCount,articleRequests,candidates},exclusions:[...exclusions,...dedup.excluded],fetchLog,conflicts:[],eventGroups:[...new Set(dedup.signals.map(s=>s.eventKey))].map(eventKey=>({eventKey,evidenceIds:dedup.signals.filter(s=>s.eventKey===eventKey).map(s=>s.id),weightingRule:'ONE_EVENT_NOT_ARTICLE_COUNT'}))};
   return {pack,gate:coreEvidenceGate(pack,{now})};
 }
 
 async function main() {
   const root=fileURLToPath(new URL('../../',import.meta.url));
-  const {pack,gate}=await collectEvidence();
-  await mkdir(resolve(root,'intelligence-v2'),{recursive:true});
-  for (const path of ['CURRENT_EVIDENCE_V2.json','intelligence-v2/current-evidence.json']) await writeFile(resolve(root,path),JSON.stringify(pack,null,2)+'\n');
-  await writeFile(resolve(root,'intelligence-v2/pending-intelligence-pack.json'),JSON.stringify({status:gate.status,evidenceGate:gate,evidencePack:pack},null,2)+'\n');
-  await writeFile(resolve(root,'intelligence-v2/EVIDENCE_GATE_RESULT.json'),JSON.stringify(gate,null,2)+'\n');
-  await writeFile(resolve(root,'intelligence-v2/collection-diagnostics.json'),JSON.stringify({generatedAt:pack.generatedAt,gate,weeklyRelease:pack.weeklyRelease,fetchLog:pack.fetchLog,candidates:pack.discovery.candidates,exclusions:pack.exclusions},null,2)+'\n');
+  const outputRoot=process.env.EVIDENCE_OUTPUT_ROOT?resolve(root,process.env.EVIDENCE_OUTPUT_ROOT):root;
+  let previousPack=null,currentCache=null;
+  try{previousPack=JSON.parse(await readFile(resolve(root,'CURRENT_EVIDENCE_V2.json'),'utf8'));}catch{}
+  try{const raw=await readFile(resolve(root,'dist/data/forecast-cache.json'),'utf8');const value=await readForecast({fetchImpl:async()=>new Response(raw)});if(['LIVE','STALE'].includes(value.status))currentCache=value;}catch{}
+  const started=Date.now(),{pack,gate}=await collectEvidence({previousPack});
+  const now=new Date(),previous=await readAcceptedCollection(root,{now});
+  const refresh=await runAcceptedNewsRefresh({pack,previous:previous?.acceptedEvidence??[],currentCache,now});
+  const acceptedPath=outputRoot===root?resolve(root,'.work/news-refresh',ACCEPTED_EVIDENCE_PATH):resolve(outputRoot,ACCEPTED_EVIDENCE_PATH);
+  await mkdir(dirname(acceptedPath),{recursive:true});await writeFile(acceptedPath,JSON.stringify(refresh.acceptedCollection,null,2)+'\n');
+  await mkdir(resolve(outputRoot,'intelligence-v2'),{recursive:true});
+  for (const path of ['CURRENT_EVIDENCE_V2.json','intelligence-v2/current-evidence.json']) await writeFile(resolve(outputRoot,path),JSON.stringify(pack,null,2)+'\n');
+  await writeFile(resolve(outputRoot,'intelligence-v2/pending-intelligence-pack.json'),JSON.stringify({status:gate.status,evidenceGate:gate,evidencePack:pack},null,2)+'\n');
+  await writeFile(resolve(outputRoot,'intelligence-v2/EVIDENCE_GATE_RESULT.json'),JSON.stringify(gate,null,2)+'\n');
+  const metrics={sourceCount:new Set(pack.fetchLog.map(f=>new URL(f.url).hostname)).size,successfulRequests:pack.fetchLog.filter(f=>f.status==='OK').length,failedRequests:pack.fetchLog.filter(f=>f.status==='FAILED').length,
+    acceptedNews:pack.newsDocuments.length,retainedNews:pack.retainedDocuments.length,rejectedNews:pack.discovery.candidates.filter(c=>c.status==='EXCLUDED').length,
+    duplicateDiscoveries:pack.exclusions.filter(e=>e.reason==='DUPLICATE_DISCOVERY_ARTICLE').length,latestSuccessfulCheckAt:pack.fetchLog.findLast(f=>f.status==='OK')?.checkedAt??null,
+    duplicateRate:pack.discovery.discoveredCount?pack.exclusions.filter(e=>e.reason==='DUPLICATE_DISCOVERY_ARTICLE').length/pack.discovery.discoveredCount:0,
+    oldestPublicationAgeMs:pack.newsDocuments.length?Math.max(...pack.newsDocuments.map(d=>+now-Date.parse(d.publishedAt))):null,elapsedMs:Date.now()-started};
+  await writeFile(resolve(outputRoot,'intelligence-v2/collection-diagnostics.json'),JSON.stringify({generatedAt:pack.generatedAt,gate,metrics,forecastTrigger:refresh.triggerDecision,weeklyRelease:pack.weeklyRelease,fetchLog:pack.fetchLog,candidates:pack.discovery.candidates,exclusions:pack.exclusions,retainedDocuments:pack.retainedDocuments},null,2)+'\n');
   console.log(JSON.stringify({runType:pack.runType,...gate,discovery:pack.discovery.provider,candidates:pack.discovery.candidateCount}));
   if (gate.gate!=='PASS') process.exitCode=1;
 }

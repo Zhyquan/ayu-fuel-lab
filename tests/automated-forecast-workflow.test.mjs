@@ -54,7 +54,7 @@ test('real local Git push rejects concurrent movement without overwriting main',
 test('scheduled workflow has fresh collection, fixed budgets, no secret in dry run and controlled write permission',async()=>{
   const workflow=await read('.github/workflows/intelligence-v2-official-daily.yml');
   assert.match(workflow,/cron: '23 0 \* \* \*'/);assert.match(workflow,/cron: '23 1 \* \* \*'/);assert.match(workflow,/group: intelligence-v2-official-daily/);assert.match(workflow,/cancel-in-progress: false/);
-  assert.match(workflow,/workflow_run:\s*\n\s*workflows: \[Update and deploy fuel references\]/);
+  assert.match(workflow,/workflow_run:\s*\n\s*workflows: \[Update and deploy fuel references, Intelligence V2 evidence collection only\]/);
   assert.match(workflow,/node-version: '22'/);assert.match(workflow,/default: DRY_RUN/);assert.match(workflow,/contents: write/);
   const dry=workflow.split('  dry-run:')[1].split('  official-daily:')[0];assert.doesNotMatch(dry,/secrets\.|DASHSCOPE|collect|commit|push|deploy/);
   const names=['Admit trusted trigger and Shanghai time window','Full regression before collection','Unique Official Daily preflight','Activation and secret presence only','Start this run fresh evidence collection','Independently collect and gate current public evidence','Evidence Gate before any model request','Recheck latest main and prior inference reservations','Reserve today\'s one inference before the model request','Persist inference reservation for publication failures','Confirm latest main immediately before inference','Qwen structured inference','Full regression on generated data','Public scan before publication','Whitelist, latest main check'];
@@ -63,7 +63,9 @@ test('scheduled workflow has fresh collection, fixed budgets, no secret in dry r
   assert.doesNotMatch(workflow,/permissions:\s*\n\s*(?:actions|issues|packages|pull-requests): write|PAT|codex exec|download-artifact|--force|--force-with-lease/);
   assert.equal((workflow.match(/secrets\.DASHSCOPE_API_KEY/g)??[]).length,2);
   const evidence=await read('.github/workflows/intelligence-v2-evidence.yml');
-  assert.match(evidence,/30 18,23,5,10 \* \* \*/);assert.doesNotMatch(evidence,/secrets\.|DASHSCOPE|run:.*(?:commit|push|deploy|official)/);
+  assert.match(evidence,/30 18,23,5,10 \* \* \*/);assert.doesNotMatch(evidence,/secrets\.|DASHSCOPE|run:.*(?:commit-current|push|deploy|official)/);
+  assert.match(evidence,/run: node scripts\/intelligence-v2\/commit-accepted-evidence.mjs/);
+  assert.match(evidence,/EVIDENCE_OUTPUT_ROOT: \.work\/news-refresh/);
 });
 test('scheduled generate without activation or key stops before network and leaves repo files untouched',()=>{
   assert.throws(()=>execFileSync(process.execPath,['scripts/intelligence-v2/official-daily.mjs','generate'],{cwd:new URL('../',import.meta.url),env:{...process.env,DASHSCOPE_API_KEY:'',QWEN_API_ACTIVATION_AUTHORIZED:'0',GITHUB_ACTIONS:'true',GITHUB_REF:'refs/heads/main',GITHUB_REPOSITORY:'Zhyquan/ayu-fuel-lab'},stdio:['ignore','pipe','pipe']}),e=>e.stderr.toString().trim()==='QWEN_API_ACTIVATION_NEEDS_USER_AUTHORIZATION');

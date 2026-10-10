@@ -5,7 +5,7 @@ on:
     - cron: '23 0 * * *'
     - cron: '23 1 * * *'
   workflow_run:
-    workflows: [Update and deploy fuel references]
+    workflows: [Update and deploy fuel references, Intelligence V2 evidence collection only]
     types: [completed]
   workflow_dispatch:
     inputs:

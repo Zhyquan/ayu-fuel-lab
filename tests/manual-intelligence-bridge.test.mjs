@@ -62,10 +62,10 @@ test('publication precision and authorship use source metadata, never a footer o
   const stale=bridgeHtml({date:'2026-09-20'}).replace('"datePublished"','"dateModified":"2026-09-30","datePublished"');
   assert.equal((await setup({html:stale}).run()).status,'REJECTED');
 });
-test('AUTO duplicate and repeated Current submission receive no new event weight',async()=>{
+test('collection overlap remains one copy; repeated Current submission receives no new event weight',async()=>{
   const document=await resolvedDocument();
   const auto=setup({pack:{...fixture.pack,newsDocuments:[document]}}),a=await auto.run();
-  assert.equal(a.failureCode,'BRIDGE_DUPLICATE_ONLY');assert.equal(auto.counts.model,0);
+  assert.equal(a.status,'READY_FOR_REFORECAST');assert.equal(a.acceptedCollection.acceptedEvidence.filter(e=>e.id===document.documentId).length,1);assert.equal(auto.counts.model,0);
   const repeated=setup(),b=await repeated.run({currentCache:{evidencePack:{newsDocuments:[document]}}});
   assert.equal(b.failureCode,'BRIDGE_DUPLICATE_ONLY');assert.equal(repeated.counts.model,0);
 });
@@ -87,7 +87,7 @@ for(const [name,mutate]of [
   ['critical conflict',p=>{p.conflicts=[{severity:'MAJOR'}];}],
 ])test(`Core ${name} rejects Bridge before inference`,async()=>{
   const pack=structuredClone(fixture.pack);mutate(pack);const s=setup({pack}),result=await s.run({mode:'REFRESH_CURRENT'});
-  assert.equal(result.failureCode,'CORE_EVIDENCE_GATE_FAILED');assert.equal(s.counts.model,0);
+  assert.equal(result.status,'ACCEPTED_NO_RECOMPUTE');assert.equal(result.recomputeEligibility.reason,'CORE_INVALID');assert.equal(s.counts.model,0);
 });
 for(const role of [null,'main','counter'])test(`existing Qwen contract and public card renderer: Bridge ${role??'unselected'}`,async()=>{
   const s=setup({role}),result=await s.run({mode:'REFRESH_CURRENT'});
@@ -163,7 +163,7 @@ test('default workflow intake, secret boundary, strict publication and safe arti
   assert.match(yml,/default: CHATGPT_SIGNAL_PACKAGE/);assert.match(yml,/type: string\n        required: false/);assert.match(yml,/default: REFRESH_CURRENT/);
   assert.doesNotMatch(yml,/schedule:|\n  push:/);
   const verify=yml.split('- name: 免费验证新闻')[1].split('- name: 刷新条件')[0];assert.doesNotMatch(verify,/secrets\.|DASHSCOPE|GITHUB_TOKEN/);
-  assert.match(yml,/vars.QWEN_API_ACTIVATED == 'true'/);assert.match(yml,/path: .work\/manual-bridge\/result.json/);
+  assert.match(yml,/vars.QWEN_API_ACTIVATED == 'true'/);assert.match(yml,/path: \|\n\s+\.work\/manual-bridge\/result.json\n\s+\.work\/manual-bridge\/accepted-evidence.json/);
   assert.doesNotMatch(yml,/path: .*snapshot|path: .*origin/);
   const source=await readFile(new URL('../scripts/intelligence-v2/manual-bridge.mjs',import.meta.url),'utf8');
   assert.doesNotMatch(source,/runOfficialDaily|reservation|official-daily-index/);

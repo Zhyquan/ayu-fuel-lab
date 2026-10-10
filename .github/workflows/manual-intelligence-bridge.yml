@@ -72,6 +72,11 @@ jobs:
           QWEN_API_ACTIVATED: ${{ vars.QWEN_API_ACTIVATED }}
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/intelligence-v2/commit-current-bridge.mjs
+      - name: Commit accepted cards when no new Forecast is ready
+        if: steps.refresh.outputs.news_ready == 'true' && steps.refresh.outputs.ready != 'true'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/intelligence-v2/commit-accepted-evidence.mjs
       - name: Public source scan
         run: npm run scan
       - name: 脱敏验证结果
@@ -79,6 +84,9 @@ jobs:
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: bridge-verification-result
-          path: .work/manual-bridge/result.json
+          path: |
+            .work/manual-bridge/result.json
+            .work/manual-bridge/accepted-evidence.json
+          include-hidden-files: true
           if-no-files-found: ignore
           retention-days: 7

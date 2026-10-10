@@ -4,10 +4,11 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { CURRENT_CACHE_PATH, CURRENT_ORIGIN_PATH, verifyCurrentPublication } from './current-publication.mjs';
 import { replaceCurrentForecast, bridgeSummary } from './manual-bridge.mjs';
+import { ACCEPTED_EVIDENCE_PATH, verifyAcceptedCollection } from './accepted-news-refresh.mjs';
 
 const fail=code=>{throw new Error(code);};
 export function currentChangesAllowed(records) {
-  const paths=[CURRENT_CACHE_PATH,CURRENT_ORIGIN_PATH];
+  const paths=[CURRENT_CACHE_PATH,CURRENT_ORIGIN_PATH,ACCEPTED_EVIDENCE_PATH];
   if(!records.length||records.some(r=>!paths.includes(r.path)||!['??',' M','M ','A ','AM','MM'].includes(r.status)))fail('CURRENT_CHANGE_NOT_ALLOWED');
   return records.map(r=>r.path);
 }
@@ -17,6 +18,7 @@ async function main() {
   const root=fileURLToPath(new URL('../../',import.meta.url)), directory=resolve(root,'.work/manual-bridge');
   const snapshot=JSON.parse(await readFile(resolve(directory,'snapshot.json'),'utf8'));
   const origin=JSON.parse(await readFile(resolve(directory,'origin.json'),'utf8'));
+  const collection=verifyAcceptedCollection(JSON.parse(await readFile(resolve(directory,'accepted-evidence.json'),'utf8')));
   const token=process.env.GITHUB_TOKEN;if(!token)fail('GITHUB_TOKEN_REQUIRED');
   const env={...process.env,GIT_CONFIG_COUNT:'1',GIT_CONFIG_KEY_0:'http.https://github.com/.extraheader',GIT_CONFIG_VALUE_0:`AUTHORIZATION: basic ${Buffer.from(['x-access-token',token].join(':')).toString('base64')}`};
   const git=args=>{try{return execFileSync('git',args,{cwd:root,env,encoding:'utf8',stdio:['ignore','pipe','pipe']});}catch{fail('CURRENT_GIT_OPERATION_FAILED');}};
@@ -29,6 +31,7 @@ async function main() {
   // Only Current files may change. Official history/index and reservations have no write path.
   await replaceCurrentForecast(resolve(root,CURRENT_CACHE_PATH),snapshot);
   await copyFile(resolve(directory,'origin.json'),resolve(root,CURRENT_ORIGIN_PATH));
+  await replaceCurrentForecast(resolve(root,ACCEPTED_EVIDENCE_PATH),collection);
   await verifyCurrentPublication(root,origin);
   const records=git(['status','--porcelain=v1','-z','--untracked-files=all']).split('\0').filter(Boolean).map(row=>({status:row.slice(0,2),path:row.slice(3)}));
   const paths=currentChangesAllowed(records);

@@ -89,6 +89,16 @@ export function filterAndDeduplicateSignals(signals, now = new Date()) {
   return {signals:accepted,excluded,independentEventCount:new Set(accepted.map(s=>s.eventKey)).size};
 }
 
+export function newsDocumentFailure(d,{now=new Date()}={}) {
+  if(!Number.isFinite(+new Date(now))||!d || !/^br-\d+$/.test(d.documentId??'') || !/^https:\/\/www\.brecorder\.com\/news\/\d+(?:\/[^?#]*)?$/.test(d.sourceUrl??'') || d.documentId!==`br-${d.sourceUrl?.match(/\/news\/(\d+)/)?.[1]}` ||
+    d.publisher!=='Business Recorder'||!text(d.authorName)||!['Reuters','Business Recorder'].includes(d.originalSource)||(d.originalSource==='Reuters'&&!d.authorName.split(', ').includes('Reuters'))||!validTimestamp(d.publishedAt)||
+    !validTimestamp(d.fetchedAt)||!['DATE_ONLY','SECOND'].includes(d.publishedAtPrecision)||Date.parse(d.publishedAt)>Date.parse(d.fetchedAt)||
+    Date.parse(d.fetchedAt)>+new Date(now)||+new Date(now)-Date.parse(d.fetchedAt)>=DAY||Date.parse(d.fetchedAt)-Date.parse(d.publishedAt)>72*3600000||
+    !/^[a-f0-9]{64}$/.test(d.articleContentHash??'')||!Array.isArray(d.segments)||!d.segments.length||d.segments.length>3||
+    new Set(d.segments.map(s=>s?.segmentId)).size!==d.segments.length||d.segments.some(s=>!/^s\d+-[a-f0-9]{12}$/.test(s?.segmentId??'')||!text(s?.text)||s.text.length<30||s.text.length>240||/^(?:READ MORE|RELATED|ADVERTISEMENT|SPONSORED)/i.test(s.text)))return 'INVALID_NEWS_DOCUMENT';
+  return null;
+}
+
 export function evidenceGate(pack, {now = new Date()} = {}) {
   const errors = [];
   if(pack?.inputContractVersion!==undefined&&pack.inputContractVersion!==NEWS_INPUT_CONTRACT) errors.push('UNKNOWN_INPUT_CONTRACT');
@@ -106,14 +116,7 @@ export function evidenceGate(pack, {now = new Date()} = {}) {
   const documents=pack?.inputContractVersion===NEWS_INPUT_CONTRACT?pack.newsDocuments:[];
   if (pack?.inputContractVersion===NEWS_INPUT_CONTRACT) {
     if(!Array.isArray(documents)||documents.length>6||new Set(documents.map(d=>d?.documentId)).size!==documents.length) errors.push('INVALID_NEWS_DOCUMENT_SET');
-    for(const d of Array.isArray(documents)?documents:[]) {
-      if(!d || !/^br-\d+$/.test(d.documentId??'') || !/^https:\/\/www\.brecorder\.com\/news\/\d+(?:\/[^?#]*)?$/.test(d.sourceUrl??'') || d.documentId!==`br-${d.sourceUrl?.match(/\/news\/(\d+)/)?.[1]}` ||
-        d.publisher!=='Business Recorder'||!text(d.authorName)||!['Reuters','Business Recorder'].includes(d.originalSource)||(d.originalSource==='Reuters'&&!d.authorName.split(', ').includes('Reuters'))||!validTimestamp(d.publishedAt)||
-        !validTimestamp(d.fetchedAt)||!['DATE_ONLY','SECOND'].includes(d.publishedAtPrecision)||Date.parse(d.publishedAt)>Date.parse(d.fetchedAt)||
-        Date.parse(d.fetchedAt)>+new Date(now)||+new Date(now)-Date.parse(d.fetchedAt)>=DAY||Date.parse(d.fetchedAt)-Date.parse(d.publishedAt)>72*3600000||
-        !/^[a-f0-9]{64}$/.test(d.articleContentHash??'')||!Array.isArray(d.segments)||!d.segments.length||d.segments.length>3||
-        new Set(d.segments.map(s=>s?.segmentId)).size!==d.segments.length||d.segments.some(s=>!/^s\d+-[a-f0-9]{12}$/.test(s?.segmentId??'')||!text(s?.text)||s.text.length<30||s.text.length>240||/^(?:READ MORE|RELATED|ADVERTISEMENT|SPONSORED)/i.test(s.text))) errors.push(`INVALID_NEWS_DOCUMENT:${d?.documentId??'UNKNOWN'}`);
-    }
+    for(const d of Array.isArray(documents)?documents:[])if(newsDocumentFailure(d,{now}))errors.push(`INVALID_NEWS_DOCUMENT:${d?.documentId??'UNKNOWN'}`);
     if(pack.coverageMode!==(documents?.length?'NORMAL':'LIMITED')) errors.push('COVERAGE_MODE_MISMATCH');
   } else if (new Set(signals.map(s=>s?.sourceOrganization).filter(Boolean)).size < 2) errors.push('SOURCE_DIVERSITY_INSUFFICIENT');
   if (Array.isArray(pack?.conflicts) && pack.conflicts.some(c=>c.severity==='MAJOR')) errors.push('MAJOR_SOURCE_CONFLICT');
@@ -121,14 +124,13 @@ export function evidenceGate(pack, {now = new Date()} = {}) {
   return {gate:errors.length?'FAIL':'PASS',status:errors.length?'UNAVAILABLE':'READY',dataValidity:errors.length?'INVALID':'VALID',coverageMode,errors,signalCount:signals.length,newsDocumentCount:Array.isArray(documents)?documents.length:0,independentSourceCount:new Set([...signals.map(s=>s?.sourceOrganization),...(Array.isArray(documents)?documents.map(d=>d?.originalSource):[])].filter(Boolean)).size,independentEventCount:new Set(signals.map(s=>s?.eventKey).filter(Boolean)).size,checkedAt:new Date(now).toISOString()};
 }
 
-export function admittedNewsDocuments(pack) {
+export function admittedNewsDocuments(pack,{now=new Date(pack?.generatedAt)}={}) {
   const documents=[], errors=[], seen=new Set();
   if(pack?.newsDocuments?.length>6)errors.push('NEWS_DOCUMENT_TOO_MANY');
   for(const document of Array.isArray(pack?.newsDocuments)?pack.newsDocuments.slice(0,6):[]) {
     if(seen.has(document?.documentId)){errors.push('NEWS_DUPLICATE_DOCUMENT');continue;}
     seen.add(document?.documentId);
-    const check=evidenceGate({...pack,signals:coreMarketSignals(pack),newsDocuments:[document],coverageMode:'NORMAL'},{now:new Date(pack.generatedAt)});
-    if(check.gate==='PASS')documents.push(document);
+    if(!newsDocumentFailure(document,{now}))documents.push(document);
     else errors.push(`NEWS_DOCUMENT_INVALID:${document?.documentId??'UNKNOWN'}`);
   }
   if(!Array.isArray(pack?.newsDocuments))errors.push('NEWS_DOCUMENT_SET_INVALID');
@@ -327,10 +329,11 @@ export function validateForecastCache(cache, {now = new Date()} = {}) {
   if (!cache?.evidencePack) return unavailableForecast('MISSING_EVIDENCE_PACK');
   const stale=validTimestamp(cache.validUntil) && +new Date(now)>=Date.parse(cache.validUntil);
   const {evidencePack,...candidate} = cache;
+  if(!validTimestamp(candidate.generatedAt)||Date.parse(candidate.generatedAt)>+new Date(now))return unavailableForecast('INVALID_FORECAST_TIME');
   // Display expired judgments only if the unchanged production gate passed at generation time.
   if (stale && candidate.status==='STALE') candidate.status='LIVE';
   try {
-    const gate = forecastGate(candidate,evidencePack,{now:stale?new Date(candidate.generatedAt):now});
+    const gate = forecastGate(candidate,evidencePack,{now:new Date(candidate.generatedAt)});
     return gate.gate==='PASS' ? (stale?{...cache,status:'STALE'}:cache) : unavailableForecast(gate.errors.join(','));
   } catch { return unavailableForecast('INVALID_FORECAST_CACHE'); }
 }

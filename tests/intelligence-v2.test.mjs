@@ -88,11 +88,11 @@ test('V2 10 expiry at exactly 24h is STALE and UI retains the last judgment',()=
 });
 test('V2 11 failed forecast leaves actual price path independent',async context=>temporary(async directory=>{
   const pricePath=join(directory,'normalized-live-cache.json'),cachePath=join(directory,'forecast-cache.json'),price=priceFixture();
-  const raw=JSON.stringify(price);await writeFile(pricePath,raw);
+  const raw=JSON.stringify(price);await writeFile(pricePath,raw);await writeFile(cachePath,'last-good-forecast');
   const f=fixture();f.candidate.mainReasons[0].text='invented';
   const result=await runForecast({pack:f.pack,manualCandidate:f.candidate,historyDirectory:join(directory,'history'),cachePath,now});
   assert.equal(result.gate.gate,'FAIL');assert.equal(await readFile(pricePath,'utf8'),raw);
-  assert.equal(JSON.parse(await readFile(cachePath,'utf8')).status,'UNAVAILABLE');
+  assert.equal(await readFile(cachePath,'utf8'),'last-good-forecast');
   context.mock.method(globalThis,'fetch',async()=>new Response(raw));
   assert.equal((await getProvinceFuelData('福建',{refresh:true})).record.diesel0Price,price.provinces['福建'].diesel0Price);
 }));

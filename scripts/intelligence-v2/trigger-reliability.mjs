@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { resolve } from 'node:path';
 import { chinaDate, validDate } from '../../dist/data/validation.js';
 import { INDEX_PATH, validateIndexShape } from './official-daily.mjs';
+import { EVIDENCE_WORKFLOW, readAcceptedCollection } from './accepted-news-refresh.mjs';
 
 const repository='Zhyquan/ayu-fuel-lab';
 const priceWorkflow='Update and deploy fuel references';
@@ -12,11 +13,12 @@ const fail=code=>{throw new Error(code);};
 const chinaHour=now=>Number(new Intl.DateTimeFormat('en-GB',{timeZone:'Asia/Shanghai',hour:'2-digit',hourCycle:'h23'}).format(now));
 export const reservationName=date=>`qwen-inference-reserved-${date}`;
 
-export function triggerAdmission({eventName,event={},repo,ref,now=new Date()}) {
+export function triggerAdmission({eventName,event={},repo,ref,now=new Date(),evidenceTrigger=null}) {
   if(repo!==repository||ref!=='refs/heads/main')return {eligible:false,reason:'UNTRUSTED_TRIGGER'};
   if(eventName==='workflow_run') {
     const run=event.workflow_run;
-    if(run?.name!==priceWorkflow||run.conclusion!=='success'||run.head_branch!=='main'||run.head_repository?.full_name!==repository||run.event!=='schedule')return {eligible:false,reason:'PRICE_RUN_NOT_ELIGIBLE'};
+    if(![priceWorkflow,EVIDENCE_WORKFLOW].includes(run?.name)||run.conclusion!=='success'||run.head_branch!=='main'||run.head_repository?.full_name!==repository||run.event!=='schedule')return {eligible:false,reason:'PRICE_RUN_NOT_ELIGIBLE'};
+    if(run.name===EVIDENCE_WORKFLOW&&(evidenceTrigger?.contract!=='RECOMPUTE_ELIGIBILITY_V2'||evidenceTrigger.eligible!==true||evidenceTrigger.reason!=='MATERIAL_NEW_EVIDENCE'||!evidenceTrigger.materialEvidenceIds?.length))return {eligible:false,reason:'NO_MATERIAL_NEW_EVIDENCE'};
   }else if(eventName==='workflow_dispatch') {
     if(event.inputs?.mode!=='OFFICIAL_DAILY')return {eligible:false,reason:'NOT_OFFICIAL_DISPATCH'};
   }else if(eventName!=='schedule')return {eligible:false,reason:'UNKNOWN_TRIGGER'};
@@ -58,7 +60,9 @@ async function main() {
   const mode=process.argv[2];
   if(mode==='trigger') {
     const event=JSON.parse(await readFile(process.env.GITHUB_EVENT_PATH,'utf8'));
-    return output(triggerAdmission({eventName:process.env.GITHUB_EVENT_NAME,event,repo:process.env.GITHUB_REPOSITORY,ref:process.env.GITHUB_REF}));
+    const collection=event.workflow_run?.name===EVIDENCE_WORKFLOW?await readAcceptedCollection(root):null;
+    const evidenceTrigger=collection&&Date.now()-Date.parse(collection.generatedAt)<86400000?collection.forecastTrigger:null;
+    return output(triggerAdmission({eventName:process.env.GITHUB_EVENT_NAME,event,repo:process.env.GITHUB_REPOSITORY,ref:process.env.GITHUB_REF,evidenceTrigger}));
   }
   const date=process.env.OFFICIAL_FORECAST_DATE;
   if(!validDate(date)||date!==chinaDate(new Date()))fail('OFFICIAL_DATE_INVALID');
