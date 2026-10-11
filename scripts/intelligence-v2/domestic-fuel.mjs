@@ -1,4 +1,4 @@
-import { canonicalJson, coreEvidenceGate, admittedNewsDocuments, newsDocumentFailure } from '../../dist/data/intelligence-v2-contract.js';
+import { canonicalJson, coreEvidenceGate, admittedNewsDocuments, newsDocumentFailure, signalFailure } from '../../dist/data/intelligence-v2-contract.js';
 import { validTimestamp } from '../../dist/data/validation.js';
 import { DOMESTIC_FUEL_FORECAST_CONTRACT, DOMESTIC_FUEL_TARGET, DOMESTIC_FUEL_HORIZON, DOMESTIC_PRIMARY_EVIDENCE_FIELDS, domesticDirectionFor, domesticForecastGate } from '../../dist/data/domestic-fuel-contract.js';
 import { evidenceHashFor } from './history.mjs';
@@ -28,8 +28,8 @@ const sourceValid=(value,now,official=false)=>{
 export function projectDomesticInput({pack,policy=null,adjustmentWindow=null,domesticEvidence=[],evidenceProof,now=new Date()}={}) {
   if(coreEvidenceGate(pack,{now}).gate!=='PASS')fail('DOMESTIC_MARKET_INPUT_INVALID');
   const roleFor=s=>s.category==='CRUDE'||s.category==='INTERNATIONAL_DIESEL'?'INTERNATIONAL_PRICE_INPUT':s.category==='DISTILLATE_FUNDAMENTALS'?s.id==='eia-stocks'?'INVENTORY_INPUT':'REFINERY_SUPPLY_INPUT':s.category==='SUPPLY_DISRUPTION'?'GEOPOLITICAL_INPUT':'RELATED_LOW_IMPACT';
-  const evidence=pack.signals.map(s=>({evidenceId:s.id,eventKey:s.eventKey,role:roleFor(s),direction:s.impact,directionScope:'INPUT_ONLY',strength:s.importance,freshness:'CURRENT',relevance:'INDIRECT',kind:s.kind,
-    windowId:null,text:s.fact,sourceName:s.sourceOrganization,sourceUrl:s.sourceUrl,publishedAt:s.publishedAt,checkedAt:s.checkedAt,contentHash:evidenceHashFor(s),verified:true}));
+  const evidence=pack.signals.filter(s=>!signalFailure(s,now)).map(s=>({evidenceId:s.id,eventKey:s.eventKey,role:roleFor(s),direction:s.impact,directionScope:'INPUT_ONLY',strength:s.importance,freshness:'CURRENT',relevance:'INDIRECT',kind:s.kind,
+    windowId:null,text:s.fact,sourceName:s.sourceOrganization,sourceUrl:s.sourceUrl,publishedAt:s.publishedAt,checkedAt:s.checkedAt,contentHash:evidenceHashFor(s),verified:s.verified}));
   for(const s of domesticEvidence)evidence.push(structuredClone(s));
   const start=new Date(now).toISOString(),end=new Date(+now+7*86400000).toISOString();
   if(adjustmentWindow&&Date.parse(adjustmentWindow.nextAdjustmentAt)>Date.parse(end))evidence.push({evidenceId:adjustmentWindow.evidenceId,eventKey:adjustmentWindow.windowId,role:'OFFICIAL_POLICY_OR_ADJUSTMENT',direction:'HOLD_OR_NO_ADJUSTMENT',directionScope:'DOMESTIC_ADJUSTMENT',strength:'HIGH',freshness:'CURRENT',relevance:'DIRECT',kind:'FACT',windowId:adjustmentWindow.windowId,text:'已核验下一有效调价窗口位于未来7天之外；这支持区间内维持或不调整，临时政策变化仍有不确定性。',...Object.fromEntries(['sourceName','sourceUrl','publishedAt','checkedAt','contentHash','verified'].map(k=>[k,adjustmentWindow[k]]))});

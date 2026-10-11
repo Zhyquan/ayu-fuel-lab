@@ -6,6 +6,7 @@ import { projectDomesticInput, domesticInputGate, domesticAnalysisSchema, valida
 import { domesticForecastGate, domesticForecastStructureGate, domesticForecastContent, domesticProviderAuditGate } from '../dist/data/domestic-fuel-contract.js';
 import { createQwenProvider, QWEN_MODEL, qwenSchemaCompatibilityGate } from '../scripts/intelligence-v2/qwen-provider.mjs';
 import { evidenceHashFor } from '../scripts/intelligence-v2/history.mjs';
+import { coreEvidenceGate, signalFailure } from '../dist/data/intelligence-v2-contract.js';
 import { acceptedEvidenceGate } from '../dist/data/accepted-evidence-contract.js';
 import { buildAcceptedEvidence } from '../scripts/intelligence-v2/accepted-evidence.mjs';
 import { resolveNewsUrl } from '../scripts/intelligence-v2/source-adapters.mjs';
@@ -106,6 +107,23 @@ test('admitted news remains unassessed input and cannot become a domestic primar
   assert.equal(input.missingRoles.includes('RELATED_LOW_IMPACT'),true);
   assert.throws(()=>validateDomesticAnalysis({...f.analysis,primaryEvidenceIds:[input.relatedNews[0].evidenceId]},input),/DOMESTIC_PRIMARY_EVIDENCE_INVALID/);
   assert.equal(JSON.stringify(base.pack.newsDocuments),documentsBefore);
+});
+
+test('optional signals keep their verification status and must pass existing admission before prompt input',async()=>{
+  const base=await loadReplayFixture(),f=await domesticFixture('CASE_UP_DOMESTIC',{now:new Date(base.now)});
+  const eventAt=new Date(+f.now-3600000).toISOString(),fact='Synthetic optional signal: a supply disruption risk is under review.';
+  const optional={id:'synthetic-optional-supply',eventKey:'synthetic-optional-supply',category:'SUPPLY_DISRUPTION',headline:'合成供应中断风险',fact,displayText:'合成供应中断风险',impact:'UP',importance:'HIGH',kind:'RISK',sourceName:'Reuters / Business Recorder',sourceOrganization:'Reuters',sourceUrl:'https://www.brecorder.com/news/40470001',sourceTier:2,verified:true,freshness:'BREAKING_72H',eventAt,eventDate:eventAt.slice(0,10),publishedAt:eventAt,checkedAt:f.now.toISOString()};
+  const project=pack=>projectDomesticInput({pack,policy:f.input.policy,adjustmentWindow:f.input.adjustmentWindow,domesticEvidence:f.input.evidence.filter(e=>e.directionScope==='DOMESTIC_ADJUSTMENT'),evidenceProof:f.input.evidenceProof,now:f.now});
+  for(const verified of [false,true]) {
+    const signal={...optional,verified},pack={...structuredClone(base.pack),signals:[...base.pack.signals,signal]},before=JSON.stringify(pack);
+    assert.equal(coreEvidenceGate(pack,{now:f.now}).gate,'PASS');assert.equal(signalFailure(signal,f.now),verified?null:'UNVERIFIED_SIGNAL');
+    const input=project(pack),row=input.evidence.find(e=>e.evidenceId===signal.id),request=createDomesticQwenRequest(input);
+    assert.equal(Boolean(row),verified);assert.equal(JSON.stringify(request.body).includes(fact),verified);
+    if(row){assert.equal(row.verified,signal.verified);assert.equal(row.contentHash,evidenceHashFor(signal));assert.equal(row.directionScope,'INPUT_ONLY');}
+    assert.equal(input.missingRoles.includes('GEOPOLITICAL_INPUT'),!verified);assert.equal(JSON.stringify(pack),before);
+  }
+  const invalidCore=structuredClone(base.pack);invalidCore.signals[0].verified=false;
+  assert.throws(()=>project(invalidCore),/DOMESTIC_MARKET_INPUT_INVALID/);
 });
 
 test('forged related news is rejected before any model request',async()=>{
