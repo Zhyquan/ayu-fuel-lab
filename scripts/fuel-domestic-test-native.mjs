@@ -39,9 +39,16 @@ export function nativePublicationDatabase(native,receipt) {
 // not from a client request, a model-selected source, or a fictional Git artifact commit.
 export async function publishRuntimeArtifact({native,consumerRoot,stored,now=Date.now()}={}) {
   const {bytes,receipt}=stored;
+  const bridge=receipt.authorization==='FUEL_EXPLICIT_DOMESTIC_TEST_BRIDGE_V1';
   if(!Buffer.isBuffer(bytes)||receipt.kind!=='RUNTIME_ACCEPTED_ARTIFACT'||receipt.environment!==TEST_ENV||
     receipt.coreSha!==CORE_SHA||receipt.consumerSha!==CONSUMER_SHA||receipt.sourceCommit!==CORE_SHA||
-    receipt.authorization!==AUTHORIZATION||digest(bytes)!==receipt.sourceArtifactHash)fail('FUEL_TEST_RUNTIME_ARTIFACT_INVALID');
+    (!bridge&&receipt.authorization!==AUTHORIZATION)||digest(bytes)!==receipt.sourceArtifactHash)fail('FUEL_TEST_RUNTIME_ARTIFACT_INVALID');
+  if(bridge) {
+    if(!/^[a-f0-9]{64}$/.test(receipt.bridgeRequestId??'')||receipt.triggerType!=='EXPLICIT_BRIDGE_TEST_REFRESH')fail('FUEL_TEST_RUNTIME_ARTIFACT_INVALID');
+    const reservation=await readTestDocument(native.collection(COLLECTION).doc(`fuelDomesticBridge-${receipt.bridgeRequestId}`));
+    if(reservation?.authorization!==receipt.authorization||reservation.requestId!==receipt.requestId||
+      !['RESERVED','DELIVERED'].includes(reservation.status))fail('FUEL_TEST_RUNTIME_ARTIFACT_INVALID');
+  }
   const bundle=JSON.parse(bytes),require=createRequire(import.meta.url);
   const {checkBundle}=require(resolve(consumerRoot,'fuel-contract/domestic-fuel-projection.js'));
   if(!checkBundle(bundle,now)||bundle.forecast.evidenceProof!=='REAL_VERIFIED_EVIDENCE'||
