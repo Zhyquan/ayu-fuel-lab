@@ -171,3 +171,36 @@ test('public Bridge cards sort by actual publication time before influence, with
   assert.deepEqual(buildDomesticBridgeCards({...f,request}).collection.acceptedEvidence.map(e=>e.id),rows.map(e=>e.id));
   assert.deepEqual(buildDomesticBridgeCards({...f,previous:[...rows].reverse()}).collection,result.collection);
 });
+
+test('public card source names hide analyst processing labels without rewriting provenance or model input',async()=>{
+  const f=await fixture(p=>{
+    p.signals[0].source='ChatGPT';p.signals[0].sourceUrl='https://www.brecorder.com/news/40000000/synthetic-test/';
+    p.signals[0].summary=`外部分析：${p.signals[0].summary}`;
+  }),before=structuredClone(f),result=buildDomesticBridgeCards(f);
+  const row=result.collection.acceptedEvidence.find(e=>result.evidenceIds.includes(e.evidenceId));
+  assert.equal(row.sourceName,'Business Recorder');assert.equal(row.source,'ChatGPT');assert.equal(row.publisher,'ChatGPT');
+  assert.equal(row.sourceUrl,f.request.signalPackage.signals[0].sourceUrl);assert.equal(row.type,'CLAIM');assert.equal(row.directionLabel,'利涨');
+  assert.equal(row.summary,f.request.signalPackage.signals[0].summary.replace(/^外部分析：/,''));
+  const input=buildDomesticBridgeInput(f).evidence.at(-1);
+  assert(input.text.includes('原来源：ChatGPT'));assert(input.text.includes(f.request.signalPackage.signals[0].summary));
+  assert(input.text.includes('UNCONFIRMED'));assert.deepEqual(f,before);verifyAcceptedCollection(result.collection,{now});
+  const previous=structuredClone(result.collection.acceptedEvidence),old=previous.find(e=>e.id===row.id);
+  old.sourceName='外部分析 · ChatGPT';old.summary=`未核实：外部分析：${row.summary}`;
+  const signalPackage=structuredClone(f.request.signalPackage);signalPackage.signals[0].eventKey+='-next';
+  const request=prepareDomesticBridgeRequest({signalPackage,mode:'REFRESH_CURRENT',now}).request;
+  const refreshed=buildDomesticBridgeCards({...f,request,pack:{generatedAt:now.toISOString(),signals:[],newsDocuments:[]},previous});
+  const retained=refreshed.collection.acceptedEvidence.find(e=>e.id===row.id);
+  assert.equal(retained.sourceName,'Business Recorder');assert.equal(retained.summary,row.summary);
+  assert.equal(retained.source,'ChatGPT');assert.equal(retained.publisher,'ChatGPT');assert.equal(retained.type,'CLAIM');
+});
+
+test('unidentified or absent source links never become invented media attribution',async()=>{
+  for(const sourceUrl of ['https://example.com/synthetic-source/',null]) {
+    const f=await fixture(p=>{p.signals[0].source='ChatGPT';p.signals[0].sourceUrl=sourceUrl;}),result=buildDomesticBridgeCards(f);
+    const row=result.collection.acceptedEvidence.find(e=>result.evidenceIds.includes(e.evidenceId));
+    assert.equal(row.sourceName,'来源');assert.equal(row.source,'ChatGPT');assert.equal(row.publisher,'ChatGPT');assert.equal(row.sourceUrl,sourceUrl);
+    verifyAcceptedCollection(result.collection,{now});
+  }
+  const f=await fixture(),result=buildDomesticBridgeCards(f);
+  assert.equal(result.collection.acceptedEvidence.find(e=>result.evidenceIds.includes(e.evidenceId)).sourceName,'Reuters');
+});

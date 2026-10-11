@@ -87,16 +87,16 @@ test('native card delivery reuses original persisted bytes across clock changes'
  assert.equal(b.replayed,true);assert.equal(a.collection.collectionHash,b.collection.collectionHash);assert.equal(b.collection.generatedAt,time.toISOString());
  assert.equal(db.rows.size,2);assert.ok([...db.rows.keys()].every(k=>k.startsWith('yuzhang_fuel_forecasts/')));
 });
-test('chronological card upgrade creates a new immutable artifact and preserves legacy bytes',async()=>{
+test('public card source upgrade creates a new immutable artifact and preserves legacy bytes',async()=>{
  const s=await scenario({material:false}),db=memory(),consumerRoot=resolve(process.env.FUEL_TEST_CONSUMER_ROOT,'cloudfunctions/paymentDomain');
  const first=buildDomesticBridgeCards({pack:replay.pack,request:s.config.request,now:time}),legacy=structuredClone(first.collection);
  legacy.acceptedEvidence[0].directionLabel='利涨（未确认）';const {collectionHash,...value}=legacy;legacy.collectionHash=evidenceHashFor(value);
- const oldId=`yuzhang_fuel_forecasts/fuelTestBridgeNewsArtifact-${s.config.request.requestId}-direction-v2`;
+ const oldId=`yuzhang_fuel_forecasts/fuelTestBridgeNewsArtifact-${s.config.request.requestId}-direction-v3`;
  const old={artifactBytesBase64:Buffer.from(JSON.stringify(legacy)).toString('base64'),receipt:{collectionHash:legacy.collectionHash}};
  db.rows.set(oldId,structuredClone(old));
  const result=await publishBridgeCards({native:db,consumerRoot,collection:first.collection,request:s.config.request,sourceReceipt:s.config.sourceReceipt,now:+time});
  assert.deepEqual(db.rows.get(oldId),old);assert.equal(result.collection.acceptedEvidence[0].directionLabel,'利涨');
- assert.equal(db.rows.get(oldId.replace(/direction-v2$/,'direction-v3')).receipt.cardProjectionVersion,CARD_PROJECTION_VERSION);
+ assert.equal(db.rows.get(oldId.replace(/direction-v3$/,'direction-v4')).receipt.cardProjectionVersion,CARD_PROJECTION_VERSION);
 });
 
 test('the production timer refreshes old card labels without resetting a consumed model reservation',async()=>{

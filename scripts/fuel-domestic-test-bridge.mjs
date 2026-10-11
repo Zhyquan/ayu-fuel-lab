@@ -11,7 +11,7 @@ import { verifyRuntimeFiles, publishRuntimeArtifact } from './fuel-domestic-test
 
 export const BRIDGE_AUTHORIZATION='FUEL_EXPLICIT_DOMESTIC_TEST_BRIDGE_V1';
 export const BRIDGE_PATH='data/domestic-test-bridge/latest-request.json';
-export const CARD_PROJECTION_VERSION='DIRECTIONAL_BRIDGE_CARDS_V3';
+export const CARD_PROJECTION_VERSION='DIRECTIONAL_BRIDGE_CARDS_V4';
 const COLLECTION='yuzhang_fuel_forecasts';
 const digest=x=>createHash('sha256').update(x).digest('hex');
 const fail=code=>{throw Object.assign(new Error(code),{code});};
@@ -109,7 +109,7 @@ export async function publishBridgeCards({native,consumerRoot,collection,request
   let bytes=Buffer.from(JSON.stringify(collection,null,2)+'\n'),sourceArtifactHash=digest(bytes);
   let receipt={kind:'RUNTIME_ACCEPTED_NEWS_ARTIFACT',cardProjectionVersion:CARD_PROJECTION_VERSION,bridgeRequestId:request.requestId,sourceReceipt,
     coreSha:CORE_SHA,consumerSha:CONSUMER_SHA,sourceArtifactHash,collectionHash:collection.collectionHash};
-  const id=`fuelTestBridgeNewsArtifact-${request.requestId}-direction-v3`;
+  const id=`fuelTestBridgeNewsArtifact-${request.requestId}-direction-v4`;
   await native.runTransaction(async tx=>{
     const doc=tx.collection(COLLECTION).doc(id),old=await readTestDocument(doc);
     if(old) {

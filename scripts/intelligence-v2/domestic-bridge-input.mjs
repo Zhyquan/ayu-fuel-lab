@@ -43,7 +43,14 @@ export function buildDomesticBridgeCards({pack,request,previous=[],consumedEvide
   const {normalized}=checkedSignals(request,now),merged=mergeExternalSignals(pack,normalized,{now});
   const collection=buildAcceptedEvidence({pack:merged.pack,previous,now});
   for(const row of collection.acceptedEvidence) {
-    if(row.influenceBasis==='EXTERNAL_ANALYST')row.summary=row.summary.replace(/^未核实：/,'');
+    if(row.influenceBasis==='EXTERNAL_ANALYST') {
+      row.summary=row.summary.replace(/^(?:(?:未核实|外部分析)：\s*)+/,'');
+      row.sourceName=row.sourceName.replace(/^外部分析\s*·\s*/,'');
+      if(/chatgpt/i.test(row.sourceName)) {
+        const host=row.sourceUrl?new URL(row.sourceUrl).hostname:null;
+        row.sourceName=({'www.brecorder.com':'Business Recorder','www.reuters.com':'Reuters','www.eia.gov':'EIA','ir.eia.gov':'EIA'})[host]??'来源';
+      }
+    }
     row.directionLabel=row.direction==='NEUTRAL'?'平':row.direction==='UP'?'利涨':'利跌';
   }
   collection.acceptedEvidence.sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)||a.id.localeCompare(b.id));
