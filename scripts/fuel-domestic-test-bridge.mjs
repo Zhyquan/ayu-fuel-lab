@@ -72,6 +72,8 @@ export async function runDomesticBridgeRequest({request,sourceReceipt,loadInput,
   const {eligibility}=buildDomesticBridgeCards({pack:loaded.pack,request,previous,consumedEvidence,now:time});
   if(!eligibility.eligible)return {status:'CARDS_DELIVERED',modelCalls:0,cardDelivery,eligibility,
     cardIds:acceptedCollection.acceptedEvidence.map(e=>e.id),completedAt:now().toISOString()};
+  if(providerOptions.mock!==true&&!providerOptions.environment?.DASHSCOPE_API_KEY)return {
+    status:'CARDS_DELIVERED_CORE_PENDING',modelCalls:0,cardDelivery,code:'FUEL_TEST_API_KEY_ABSENT',eligibility};
   const reservation=await claim({request,startedAt,inputHash:digest(JSON.stringify(input))});
   if(!reservation.claimed)return {status:reservation.reason,modelCalls:0};
   let audit=null,result;
