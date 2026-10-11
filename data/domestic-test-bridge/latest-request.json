@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "AYU_DOMESTIC_TEST_BRIDGE_REQUEST_V1",
+  "target": "CHINA_DOMESTIC_REFINED_OIL_ADJUSTMENT",
+  "environment": "Test",
+  "triggerKind": "EXPLICIT_BRIDGE_TEST_REFRESH",
+  "requestId": "f8513bf349d088bed740a96b08735bd8b5f41889f87533aff56ba7aeca0ebd2a",
+  "packageHash": "37e7bbf73771b59b11aa72c5086778c48e85904754dac3f25a1d3b51e5afc1cf",
+  "requestedAt": "2026-10-11T16:23:00.806Z",
+  "expiresAt": "2026-10-12T15:30:00.000Z",
+  "signalPackage": {
+    "schemaVersion": "AYU_EXTERNAL_ANALYST_SIGNAL_V1",
+    "generatedAt": "2026-10-11T15:30:00Z",
+    "signals": [
+      {
+        "eventKey": "russia-ukraine-energy-ceasefire-2026-10-11",
+        "category": "SUPPLY_DISRUPTION",
+        "source": "Reuters",
+        "eventAt": null,
+        "publishedAt": "2026-10-11T09:47:00Z",
+        "title": "特朗普称俄乌已达成能源停火",
+        "summary": "特朗普称俄乌能源停火立即生效，但莫斯科与基辅尚未正式确认；乌方称若俄方停止袭击能源设施愿同步停手。",
+        "sourceUrl": "https://www.reuters.com/world/europe/ukraine-will-halt-strikes-refineries-if-russia-stops-energy-attacks-zelenskiy-2026-10-11/",
+        "kind": "CLAIM",
+        "direction": "DOWN",
+        "strength": "MEDIUM",
+        "confirmation": "UNCONFIRMED",
+        "reason": "若停火实际落实，乌克兰暂停打击俄罗斯炼厂将降低柴油产能进一步受损风险，并可能增加未来7天全球柴油可供应量。"
+      }
+    ]
+  }
+}
