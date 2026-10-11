@@ -126,7 +126,9 @@ export async function normalizeDomesticForecast({analysis,input,acceptedCollecti
 // Request construction only. Root owns authorization, the existing reservation and one-shot transport.
 export function createDomesticQwenRequest(input) {
   const schema=domesticAnalysisSchema(input),evidenceRevision=evidenceHashFor(input),content=canonicalJson(input);
-  const body={model:QWEN_MODEL,stream:false,enable_thinking:false,messages:[{role:'system',content:SYSTEM_PROMPT},{role:'user',content:`Frozen domestic input ${evidenceRevision}\n${content}`}],response_format:{type:'json_schema',json_schema:{name:'DOMESTIC_FUEL_ANALYSIS_V1',strict:true,schema}}};
+  const primaryIds=schema.properties.primaryEvidenceIds.items.enum;
+  const primaryHint=`primaryEvidenceIds 的可选 ID 集合为 ${JSON.stringify(primaryIds)}。最多选择 ${Math.min(3,primaryIds.length)} 个（min(3, allowedCount)），至少1个，所有 ID 必须互不重复（unique）。不需要凑满数量，不得重复同一 ID 来补足条数；只有1个可选 ID 时必须仅选这1个。政策、调价窗口及国际价格、汇率、库存等输入仍参与分析，但未列入此集合的 ID 不得作为额外 primary。`;
+  const body={model:QWEN_MODEL,stream:false,enable_thinking:false,messages:[{role:'system',content:`${SYSTEM_PROMPT}\n${primaryHint}`},{role:'user',content:`Frozen domestic input ${evidenceRevision}\n${content}`}],response_format:{type:'json_schema',json_schema:{name:'DOMESTIC_FUEL_ANALYSIS_V1',strict:true,schema}}};
   if(Buffer.byteLength(JSON.stringify(body))>65536)fail('DOMESTIC_PAYLOAD_TOO_LARGE');
   return {body,evidenceRevision,promptVersion:PROMPT_VERSION,inputPackHash:evidenceHashFor(input)};
 }

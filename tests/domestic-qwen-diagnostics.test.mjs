@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { domesticFixture } from './fixtures/domestic-fuel-fixtures.mjs';
 import { loadReplayFixture } from '../scripts/intelligence-v2/replay.mjs';
-import { projectDomesticInput, domesticInputGate, validateDomesticAnalysis, runDomesticForecast } from '../scripts/intelligence-v2/domestic-fuel.mjs';
+import { projectDomesticInput, domesticInputGate, domesticAnalysisSchema, validateDomesticAnalysis, createDomesticQwenRequest, runDomesticForecast } from '../scripts/intelligence-v2/domestic-fuel.mjs';
 import { evidenceHashFor } from '../scripts/intelligence-v2/history.mjs';
 
 const fixture=async()=>{
@@ -58,6 +58,27 @@ test('legal domestic output keeps the same probabilities and prompt while preser
   assert.equal(audit.outputHash,createHash('sha256').update(JSON.stringify(f.analysis)).digest('hex'));assert.notEqual(audit.candidateId,result.forecast.forecastId);
   assert.deepEqual(audit.outputStructure.probabilities.UP,{type:'NUMBER',value:70});assert.equal(audit.outputStructure.reason.characterCount,Array.from(f.analysis.reason).length);
   assert.equal(request.messages[0].content.includes('你判断的是未来7天中国大陆'),true);assert.equal(request.response_format.json_schema.name,'DOMESTIC_FUEL_ANALYSIS_V1');
+});
+
+test('observed duplicate selection stays rejected; one allowed ID is sufficient without padding',async()=>{
+  const f=await fixture();f.analysis.probabilities={UP:85,DOWN:5,FLAT:10};f.analysis.primaryEvidenceIds=['synthetic-domestic-pricing','synthetic-domestic-pricing'];
+  const rejected=await attempt(f);assert.equal(rejected.error.message,'DOMESTIC_PRIMARY_EVIDENCE_INVALID');assert.equal(rejected.audit.validationCode,'PRIMARY_EVIDENCE_DUPLICATE_ID');assert.equal(rejected.audit.reasonIndex,1);
+  assert.deepEqual(rejected.audit.selectedPrimaryEvidenceIds,f.analysis.primaryEvidenceIds);assert.equal(rejected.result,undefined);assert.equal(rejected.calls,1);
+  f.analysis.primaryEvidenceIds=['synthetic-domestic-pricing'];const accepted=await attempt(f);
+  assert.equal(accepted.error,undefined);assert.equal(accepted.result.gate.gate,'PASS');assert.deepEqual(accepted.result.forecast.probabilities,{UP:.85,DOWN:.05,HOLD_OR_NO_ADJUSTMENT:.1});assert.equal(accepted.result.forecast.primaryEvidence.length,1);assert.equal(accepted.calls,1);
+  for(const {request}of [rejected,accepted]) {
+    const prompt=request.messages[0].content;
+    assert.equal(prompt.includes(JSON.stringify(['synthetic-domestic-pricing'])),true);assert.match(prompt,/最多选择 1 个/);assert.match(prompt,/互不重复/);assert.match(prompt,/不得重复同一 ID/);assert.match(prompt,/只有1个可选 ID 时必须仅选这1个/);assert.match(prompt,/未列入此集合的 ID 不得作为额外 primary/);
+    assert.deepEqual(request.response_format.json_schema.schema,domesticAnalysisSchema(f.input));
+  }
+});
+
+test('primary selection hint uses the admitted ID set and caps selection at three without changing schema',async()=>{
+  const f=await fixture(),row=f.input.evidence.find(e=>e.evidenceId==='synthetic-domestic-pricing');
+  for(let n=1;n<=3;n++)f.input.evidence.push({...structuredClone(row),evidenceId:`synthetic-pricing-${n}`,eventKey:`synthetic-pricing-event-${n}`});
+  const before=JSON.stringify(f.input),allowed=domesticInputGate(f.input,{now:f.now}).primaryEvidenceIds,request=createDomesticQwenRequest(f.input);
+  assert.equal(allowed.length,4);assert.equal(request.body.messages[0].content.includes(JSON.stringify(allowed)),true);assert.match(request.body.messages[0].content,/最多选择 3 个/);
+  assert.deepEqual(request.body.response_format.json_schema.schema,domesticAnalysisSchema(f.input));assert.equal(request.evidenceRevision,evidenceHashFor(f.input));assert.equal(JSON.stringify(f.input),before);
 });
 
 test('unknown ordinary IDs remain visible while credential-like identities and raw output are excluded',async()=>{
