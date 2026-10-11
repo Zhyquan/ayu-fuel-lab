@@ -42,16 +42,9 @@ export function buildDomesticBridgeInput({input,request,sourceReceipt,now=new Da
 export function buildDomesticBridgeCards({pack,request,previous=[],consumedEvidence=[],now=new Date()}={}) {
   const {normalized}=checkedSignals(request,now),merged=mergeExternalSignals(pack,normalized,{now});
   const collection=buildAcceptedEvidence({pack:merged.pack,previous,now});
-  const unconfirmed=new Set(normalized.signals.filter(signal=>signal.confirmation==='UNCONFIRMED').map(signal=>signal.evidenceId));
-  for(const row of collection.acceptedEvidence)if(unconfirmed.has(row.evidenceId)&&!row.summary.startsWith('未核实：')) {
-    row.summary=`未核实：${row.summary}`;
-    if(Array.from(row.summary).length>90)fail('DOMESTIC_BRIDGE_CARD_SUMMARY_TOO_LONG');
-  }
   for(const row of collection.acceptedEvidence) {
-    const uncertain=unconfirmed.has(row.evidenceId)||row.directionLabel.endsWith('（未确认）')||row.summary.startsWith('未核实：');
-    row.directionLabel=row.direction==='NEUTRAL'?'中性':row.type==='RISK'?
-      row.direction==='UP'?'上涨风险':'下跌风险':row.direction==='UP'?'利涨':'利跌';
-    if(uncertain)row.directionLabel+='（未确认）';
+    if(row.influenceBasis==='EXTERNAL_ANALYST')row.summary=row.summary.replace(/^未核实：/,'');
+    row.directionLabel=row.direction==='NEUTRAL'?'平':row.direction==='UP'?'利涨':'利跌';
   }
   const {collectionHash,...value}=collection;
   const result={...value,collectionHash:evidenceHashFor(value)};

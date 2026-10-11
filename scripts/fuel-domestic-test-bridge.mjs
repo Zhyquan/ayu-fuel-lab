@@ -11,7 +11,7 @@ import { verifyRuntimeFiles, publishRuntimeArtifact } from './fuel-domestic-test
 
 export const BRIDGE_AUTHORIZATION='FUEL_EXPLICIT_DOMESTIC_TEST_BRIDGE_V1';
 export const BRIDGE_PATH='data/domestic-test-bridge/latest-request.json';
-export const CARD_PROJECTION_VERSION='DIRECTIONAL_BRIDGE_CARDS_V1';
+export const CARD_PROJECTION_VERSION='DIRECTIONAL_BRIDGE_CARDS_V2';
 const COLLECTION='yuzhang_fuel_forecasts';
 const digest=x=>createHash('sha256').update(x).digest('hex');
 const fail=code=>{throw Object.assign(new Error(code),{code});};
@@ -109,7 +109,7 @@ export async function publishBridgeCards({native,consumerRoot,collection,request
   let bytes=Buffer.from(JSON.stringify(collection,null,2)+'\n'),sourceArtifactHash=digest(bytes);
   let receipt={kind:'RUNTIME_ACCEPTED_NEWS_ARTIFACT',cardProjectionVersion:CARD_PROJECTION_VERSION,bridgeRequestId:request.requestId,sourceReceipt,
     coreSha:CORE_SHA,consumerSha:CONSUMER_SHA,sourceArtifactHash,collectionHash:collection.collectionHash};
-  const id=`fuelTestBridgeNewsArtifact-${request.requestId}-direction-v1`;
+  const id=`fuelTestBridgeNewsArtifact-${request.requestId}-direction-v2`;
   await native.runTransaction(async tx=>{
     const doc=tx.collection(COLLECTION).doc(id),old=await readTestDocument(doc);
     if(old) {
@@ -150,13 +150,23 @@ export async function handleDomesticBridgeTimer({event,context,root,native,provi
   const {request,sourceReceipt}=loadedRequest,id=bridgeStateId(request);
   const intakeId=`fuelDomesticBridgeIntake-${request.requestId}`;
   const intake=await readTestDocument(native.collection(COLLECTION).doc(intakeId));
-  if(intake?.status==='DELIVERED'||intake?.cardProjectionVersion===CARD_PROJECTION_VERSION)return {status:'BRIDGE_INTAKE_ALREADY_DELIVERED',modelCalls:0};
-  if(await readTestDocument(native.collection(COLLECTION).doc(id)))return {status:'REQUEST_ALREADY_CONSUMED',modelCalls:0};
-  const seedBytes=readFileSync(resolve(root,'domestic-source-seed.json'));
-  if(digest(seedBytes)!==manifest.sourceSeedHash)fail('FUEL_TEST_SOURCE_SEED_MISMATCH');
+  if(intake?.cardProjectionVersion===CARD_PROJECTION_VERSION)return {status:'BRIDGE_INTAKE_ALREADY_DELIVERED',modelCalls:0};
+  const reserved=await readTestDocument(native.collection(COLLECTION).doc(id));
+  if(reserved?.status==='RESERVED')return {status:'REQUEST_ALREADY_CONSUMED',modelCalls:0};
   const current=await readTestDocument(native.collection(COLLECTION).doc('currentFuelForecast'));
   const news=await readTestDocument(native.collection(COLLECTION).doc('currentFuelNews'));
   const previous=[...(current?.forecast?.acceptedEvidence??[]),...(news?.collection?.acceptedEvidence??[])];
+  if(reserved||intake?.status==='DELIVERED') {
+    const {collection}=buildDomesticBridgeCards({pack:{generatedAt:now().toISOString(),signals:[],newsDocuments:[]},request,previous,now:now()});
+    const cardDelivery=await publishBridgeCards({native,consumerRoot:resolve(root,'consumer'),collection,request,sourceReceipt,now:+now()});
+    const metadata={cardProjectionVersion:CARD_PROJECTION_VERSION,cardProjectionRefreshedAt:now().toISOString()};
+    const doc=native.collection(COLLECTION).doc(intakeId);
+    if(intake)await doc.update(metadata);
+    else await doc.set({status:'CARDS_DELIVERED',bridgeRequestId:request.requestId,...metadata});
+    return {status:'BRIDGE_CARDS_REFRESHED',modelCalls:0,cardDelivery};
+  }
+  const seedBytes=readFileSync(resolve(root,'domestic-source-seed.json'));
+  if(digest(seedBytes)!==manifest.sourceSeedHash)fail('FUEL_TEST_SOURCE_SEED_MISMATCH');
   const diagnostic=native.collection(COLLECTION).doc(`fuelDomesticBridgePreflight-${request.requestId}`);
   await diagnostic.set({status:'ENTRY_RECEIVED',receivedAt:now().toISOString(),requestId:context.request_id,
     bridgeRequestId:request.requestId,sourceReceipt,eventType:event.Type,functionVersion:String(context.function_version)});

@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
-import { mkdtempSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, writeFileSync, rmSync, symlinkSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { loadReplayFixture } from '../scripts/intelligence-v2/replay.mjs';
 import { domesticFixture } from './fixtures/domestic-fuel-fixtures.mjs';
@@ -13,7 +13,7 @@ import { TEST_ENV, CORE_SHA, CONSUMER_SHA, AUTHORIZATION, TRIGGER_NAME, FUNCTION
 import { evidenceHashFor } from '../scripts/intelligence-v2/history.mjs';
 import { buildDomesticBridgeCards } from '../scripts/intelligence-v2/domestic-bridge-input.mjs';
 const digest=x=>createHash('sha256').update(x).digest('hex'),replay=await loadReplayFixture(),time=new Date(replay.now);
-function memory(){const rows=new Map();let queue=Promise.resolve();const collection=name=>({doc:id=>({get:async()=>({data:structuredClone(rows.get(name+'/'+id)||null)}),set:async data=>rows.set(name+'/'+id,structuredClone(data))})});return {rows,collection,runTransaction:cb=>{const r=queue.then(()=>cb({collection}));queue=r.catch(()=>{});return r;}};}
+function memory(){const rows=new Map();let queue=Promise.resolve();const writable=data=>assert.equal(Object.hasOwn(data,'_id'),false,'NATIVE_SDK_REJECTS_ID_WRITE');const collection=name=>({doc:id=>({get:async()=>({data:rows.has(name+'/'+id)?{...structuredClone(rows.get(name+'/'+id)),_id:id}:null}),set:async data=>{writable(data);rows.set(name+'/'+id,structuredClone(data));},update:async data=>{writable(data);rows.set(name+'/'+id,{...rows.get(name+'/'+id),...structuredClone(data)});}})});return {rows,collection,runTransaction:cb=>{const r=queue.then(()=>cb({collection}));queue=r.catch(()=>{});return r;}};}
 async function scenario({material=true}={}){
  const f=await domesticFixture('CASE_DOWN_DOMESTIC',{now:time}),signalPackage=externalPackage(replay.now);
  Object.assign(signalPackage.signals[0],material?{kind:'RISK',confirmation:'CONDITIONAL',strength:'MEDIUM'}:{kind:'CLAIM',confirmation:'UNCONFIRMED',strength:'LOW'});
@@ -36,7 +36,7 @@ test('material Bridge uses frozen domestic Core once, includes analyst input, de
 });
 test('unconfirmed LOW-materiality card is delivered without any market collection, reservation or model',async()=>{
  const s=await scenario({material:false});let loaded=0;s.config.loadInput=async()=>{loaded++;throw Error('must not collect');};
- const r=await runDomesticBridgeRequest(s.config);assert.equal(r.status,'CARDS_DELIVERED');assert.equal(loaded,0);assert.equal(s.calls.length,0);assert.equal(s.db.rows.size,0);assert.match(s.cards[0].acceptedEvidence[0].summary,/未核实：/);
+ const r=await runDomesticBridgeRequest(s.config);assert.equal(r.status,'CARDS_DELIVERED');assert.equal(loaded,0);assert.equal(s.calls.length,0);assert.equal(s.db.rows.size,0);assert.equal(s.cards[0].acceptedEvidence[0].summary,s.config.request.signalPackage.signals[0].summary);
 });
 test('MEDIUM directional unconfirmed analyst input is actually sent once, with no fabricated probability change',async()=>{
  const s=await scenario();Object.assign(s.config.request.signalPackage.signals[0],{kind:'CLAIM',confirmation:'UNCONFIRMED',direction:'DOWN'});
@@ -45,7 +45,7 @@ test('MEDIUM directional unconfirmed analyst input is actually sent once, with n
  assert.equal(r.status,'DELIVERED');assert.equal(r.eligibility.reason,'MATERIAL_UNCONFIRMED_ANALYST_INPUT');
  assert.equal(s.calls.length,1);assert.match(s.calls[0].messages[1].content,/UNCONFIRMED/);
  assert.match(s.calls[0].messages[1].content,/引用报道原文未核验/);
- assert.equal(s.cards[0].acceptedEvidence[0].directionLabel,'利跌（未确认）');
+ assert.equal(s.cards[0].acceptedEvidence[0].directionLabel,'利跌');
  assert.deepEqual(r.probabilities,{UP:s.f.analysis.probabilities.UP/100,DOWN:s.f.analysis.probabilities.DOWN/100,HOLD_OR_NO_ADJUSTMENT:s.f.analysis.probabilities.FLAT/100});
  assert.equal(s.forecasts[0].evidencePack.evidence.at(-1).directionScope,'INPUT_ONLY');
  assert.equal(s.forecasts[0].evidencePack.evidence.at(-1).kind,'CLAIM');
@@ -90,19 +90,20 @@ test('native card delivery reuses original persisted bytes across clock changes'
 test('directional card upgrade creates a new immutable artifact and preserves legacy bytes',async()=>{
  const s=await scenario({material:false}),db=memory(),consumerRoot=resolve(process.env.FUEL_TEST_CONSUMER_ROOT,'cloudfunctions/paymentDomain');
  const first=buildDomesticBridgeCards({pack:replay.pack,request:s.config.request,now:time}),legacy=structuredClone(first.collection);
- legacy.acceptedEvidence[0].directionLabel='相关分析';const {collectionHash,...value}=legacy;legacy.collectionHash=evidenceHashFor(value);
- const oldId=`yuzhang_fuel_forecasts/fuelTestBridgeNewsArtifact-${s.config.request.requestId}`;
+ legacy.acceptedEvidence[0].directionLabel='利涨（未确认）';const {collectionHash,...value}=legacy;legacy.collectionHash=evidenceHashFor(value);
+ const oldId=`yuzhang_fuel_forecasts/fuelTestBridgeNewsArtifact-${s.config.request.requestId}-direction-v1`;
  const old={artifactBytesBase64:Buffer.from(JSON.stringify(legacy)).toString('base64'),receipt:{collectionHash:legacy.collectionHash}};
  db.rows.set(oldId,structuredClone(old));
  const result=await publishBridgeCards({native:db,consumerRoot,collection:first.collection,request:s.config.request,sourceReceipt:s.config.sourceReceipt,now:+time});
- assert.deepEqual(db.rows.get(oldId),old);assert.equal(result.collection.acceptedEvidence[0].directionLabel,'利涨（未确认）');
- assert.equal(db.rows.get(`${oldId}-direction-v1`).receipt.cardProjectionVersion,CARD_PROJECTION_VERSION);
+ assert.deepEqual(db.rows.get(oldId),old);assert.equal(result.collection.acceptedEvidence[0].directionLabel,'利涨');
+ assert.equal(db.rows.get(oldId.replace(/direction-v1$/,'direction-v2')).receipt.cardProjectionVersion,CARD_PROJECTION_VERSION);
 });
 
-test('only legacy card-only intake without any reservation can be re-evaluated by the production timer handler',async()=>{
+test('the production timer refreshes old card labels without resetting a consumed model reservation',async()=>{
  const s=await scenario(),root=mkdtempSync(resolve(tmpdir(),'fuel-bridge-terminal-'));
  const entry='// synthetic manifest fixture; no provider or market request\n';
  writeFileSync(resolve(root,'index.js'),entry);writeFileSync(resolve(root,'domestic-source-seed.json'),'{}');
+ symlinkSync(resolve(process.env.FUEL_TEST_CONSUMER_ROOT,'cloudfunctions/paymentDomain'),resolve(root,'consumer'),'dir');
  writeFileSync(resolve(root,'runtime-manifest.json'),JSON.stringify({environment:TEST_ENV,coreSha:CORE_SHA,consumerSha:CONSUMER_SHA,authorization:AUTHORIZATION,
   functionName:FUNCTION_NAME,maxTotalModelCalls:1,version:'7',sourceSeedHash:'0'.repeat(64),files:[{path:'index.js',sha256:digest(entry)}]}));
  const options={event:{Type:'Timer',TriggerName:TRIGGER_NAME},context:{function_name:FUNCTION_NAME,namespace:TEST_ENV,function_version:'7',request_id:'synthetic-timer'},
@@ -111,14 +112,25 @@ test('only legacy card-only intake without any reservation can be re-evaluated b
  try {
   const legacy=memory();legacy.rows.set(intakeId,{status:'CARDS_DELIVERED'});
   await assert.rejects(()=>handleDomesticBridgeTimer({...options,native:legacy}),/FUEL_TEST_SOURCE_SEED_MISMATCH/);
-  for(const intake of [{status:'DELIVERED'},{status:'CARDS_DELIVERED',cardProjectionVersion:CARD_PROJECTION_VERSION}]) {
+  for(const intake of [{status:'DELIVERED',cardProjectionVersion:CARD_PROJECTION_VERSION},{status:'CARDS_DELIVERED',cardProjectionVersion:CARD_PROJECTION_VERSION}]) {
    const db=memory();db.rows.set(intakeId,intake);
    assert.equal((await handleDomesticBridgeTimer({...options,native:db})).status,'BRIDGE_INTAKE_ALREADY_DELIVERED');
   }
   for(const status of ['RESERVED','GENERATION_REJECTED','DELIVERED','UNKNOWN']) {
-   const db=memory();db.rows.set(intakeId,{status:'CARDS_DELIVERED'});
-   db.rows.set(`yuzhang_fuel_forecasts/fuelDomesticBridge-${s.config.request.requestId}`,{status});
-   const result=await handleDomesticBridgeTimer({...options,native:db});assert.equal(result.status,'REQUEST_ALREADY_CONSUMED');assert.equal(result.modelCalls,0);
+   const db=memory(),stateId=`yuzhang_fuel_forecasts/fuelDomesticBridge-${s.config.request.requestId}`;
+   const intake={status:status==='DELIVERED'?'DELIVERED':'CARDS_DELIVERED',result:{forecastId:'previous-forecast'}};
+   const state={status,providerAudit:{actualExternalRequestCount:1}},forecast={forecastHash:'previous-forecast',forecast:{acceptedEvidence:[]}};
+   db.rows.set(intakeId,structuredClone(intake));db.rows.set(stateId,structuredClone(state));
+   db.rows.set('yuzhang_fuel_forecasts/currentFuelForecast',structuredClone(forecast));
+   assert.equal((await db.collection('yuzhang_fuel_forecasts').doc(intakeId.split('/')[1]).get()).data._id,intakeId.split('/')[1]);
+   const result=await handleDomesticBridgeTimer({...options,native:db});
+   assert.equal(result.status,status==='RESERVED'?'REQUEST_ALREADY_CONSUMED':'BRIDGE_CARDS_REFRESHED');assert.equal(result.modelCalls,0);
+   assert.deepEqual(db.rows.get(stateId),state);assert.deepEqual(db.rows.get('yuzhang_fuel_forecasts/currentFuelForecast'),forecast);
+   if(status!=='RESERVED') {
+    assert.equal(db.rows.get(intakeId).cardProjectionVersion,CARD_PROJECTION_VERSION);assert.deepEqual(db.rows.get(intakeId).result,intake.result);
+    assert.equal(db.rows.get('yuzhang_fuel_forecasts/currentFuelNews').collection.acceptedEvidence[0].directionLabel,'利涨');
+    assert.equal((await handleDomesticBridgeTimer({...options,native:db})).status,'BRIDGE_INTAKE_ALREADY_DELIVERED');
+   }
   }
  } finally {rmSync(root,{recursive:true,force:true});}
 });
@@ -130,7 +142,7 @@ test('pending request confirms its card in newer valid news without rolling the 
  Object.assign(pkg.signals[0],{kind:'RISK',confirmation:'CONDITIONAL'});
  const request=prepareDomesticBridgeRequest({signalPackage:pkg,mode:'REFRESH_CURRENT',now:later}).request;
  const next=buildDomesticBridgeCards({pack:replay.pack,request,previous:first.collection.acceptedEvidence,now:later});
- assert.equal(next.collection.acceptedEvidence.find(e=>e.eventKey===s.config.request.signalPackage.signals[0].eventKey).directionLabel,'利涨（未确认）');
+ assert.equal(next.collection.acceptedEvidence.find(e=>e.eventKey===s.config.request.signalPackage.signals[0].eventKey).directionLabel,'利涨');
  await publishBridgeCards({native:db,consumerRoot,collection:next.collection,request,sourceReceipt:s.config.sourceReceipt,now:+later});
  const retried=await publishBridgeCards({native:db,consumerRoot,collection:first.collection,request:s.config.request,sourceReceipt:s.config.sourceReceipt,now:+later+1000});
  assert.equal(retried.replayed,true);assert.equal(retried.collection.collectionHash,next.collection.collectionHash);assert.equal(retried.collection.acceptedEvidence.length,next.collection.acceptedEvidence.length);

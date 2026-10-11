@@ -74,13 +74,13 @@ test('invalid domestic support and oversized claim text reject without repairing
   assert.throws(()=>buildDomesticBridgeInput(oversized),/DOMESTIC_BRIDGE_TEXT_TOO_LONG/);
 });
 
-test('directional MEDIUM unconfirmed claims retain their warning and can trigger analysis independently of card delivery',async()=>{
+test('directional MEDIUM unconfirmed claims retain input semantics with a concise public direction label',async()=>{
   const f=await fixture(),before=structuredClone(f.pack),first=buildDomesticBridgeCards(f);
   verifyAcceptedCollection(first.collection,{now});assert.deepEqual(f.pack,before);
   const row=first.collection.acceptedEvidence.find(e=>first.evidenceIds.includes(e.evidenceId));
-  assert(row.summary.startsWith('未核实：'));assert.equal(row.displayEligible,true);assert.equal(row.influenceBasis,'EXTERNAL_ANALYST');
+  assert.equal(row.summary,f.request.signalPackage.signals[0].summary);assert.equal(row.displayEligible,true);assert.equal(row.influenceBasis,'EXTERNAL_ANALYST');
   assert.equal(row.relationship,'RELATED_ONLY');assert.equal(row.forecastHash,null);assert.equal(row.type,'CLAIM');
-  assert.equal(row.directionLabel,'利涨（未确认）');
+  assert.equal(row.directionLabel,'利涨');
   assert.equal(first.eligibility.eligible,true);assert.equal(first.eligibility.reason,'MATERIAL_UNCONFIRMED_ANALYST_INPUT');
   assert.equal(first.eligibility.checks.core,'PASS');assert.equal(first.eligibility.checks.sourceTrust,'EXTERNAL_ANALYST');
   assert.equal(row.sourceUrl,f.request.signalPackage.signals[0].sourceUrl);
@@ -94,7 +94,7 @@ test('directional MEDIUM unconfirmed claims retain their warning and can trigger
 });
 
 test('unconfirmed LOW and NEUTRAL claims remain card-only and display their actual direction',async()=>{
-  for(const [change,label]of [[s=>{s.strength='LOW';s.direction='DOWN';},'利跌（未确认）'],[s=>{s.direction='NEUTRAL';},'中性（未确认）']]) {
+  for(const [change,label]of [[s=>{s.strength='LOW';s.direction='DOWN';},'利跌'],[s=>{s.direction='NEUTRAL';},'平']]) {
     const f=await fixture(p=>change(p.signals[0])),result=buildDomesticBridgeCards(f);
     assert.equal(result.eligibility.eligible,false);assert.equal(result.eligibility.reason,'LOW_MATERIALITY');
     assert.equal(result.collection.acceptedEvidence.find(e=>result.evidenceIds.includes(e.evidenceId)).directionLabel,label);
@@ -115,7 +115,7 @@ test('uncertainty cannot bypass failed core admission, and RISK labels never cla
   for(const direction of ['UP','DOWN']) {
     const risk=await fixture(p=>Object.assign(p.signals[0],{kind:'RISK',confirmation:'CONDITIONAL',direction}));
     const row=buildDomesticBridgeCards(risk).collection.acceptedEvidence[0];
-    assert.equal(row.directionLabel,direction==='UP'?'上涨风险':'下跌风险');
+    assert.equal(row.directionLabel,direction==='UP'?'利涨':'利跌');assert.equal(row.type,'RISK');
   }
 });
 
@@ -137,7 +137,13 @@ test('material eligibility follows existing source/novelty/strength rules while 
   verifyAcceptedCollection(unavailable.collection,{now});
 });
 
-test('a card warning that exceeds the existing summary contract rejects rather than hiding or truncating the claim',async()=>{
-  const f=await fixture(p=>{p.signals[0].summary='未核验分析'.repeat(18);});
-  assert.throws(()=>buildDomesticBridgeCards(f),/DOMESTIC_BRIDGE_CARD_SUMMARY_TOO_LONG/);
+test('a previous display warning is removed without changing the analyst summary or internal claim identity',async()=>{
+  const f=await fixture(),first=buildDomesticBridgeCards(f),previous=structuredClone(first.collection.acceptedEvidence);
+  const row=previous.find(e=>first.evidenceIds.includes(e.evidenceId));
+  row.directionLabel+='（未确认）';row.summary=`未核实：${row.summary}`;
+  const result=buildDomesticBridgeCards({...f,previous});
+  const visible=result.collection.acceptedEvidence.find(e=>e.evidenceId===row.evidenceId);
+  assert.equal(visible.directionLabel,'利涨');assert.equal(visible.summary,f.request.signalPackage.signals[0].summary);
+  assert.equal(visible.type,'CLAIM');assert.equal(f.request.signalPackage.signals[0].confirmation,'UNCONFIRMED');
+  verifyAcceptedCollection(result.collection,{now});
 });
