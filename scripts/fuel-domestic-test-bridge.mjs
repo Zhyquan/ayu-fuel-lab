@@ -180,7 +180,7 @@ export async function handleDomesticBridgeTimer({event,context,root,native,provi
       });return {bytes,receipt};
     },
     publish:({stored})=>publishRuntimeArtifact({native,consumerRoot:resolve(root,'consumer'),stored,now:+now()})});
-  await diagnostic.update({status:result.status,completedAt:now().toISOString()});
+  await diagnostic.update({status:result.status,resultCode:result.code??null,completedAt:now().toISOString()});
   if(['CARDS_DELIVERED','DELIVERED'].includes(result.status))await native.collection(COLLECTION).doc(intakeId).set({
     status:result.status,cardProjectionVersion:CARD_PROJECTION_VERSION,requestId:context.request_id,bridgeRequestId:request.requestId,result,completedAt:now().toISOString()});
   const state=await readTestDocument(native.collection(COLLECTION).doc(id));

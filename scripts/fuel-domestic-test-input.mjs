@@ -20,6 +20,23 @@ function articleDiv(html,className,id=null) {
   fail('FUEL_TEST_PRICING_BODY_MISSING');
 }
 
+// This calendar's toDay widget is not an adjustment date. Bind every other byte
+// to the reviewed receipt and continue checking the calendar image separately.
+function matchesCalendarReceipt(source,bytes,now) {
+  if(source.sourceId!=='calendar'||source.sourceUrl!=='https://cx.sinopecsales.com/yjkqiantai/core/toCalendar'||
+    !/^\d{4}-\d{2}-\d{2}$/.test(source.frozenUiDay??''))return false;
+  const [year,month,day]=source.frozenUiDay.split('-').map(Number);
+  if(new Date(Date.UTC(year,month-1,day)).toISOString().slice(0,10)!==source.frozenUiDay)return false;
+  const html=bytes.toString('utf8'),matches=[...html.matchAll(/\btoDay:\s*"(\d{4}\\u5E74\d{1,2}\\u6708\d{1,2}\\u65E5)"/g)];
+  if(matches.length!==1)return false;
+  const displayed=JSON.parse(`"${matches[0][1]}"`);
+  const today=new Date(+new Date(now)+8*3600000).toISOString().slice(0,10).split('-').map(Number);
+  if(displayed!==`${today[0]}年${today[1]}月${today[2]}日`)return false;
+  const frozen=`${year}\\u5E74${month}\\u6708${day}\\u65E5`;
+  const canonical=html.replace(matches[0][0],matches[0][0].replace(matches[0][1],frozen));
+  return digest(canonical)===source.contentHash;
+}
+
 // Recheck the already reviewed sources/field bindings; never discover or infer a new domestic estimate/window.
 export async function recheckDomesticSources(seed,{fetchImpl=fetch,now=()=>new Date()}={}) {
   const receipts=[];
@@ -30,8 +47,12 @@ export async function recheckDomesticSources(seed,{fetchImpl=fetch,now=()=>new D
     const bytes=Buffer.from(await response.arrayBuffer());
     if(bytes.length>2*1024*1024)fail('FUEL_TEST_SOURCE_TOO_LARGE');
     const contentHash=digest(bytes),checkedAt=now().toISOString();
+    let uiOnlyChange=false;
     if(source.kind==='FROZEN_OFFICIAL_RECEIPT') {
-      if(contentHash!==source.contentHash)fail('FUEL_TEST_OFFICIAL_SOURCE_CHANGED');
+      if(contentHash!==source.contentHash) {
+        uiOnlyChange=matchesCalendarReceipt(source,bytes,new Date(checkedAt));
+        if(!uiOnlyChange)fail('FUEL_TEST_OFFICIAL_SOURCE_CHANGED');
+      }
     } else if(source.kind==='VERIFIED_PRICING_PARAGRAPH') {
       const html=bytes.toString('utf8').replace(/<!--[\s\S]*?-->/g,'').replace(/<(script|style|noscript)\b[^>]*>[\s\S]*?<\/\1>/gi,'');
       const article=articleDiv(html,'xqbox'),header=articleDiv(article,'xq-head');
@@ -43,7 +64,8 @@ export async function recheckDomesticSources(seed,{fetchImpl=fetch,now=()=>new D
       if(matching.length!==1||digest(matching[0])!==source.paragraphTextHash||
         timestamps.length!==1||timestamps[0]!==source.publisherTimestampText)fail('FUEL_TEST_PRICING_BINDING_CHANGED');
     } else fail('FUEL_TEST_SOURCE_KIND_UNKNOWN');
-    receipts.push({sourceId:source.sourceId,sourceUrl:source.sourceUrl,contentHash,checkedAt});
+    receipts.push({sourceId:source.sourceId,sourceUrl:source.sourceUrl,contentHash,checkedAt,
+      ...(uiOnlyChange?{uiOnlyChange:true,frozenContentHash:source.contentHash}:{})});
   }
   const copy=structuredClone(seed),receipt=id=>receipts.find(r=>r.sourceId===id),completed=ids=>ids.map(id=>receipt(id).checkedAt).sort().at(-1);
   copy.policy.checkedAt=completed(copy.policySourceIds);
