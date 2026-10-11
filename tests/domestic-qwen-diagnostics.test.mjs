@@ -6,8 +6,8 @@ import { loadReplayFixture } from '../scripts/intelligence-v2/replay.mjs';
 import { projectDomesticInput, domesticInputGate, domesticAnalysisSchema, validateDomesticAnalysis, createDomesticQwenRequest, runDomesticForecast } from '../scripts/intelligence-v2/domestic-fuel.mjs';
 import { evidenceHashFor } from '../scripts/intelligence-v2/history.mjs';
 
-const fixture=async()=>{
-  const base=await loadReplayFixture(),f=await domesticFixture('CASE_UP_DOMESTIC',{now:new Date(base.now)});
+const fixture=async(name='CASE_UP_DOMESTIC')=>{
+  const base=await loadReplayFixture(),f=await domesticFixture(name,{now:new Date(base.now)});
   f.input=projectDomesticInput({pack:base.pack,policy:f.input.policy,adjustmentWindow:f.input.adjustmentWindow,domesticEvidence:f.input.evidence.filter(e=>e.directionScope==='DOMESTIC_ADJUSTMENT'),evidenceProof:f.input.evidenceProof,now:f.now});
   return f;
 };
@@ -79,6 +79,43 @@ test('primary selection hint uses the admitted ID set and caps selection at thre
   const before=JSON.stringify(f.input),allowed=domesticInputGate(f.input,{now:f.now}).primaryEvidenceIds,request=createDomesticQwenRequest(f.input);
   assert.equal(allowed.length,4);assert.equal(request.body.messages[0].content.includes(JSON.stringify(allowed)),true);assert.match(request.body.messages[0].content,/最多选择 3 个/);
   assert.deepEqual(request.body.response_format.json_schema.schema,domesticAnalysisSchema(f.input));assert.equal(request.evidenceRevision,evidenceHashFor(f.input));assert.equal(JSON.stringify(f.input),before);
+});
+
+test('observed 202-character reason shape stays rejected and the prompt states the existing bound',async()=>{
+  const f=await fixture('CASE_DOWN_DOMESTIC'),shortReason=f.analysis.reason;
+  f.analysis.probabilities={UP:5,DOWN:60,FLAT:35};
+  // A constructed length counterexample, not the unretained real model response.
+  f.analysis.reason='构'.repeat(202);
+  const rejected=await attempt(f);
+  assert.equal(rejected.error.message,'DOMESTIC_REASON_INVALID');assert.equal(rejected.audit.validationCode,'DOMESTIC_REASON_TEXT_INVALID');
+  assert.equal(rejected.audit.validationInvariant,'PLAIN_NONEMPTY_REASON_MAX_180');assert.equal(rejected.audit.fieldName,'reason');
+  assert.equal(rejected.audit.outputStructure.reason.characterCount,202);assert.deepEqual(rejected.audit.selectedPrimaryEvidenceIds,f.analysis.primaryEvidenceIds);
+  assert.equal(rejected.result,undefined);assert.equal(rejected.calls,1);assert.equal(JSON.stringify(rejected.audit).includes(f.analysis.reason),false);
+  f.analysis.reason=shortReason;const accepted=await attempt(f);
+  assert.equal(accepted.error,undefined);assert.equal(accepted.result.gate.gate,'PASS');assert.equal(accepted.result.forecast.reason,shortReason);
+  assert.deepEqual(accepted.result.forecast.probabilities,{UP:.05,DOWN:.6,HOLD_OR_NO_ADJUSTMENT:.35});
+  for(const {request}of [rejected,accepted]) {
+    assert.equal(request.messages[0].content.includes('最多180个字符'),true,'Domestic prompt must state the existing 180-character bound');
+    assert.equal(request.messages[0].content.includes('不换行'),true);
+    assert.deepEqual(request.response_format.json_schema.schema,domesticAnalysisSchema(f.input));
+  }
+});
+
+test('reason Unicode character boundary remains 180 with no silent truncation',async()=>{
+  for(const [count,accepted]of [[180,true],[181,false]]) {
+    const f=await fixture();f.analysis.reason='证'.repeat(count-1)+'🛢';assert.equal(Array.from(f.analysis.reason).length,count);
+    const result=await attempt(f);
+    if(accepted){assert.equal(result.error,undefined);assert.equal(result.result.gate.gate,'PASS');assert.equal(result.result.forecast.reason,f.analysis.reason);}
+    else {assert.equal(result.audit.validationCode,'DOMESTIC_REASON_TEXT_INVALID');assert.equal(result.result,undefined);}
+    assert.equal(result.audit.outputStructure.reason.characterCount,count);assert.equal(result.calls,1);
+  }
+});
+
+test('reason prompt clarification keeps empty, control, markup and non-string output closed',async()=>{
+  for(const reason of ['', '依据\n不能换行', '依据<标签>', {text:'不是字符串'}]) {
+    const f=await fixture();f.analysis.reason=reason;const result=await attempt(f);
+    assert.equal(result.audit.validationCode,'DOMESTIC_REASON_TEXT_INVALID');assert.equal(result.result,undefined);assert.equal(result.calls,1);
+  }
 });
 
 test('unknown ordinary IDs remain visible while credential-like identities and raw output are excluded',async()=>{
