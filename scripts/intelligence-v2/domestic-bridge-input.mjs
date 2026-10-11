@@ -47,10 +47,23 @@ export function buildDomesticBridgeCards({pack,request,previous=[],consumedEvide
     row.summary=`未核实：${row.summary}`;
     if(Array.from(row.summary).length>90)fail('DOMESTIC_BRIDGE_CARD_SUMMARY_TOO_LONG');
   }
+  for(const row of collection.acceptedEvidence) {
+    const uncertain=unconfirmed.has(row.evidenceId)||row.directionLabel.endsWith('（未确认）')||row.summary.startsWith('未核实：');
+    row.directionLabel=row.direction==='NEUTRAL'?'中性':row.type==='RISK'?
+      row.direction==='UP'?'上涨风险':'下跌风险':row.direction==='UP'?'利涨':'利跌';
+    if(uncertain)row.directionLabel+='（未确认）';
+  }
   const {collectionHash,...value}=collection;
   const result={...value,collectionHash:evidenceHashFor(value)};
   verifyAcceptedCollection(result,{now});
   // Display accumulation does not claim that the current Forecast consumed the event.
-  const eligibility=recomputeEligibility({pack:merged.pack,externalSignals:merged.pack.externalAnalystSignals,previous:consumedEvidence,now});
+  let eligibility=recomputeEligibility({pack:merged.pack,externalSignals:merged.pack.externalAnalystSignals,previous:consumedEvidence,now});
+  // Uncertainty stays in the model input. It does not make a directional analyst
+  // claim irrelevant, nor turn its cited article into a verified market fact.
+  if(eligibility.reason==='LOW_MATERIALITY'&&merged.pack.externalAnalystSignals.some(signal=>
+    signal.confirmation==='UNCONFIRMED'&&signal.strength==='MEDIUM'&&signal.direction!=='NEUTRAL'&&
+    !consumedEvidence.some(row=>row.eventKey===signal.eventKey))) {
+    eligibility={...eligibility,eligible:true,checks:{...eligibility.checks,material:true},reason:'MATERIAL_UNCONFIRMED_ANALYST_INPUT'};
+  }
   return {collection:result,evidenceIds:normalized.signals.map(signal=>signal.evidenceId),eligibility};
 }

@@ -74,19 +74,49 @@ test('invalid domestic support and oversized claim text reject without repairing
   assert.throws(()=>buildDomesticBridgeInput(oversized),/DOMESTIC_BRIDGE_TEXT_TOO_LONG/);
 });
 
-test('unconfirmed analyst cards visibly carry the warning, never become Forecast reasons, and repeat intake deduplicates',async()=>{
+test('directional MEDIUM unconfirmed claims retain their warning and can trigger analysis independently of card delivery',async()=>{
   const f=await fixture(),before=structuredClone(f.pack),first=buildDomesticBridgeCards(f);
   verifyAcceptedCollection(first.collection,{now});assert.deepEqual(f.pack,before);
   const row=first.collection.acceptedEvidence.find(e=>first.evidenceIds.includes(e.evidenceId));
   assert(row.summary.startsWith('未核实：'));assert.equal(row.displayEligible,true);assert.equal(row.influenceBasis,'EXTERNAL_ANALYST');
   assert.equal(row.relationship,'RELATED_ONLY');assert.equal(row.forecastHash,null);assert.equal(row.type,'CLAIM');
-  assert.equal(first.eligibility.eligible,false);assert.equal(first.eligibility.reason,'LOW_MATERIALITY');
+  assert.equal(row.directionLabel,'利涨（未确认）');
+  assert.equal(first.eligibility.eligible,true);assert.equal(first.eligibility.reason,'MATERIAL_UNCONFIRMED_ANALYST_INPUT');
+  assert.equal(first.eligibility.checks.core,'PASS');assert.equal(first.eligibility.checks.sourceTrust,'EXTERNAL_ANALYST');
   assert.equal(row.sourceUrl,f.request.signalPackage.signals[0].sourceUrl);
   const {collectionHash,...value}=first.collection;assert.equal(collectionHash,evidenceHashFor(value));
   const second=buildDomesticBridgeCards({...f,previous:first.collection.acceptedEvidence});
   assert.equal(second.collection.acceptedEvidence.filter(e=>e.eventKey===row.eventKey).length,1);
   assert.deepEqual(second.collection,first.collection);
-  assert.equal(second.eligibility.eligible,false);assert.equal(second.eligibility.reason,'LOW_MATERIALITY');
+  assert.equal(second.eligibility.eligible,true);assert.equal(second.eligibility.reason,'MATERIAL_UNCONFIRMED_ANALYST_INPUT');
+  const consumed=buildDomesticBridgeCards({...f,previous:first.collection.acceptedEvidence,consumedEvidence:[{eventKey:row.eventKey}]});
+  assert.equal(consumed.eligibility.eligible,false);assert.equal(consumed.eligibility.reason,'DUPLICATE');
+});
+
+test('unconfirmed LOW and NEUTRAL claims remain card-only and display their actual direction',async()=>{
+  for(const [change,label]of [[s=>{s.strength='LOW';s.direction='DOWN';},'利跌（未确认）'],[s=>{s.direction='NEUTRAL';},'中性（未确认）']]) {
+    const f=await fixture(p=>change(p.signals[0])),result=buildDomesticBridgeCards(f);
+    assert.equal(result.eligibility.eligible,false);assert.equal(result.eligibility.reason,'LOW_MATERIALITY');
+    assert.equal(result.collection.acceptedEvidence.find(e=>result.evidenceIds.includes(e.evidenceId)).directionLabel,label);
+  }
+});
+
+test('an already consumed MEDIUM claim plus a new LOW claim does not trigger another inference',async()=>{
+  const f=await fixture(p=>p.signals.push({...p.signals[0],eventKey:'synthetic-new-low',strength:'LOW'}));
+  const result=buildDomesticBridgeCards({...f,consumedEvidence:[{eventKey:f.request.signalPackage.signals[0].eventKey}]});
+  assert.equal(result.eligibility.eligible,false);assert.equal(result.eligibility.reason,'LOW_MATERIALITY');
+  assert.equal(result.collection.acceptedEvidence.filter(e=>result.evidenceIds.includes(e.evidenceId)).length,2);
+});
+
+test('uncertainty cannot bypass failed core admission, and RISK labels never claim an occurred fact',async()=>{
+  const f=await fixture();f.pack.signals=f.pack.signals.filter(e=>e.id!=='market-diesel');
+  const result=buildDomesticBridgeCards(f);
+  assert.equal(result.eligibility.eligible,false);assert.equal(result.eligibility.reason,'CORE_INVALID');
+  for(const direction of ['UP','DOWN']) {
+    const risk=await fixture(p=>Object.assign(p.signals[0],{kind:'RISK',confirmation:'CONDITIONAL',direction}));
+    const row=buildDomesticBridgeCards(risk).collection.acceptedEvidence[0];
+    assert.equal(row.directionLabel,direction==='UP'?'上涨风险':'下跌风险');
+  }
 });
 
 test('material eligibility follows existing source/novelty/strength rules while card publication is independent of Core readiness',async()=>{

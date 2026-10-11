@@ -11,6 +11,7 @@ import { verifyRuntimeFiles, publishRuntimeArtifact } from './fuel-domestic-test
 
 export const BRIDGE_AUTHORIZATION='FUEL_EXPLICIT_DOMESTIC_TEST_BRIDGE_V1';
 export const BRIDGE_PATH='data/domestic-test-bridge/latest-request.json';
+export const CARD_PROJECTION_VERSION='DIRECTIONAL_BRIDGE_CARDS_V1';
 const COLLECTION='yuzhang_fuel_forecasts';
 const digest=x=>createHash('sha256').update(x).digest('hex');
 const fail=code=>{throw Object.assign(new Error(code),{code});};
@@ -57,7 +58,7 @@ export async function runDomesticBridgeRequest({request,sourceReceipt,loadInput,
   const initial=buildDomesticBridgeCards({pack:{generatedAt:startedAt,signals:[],newsDocuments:[]},request,previous,now:now()});
   const cardDelivery=await publishCards({collection:initial.collection,request,sourceReceipt});
   const acceptedCollection=cardDelivery.collection??initial.collection;
-  if(request.signalPackage.signals.every(s=>s.strength==='LOW'||s.confirmation==='UNCONFIRMED'))return {
+  if(request.signalPackage.signals.every(s=>s.strength==='LOW'))return {
     status:'CARDS_DELIVERED',modelCalls:0,cardDelivery,eligibility:{eligible:false,reason:'LOW_MATERIALITY'},
     cardIds:acceptedCollection.acceptedEvidence.map(e=>e.id),completedAt:now().toISOString()};
   let loaded;
@@ -106,9 +107,9 @@ export async function runDomesticBridgeRequest({request,sourceReceipt,loadInput,
 
 export async function publishBridgeCards({native,consumerRoot,collection,request,sourceReceipt,now=Date.now()}={}) {
   let bytes=Buffer.from(JSON.stringify(collection,null,2)+'\n'),sourceArtifactHash=digest(bytes);
-  let receipt={kind:'RUNTIME_ACCEPTED_NEWS_ARTIFACT',bridgeRequestId:request.requestId,sourceReceipt,
+  let receipt={kind:'RUNTIME_ACCEPTED_NEWS_ARTIFACT',cardProjectionVersion:CARD_PROJECTION_VERSION,bridgeRequestId:request.requestId,sourceReceipt,
     coreSha:CORE_SHA,consumerSha:CONSUMER_SHA,sourceArtifactHash,collectionHash:collection.collectionHash};
-  const id=`fuelTestBridgeNewsArtifact-${request.requestId}`;
+  const id=`fuelTestBridgeNewsArtifact-${request.requestId}-direction-v1`;
   await native.runTransaction(async tx=>{
     const doc=tx.collection(COLLECTION).doc(id),old=await readTestDocument(doc);
     if(old) {
@@ -130,7 +131,7 @@ export async function publishBridgeCards({native,consumerRoot,collection,request
   const current=await readTestDocument(native.collection(COLLECTION).doc('currentFuelNews'));
   if(current&&Date.parse(current.collection?.generatedAt)>Date.parse(collection.generatedAt)&&projectAcceptedNews(current,now,null)) {
     const selected=collection.acceptedEvidence.filter(e=>request.signalPackage.signals.some(s=>s.eventKey===e.eventKey));
-    if(selected.length&&selected.every(e=>current.collection.acceptedEvidence.some(c=>c.id===e.id&&c.contentHash===e.contentHash)))
+    if(selected.length&&selected.every(e=>current.collection.acceptedEvidence.some(c=>c.id===e.id&&c.contentHash===e.contentHash&&c.directionLabel===e.directionLabel)))
       return {replayed:true,collection:current.collection};
   }
   const value={sourceCommit:sourceReceipt.commit,sourceArtifactHash,collection};
@@ -148,7 +149,8 @@ export async function handleDomesticBridgeTimer({event,context,root,native,provi
   if(!loadedRequest)return {status:'NO_BRIDGE_REQUEST',modelCalls:0};
   const {request,sourceReceipt}=loadedRequest,id=bridgeStateId(request);
   const intakeId=`fuelDomesticBridgeIntake-${request.requestId}`;
-  if(await readTestDocument(native.collection(COLLECTION).doc(intakeId)))return {status:'BRIDGE_INTAKE_ALREADY_DELIVERED',modelCalls:0};
+  const intake=await readTestDocument(native.collection(COLLECTION).doc(intakeId));
+  if(intake?.status==='DELIVERED'||intake?.cardProjectionVersion===CARD_PROJECTION_VERSION)return {status:'BRIDGE_INTAKE_ALREADY_DELIVERED',modelCalls:0};
   if(await readTestDocument(native.collection(COLLECTION).doc(id)))return {status:'REQUEST_ALREADY_CONSUMED',modelCalls:0};
   const seedBytes=readFileSync(resolve(root,'domestic-source-seed.json'));
   if(digest(seedBytes)!==manifest.sourceSeedHash)fail('FUEL_TEST_SOURCE_SEED_MISMATCH');
@@ -180,7 +182,7 @@ export async function handleDomesticBridgeTimer({event,context,root,native,provi
     publish:({stored})=>publishRuntimeArtifact({native,consumerRoot:resolve(root,'consumer'),stored,now:+now()})});
   await diagnostic.update({status:result.status,completedAt:now().toISOString()});
   if(['CARDS_DELIVERED','DELIVERED'].includes(result.status))await native.collection(COLLECTION).doc(intakeId).set({
-    status:result.status,requestId:context.request_id,bridgeRequestId:request.requestId,result,completedAt:now().toISOString()});
+    status:result.status,cardProjectionVersion:CARD_PROJECTION_VERSION,requestId:context.request_id,bridgeRequestId:request.requestId,result,completedAt:now().toISOString()});
   const state=await readTestDocument(native.collection(COLLECTION).doc(id));
   if(state?.requestId===context.request_id) {
     const terminal={status:result.status,completedAt:now().toISOString(),result};
