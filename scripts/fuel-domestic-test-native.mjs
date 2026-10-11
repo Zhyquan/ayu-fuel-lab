@@ -59,7 +59,7 @@ export async function handleFuelTestTimer({event,context,root,native,providerEnv
   const manifest=JSON.parse(readFileSync(resolve(root,'runtime-manifest.json'),'utf8'));
   assertFuelTestTrigger(event,context,manifest);
   verifyRuntimeFiles(root,manifest);
-  const stateId='fuelTestDomesticRuntimeAuthorization20261011';
+  const stateId='fuelFinalIntegrationAuthorization20261011';
   // Budget check precedes every public HTTP request. Reserved also means consumed after a failure.
   if(await readTestDocument(native.collection(COLLECTION).doc(stateId)))return {status:'TEST_AUTHORIZATION_ALREADY_CONSUMED',modelCalls:0};
   const seed=JSON.parse(readFileSync(resolve(root,'domestic-source-seed.json'),'utf8'));
