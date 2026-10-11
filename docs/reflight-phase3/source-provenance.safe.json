@@ -1,0 +1,568 @@
+{
+  "reviewVerdict": "PASS_SOURCE_AND_INPUT_PROVENANCE_ONLY_NOT_FORECAST_ACCEPTANCE",
+  "reviewedBy": "INDEPENDENT_REFLIGHT_REVIEWER_AND_ROOT",
+  "reviewScope": [
+    "six_raw_source_byte_hashes",
+    "source_slice_hashes",
+    "two_derived_manifest_hashes",
+    "regulation_pdf_pages",
+    "actual_publication_precision",
+    "final_v2_input_rebuild",
+    "model_attempt_input_identity"
+  ],
+  "provenanceAsRecordedBeforeReview": {
+    "status": "PRIVATE_REAL_INPUT_PENDING_INDEPENDENT_PROVENANCE_REVIEW",
+    "coreSourceCommit": "57adb93bde418ef5c1e493d6e9442b8d42648e68",
+    "inputContract": "DOMESTIC_FUEL_INPUT_V1",
+    "evidenceProof": "REAL_VERIFIED_EVIDENCE",
+    "evidenceRevision": "2a0877d029865565e81474bdbd596774ce59abf4ebf1a2b05a575ea76d0b8489",
+    "corePack": {
+      "bytesHash": "1b47e6858cf305decc3a5a8e7224bd62d1044dd68e7418e4b0a6ba24bc121db8",
+      "evidenceRevision": "80eaf6f012a097a28533ab98b0d437cb766557d05ec5db2625dda85b2751962a",
+      "generatedAt": "2026-10-11T01:55:04.832Z",
+      "signalIds": [
+        "market-wti",
+        "market-brent",
+        "market-diesel",
+        "eia-stocks",
+        "eia-production",
+        "eia-refinery-inputs"
+      ],
+      "signalHashScope": "CANONICAL_ORIGINAL_SIGNAL_SHA256_FROM_PROJECT_DOMESTIC_INPUT",
+      "sourceReceipts": [
+        {
+          "sourceUrl": "https://www.eia.gov/todayinenergy/prices.php",
+          "rawContentHash": "f35a2e8876e4a5201cd812bbe274478281468a296c3bce6a622a85ef86274c7f",
+          "bodyBytes": 74476,
+          "checkedAt": "2026-10-11T01:55:04.832Z"
+        },
+        {
+          "sourceUrl": "https://ir.eia.gov/wpsr/psw00.json",
+          "rawContentHash": "202bbe7a17c6b4e2ceb0b33440ca98cfbd25ba78c2b1ceacdd12084524b79ed2",
+          "bodyBytes": 246864,
+          "checkedAt": "2026-10-11T01:55:04.832Z"
+        },
+        {
+          "sourceUrl": "https://ir.eia.gov/wpsr/table1.csv",
+          "rawContentHash": "3363aba8612df143450c0bc17e26d1be3837b5b8052c265f98d49fe595c70274",
+          "bodyBytes": 6666,
+          "checkedAt": "2026-10-11T01:55:04.832Z"
+        },
+        {
+          "sourceUrl": "https://ir.eia.gov/wpsr/table2.csv",
+          "rawContentHash": "b5070d2dc457bad9fcf7198766b147f35c3b4cd0d24bd99ccd5197f1e2942928",
+          "bodyBytes": 8452,
+          "checkedAt": "2026-10-11T01:55:04.832Z"
+        },
+        {
+          "sourceUrl": "https://www.eia.gov/petroleum/supply/weekly/schedule.php",
+          "rawContentHash": "fe50afa140a44beb96a4ed957544d064faf721ac1d8cf6a3b72916fde63fa2f2",
+          "bodyBytes": 52129,
+          "checkedAt": "2026-10-11T01:55:04.832Z"
+        },
+        {
+          "sourceUrl": "https://ir.eia.gov/wpsr/summary.txt",
+          "rawContentHash": "f348821aca670afc4676b630eaa780a074bd62eaa90852c996716a9f3af15f4d",
+          "bodyBytes": 1386,
+          "checkedAt": "2026-10-11T01:55:04.832Z"
+        },
+        {
+          "sourceUrl": "https://www.eia.gov/petroleum/supply/weekly/",
+          "rawContentHash": "a3943b5c4cbcf23ab40242f5519e770ba2a5cfb72cc72401e788c437c1fc0736",
+          "bodyBytes": 86855,
+          "checkedAt": "2026-10-11T01:55:04.832Z"
+        },
+        {
+          "sourceUrl": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU,DCOILWTICO,DDFUELNYH",
+          "rawContentHash": "743baa4a70d06b0d35d847966e10e0204f7e116a4d767b34b945b641e9ed325e",
+          "bodyBytes": 269254,
+          "checkedAt": "2026-10-11T01:55:04.832Z"
+        }
+      ]
+    },
+    "sources": [
+      {
+        "sourceId": "policy-mechanism",
+        "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/201601/t20160113_963566_ext.html",
+        "rawContentHash": "a304c76822cd11fc7ee24e03ac52d78609f465da07b8978e65e2fb114a4f8ef7",
+        "bodyBytes": 6783
+      },
+      {
+        "sourceId": "policy-september24",
+        "sourceUrl": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260924_1407824.html",
+        "rawContentHash": "c5a5590579dd57af685118f381892117393632d37c7b24f588b3d09df4d1d1ff",
+        "bodyBytes": 5908
+      },
+      {
+        "sourceId": "calendar",
+        "sourceUrl": "https://cx.sinopecsales.com/yjkqiantai/core/toCalendar",
+        "rawContentHash": "9fe0ce3fbb056eba25f9c63111f5f540471a0602f5e15f7de5b1e3a3df9b585d",
+        "bodyBytes": 12707
+      },
+      {
+        "sourceId": "calendar-october-image",
+        "sourceUrl": "https://cx.sinopecsales.com/yjkqiantai/oilImages/202610.png",
+        "rawContentHash": "1bdd89cb9f69d5003e1a6dabb2700e0588a98d9c27f319314e2092664405c7a4",
+        "bodyBytes": 25266
+      },
+      {
+        "sourceId": "pricing-oilchem-early-october10-full-public",
+        "sourceUrl": "https://www.oilchem.net/26-1010-08-5212c0fd09f45f70.html",
+        "rawContentHash": "f521ba827efad03afe8fd742d51755dbf598664632e771e62e126f7155031c5d",
+        "bodyBytes": 137346
+      },
+      {
+        "sourceId": "policy-mechanism-2016-full-pdf",
+        "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/201601/W020190905506573420251.pdf",
+        "rawContentHash": "e668aa2b73f4748e743208fa6897d812c85fe494a888ddf583c2178232be6ea0",
+        "bodyBytes": 103842
+      }
+    ],
+    "policyManifestHash": "8a6eb15d597a7239e9c24152cdee38f283bf4b5b24a6d5bd6be28db8c862cc95",
+    "windowManifestHash": "eeced043322e05e03c50164f76568424e3334aed7c952f3cd04fcd19277756a3",
+    "policySemantics": {
+      "temporaryControl": "ACTIVE_APPLIED_TO_CURRENT_PRICE_PERIOD",
+      "currentPeriodEffectiveFrom": "2026-09-24T16:00:00.000Z",
+      "nextWindowTemporaryControl": "UNKNOWN",
+      "notBasedOnNegativeSearch": true,
+      "regulation": "2016_FULL_PDF_ARTICLES_6_7_22"
+    },
+    "pricing": {
+      "evidenceId": "lz-current-window-estimate-20261009",
+      "sourceId": "pricing-oilchem-early-october10-full-public",
+      "sourceUrl": "https://www.oilchem.net/26-1010-08-5212c0fd09f45f70.html",
+      "rawContentHash": "f521ba827efad03afe8fd742d51755dbf598664632e771e62e126f7155031c5d",
+      "hashScope": "RAW_HTTP_BODY_SHA256",
+      "publication": {
+        "publishedAt": "2026-10-10T00:31:00.000Z",
+        "publishedAtPrecision": "MINUTE",
+        "publisherTimestampText": "2026-10-10 08:31",
+        "publisherTimeZone": "Asia/Shanghai",
+        "secondsAreDateAnchorNotAssertedPublicationSeconds": true
+      },
+      "segment": {
+        "locator": "xq-content p:contains(\"截至10月9日\")",
+        "rawByteStart": 75976,
+        "rawByteEnd": 76489,
+        "rawSliceHash": "8091bff84dcc66af530555fec4a3baf82563626612972a4c7345d0a404bf7d1d",
+        "textHash": "a27bcc4d1cefd89306c049c446f82eafde529fb7147ec453d27d0bda1f185d6a"
+      },
+      "asOfDate": "2026-10-09",
+      "periodStatisticDay": 6,
+      "changeRatePct": -6.18,
+      "estimatedAdjustmentYuanPerTonne": -290,
+      "targetAdjustmentAt": "2026-10-15T16:00:00.000Z",
+      "kind": "ESTIMATE",
+      "finalOfficialAdjustment": false,
+      "estimationMethod": "INSTITUTION_PUBLISHED_CURRENT_CYCLE_ESTIMATE_NOT_LOCALLY_RECONSTRUCTED_UNPUBLISHED_BASKET"
+    },
+    "roleBindings": [
+      {
+        "evidenceId": "market-wti",
+        "role": "INTERNATIONAL_PRICE_INPUT",
+        "directionScope": "INPUT_ONLY",
+        "kind": "FACT",
+        "contentHash": "72e90d6107be28059fc9dbd42ff83d1a26b3b2c6d03e3d7021b34e9dfdaf830c"
+      },
+      {
+        "evidenceId": "market-brent",
+        "role": "INTERNATIONAL_PRICE_INPUT",
+        "directionScope": "INPUT_ONLY",
+        "kind": "FACT",
+        "contentHash": "8f54414a12c7c6ffafed9b26229463dcfab24fd744edc7b74172e1802ba89025"
+      },
+      {
+        "evidenceId": "market-diesel",
+        "role": "INTERNATIONAL_PRICE_INPUT",
+        "directionScope": "INPUT_ONLY",
+        "kind": "FACT",
+        "contentHash": "172a5490f6113a94e5f957bae3d175f6f062f65bfb50588b7ac9d1eec791e895"
+      },
+      {
+        "evidenceId": "eia-stocks",
+        "role": "INVENTORY_INPUT",
+        "directionScope": "INPUT_ONLY",
+        "kind": "FACT",
+        "contentHash": "5664b9f2b411df9cb34e7b96fc20fa74ad5e9b7b10716ff42ec835be0ec26952"
+      },
+      {
+        "evidenceId": "eia-production",
+        "role": "REFINERY_SUPPLY_INPUT",
+        "directionScope": "INPUT_ONLY",
+        "kind": "FACT",
+        "contentHash": "21b35ed84a884ca3fc037d161b8f9319e33e1eb84b913e17b2ef035a07c57466"
+      },
+      {
+        "evidenceId": "eia-refinery-inputs",
+        "role": "REFINERY_SUPPLY_INPUT",
+        "directionScope": "INPUT_ONLY",
+        "kind": "FACT",
+        "contentHash": "93d8411ac2bdb16f64943ac73d1746c62d9b123229930a62b57dce07c9f7f283"
+      },
+      {
+        "evidenceId": "lz-current-window-estimate-20261009",
+        "role": "DOMESTIC_PRICING_SIGNAL",
+        "directionScope": "DOMESTIC_ADJUSTMENT",
+        "kind": "ESTIMATE",
+        "contentHash": "f521ba827efad03afe8fd742d51755dbf598664632e771e62e126f7155031c5d"
+      },
+      {
+        "evidenceId": "ndrc-current-cycle-policy-context-20260924",
+        "role": "OFFICIAL_POLICY_OR_ADJUSTMENT",
+        "directionScope": "INPUT_ONLY",
+        "kind": "FACT",
+        "contentHash": "8a6eb15d597a7239e9c24152cdee38f283bf4b5b24a6d5bd6be28db8c862cc95"
+      }
+    ],
+    "relatedNews": [
+      {
+        "evidenceId": "br-40443657",
+        "role": "UNASSESSED_NEWS_INPUT",
+        "direction": "UNASSESSED",
+        "sourceUrl": "https://www.brecorder.com/news/40443657/germany-pursues-new-russia-sanctions-despite-us-diesel-deal",
+        "articleContentHash": "63d6b6ec091ca7cfc5d51febea9e957bd6d62fc1245df31de1aa4819917b1d3a",
+        "publishedAt": "2026-10-10T21:21:50.000Z",
+        "publishedAtPrecision": "SECOND"
+      },
+      {
+        "evidenceId": "br-40443602",
+        "role": "UNASSESSED_NEWS_INPUT",
+        "direction": "UNASSESSED",
+        "sourceUrl": "https://www.brecorder.com/news/40443602/gold-hits-one-week-high-on-softer-oil-prices",
+        "articleContentHash": "1103203abfaf305805d79475842bb2cf739ca6ddfd051a3ce81fcd2074ff732b",
+        "publishedAt": "2026-10-10T21:21:50.000Z",
+        "publishedAtPrecision": "SECOND"
+      }
+    ],
+    "onlyAcceptedDomesticPrimaryIds": [
+      "lz-current-window-estimate-20261009"
+    ],
+    "missingRoles": [
+      "FX_INPUT",
+      "GEOPOLITICAL_INPUT",
+      "RELATED_LOW_IMPACT"
+    ],
+    "omissions": [
+      "SAFE unit/publication lineage is not fully frozen in this input; FX_INPUT is recorded missing, not fabricated.",
+      "Unarchived conditional 卓创 commentary is not added as evidence.",
+      "Earlier or member-only same-window 隆众 articles are not counted as independent primaries."
+    ],
+    "limitations": [
+      "Calendar window alone does not imply HOLD; October15 is within the real October11 next-seven-days horizon.",
+      "Original component fetch timestamps are retained in the private transport index. Derived receipt checkedAt is the actual complete composite verification, not a new market observation or source publication.",
+      "Private input validation is not a Forecast, Test publication or model proof."
+    ],
+    "derivedReceiptVerifiedAt": "2026-10-11T04:45:30.664Z",
+    "derivedReceiptCheckedAtMeaning": "Actual complete local verification recorded by the receipt builder. Original HTTP fetch timestamps remain separate and unchanged.",
+    "previousConservativeMinCheckedAt": {
+      "policy": "2026-10-11T04:28:38.458Z",
+      "window": "2026-10-11T04:28:38.673Z",
+      "context": "2026-10-11T04:28:38.458Z"
+    }
+  },
+  "inputValidationAsRecordedBeforeReview": {
+    "status": "PRIVATE_REAL_INPUT_GATE_PASS_PENDING_INDEPENDENT_PROVENANCE_REVIEW",
+    "coreSourceCommit": "57adb93bde418ef5c1e493d6e9442b8d42648e68",
+    "checkedAt": "2026-10-11T04:48:13.564Z",
+    "derivedReceiptCheckedAt": "2026-10-11T04:45:30.664Z",
+    "realModelCalls": 0,
+    "inputGate": {
+      "gate": "PASS",
+      "errors": [],
+      "primaryEvidenceIds": [
+        "lz-current-window-estimate-20261009"
+      ]
+    },
+    "evidenceRevision": "2a0877d029865565e81474bdbd596774ce59abf4ebf1a2b05a575ea76d0b8489",
+    "requestBodyBytes": 15403,
+    "horizonStartAt": "2026-10-11T04:45:30.664Z",
+    "horizonEndAt": "2026-10-18T04:45:30.664Z",
+    "nextAdjustmentAt": "2026-10-15T16:00:00.000Z",
+    "rawSourceByteHashChecks": 6,
+    "publicationAttempted": false,
+    "originalSourceFetchTimestampsPreserved": true
+  },
+  "actualSourceTransportReceipts": [
+    {
+      "sourceId": "policy-mechanism",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/201601/t20160113_963566_ext.html",
+      "httpStatus": 200,
+      "bodyReceivedAt": "2026-10-11T04:28:38.458Z",
+      "rawContentHash": "a304c76822cd11fc7ee24e03ac52d78609f465da07b8978e65e2fb114a4f8ef7",
+      "bodyBytes": 6783
+    },
+    {
+      "sourceId": "policy-september24",
+      "sourceUrl": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260924_1407824.html",
+      "httpStatus": 200,
+      "bodyReceivedAt": "2026-10-11T04:28:38.831Z",
+      "rawContentHash": "c5a5590579dd57af685118f381892117393632d37c7b24f588b3d09df4d1d1ff",
+      "bodyBytes": 5908
+    },
+    {
+      "sourceId": "calendar",
+      "sourceUrl": "https://cx.sinopecsales.com/yjkqiantai/core/toCalendar",
+      "httpStatus": 200,
+      "bodyReceivedAt": "2026-10-11T04:28:38.673Z",
+      "rawContentHash": "9fe0ce3fbb056eba25f9c63111f5f540471a0602f5e15f7de5b1e3a3df9b585d",
+      "bodyBytes": 12707
+    },
+    {
+      "sourceId": "calendar-october-image",
+      "sourceUrl": "https://cx.sinopecsales.com/yjkqiantai/oilImages/202610.png",
+      "httpStatus": 200,
+      "bodyReceivedAt": "2026-10-11T04:32:43.599Z",
+      "rawContentHash": "1bdd89cb9f69d5003e1a6dabb2700e0588a98d9c27f319314e2092664405c7a4",
+      "bodyBytes": 25266
+    },
+    {
+      "sourceId": "pricing-oilchem-early-october10-full-public",
+      "sourceUrl": "https://www.oilchem.net/26-1010-08-5212c0fd09f45f70.html",
+      "httpStatus": 200,
+      "bodyReceivedAt": "2026-10-11T04:33:53.879Z",
+      "rawContentHash": "f521ba827efad03afe8fd742d51755dbf598664632e771e62e126f7155031c5d",
+      "bodyBytes": 137346
+    },
+    {
+      "sourceId": "policy-mechanism-2016-full-pdf",
+      "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/201601/W020190905506573420251.pdf",
+      "httpStatus": 200,
+      "bodyReceivedAt": "2026-10-11T04:36:31.165Z",
+      "rawContentHash": "e668aa2b73f4748e743208fa6897d812c85fe494a888ddf583c2178232be6ea0",
+      "bodyBytes": 103842
+    }
+  ],
+  "policyManifest": {
+    "receiptKind": "DERIVED_POLICY_RECEIPT",
+    "hashScope": "CANONICAL_MANIFEST_SHA256_NOT_SINGLE_SOURCE_BYTES",
+    "publication": {
+      "publishedAt": "2026-09-24T06:21:49.000Z",
+      "publisherTimestampText": "2026-09-24 14:21:49",
+      "publisherTimeZone": "Asia/Shanghai",
+      "publishedAtPrecision": "SECOND",
+      "sourceId": "policy-september24",
+      "locator": "meta[name=PubDate]"
+    },
+    "mechanismPublication": {
+      "publishedAt": "2016-01-13T07:33:08.000Z",
+      "publisherTimestampText": "2016-01-13 15:33:08",
+      "publisherTimeZone": "Asia/Shanghai",
+      "publishedAtPrecision": "SECOND",
+      "sourceId": "policy-mechanism",
+      "locator": "meta[name=PubDate]"
+    },
+    "sources": [
+      {
+        "sourceId": "policy-september24",
+        "sourceUrl": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260924_1407824.html",
+        "rawContentHash": "c5a5590579dd57af685118f381892117393632d37c7b24f588b3d09df4d1d1ff",
+        "bodyBytes": 5908
+      },
+      {
+        "sourceId": "policy-mechanism",
+        "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/201601/t20160113_963566_ext.html",
+        "rawContentHash": "a304c76822cd11fc7ee24e03ac52d78609f465da07b8978e65e2fb114a4f8ef7",
+        "bodyBytes": 6783
+      },
+      {
+        "sourceId": "policy-mechanism-2016-full-pdf",
+        "sourceUrl": "https://www.ndrc.gov.cn/xxgk/zcfb/tz/201601/W020190905506573420251.pdf",
+        "rawContentHash": "e668aa2b73f4748e743208fa6897d812c85fe494a888ddf583c2178232be6ea0",
+        "bodyBytes": 103842
+      }
+    ],
+    "values": {
+      "cycleWorkingDays": 10,
+      "minAdjustmentYuanPerTonne": 50,
+      "floorUsdPerBarrel": 40,
+      "ceilingUsdPerBarrel": 130,
+      "temporaryControl": "ACTIVE"
+    },
+    "fieldBindings": {
+      "cycleWorkingDays": {
+        "sourceId": "policy-mechanism-2016-full-pdf",
+        "pageNumber": 2,
+        "article": 7
+      },
+      "minAdjustmentYuanPerTonne": {
+        "sourceId": "policy-mechanism-2016-full-pdf",
+        "pageNumber": 2,
+        "article": 7
+      },
+      "floorUsdPerBarrel": {
+        "sourceId": "policy-mechanism-2016-full-pdf",
+        "pageNumber": 2,
+        "article": 6
+      },
+      "ceilingUsdPerBarrel": {
+        "sourceId": "policy-mechanism-2016-full-pdf",
+        "pageNumber": 2,
+        "article": 6
+      },
+      "temporaryControl": {
+        "sourceId": "policy-september24",
+        "segment": {
+          "sourceId": "policy-september24",
+          "locator": "TRS_Editor first paragraph",
+          "rawByteStart": 3199,
+          "rawByteEnd": 3638,
+          "rawSliceHash": "18023d570d76da089ff82e5d91d3d7973cb164fdbb9412bbbe7d97b65bf752a8",
+          "textHash": "5da32970725847f2ae8f943fb30857ffee6c655888d09d4f1378dc129bc3a043"
+        },
+        "scope": "MEASURE_APPLIED_TO_CURRENT_EXECUTING_PRICE_PERIOD_STARTING_2026_09_24_24_BJT"
+      },
+      "publishedAt": {
+        "publishedAt": "2026-09-24T06:21:49.000Z",
+        "publisherTimestampText": "2026-09-24 14:21:49",
+        "publisherTimeZone": "Asia/Shanghai",
+        "publishedAtPrecision": "SECOND",
+        "sourceId": "policy-september24",
+        "locator": "meta[name=PubDate]"
+      }
+    },
+    "mechanismPdfPageReceipts": [
+      {
+        "pageNumber": 2,
+        "pageTextSha256": "d1c33a8499ae6f1e2a2ca55e1d853ca066dcb18b63afe8ebba3692c947361d06",
+        "compactTextSha256": "b749adf918373d9f1c0f409e1e42b74b5d2a0b5bebbf21b0767834face08daf6"
+      },
+      {
+        "pageNumber": 6,
+        "pageTextSha256": "32b2191a789c7b0d5c316f1418e51c4b1641b622608afc7be20f1280aba18937",
+        "compactTextSha256": "0923b3e52e1f1f2736200397a9894ec05fbaa7e07ee3673e6d7acbce99ff24e6"
+      }
+    ],
+    "limitations": [
+      "ACTIVE describes the control applied in the current executing price period, not confirmation of control at the next adjustment.",
+      "Whether temporary control continues at the 2026-10-15 adjustment is UNKNOWN.",
+      "No absent listing or negative search is used as proof of ACTIVE or NONE_CONFIRMED.",
+      "The current 2016 full regulation is used; its Article22 supersedes the 2013 trial regulation."
+    ]
+  },
+  "windowManifest": {
+    "receiptKind": "DERIVED_WINDOW_RECEIPT",
+    "hashScope": "CANONICAL_MANIFEST_SHA256_NOT_SINGLE_SOURCE_BYTES",
+    "publication": {
+      "publishedAt": "2026-09-24T06:21:49.000Z",
+      "publisherTimestampText": "2026-09-24 14:21:49",
+      "publisherTimeZone": "Asia/Shanghai",
+      "publishedAtPrecision": "SECOND",
+      "sourceId": "policy-september24",
+      "locator": "meta[name=PubDate]"
+    },
+    "sources": [
+      {
+        "sourceId": "policy-september24",
+        "sourceUrl": "https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260924_1407824.html",
+        "rawContentHash": "c5a5590579dd57af685118f381892117393632d37c7b24f588b3d09df4d1d1ff",
+        "bodyBytes": 5908
+      },
+      {
+        "sourceId": "calendar",
+        "sourceUrl": "https://cx.sinopecsales.com/yjkqiantai/core/toCalendar",
+        "rawContentHash": "9fe0ce3fbb056eba25f9c63111f5f540471a0602f5e15f7de5b1e3a3df9b585d",
+        "bodyBytes": 12707
+      },
+      {
+        "sourceId": "calendar-october-image",
+        "sourceUrl": "https://cx.sinopecsales.com/yjkqiantai/oilImages/202610.png",
+        "rawContentHash": "1bdd89cb9f69d5003e1a6dabb2700e0588a98d9c27f319314e2092664405c7a4",
+        "bodyBytes": 25266
+      }
+    ],
+    "values": {
+      "windowId": "china-refined-adjustment-20261015-2400",
+      "pricingWindowStartAt": "2026-09-24T16:00:00.000Z",
+      "pricingWindowEndAt": "2026-10-15T16:00:00.000Z",
+      "nextAdjustmentAt": "2026-10-15T16:00:00.000Z"
+    },
+    "fieldBindings": {
+      "windowId": {
+        "derivation": "Identifier for the next nominal adjustment at 2026-10-15 24:00 Asia/Shanghai."
+      },
+      "pricingWindowStartAt": {
+        "sourceId": "policy-september24",
+        "segment": {
+          "sourceId": "policy-september24",
+          "locator": "TRS_Editor first paragraph",
+          "rawByteStart": 3199,
+          "rawByteEnd": 3638,
+          "rawSliceHash": "18023d570d76da089ff82e5d91d3d7973cb164fdbb9412bbbe7d97b65bf752a8",
+          "textHash": "5da32970725847f2ae8f943fb30857ffee6c655888d09d4f1378dc129bc3a043"
+        },
+        "sourceEffectiveTime": "2026-09-24 24:00 Asia/Shanghai",
+        "normalizedUtc": "2026-09-24T16:00:00.000Z"
+      },
+      "pricingWindowEndAt": {
+        "sourceIds": [
+          "calendar",
+          "calendar-october-image"
+        ],
+        "derivation": "Nominal adjustment-cycle endpoint at the next calendar window; not unpublished basket sampling cutoff.",
+        "normalizedUtc": "2026-10-15T16:00:00.000Z"
+      },
+      "nextAdjustmentAt": {
+        "sourceIds": [
+          "calendar",
+          "calendar-october-image"
+        ],
+        "calendarLinkSegment": {
+          "sourceId": "calendar",
+          "locator": "Vue data.cadendarList",
+          "rawByteStart": 10457,
+          "rawByteEnd": 10685,
+          "rawSliceHash": "0a0085fe918ae3cdaf5c496ff80eb17d6f5eac3f614c04d0433f64eea59a98db",
+          "textHash": "d7d0f91a25e176cb584914bb8a53adba5b88a869076144a914c8ab7e1b9cb1bf"
+        },
+        "timeRuleSegment": {
+          "sourceId": "calendar",
+          "locator": "p.tips",
+          "rawByteStart": 9096,
+          "rawByteEnd": 9137,
+          "rawSliceHash": "0d042625846284097a4ab58033efd35d732ec96e0c8d2cd5776c4be533a022c7",
+          "textHash": "0d042625846284097a4ab58033efd35d732ec96e0c8d2cd5776c4be533a022c7"
+        },
+        "visualObservation": {
+          "year": 2026,
+          "month": 10,
+          "markedAdjustmentDays": [
+            15,
+            29
+          ],
+          "nextMarkedDay": 15,
+          "verification": "Direct visual review of the actual PNG by Core, Root and independent reviewer."
+        },
+        "sourceEffectiveTime": "2026-10-15 24:00 Asia/Shanghai",
+        "normalizedUtc": "2026-10-15T16:00:00.000Z"
+      },
+      "publishedAt": {
+        "publishedAt": "2026-09-24T06:21:49.000Z",
+        "publisherTimestampText": "2026-09-24 14:21:49",
+        "publisherTimeZone": "Asia/Shanghai",
+        "publishedAtPrecision": "SECOND",
+        "sourceId": "policy-september24",
+        "locator": "meta[name=PubDate]",
+        "scope": "PRIMARY_NDRC_NOTICE_PUBLICATION_NOT_CALENDAR_PUBLICATION",
+        "segment": {
+          "sourceId": "policy-september24",
+          "locator": "meta[name=PubDate]",
+          "rawByteStart": 807,
+          "rawByteEnd": 858,
+          "rawSliceHash": "a99065c312644bdcf049f64646360dce0a45944a3d0feddade8fb707acc6cbb9",
+          "textHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    },
+    "supplementalPublicationTimes": {
+      "calendar": null,
+      "calendarImage": null
+    },
+    "limitations": [
+      "Calendar page and PNG publication timestamps are unavailable; fetchedAt and asset Last-Modified are not publication dates.",
+      "The nominal cycle runs from the last official effective adjustment to the next known calendar window; unpublished official basket sampling boundaries are UNKNOWN.",
+      "No final adjustment amount or future policy continuation is inferred."
+    ]
+  },
+  "modelInputSha256": "904efb59132de25ee31737e30617f41c539cb32a6a7011f9f6eb154dc2eed919",
+  "realAcceptedForecast": false
+}

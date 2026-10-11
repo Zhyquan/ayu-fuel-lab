@@ -1,0 +1,90 @@
+{
+  "proofAsRecordedBeforeRealDomesticAttempt": {
+    "sourceSHA": "57adb93bde418ef5c1e493d6e9442b8d42648e68",
+    "checkedAt": "2026-10-11T04:38:49.419Z",
+    "publication": "NONE",
+    "scope": "SYNTHETIC_SEMANTIC_TEST_NOT_CURRENT_REAL_BASELINE",
+    "cases": [
+      {
+        "case": "CASE_UP_DOMESTIC",
+        "proof": "SYNTHETIC_SEMANTIC_TEST",
+        "forecastId": "858d10ebc78442d116c62d0092d191c1d2e9142631e8b90afab3086be15fed85",
+        "evidenceRevision": "059ea1b3181701d8205e4b32c77f9b0c467e7873f8f436d0c7c74f4057f80e27",
+        "direction": "UP",
+        "probabilities": {
+          "UP": 0.85,
+          "DOWN": 0,
+          "HOLD_OR_NO_ADJUSTMENT": 0.15
+        },
+        "primaryEvidenceIds": [
+          "synthetic-domestic-pricing"
+        ],
+        "generatedAt": "2026-10-11T04:26:16.344Z",
+        "forecastGate": "PASS",
+        "providerAuditGate": "PASS",
+        "realRequests": 1,
+        "outputHash": "6333c24128c7cc12efa154987d7ceef049a8648b9628e0a24f873b9664913939"
+      },
+      {
+        "case": "CASE_DOWN_DOMESTIC",
+        "proof": "SYNTHETIC_SEMANTIC_TEST",
+        "forecastId": "defb03f47ae0975664771aedee0ca489f0c3947f185495fc9a849414d81cbb17",
+        "evidenceRevision": "ef50ee7f9998407e979544862906314d09b2c6ecc796e52f5c9b57b504e9e304",
+        "direction": "DOWN",
+        "probabilities": {
+          "UP": 0.05,
+          "DOWN": 0.9,
+          "HOLD_OR_NO_ADJUSTMENT": 0.05
+        },
+        "primaryEvidenceIds": [
+          "synthetic-domestic-pricing"
+        ],
+        "generatedAt": "2026-10-11T04:27:11.502Z",
+        "forecastGate": "PASS",
+        "providerAuditGate": "PASS",
+        "realRequests": 1,
+        "outputHash": "e698bb2a8e32992e07bac3e105c038c599d458f831dad00119e88928a1a59305"
+      },
+      {
+        "case": "CASE_HOLD",
+        "proof": "SYNTHETIC_SEMANTIC_TEST",
+        "forecastId": "211986c0c8c45d02af85e493536ffab1357e8966c22a5945f29c242d6134fa91",
+        "evidenceRevision": "200054d7824a4ad30f36d157285fb8cf150c274a6e2c116e96e9d701a8059a11",
+        "direction": "HOLD_OR_NO_ADJUSTMENT",
+        "probabilities": {
+          "UP": 0,
+          "DOWN": 0,
+          "HOLD_OR_NO_ADJUSTMENT": 1
+        },
+        "primaryEvidenceIds": [
+          "synthetic-domestic-pricing"
+        ],
+        "generatedAt": "2026-10-11T04:27:52.717Z",
+        "forecastGate": "PASS",
+        "providerAuditGate": "PASS",
+        "realRequests": 1,
+        "outputHash": "2306b5cf95f640bd097e3ca4ecec06b5e76424edbb4db84e2155cc74f0e52146"
+      },
+      {
+        "case": "CASE_INTERNATIONAL_ONLY",
+        "proof": "SYNTHETIC_SEMANTIC_TEST",
+        "evidenceRevision": "a09127939151f8e9ec0ae86edc30574e1863bb87db61a812690817853bea428a",
+        "inputGate": "FAIL",
+        "errors": [
+          "DOMESTIC_POLICY_INSUFFICIENT",
+          "DOMESTIC_WINDOW_INSUFFICIENT",
+          "DOMESTIC_PRICING_SUPPORT_INSUFFICIENT"
+        ],
+        "forecast": null,
+        "realRequests": 0
+      }
+    ],
+    "controlledResponsiveness": "PASS",
+    "realCurrentEvidenceResponsiveness": "NOT_YET_VALIDATED"
+  },
+  "finalRealDomesticResult": "FAILED_REASON_TEXT_202_GREATER_THAN_180",
+  "domesticForecastAcceptedBaseline": null,
+  "controlledResponsiveness": "PASS_SYNTHETIC_INPUT_REAL_QWEN",
+  "accuracyClaim": false,
+  "deliveryClaim": false
+}

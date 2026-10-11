@@ -1,0 +1,1202 @@
+{
+  "scope": "PHASE_3_TEST_ONLY_NO_PUBLICATION",
+  "summary": {
+    "actualRequests": 5,
+    "acceptedSyntheticUnpublished": 3,
+    "acceptedRealDomestic": 0,
+    "failed": 2,
+    "transportRetries": 0,
+    "inputTokens": 16971,
+    "outputTokens": 959,
+    "actualCost": "UNKNOWN",
+    "additionalRequestsAfterReasonLengthPatch": 0
+  },
+  "executionLedgerAsRecorded": {
+    "phase": "PHASE_3",
+    "maxRealTestCalls": 5,
+    "maxCallsPerInvocation": 1,
+    "transportRetries": 0,
+    "attempts": [
+      {
+        "testAttemptId": "fuel-reflight-phase3-695374e1-2377-4017-bdee-a9f390ddeb08",
+        "requestId": "fuel-reflight-phase3-695374e1-2377-4017-bdee-a9f390ddeb08",
+        "case": "CASE_UP_DOMESTIC",
+        "sourceSHA": "035982dbafa83117406029ef266e7a9630954505",
+        "evidenceRevision": "1dfe0cda236900efcb58203e922a83c75773b75841d016e0a43d610ee4241004",
+        "evidenceProof": "SYNTHETIC_SEMANTIC_TEST",
+        "inputGate": "PASS",
+        "allowedPrimaryEvidenceIds": [
+          "synthetic-domestic-pricing"
+        ],
+        "status": "FAILED",
+        "reservedAt": "2026-10-11T04:22:41.000Z",
+        "actualRequests": 1,
+        "legacyValidationCode": "DOMESTIC_PRIMARY_EVIDENCE_INVALID",
+        "validationCode": "PRIMARY_EVIDENCE_DUPLICATE_ID",
+        "completedAt": "2026-10-11T04:22:45.081Z",
+        "latencyMs": 4079,
+        "provider": "QWEN",
+        "model": "qwen3.8-flash",
+        "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+        "httpStatus": 200,
+        "attemptCount": 1,
+        "usage": {
+          "input_tokens": 3022,
+          "output_tokens": 208
+        },
+        "outputHash": "411176f42986548d7d4cf203051c7b237fb8d0d834f3da52c29350b5938d6872",
+        "providerResponseId": "chatcmpl-757f2af7-682d-92e2-ba6e-c23d7546ffb1",
+        "fieldName": "primaryEvidenceIds",
+        "reasonIndex": 1
+      },
+      {
+        "testAttemptId": "fuel-reflight-phase3-0f833c9f-4aaf-4154-aebf-3770424663e3",
+        "requestId": "fuel-reflight-phase3-0f833c9f-4aaf-4154-aebf-3770424663e3",
+        "case": "CASE_UP_DOMESTIC",
+        "sourceSHA": "57adb93bde418ef5c1e493d6e9442b8d42648e68",
+        "evidenceRevision": "059ea1b3181701d8205e4b32c77f9b0c467e7873f8f436d0c7c74f4057f80e27",
+        "evidenceProof": "SYNTHETIC_SEMANTIC_TEST",
+        "inputGate": "PASS",
+        "allowedPrimaryEvidenceIds": [
+          "synthetic-domestic-pricing"
+        ],
+        "status": "ACCEPTED_UNPUBLISHED",
+        "reservedAt": "2026-10-11T04:26:13.235Z",
+        "actualRequests": 1,
+        "forecastId": "858d10ebc78442d116c62d0092d191c1d2e9142631e8b90afab3086be15fed85",
+        "direction": "UP",
+        "probabilities": {
+          "UP": 0.85,
+          "DOWN": 0,
+          "HOLD_OR_NO_ADJUSTMENT": 0.15
+        },
+        "primaryEvidenceIds": [
+          "synthetic-domestic-pricing"
+        ],
+        "confidence": "HIGH",
+        "generatedAt": "2026-10-11T04:26:16.344Z",
+        "forecastGate": "PASS",
+        "completedAt": "2026-10-11T04:26:16.349Z",
+        "latencyMs": 3109,
+        "provider": "QWEN",
+        "model": "qwen3.8-flash",
+        "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+        "httpStatus": 200,
+        "attemptCount": 1,
+        "usage": {
+          "input_tokens": 3135,
+          "output_tokens": 140
+        },
+        "outputHash": "6333c24128c7cc12efa154987d7ceef049a8648b9628e0a24f873b9664913939",
+        "providerResponseId": "chatcmpl-4141a103-dd9d-99c2-9bf8-9e6bd89043c7",
+        "validationCode": null,
+        "fieldName": null,
+        "reasonIndex": null
+      },
+      {
+        "testAttemptId": "fuel-reflight-phase3-e7909217-ce93-4ebf-a45d-a26275778a8f",
+        "requestId": "fuel-reflight-phase3-e7909217-ce93-4ebf-a45d-a26275778a8f",
+        "case": "CASE_DOWN_DOMESTIC",
+        "sourceSHA": "57adb93bde418ef5c1e493d6e9442b8d42648e68",
+        "evidenceRevision": "ef50ee7f9998407e979544862906314d09b2c6ecc796e52f5c9b57b504e9e304",
+        "evidenceProof": "SYNTHETIC_SEMANTIC_TEST",
+        "inputGate": "PASS",
+        "allowedPrimaryEvidenceIds": [
+          "synthetic-domestic-pricing"
+        ],
+        "status": "ACCEPTED_UNPUBLISHED",
+        "reservedAt": "2026-10-11T04:27:07.730Z",
+        "actualRequests": 1,
+        "forecastId": "defb03f47ae0975664771aedee0ca489f0c3947f185495fc9a849414d81cbb17",
+        "direction": "DOWN",
+        "probabilities": {
+          "UP": 0.05,
+          "DOWN": 0.9,
+          "HOLD_OR_NO_ADJUSTMENT": 0.05
+        },
+        "primaryEvidenceIds": [
+          "synthetic-domestic-pricing"
+        ],
+        "confidence": "HIGH",
+        "generatedAt": "2026-10-11T04:27:11.502Z",
+        "forecastGate": "PASS",
+        "completedAt": "2026-10-11T04:27:11.506Z",
+        "latencyMs": 3773,
+        "provider": "QWEN",
+        "model": "qwen3.8-flash",
+        "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+        "httpStatus": 200,
+        "attemptCount": 1,
+        "usage": {
+          "input_tokens": 3127,
+          "output_tokens": 178
+        },
+        "outputHash": "e698bb2a8e32992e07bac3e105c038c599d458f831dad00119e88928a1a59305",
+        "providerResponseId": "chatcmpl-62d233b3-b1fd-9e9d-8b16-46d043c67279",
+        "validationCode": null,
+        "fieldName": null,
+        "reasonIndex": null
+      },
+      {
+        "testAttemptId": "fuel-reflight-phase3-948c12c2-ca08-4a6c-9a0f-e699d6f5978c",
+        "requestId": "fuel-reflight-phase3-948c12c2-ca08-4a6c-9a0f-e699d6f5978c",
+        "case": "CASE_HOLD",
+        "sourceSHA": "57adb93bde418ef5c1e493d6e9442b8d42648e68",
+        "evidenceRevision": "200054d7824a4ad30f36d157285fb8cf150c274a6e2c116e96e9d701a8059a11",
+        "evidenceProof": "SYNTHETIC_SEMANTIC_TEST",
+        "inputGate": "PASS",
+        "allowedPrimaryEvidenceIds": [
+          "synthetic-domestic-pricing"
+        ],
+        "status": "ACCEPTED_UNPUBLISHED",
+        "reservedAt": "2026-10-11T04:27:48.583Z",
+        "actualRequests": 1,
+        "forecastId": "211986c0c8c45d02af85e493536ffab1357e8966c22a5945f29c242d6134fa91",
+        "direction": "HOLD_OR_NO_ADJUSTMENT",
+        "probabilities": {
+          "UP": 0,
+          "DOWN": 0,
+          "HOLD_OR_NO_ADJUSTMENT": 1
+        },
+        "primaryEvidenceIds": [
+          "synthetic-domestic-pricing"
+        ],
+        "confidence": "HIGH",
+        "generatedAt": "2026-10-11T04:27:52.717Z",
+        "forecastGate": "PASS",
+        "completedAt": "2026-10-11T04:27:52.720Z",
+        "latencyMs": 4135,
+        "provider": "QWEN",
+        "model": "qwen3.8-flash",
+        "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+        "httpStatus": 200,
+        "attemptCount": 1,
+        "usage": {
+          "input_tokens": 3140,
+          "output_tokens": 188
+        },
+        "outputHash": "2306b5cf95f640bd097e3ca4ecec06b5e76424edbb4db84e2155cc74f0e52146",
+        "providerResponseId": "chatcmpl-9f1db4ec-36bf-9282-be0a-9c0f17088de8",
+        "validationCode": null,
+        "fieldName": null,
+        "reasonIndex": null
+      },
+      {
+        "testAttemptId": "fuel-reflight-phase3-c154057e-4960-4380-84e2-b07d1b86251c",
+        "requestId": "fuel-reflight-phase3-c154057e-4960-4380-84e2-b07d1b86251c",
+        "case": "CASE_REAL_DOMESTIC",
+        "sourceSHA": "57adb93bde418ef5c1e493d6e9442b8d42648e68",
+        "evidenceRevision": "2a0877d029865565e81474bdbd596774ce59abf4ebf1a2b05a575ea76d0b8489",
+        "evidenceProof": "REAL_VERIFIED_EVIDENCE",
+        "inputGate": "PASS",
+        "allowedPrimaryEvidenceIds": [
+          "lz-current-window-estimate-20261009"
+        ],
+        "status": "FAILED",
+        "reservedAt": "2026-10-11T04:52:30.960Z",
+        "actualRequests": 1,
+        "legacyValidationCode": "DOMESTIC_REASON_INVALID",
+        "validationCode": "DOMESTIC_REASON_TEXT_INVALID",
+        "completedAt": "2026-10-11T04:52:36.711Z",
+        "latencyMs": 5749,
+        "provider": "QWEN",
+        "model": "qwen3.8-flash",
+        "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+        "httpStatus": 200,
+        "attemptCount": 1,
+        "usage": {
+          "input_tokens": 4547,
+          "output_tokens": 245
+        },
+        "outputHash": "2442d58ded91c764170a55637ea32dc34bbc6eb2182b639319fb6c0387de4920",
+        "providerResponseId": "chatcmpl-069f2f14-597e-9b0a-b3e6-e4fac2057df8",
+        "fieldName": "reason",
+        "reasonIndex": null
+      }
+    ],
+    "officialReservationChanged": 0,
+    "officialDispatches": 0,
+    "productionWrites": 0
+  },
+  "safeProviderAuditsAsRecorded": [
+    {
+      "provider": "QWEN",
+      "model": "qwen3.8-flash",
+      "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+      "inputPackHash": "1dfe0cda236900efcb58203e922a83c75773b75841d016e0a43d610ee4241004",
+      "evidenceHash": "1dfe0cda236900efcb58203e922a83c75773b75841d016e0a43d610ee4241004",
+      "requestStartedAt": "2026-10-11T04:22:41.003Z",
+      "requestCompletedAt": "2026-10-11T04:22:45.080Z",
+      "semanticCallCount": 1,
+      "configuredTransportRetries": 0,
+      "maxExternalRequests": 1,
+      "actualExternalRequestCount": 1,
+      "attemptCount": 1,
+      "httpStatus": 200,
+      "httpStatuses": [
+        200
+      ],
+      "inputPayloadBytes": 10565,
+      "usage": {
+        "input_tokens": 3022,
+        "output_tokens": 208
+      },
+      "status": "FAILED",
+      "mock": false,
+      "testAttemptId": "fuel-reflight-phase3-695374e1-2377-4017-bdee-a9f390ddeb08",
+      "requestId": "fuel-reflight-phase3-695374e1-2377-4017-bdee-a9f390ddeb08",
+      "requestIdentityRedactions": [],
+      "providerResponseId": "chatcmpl-757f2af7-682d-92e2-ba6e-c23d7546ffb1",
+      "providerResponseIdRedaction": null,
+      "candidateId": "79e77523c67fb175b8a98ccb7c7c1c0e02aaaba9c7e6a33a40a573692187150d",
+      "candidateIdType": "AUDIT_ONLY_NOT_FORECAST_ID",
+      "candidateNotCreatedReason": null,
+      "evidenceRevision": "1dfe0cda236900efcb58203e922a83c75773b75841d016e0a43d610ee4241004",
+      "allowedPrimaryEvidenceIds": [
+        "synthetic-domestic-pricing"
+      ],
+      "allowedPrimaryEvidenceIdRedactions": [],
+      "inputEvidenceIdentityRedactions": [],
+      "inputEvidenceRoles": [
+        {
+          "evidenceId": "market-wti",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "DOWN",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "market-brent",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "DOWN",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "market-diesel",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "DOWN",
+          "directionScope": "INPUT_ONLY",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-stocks",
+          "role": "INVENTORY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-production",
+          "role": "REFINERY_SUPPLY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-refinery-inputs",
+          "role": "REFINERY_SUPPLY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "LOW",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "synthetic-domestic-pricing",
+          "role": "DOMESTIC_PRICING_SIGNAL",
+          "direction": "UP",
+          "directionScope": "DOMESTIC_ADJUSTMENT",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "DIRECT",
+          "kind": "ESTIMATE",
+          "acceptedPrimary": true
+        }
+      ],
+      "inputReceiptIds": {
+        "policy": {
+          "value": "synthetic-domestic-policy",
+          "type": "STRING",
+          "reason": null
+        },
+        "adjustmentWindow": {
+          "value": "synthetic-domestic-window",
+          "type": "STRING",
+          "reason": null
+        }
+      },
+      "selectedPrimaryEvidenceIds": [
+        "synthetic-domestic-pricing",
+        "synthetic-domestic-pricing"
+      ],
+      "selectedPrimaryEvidenceIdRedactions": [],
+      "selectedPrimaryEvidenceIdsOmitted": 0,
+      "outputStructure": {
+        "type": "OBJECT",
+        "fieldCount": 6,
+        "presentFields": [
+          "target",
+          "horizon",
+          "probabilities",
+          "confidence",
+          "reason",
+          "primaryEvidenceIds"
+        ],
+        "uncontractedFieldCount": 0,
+        "target": {
+          "type": "STRING",
+          "matchesInput": true
+        },
+        "horizon": {
+          "type": "STRING",
+          "matchesInput": true
+        },
+        "probabilities": {
+          "type": "OBJECT",
+          "uncontractedFieldCount": 0,
+          "UP": {
+            "type": "NUMBER",
+            "value": 85
+          },
+          "DOWN": {
+            "type": "NUMBER",
+            "value": 5
+          },
+          "FLAT": {
+            "type": "NUMBER",
+            "value": 10
+          }
+        },
+        "confidence": {
+          "type": "STRING",
+          "value": "HIGH"
+        },
+        "reason": {
+          "type": "STRING",
+          "characterCount": 163
+        },
+        "primaryEvidenceIds": {
+          "type": "ARRAY",
+          "count": 2,
+          "uniqueCount": 1
+        }
+      },
+      "outputHash": "411176f42986548d7d4cf203051c7b237fb8d0d834f3da52c29350b5938d6872",
+      "validationStage": "CORE_FORECAST",
+      "validationCode": "PRIMARY_EVIDENCE_DUPLICATE_ID",
+      "legacyValidationCode": "DOMESTIC_PRIMARY_EVIDENCE_INVALID",
+      "fieldName": "primaryEvidenceIds",
+      "reasonIndex": 1,
+      "validationSubtype": "PRIMARY_EVIDENCE_DUPLICATE_ID",
+      "validationInvariant": "UNIQUE_PRIMARY_IDS"
+    },
+    {
+      "provider": "QWEN",
+      "model": "qwen3.8-flash",
+      "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+      "inputPackHash": "059ea1b3181701d8205e4b32c77f9b0c467e7873f8f436d0c7c74f4057f80e27",
+      "evidenceHash": "059ea1b3181701d8205e4b32c77f9b0c467e7873f8f436d0c7c74f4057f80e27",
+      "requestStartedAt": "2026-10-11T04:26:13.249Z",
+      "requestCompletedAt": "2026-10-11T04:26:16.347Z",
+      "semanticCallCount": 1,
+      "configuredTransportRetries": 0,
+      "maxExternalRequests": 1,
+      "actualExternalRequestCount": 1,
+      "attemptCount": 1,
+      "httpStatus": 200,
+      "httpStatuses": [
+        200
+      ],
+      "inputPayloadBytes": 10994,
+      "usage": {
+        "input_tokens": 3135,
+        "output_tokens": 140
+      },
+      "status": "OK",
+      "mock": false,
+      "testAttemptId": "fuel-reflight-phase3-0f833c9f-4aaf-4154-aebf-3770424663e3",
+      "requestId": "fuel-reflight-phase3-0f833c9f-4aaf-4154-aebf-3770424663e3",
+      "requestIdentityRedactions": [],
+      "providerResponseId": "chatcmpl-4141a103-dd9d-99c2-9bf8-9e6bd89043c7",
+      "providerResponseIdRedaction": null,
+      "candidateId": "6f8721a3f74ac39fc2348eac8094a4f6aefa911fb5b6f50c93d16d11d88f5f8c",
+      "candidateIdType": "AUDIT_ONLY_NOT_FORECAST_ID",
+      "candidateNotCreatedReason": null,
+      "evidenceRevision": "059ea1b3181701d8205e4b32c77f9b0c467e7873f8f436d0c7c74f4057f80e27",
+      "allowedPrimaryEvidenceIds": [
+        "synthetic-domestic-pricing"
+      ],
+      "allowedPrimaryEvidenceIdRedactions": [],
+      "inputEvidenceIdentityRedactions": [],
+      "inputEvidenceRoles": [
+        {
+          "evidenceId": "market-wti",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "DOWN",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "market-brent",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "DOWN",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "market-diesel",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "DOWN",
+          "directionScope": "INPUT_ONLY",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-stocks",
+          "role": "INVENTORY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-production",
+          "role": "REFINERY_SUPPLY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-refinery-inputs",
+          "role": "REFINERY_SUPPLY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "LOW",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "synthetic-domestic-pricing",
+          "role": "DOMESTIC_PRICING_SIGNAL",
+          "direction": "UP",
+          "directionScope": "DOMESTIC_ADJUSTMENT",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "DIRECT",
+          "kind": "ESTIMATE",
+          "acceptedPrimary": true
+        }
+      ],
+      "inputReceiptIds": {
+        "policy": {
+          "value": "synthetic-domestic-policy",
+          "type": "STRING",
+          "reason": null
+        },
+        "adjustmentWindow": {
+          "value": "synthetic-domestic-window",
+          "type": "STRING",
+          "reason": null
+        }
+      },
+      "selectedPrimaryEvidenceIds": [
+        "synthetic-domestic-pricing"
+      ],
+      "selectedPrimaryEvidenceIdRedactions": [],
+      "selectedPrimaryEvidenceIdsOmitted": 0,
+      "outputStructure": {
+        "type": "OBJECT",
+        "fieldCount": 6,
+        "presentFields": [
+          "target",
+          "horizon",
+          "probabilities",
+          "confidence",
+          "reason",
+          "primaryEvidenceIds"
+        ],
+        "uncontractedFieldCount": 0,
+        "target": {
+          "type": "STRING",
+          "matchesInput": true
+        },
+        "horizon": {
+          "type": "STRING",
+          "matchesInput": true
+        },
+        "probabilities": {
+          "type": "OBJECT",
+          "uncontractedFieldCount": 0,
+          "UP": {
+            "type": "NUMBER",
+            "value": 85
+          },
+          "DOWN": {
+            "type": "NUMBER",
+            "value": 0
+          },
+          "FLAT": {
+            "type": "NUMBER",
+            "value": 15
+          }
+        },
+        "confidence": {
+          "type": "STRING",
+          "value": "HIGH"
+        },
+        "reason": {
+          "type": "STRING",
+          "characterCount": 54
+        },
+        "primaryEvidenceIds": {
+          "type": "ARRAY",
+          "count": 1,
+          "uniqueCount": 1
+        }
+      },
+      "outputHash": "6333c24128c7cc12efa154987d7ceef049a8648b9628e0a24f873b9664913939"
+    },
+    {
+      "provider": "QWEN",
+      "model": "qwen3.8-flash",
+      "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+      "inputPackHash": "ef50ee7f9998407e979544862906314d09b2c6ecc796e52f5c9b57b504e9e304",
+      "evidenceHash": "ef50ee7f9998407e979544862906314d09b2c6ecc796e52f5c9b57b504e9e304",
+      "requestStartedAt": "2026-10-11T04:27:07.734Z",
+      "requestCompletedAt": "2026-10-11T04:27:11.504Z",
+      "semanticCallCount": 1,
+      "configuredTransportRetries": 0,
+      "maxExternalRequests": 1,
+      "actualExternalRequestCount": 1,
+      "attemptCount": 1,
+      "httpStatus": 200,
+      "httpStatuses": [
+        200
+      ],
+      "inputPayloadBytes": 10990,
+      "usage": {
+        "input_tokens": 3127,
+        "output_tokens": 178
+      },
+      "status": "OK",
+      "mock": false,
+      "testAttemptId": "fuel-reflight-phase3-e7909217-ce93-4ebf-a45d-a26275778a8f",
+      "requestId": "fuel-reflight-phase3-e7909217-ce93-4ebf-a45d-a26275778a8f",
+      "requestIdentityRedactions": [],
+      "providerResponseId": "chatcmpl-62d233b3-b1fd-9e9d-8b16-46d043c67279",
+      "providerResponseIdRedaction": null,
+      "candidateId": "075c2a6980e54ce254752af8d169adb954e46c2cd2609034a58c13f127edd5d6",
+      "candidateIdType": "AUDIT_ONLY_NOT_FORECAST_ID",
+      "candidateNotCreatedReason": null,
+      "evidenceRevision": "ef50ee7f9998407e979544862906314d09b2c6ecc796e52f5c9b57b504e9e304",
+      "allowedPrimaryEvidenceIds": [
+        "synthetic-domestic-pricing"
+      ],
+      "allowedPrimaryEvidenceIdRedactions": [],
+      "inputEvidenceIdentityRedactions": [],
+      "inputEvidenceRoles": [
+        {
+          "evidenceId": "market-wti",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "market-brent",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "market-diesel",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-stocks",
+          "role": "INVENTORY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-production",
+          "role": "REFINERY_SUPPLY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-refinery-inputs",
+          "role": "REFINERY_SUPPLY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "LOW",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "synthetic-domestic-pricing",
+          "role": "DOMESTIC_PRICING_SIGNAL",
+          "direction": "DOWN",
+          "directionScope": "DOMESTIC_ADJUSTMENT",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "DIRECT",
+          "kind": "ESTIMATE",
+          "acceptedPrimary": true
+        }
+      ],
+      "inputReceiptIds": {
+        "policy": {
+          "value": "synthetic-domestic-policy",
+          "type": "STRING",
+          "reason": null
+        },
+        "adjustmentWindow": {
+          "value": "synthetic-domestic-window",
+          "type": "STRING",
+          "reason": null
+        }
+      },
+      "selectedPrimaryEvidenceIds": [
+        "synthetic-domestic-pricing"
+      ],
+      "selectedPrimaryEvidenceIdRedactions": [],
+      "selectedPrimaryEvidenceIdsOmitted": 0,
+      "outputStructure": {
+        "type": "OBJECT",
+        "fieldCount": 6,
+        "presentFields": [
+          "target",
+          "horizon",
+          "probabilities",
+          "confidence",
+          "reason",
+          "primaryEvidenceIds"
+        ],
+        "uncontractedFieldCount": 0,
+        "target": {
+          "type": "STRING",
+          "matchesInput": true
+        },
+        "horizon": {
+          "type": "STRING",
+          "matchesInput": true
+        },
+        "probabilities": {
+          "type": "OBJECT",
+          "uncontractedFieldCount": 0,
+          "UP": {
+            "type": "NUMBER",
+            "value": 5
+          },
+          "DOWN": {
+            "type": "NUMBER",
+            "value": 90
+          },
+          "FLAT": {
+            "type": "NUMBER",
+            "value": 5
+          }
+        },
+        "confidence": {
+          "type": "STRING",
+          "value": "HIGH"
+        },
+        "reason": {
+          "type": "STRING",
+          "characterCount": 114
+        },
+        "primaryEvidenceIds": {
+          "type": "ARRAY",
+          "count": 1,
+          "uniqueCount": 1
+        }
+      },
+      "outputHash": "e698bb2a8e32992e07bac3e105c038c599d458f831dad00119e88928a1a59305"
+    },
+    {
+      "provider": "QWEN",
+      "model": "qwen3.8-flash",
+      "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+      "inputPackHash": "200054d7824a4ad30f36d157285fb8cf150c274a6e2c116e96e9d701a8059a11",
+      "evidenceHash": "200054d7824a4ad30f36d157285fb8cf150c274a6e2c116e96e9d701a8059a11",
+      "requestStartedAt": "2026-10-11T04:27:48.587Z",
+      "requestCompletedAt": "2026-10-11T04:27:52.719Z",
+      "semanticCallCount": 1,
+      "configuredTransportRetries": 0,
+      "maxExternalRequests": 1,
+      "actualExternalRequestCount": 1,
+      "attemptCount": 1,
+      "httpStatus": 200,
+      "httpStatuses": [
+        200
+      ],
+      "inputPayloadBytes": 11026,
+      "usage": {
+        "input_tokens": 3140,
+        "output_tokens": 188
+      },
+      "status": "OK",
+      "mock": false,
+      "testAttemptId": "fuel-reflight-phase3-948c12c2-ca08-4a6c-9a0f-e699d6f5978c",
+      "requestId": "fuel-reflight-phase3-948c12c2-ca08-4a6c-9a0f-e699d6f5978c",
+      "requestIdentityRedactions": [],
+      "providerResponseId": "chatcmpl-9f1db4ec-36bf-9282-be0a-9c0f17088de8",
+      "providerResponseIdRedaction": null,
+      "candidateId": "97d1737ae1cd11506f0024efa4e858a9833bb4dd1712e14704dfe51aec54fa2b",
+      "candidateIdType": "AUDIT_ONLY_NOT_FORECAST_ID",
+      "candidateNotCreatedReason": null,
+      "evidenceRevision": "200054d7824a4ad30f36d157285fb8cf150c274a6e2c116e96e9d701a8059a11",
+      "allowedPrimaryEvidenceIds": [
+        "synthetic-domestic-pricing"
+      ],
+      "allowedPrimaryEvidenceIdRedactions": [],
+      "inputEvidenceIdentityRedactions": [],
+      "inputEvidenceRoles": [
+        {
+          "evidenceId": "market-wti",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "market-brent",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "market-diesel",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-stocks",
+          "role": "INVENTORY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-production",
+          "role": "REFINERY_SUPPLY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-refinery-inputs",
+          "role": "REFINERY_SUPPLY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "LOW",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "synthetic-domestic-pricing",
+          "role": "DOMESTIC_PRICING_SIGNAL",
+          "direction": "HOLD_OR_NO_ADJUSTMENT",
+          "directionScope": "DOMESTIC_ADJUSTMENT",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "DIRECT",
+          "kind": "ESTIMATE",
+          "acceptedPrimary": true
+        }
+      ],
+      "inputReceiptIds": {
+        "policy": {
+          "value": "synthetic-domestic-policy",
+          "type": "STRING",
+          "reason": null
+        },
+        "adjustmentWindow": {
+          "value": "synthetic-domestic-window",
+          "type": "STRING",
+          "reason": null
+        }
+      },
+      "selectedPrimaryEvidenceIds": [
+        "synthetic-domestic-pricing"
+      ],
+      "selectedPrimaryEvidenceIdRedactions": [],
+      "selectedPrimaryEvidenceIdsOmitted": 0,
+      "outputStructure": {
+        "type": "OBJECT",
+        "fieldCount": 6,
+        "presentFields": [
+          "target",
+          "horizon",
+          "probabilities",
+          "confidence",
+          "reason",
+          "primaryEvidenceIds"
+        ],
+        "uncontractedFieldCount": 0,
+        "target": {
+          "type": "STRING",
+          "matchesInput": true
+        },
+        "horizon": {
+          "type": "STRING",
+          "matchesInput": true
+        },
+        "probabilities": {
+          "type": "OBJECT",
+          "uncontractedFieldCount": 0,
+          "UP": {
+            "type": "NUMBER",
+            "value": 0
+          },
+          "DOWN": {
+            "type": "NUMBER",
+            "value": 0
+          },
+          "FLAT": {
+            "type": "NUMBER",
+            "value": 100
+          }
+        },
+        "confidence": {
+          "type": "STRING",
+          "value": "HIGH"
+        },
+        "reason": {
+          "type": "STRING",
+          "characterCount": 143
+        },
+        "primaryEvidenceIds": {
+          "type": "ARRAY",
+          "count": 1,
+          "uniqueCount": 1
+        }
+      },
+      "outputHash": "2306b5cf95f640bd097e3ca4ecec06b5e76424edbb4db84e2155cc74f0e52146"
+    },
+    {
+      "provider": "QWEN",
+      "model": "qwen3.8-flash",
+      "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+      "inputPackHash": "2a0877d029865565e81474bdbd596774ce59abf4ebf1a2b05a575ea76d0b8489",
+      "evidenceHash": "2a0877d029865565e81474bdbd596774ce59abf4ebf1a2b05a575ea76d0b8489",
+      "requestStartedAt": "2026-10-11T04:52:30.963Z",
+      "requestCompletedAt": "2026-10-11T04:52:36.710Z",
+      "semanticCallCount": 1,
+      "configuredTransportRetries": 0,
+      "maxExternalRequests": 1,
+      "actualExternalRequestCount": 1,
+      "attemptCount": 1,
+      "httpStatus": 200,
+      "httpStatuses": [
+        200
+      ],
+      "inputPayloadBytes": 15403,
+      "usage": {
+        "input_tokens": 4547,
+        "output_tokens": 245
+      },
+      "status": "FAILED",
+      "mock": false,
+      "testAttemptId": "fuel-reflight-phase3-c154057e-4960-4380-84e2-b07d1b86251c",
+      "requestId": "fuel-reflight-phase3-c154057e-4960-4380-84e2-b07d1b86251c",
+      "requestIdentityRedactions": [],
+      "providerResponseId": "chatcmpl-069f2f14-597e-9b0a-b3e6-e4fac2057df8",
+      "providerResponseIdRedaction": null,
+      "candidateId": "7427323e1df059928f52d3d5230e4ae35404a4cb4a2af246cea951d5d19eaed4",
+      "candidateIdType": "AUDIT_ONLY_NOT_FORECAST_ID",
+      "candidateNotCreatedReason": null,
+      "evidenceRevision": "2a0877d029865565e81474bdbd596774ce59abf4ebf1a2b05a575ea76d0b8489",
+      "allowedPrimaryEvidenceIds": [
+        "lz-current-window-estimate-20261009"
+      ],
+      "allowedPrimaryEvidenceIdRedactions": [],
+      "inputEvidenceIdentityRedactions": [],
+      "inputEvidenceRoles": [
+        {
+          "evidenceId": "market-wti",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "market-brent",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "market-diesel",
+          "role": "INTERNATIONAL_PRICE_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-stocks",
+          "role": "INVENTORY_INPUT",
+          "direction": "UP",
+          "directionScope": "INPUT_ONLY",
+          "strength": "HIGH",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-production",
+          "role": "REFINERY_SUPPLY_INPUT",
+          "direction": "DOWN",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "eia-refinery-inputs",
+          "role": "REFINERY_SUPPLY_INPUT",
+          "direction": "DOWN",
+          "directionScope": "INPUT_ONLY",
+          "strength": "LOW",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "lz-current-window-estimate-20261009",
+          "role": "DOMESTIC_PRICING_SIGNAL",
+          "direction": "DOWN",
+          "directionScope": "DOMESTIC_ADJUSTMENT",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "DIRECT",
+          "kind": "ESTIMATE",
+          "acceptedPrimary": true
+        },
+        {
+          "evidenceId": "ndrc-current-cycle-policy-context-20260924",
+          "role": "OFFICIAL_POLICY_OR_ADJUSTMENT",
+          "direction": "NEUTRAL",
+          "directionScope": "INPUT_ONLY",
+          "strength": "MEDIUM",
+          "freshness": "CURRENT",
+          "relevance": "INDIRECT",
+          "kind": "FACT",
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "br-40443657",
+          "role": "UNASSESSED_NEWS_INPUT",
+          "direction": "UNASSESSED",
+          "directionScope": "INPUT_ONLY",
+          "strength": "UNASSESSED",
+          "freshness": "CURRENT",
+          "relevance": "RELATED",
+          "kind": null,
+          "acceptedPrimary": false
+        },
+        {
+          "evidenceId": "br-40443602",
+          "role": "UNASSESSED_NEWS_INPUT",
+          "direction": "UNASSESSED",
+          "directionScope": "INPUT_ONLY",
+          "strength": "UNASSESSED",
+          "freshness": "CURRENT",
+          "relevance": "RELATED",
+          "kind": null,
+          "acceptedPrimary": false
+        }
+      ],
+      "inputReceiptIds": {
+        "policy": {
+          "value": "derived-policy-current-price-period-20260924",
+          "type": "STRING",
+          "reason": null
+        },
+        "adjustmentWindow": {
+          "value": "derived-window-china-20261015",
+          "type": "STRING",
+          "reason": null
+        }
+      },
+      "selectedPrimaryEvidenceIds": [
+        "lz-current-window-estimate-20261009"
+      ],
+      "selectedPrimaryEvidenceIdRedactions": [],
+      "selectedPrimaryEvidenceIdsOmitted": 0,
+      "outputStructure": {
+        "type": "OBJECT",
+        "fieldCount": 6,
+        "presentFields": [
+          "target",
+          "horizon",
+          "probabilities",
+          "confidence",
+          "reason",
+          "primaryEvidenceIds"
+        ],
+        "uncontractedFieldCount": 0,
+        "target": {
+          "type": "STRING",
+          "matchesInput": true
+        },
+        "horizon": {
+          "type": "STRING",
+          "matchesInput": true
+        },
+        "probabilities": {
+          "type": "OBJECT",
+          "uncontractedFieldCount": 0,
+          "UP": {
+            "type": "NUMBER",
+            "value": 5
+          },
+          "DOWN": {
+            "type": "NUMBER",
+            "value": 60
+          },
+          "FLAT": {
+            "type": "NUMBER",
+            "value": 35
+          }
+        },
+        "confidence": {
+          "type": "STRING",
+          "value": "MEDIUM"
+        },
+        "reason": {
+          "type": "STRING",
+          "characterCount": 202
+        },
+        "primaryEvidenceIds": {
+          "type": "ARRAY",
+          "count": 1,
+          "uniqueCount": 1
+        }
+      },
+      "outputHash": "2442d58ded91c764170a55637ea32dc34bbc6eb2182b639319fb6c0387de4920",
+      "validationStage": "CORE_FORECAST",
+      "validationCode": "DOMESTIC_REASON_TEXT_INVALID",
+      "legacyValidationCode": "DOMESTIC_REASON_INVALID",
+      "fieldName": "reason",
+      "reasonIndex": null,
+      "validationSubtype": "DOMESTIC_REASON_TEXT_INVALID",
+      "validationInvariant": "PLAIN_NONEMPTY_REASON_MAX_180"
+    }
+  ],
+  "historicalPhase2ExactSubtype": "UNKNOWN_ORIGINAL_SELECTED_IDS_NOT_SAVED"
+}

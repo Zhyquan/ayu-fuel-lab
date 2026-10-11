@@ -1,0 +1,145 @@
+{
+  "result": "FUEL_REFLIGHT_BLOCKED_V3",
+  "frozenPhase2": {
+    "coreSHA": "04034b770f8850c6337f3750e0d61cbd261a4921",
+    "consumerSHA": "1d9857b3a9c590db50c4c91b038c82c7a0fbb1dc"
+  },
+  "finalTestedCoreCodeSHA": "ac59149734b5b69413dfbe25f69f4f25e99ff017",
+  "latestOriginMainAtRead": "395cb24b6345eb70741e299699fa78d3f9baa640",
+  "regression": {
+    "core": {
+      "tests": 608,
+      "pass": 608,
+      "fail": 0,
+      "skip": 0,
+      "runtime": "Node v25.9.0",
+      "durationMs": 5252.5145,
+      "logHash": "6b1db3ab51cb380f6237706a3547880c76544f09f52cec71e977336b2c6f8d65"
+    },
+    "consumer": {
+      "tests": 136,
+      "pass": 136,
+      "fail": 0,
+      "skip": 0,
+      "proof": "RETAINED_PHASE_2_NO_PHASE_3_CONSUMER_CODE_DIFF",
+      "logHash": "a93230a3f9f82e3d50dbdff1ff97af794f11b013d84d079b12658870d32aa444"
+    }
+  },
+  "reasonBoundReplay": {
+    "constructedNotOriginalOutput": true,
+    "observedRealCharacterCount": 202,
+    "before": {
+      "pass": 2,
+      "fail": 1,
+      "failure": "PROMPT_DID_NOT_STATE_EXISTING_180_CHARACTER_BOUND",
+      "logHash": "430e0bbae455dada2a38974dd23ce1a4046c38c1dce520c197f826b12b638904"
+    },
+    "after": {
+      "pass": 3,
+      "fail": 0,
+      "logHash": "3955562a973107985f6c2dcd087e3676a085a120dbf072db889dcd0feac91038"
+    },
+    "longReasonStillRejected": true,
+    "reason180WithAstralUnicodePreserved": true,
+    "reason181Rejected": true,
+    "truncationAdded": false
+  },
+  "independentReview": {
+    "verdict": "LOCAL_PATCH_ADMISSION_PASS_OVERALL_V3_BLOCKED",
+    "focusedTests": 40,
+    "focusedPassed": 40,
+    "reviewedCodeSHA": "ac59149734b5b69413dfbe25f69f4f25e99ff017",
+    "sourceAdmission": "PASS"
+  },
+  "contractContinuity": {
+    "publicDomesticContractSha256": "e0e358b427c84e5feb10b91719c8285af269f1a76b1872c7cf4ff13134006a5e",
+    "consumerDomesticContractSha256": "d063ba1f02bfd0479cdf99c66711cd0a3037a0230f0f760ef0a7e219fe8d6abc",
+    "phase3GeneratedOrHistoricalArtifactPathsChanged": [],
+    "lkgCodeChanged": false,
+    "newsDisplayCodeChanged": false,
+    "consumerCodeChanged": false
+  },
+  "lastTestSnapshotNotPhase3Delivery": {
+    "queriedAt": "2026-10-11T03:01:04.436Z",
+    "proof": "READ_ONLY_FUEL_DOCUMENTS_NOT_AUTHENTICATED_CUSTOMER_READ",
+    "environment": "TEST",
+    "writes": 0,
+    "rows": [
+      {
+        "_id": "currentFuelForecast",
+        "deliveryContract": "FUEL_PRIVATE_DELIVERY_V1",
+        "sourceCommit": "59c30087207954db347ee1a05e2f5a2d0b380643",
+        "sourceArtifactHash": "2d228fdcb178bbdd6fabe1745c0e15f9d593b6db897df03d97ec19d0d6667118",
+        "forecastHash": "0f378ceb9dafa8ba59b1467bf35cb1b7903fcd26aa006aac42a73bf75a12615a",
+        "syncedAt": 1791546477621,
+        "generatedAt": "2026-10-09T02:59:23.116Z",
+        "validUntil": "2026-10-10T02:59:23.116Z",
+        "target": null,
+        "probabilities": {
+          "DOWN": 25,
+          "FLAT": 15,
+          "UP": 60
+        },
+        "acceptedEvidenceCount": null,
+        "serializedHash": "d473bd2754aab5beb5acbe25508d6303bd94f1818460f5bcf2f0873359011d3f"
+      },
+      {
+        "_id": "currentFuelNews",
+        "deliveryContract": "FUEL_ACCEPTED_NEWS_DELIVERY_V2",
+        "sourceCommit": "25c3872e399edd2ca3bf0f8bb06a868ec8a68dc2",
+        "sourceArtifactHash": "6004aa3e3b63a5b5a3ec9e316685a093fb17c302dc78c030c3e43aa90c33ebe0",
+        "forecastHash": null,
+        "syncedAt": 1791547674599,
+        "generatedAt": "2026-10-09T12:05:36.457Z",
+        "validUntil": null,
+        "target": null,
+        "probabilities": null,
+        "acceptedEvidenceCount": 1,
+        "serializedHash": "043a33f5f30b3364b1b2b1a0ef696242690910dc561c3e2e233f32929774fa59"
+      }
+    ]
+  },
+  "delivery": {
+    "T0AcceptedRealDomesticForecast": false,
+    "T1PublisherTrigger": "NOT_RUN_PREREQUISITE_NOT_MET",
+    "T2TestWrite": "NOT_RUN_PREREQUISITE_NOT_MET",
+    "T3ProtectedUserRead": "NOT_RUN_PREREQUISITE_NOT_MET",
+    "T4ConsumerSameIdentity": "NOT_RUN_PREREQUISITE_NOT_MET",
+    "coreToTestLatencyMs": null,
+    "bridgeToCard": "NOT_RUN_PREREQUISITE_NOT_MET",
+    "phoneAcceptance": "NOT_RUN"
+  },
+  "officialReservation": {
+    "preserved": true,
+    "artifactId": 11688567102,
+    "name": "qwen-inference-reserved-2026-10-11",
+    "runId": 38103404963,
+    "createdAt": "2026-10-11T01:55:20Z",
+    "expiredAtLastRead": false,
+    "mutations": 0
+  },
+  "boundaries": {
+    "featurePushes": 0,
+    "merges": 0,
+    "stableIntegrationChanges": 0,
+    "ctointegration": 0,
+    "testDeployments": 0,
+    "testWrites": 0,
+    "productionDeployments": 0,
+    "productionWrites": 0,
+    "clientUploads": 0,
+    "officialDispatches": 0,
+    "officialReservationChanges": 0,
+    "callsAfterReasonLengthPatch": 0,
+    "paymentChanges": 0,
+    "releaseChanges": 0,
+    "clientChanges": 0
+  },
+  "publicScanIncludingReport": {
+    "gate": "PASS",
+    "scanned": 1388,
+    "findings": [],
+    "scannerCodeChanged": false,
+    "newProofsInIgnoredDirectory": false
+  }
+}
