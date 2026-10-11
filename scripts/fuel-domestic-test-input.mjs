@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { collectEvidence } from './intelligence-v2/collect.mjs';
 import { projectDomesticInput, domesticInputGate } from './intelligence-v2/domestic-fuel.mjs';
+import { coreEvidenceGate } from '../dist/data/intelligence-v2-contract.js';
 
 const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
 const plain=s=>s.replace(/<[^>]+>/g,'').replace(/&nbsp;/g,' ').replace(/\s+/g,' ').trim();
@@ -55,12 +56,24 @@ export async function recheckDomesticSources(seed,{fetchImpl=fetch,now=()=>new D
   return {policy:copy.policy,adjustmentWindow:copy.adjustmentWindow,domesticEvidence:copy.domesticEvidence,receipts};
 }
 
-export async function loadFreshDomesticInput(seed,{fetchImpl=fetch,now=()=>new Date()}={}) {
+export function buildFreshDomesticInput({pack,verified,now=new Date()}={}) {
+  const marketGate=coreEvidenceGate(pack,{now});
+  if(marketGate.gate!=='PASS')throw Object.assign(new Error('DOMESTIC_MARKET_INPUT_INVALID'),{
+    code:'DOMESTIC_MARKET_INPUT_INVALID',validationStage:'DOMESTIC_MARKET_INPUT',
+    validationSubtype:marketGate.errors[0],gateErrors:marketGate.errors});
+  const input=projectDomesticInput({pack,policy:verified.policy,adjustmentWindow:verified.adjustmentWindow,
+    domesticEvidence:verified.domesticEvidence,evidenceProof:'REAL_VERIFIED_EVIDENCE',now});
+  const gate=domesticInputGate(input,{now});
+  if(gate.gate!=='PASS')fail(gate.errors[0]);
+  return input;
+}
+
+export async function loadFreshDomesticInput(seed,{fetchImpl=fetch,now=()=>new Date(),onMarketInput=async()=>{}}={}) {
   const verified=await recheckDomesticSources(seed,{fetchImpl,now});
   const {pack}=await collectEvidence({fetchImpl,now:now(),coreOnly:true});
-  const input=projectDomesticInput({pack,policy:verified.policy,adjustmentWindow:verified.adjustmentWindow,
-    domesticEvidence:verified.domesticEvidence,evidenceProof:'REAL_VERIFIED_EVIDENCE',now:now()});
-  const gate=domesticInputGate(input,{now:now()});
-  if(gate.gate!=='PASS')fail(gate.errors[0]);
+  const validatedAt=now();
+  // Retain this actual model-before input privately, including rejects; no article bodies or model output.
+  await onMarketInput({pack,gate:coreEvidenceGate(pack,{now:validatedAt}),validatedAt:validatedAt.toISOString(),sourceReceipts:verified.receipts});
+  const input=buildFreshDomesticInput({pack,verified,now:validatedAt});
   return {input,sourceReceipts:verified.receipts};
 }

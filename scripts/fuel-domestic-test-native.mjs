@@ -72,7 +72,9 @@ export async function handleFuelTestTimer({event,context,root,native,providerEnv
   }
   let loaded;
   const result=await runFuelTestTrigger({event,context,binding:manifest,
-    loadInput:async()=>{loaded=await loadFreshDomesticInput(seed,{now});return loaded.input;},
+    loadInput:async()=>{loaded=await loadFreshDomesticInput(seed,{now,onMarketInput:async audit=>{
+      await native.collection(COLLECTION).doc('fuelDomesticMarketInputPreflight20261011').update({marketInputAudit:audit});
+    }});return loaded.input;},
     loadCurrent:async()=>readTestDocument(native.collection(COLLECTION).doc('currentFuelForecast')),
     claim:request=>reserveFuelTestOpportunity(native,request,context.request_id),
     acceptedCollection,now,
