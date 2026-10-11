@@ -16,7 +16,7 @@ export async function readTestDocument(doc) {
 }
 
 export function assertFuelTestTrigger(event,context,binding) {
-  if(event?.Type!=='Timer'||event.TriggerName!==TRIGGER_NAME||binding?.environment!==TEST_ENV||
+  if(event?.Type!=='Timer'||Object.hasOwn(event,'userInfo')||event.TriggerName!==TRIGGER_NAME||binding?.environment!==TEST_ENV||
     binding.coreSha!==CORE_SHA||binding.consumerSha!==CONSUMER_SHA||binding.authorization!==AUTHORIZATION||
     binding.functionName!==FUNCTION_NAME||context?.function_name!==FUNCTION_NAME||context.namespace!==TEST_ENV||
     binding.maxTotalModelCalls!==1||binding.version!==String(context.function_version))fail('FUEL_TEST_TRIGGER_NOT_AUTHORIZED');

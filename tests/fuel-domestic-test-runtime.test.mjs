@@ -67,7 +67,7 @@ test('immutable byte mismatch cannot publish the candidate',async()=>{
   await assert.rejects(()=>runFuelTestTrigger(s.config),/FUEL_TEST_IMMUTABLE_ARTIFACT_MISMATCH/);assert.equal(s.published.length,0);
 });
 
-for(const mutate of [c=>c.event={Type:'HTTP'},c=>c.binding={...binding,environment:'not-test'},c=>c.binding={...binding,coreSha:'0'.repeat(40)},
+for(const mutate of [c=>c.event={Type:'HTTP'},c=>c.event={...event,userInfo:{syntheticIdentity:true}},c=>c.binding={...binding,environment:'not-test'},c=>c.binding={...binding,coreSha:'0'.repeat(40)},
   c=>c.binding={...binding,consumerSha:'0'.repeat(40)},c=>c.binding={...binding,maxTotalModelCalls:2},c=>c.context={...context,function_version:'2'},
   c=>c.context={...context,namespace:'not-test'},c=>c.context={...context,function_name:'another-function'}])test('untrusted trigger or changed binding fails before any model request',async()=>{
   const s=await scenario();mutate(s.config);await assert.rejects(()=>runFuelTestTrigger(s.config),/FUEL_TEST_TRIGGER_NOT_AUTHORIZED/);assert.equal(s.calls.length,0);
