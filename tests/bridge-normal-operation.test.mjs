@@ -12,14 +12,14 @@ import { currentHash } from '../scripts/intelligence-v2/current-publication.mjs'
 const fixture=await loadReplayFixture();
 const workflow=await readFile(new URL('../.github/workflows/manual-intelligence-bridge.yml',import.meta.url),'utf8');
 
-test('operational default retains free option, trusted main guard and serial writer; no temporary switch',()=>{
+test('domestic ingress retains free option, trusted main guard and serial writer; no temporary switch',()=>{
   assert.match(workflow,/options: \[REFRESH_CURRENT, VERIFY_ONLY\]\n        default: REFRESH_CURRENT/);
   assert.match(workflow,/default: CHATGPT_SIGNAL_PACKAGE/);
-  assert.match(workflow,/验证通过后重新计算并更新当前预测（会调用一次 Qwen）/);
+  assert.match(workflow,/验证分析包并放入国内 Test 请求队列/);
   assert.match(workflow,/仅免费验证情报，不调用模型/);
   assert.doesNotMatch(workflow,/BRIDGE_REFRESH_(?:ACTIVATED|NOT_AUTHORIZED)/);
   assert.match(workflow,/group: ayu-fuel-manual-bridge\n  cancel-in-progress: false/);
-  const refresh=workflow.split('- name: 验证情报并更新 Current')[1].split('- name: 受控提交 Current')[0];
+  const refresh=workflow.split('- name: 准备国内 Test 请求')[1].split('- name: Public source scan')[0];
   assert.match(refresh,/inputs.mode == 'REFRESH_CURRENT' && vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs\/heads\/main' && github.repository == 'Zhyquan\/ayu-fuel-lab'/);
   const free=workflow.split('- name: 免费验证新闻')[1].split('- name: 刷新条件')[0];
   assert.doesNotMatch(free,/secrets\.|DASHSCOPE|GITHUB_TOKEN/);

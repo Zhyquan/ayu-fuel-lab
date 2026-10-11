@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       intake_type:
-        description: '选择情报输入方式'
+        description: '国内 Test 仅支持分析包；NEWS_URL 保留输入但不会入队'
         type: choice
         options: [CHATGPT_SIGNAL_PACKAGE, NEWS_URL]
         default: CHATGPT_SIGNAL_PACKAGE
@@ -16,7 +16,7 @@ on:
         type: string
         required: false
       mode:
-        description: 'REFRESH_CURRENT：验证通过后重新计算并更新当前预测（会调用一次 Qwen）；VERIFY_ONLY：仅免费验证情报，不调用模型'
+        description: 'REFRESH_CURRENT：验证分析包并放入国内 Test 请求队列；VERIFY_ONLY：仅免费验证情报，不调用模型；GitHub 不生成预测'
         type: choice
         options: [REFRESH_CURRENT, VERIFY_ONLY]
         default: REFRESH_CURRENT
@@ -40,45 +40,77 @@ jobs:
           node-version: '22'
       - name: Offline regression
         run: npm test
-      - name: 免费验证新闻（不调用模型）
+      - name: 免费验证新闻/分析包（不调用模型）
         if: inputs.mode == 'VERIFY_ONLY'
         env:
           BRIDGE_INTAKE_TYPE: ${{ inputs.intake_type }}
           BRIDGE_SIGNAL_PACKAGE: ${{ inputs.signal_package }}
           BRIDGE_NEWS_URL: ${{ inputs.news_url }}
           BRIDGE_MODE: VERIFY_ONLY
-        run: node scripts/intelligence-v2/manual-bridge-cli.mjs
+        run: node scripts/intelligence-v2/domestic-bridge-cli.mjs
       - name: 刷新条件未满足
         if: inputs.mode == 'REFRESH_CURRENT' && !(vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab')
-        env:
-          BRIDGE_INTAKE_TYPE: ${{ inputs.intake_type }}
-          BRIDGE_MODE: REFRESH_CURRENT
-          QWEN_API_ACTIVATED: ${{ vars.QWEN_API_ACTIVATED }}
-        run: node scripts/intelligence-v2/manual-bridge-cli.mjs
-      - name: 验证情报并更新 Current
-        id: refresh
+        run: |
+          mkdir -p .work/domestic-bridge
+          printf '%s\n' '{"status":"REJECTED","noQwen":true,"failureCode":"DOMESTIC_BRIDGE_QUEUE_NOT_AUTHORIZED"}' > .work/domestic-bridge/result.json
+          exit 1
+      - name: 准备国内 Test 请求
+        id: queue
         if: inputs.mode == 'REFRESH_CURRENT' && vars.QWEN_API_ACTIVATED == 'true' && github.ref == 'refs/heads/main' && github.repository == 'Zhyquan/ayu-fuel-lab'
         env:
           BRIDGE_INTAKE_TYPE: ${{ inputs.intake_type }}
           BRIDGE_SIGNAL_PACKAGE: ${{ inputs.signal_package }}
           BRIDGE_NEWS_URL: ${{ inputs.news_url }}
           BRIDGE_MODE: REFRESH_CURRENT
-          QWEN_API_ACTIVATED: ${{ vars.QWEN_API_ACTIVATED }}
-          DASHSCOPE_API_KEY: ${{ secrets.DASHSCOPE_API_KEY }}
-        run: node scripts/intelligence-v2/manual-bridge-cli.mjs
-      - name: 受控提交 Current（不写 Official）
-        if: steps.refresh.outputs.ready == 'true'
+        run: node scripts/intelligence-v2/domestic-bridge-cli.mjs
+      - name: Public source scan
+        run: npm run scan
+      - name: 受控提交国内 Test 请求
+        if: steps.queue.outputs.ready == 'true'
         env:
           QWEN_API_ACTIVATED: ${{ vars.QWEN_API_ACTIVATED }}
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/intelligence-v2/commit-current-bridge.mjs
-      - name: Public source scan
-        run: npm run scan
+          REQUEST_ID: ${{ steps.queue.outputs.request_id }}
+        run: |
+          node --input-type=module <<'NODE'
+          import { execFileSync } from 'node:child_process';
+          import { readFile, writeFile } from 'node:fs/promises';
+          import { DOMESTIC_BRIDGE_REQUEST_PATH, validateDomesticBridgeRequest } from './scripts/intelligence-v2/domestic-bridge-intake.mjs';
+          const fail=code=>{throw new Error(code);};
+          try {
+            if(process.env.QWEN_API_ACTIVATED!=='true'||process.env.GITHUB_ACTIONS!=='true'||process.env.GITHUB_REF!=='refs/heads/main'||process.env.GITHUB_REPOSITORY!=='Zhyquan/ayu-fuel-lab')fail('DOMESTIC_BRIDGE_COMMIT_NOT_AUTHORIZED');
+            const token=process.env.GITHUB_TOKEN;if(!token)fail('GITHUB_TOKEN_REQUIRED');
+            const env={...process.env,GIT_CONFIG_COUNT:'1',GIT_CONFIG_KEY_0:'http.https://github.com/.extraheader',GIT_CONFIG_VALUE_0:`AUTHORIZATION: basic ${Buffer.from(['x-access-token',token].join(':')).toString('base64')}`};
+            const git=args=>{try{return execFileSync('git',args,{env,encoding:'utf8',stdio:['ignore','pipe','pipe']});}catch{fail('DOMESTIC_BRIDGE_GIT_OPERATION_FAILED');}};
+            const unmoved=()=>{git(['fetch','origin','main']);if(git(['rev-parse','origin/main']).trim()!==process.env.GITHUB_SHA)fail('DOMESTIC_BRIDGE_MAIN_MOVED');};
+            if(git(['rev-parse','HEAD']).trim()!==process.env.GITHUB_SHA)fail('DOMESTIC_BRIDGE_CHECKOUT_MISMATCH');
+            unmoved();
+            const request=validateDomesticBridgeRequest(JSON.parse(await readFile(DOMESTIC_BRIDGE_REQUEST_PATH,'utf8')));
+            if(request.requestId!==process.env.REQUEST_ID)fail('DOMESTIC_BRIDGE_REQUEST_ID_MISMATCH');
+            const records=git(['status','--porcelain=v1','-z','--untracked-files=all']).split('\0').filter(Boolean).map(row=>({status:row.slice(0,2),path:row.slice(3)}));
+            if(records.length!==1||records[0].path!==DOMESTIC_BRIDGE_REQUEST_PATH||!['??',' M','M ','A ','AM','MM'].includes(records[0].status))fail('DOMESTIC_BRIDGE_CHANGE_NOT_ALLOWED');
+            git(['add','--',DOMESTIC_BRIDGE_REQUEST_PATH]);
+            if(git(['diff','--cached','--name-only']).trim()!==DOMESTIC_BRIDGE_REQUEST_PATH)fail('DOMESTIC_BRIDGE_CHANGE_NOT_ALLOWED');
+            unmoved();
+            git(['-c','user.name=github-actions[bot]','-c','user.email=41898282+github-actions[bot]@users.noreply.github.com','commit','-m',`data: Domestic Test Bridge request ${request.requestId.slice(0,12)}`]);
+            git(['push','origin','HEAD:refs/heads/main']);
+            console.log(JSON.stringify({status:'QUEUED',noQwen:true,requestId:request.requestId,commit:git(['rev-parse','HEAD']).trim()}));
+          } catch(error) {
+            const code=/^[A-Z0-9_]{1,80}$/.test(error.message)?error.message:'DOMESTIC_BRIDGE_COMMIT_FAILED';
+            try {
+              const path='.work/domestic-bridge/result.json',result=JSON.parse(await readFile(path,'utf8'));
+              await writeFile(path,JSON.stringify({...result,status:'REJECTED',failureCode:code},null,2)+'\n');
+            } catch {}
+            console.error(code);
+            process.exitCode=1;
+          }
+          NODE
       - name: 脱敏验证结果
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: bridge-verification-result
-          path: .work/manual-bridge/result.json
+          path: .work/domestic-bridge/result.json
+          include-hidden-files: true
           if-no-files-found: ignore
           retention-days: 7

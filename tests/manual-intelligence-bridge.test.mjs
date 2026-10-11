@@ -157,13 +157,14 @@ test('Pages accepts only the matching verified Current commit; VERIFY_ONLY canno
     await rm(join(root,CURRENT_ORIGIN_PATH));assert.equal((await currentDeliveryReady(args)).ready,false);
   }finally{await rm(root,{recursive:true,force:true});}
 });
-test('default workflow intake, secret boundary, strict publication and safe artifact path are explicit',async()=>{
+test('default domestic workflow intake, secret boundary and safe request artifact path are explicit',async()=>{
   const yml=await readFile(new URL('../.github/workflows/manual-intelligence-bridge.yml',import.meta.url),'utf8');
   assert.match(yml,/name: Ayu Fuel · 情报桥/);assert.match(yml,/description: '粘贴需要验证的原始新闻链接'/);
   assert.match(yml,/default: CHATGPT_SIGNAL_PACKAGE/);assert.match(yml,/type: string\n        required: false/);assert.match(yml,/default: REFRESH_CURRENT/);
   assert.doesNotMatch(yml,/schedule:|\n  push:/);
   const verify=yml.split('- name: 免费验证新闻')[1].split('- name: 刷新条件')[0];assert.doesNotMatch(verify,/secrets\.|DASHSCOPE|GITHUB_TOKEN/);
-  assert.match(yml,/vars.QWEN_API_ACTIVATED == 'true'/);assert.match(yml,/path: .work\/manual-bridge\/result.json/);
+  assert.match(yml,/vars.QWEN_API_ACTIVATED == 'true'/);assert.match(yml,/path: .work\/domestic-bridge\/result.json/);
+  assert.match(yml,/include-hidden-files: true/);
   assert.doesNotMatch(yml,/path: .*snapshot|path: .*origin/);
   const source=await readFile(new URL('../scripts/intelligence-v2/manual-bridge.mjs',import.meta.url),'utf8');
   assert.doesNotMatch(source,/runOfficialDaily|reservation|official-daily-index/);
