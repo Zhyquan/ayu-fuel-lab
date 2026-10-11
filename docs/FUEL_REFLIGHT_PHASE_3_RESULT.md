@@ -51,7 +51,7 @@ Phase 3 第一次诊断调用：
 | [发改委 9 月 24 日公告](https://www.ndrc.gov.cn/xwdt/xwfb/202609/t20260924_1407824.html) | 当前执行期从 9 月 24 日 24:00 开始；临时调控已应用于这一期，下一窗口是否延续仍 UNKNOWN |
 | [中石化调价日历](https://cx.sinopecsales.com/yjkqiantai/core/toCalendar)及实际 202610 图片 | 可核验 10 月 15 日 / 29 日；图片发布日期 UNKNOWN，未将 Last-Modified 当发布日期 |
 | [隆众 10 月 10 日公开原始材料](https://www.oilchem.net/26-1010-08-5212c0fd09f45f70.html) | 原站 08:31 发布，分钟精度；截至 10 月 9 日，第 6 工作日、变化率 -6.18%、预计下调 290 元/吨；为机构估计，非官方最终调幅 |
-| 已有当天 EIA / FRED 数据 | 保留 6 条行情、库存、生产/炼厂信号，全部 INPUT_ONLY，不直接升级为国内结论 |
+| 当天采集的已有 EIA / FRED 数据 | 保留原观测期和发布日期：行情观测为 10 月 8 日、10 月 9 日发布；基本面统计周为 10 月 2 日、10 月 7 日发布。保留 6 条信号，全部 INPUT_ONLY，不直接升级为国内结论 |
 
 六份国内来源响应均为 HTTP 200，实际 body hash/bytes 和接收时间见 [source-provenance.safe.json](reflight-phase3/source-provenance.safe.json)。组合 policy/window hash 明确是 CANONICAL_MANIFEST_SHA256_NOT_SINGLE_SOURCE_BYTES，具有逐字段来源绑定。
 
@@ -88,7 +88,7 @@ Phase 3 第一次诊断调用：
 
 执行顺序证明 target/horizon、整数概率、sum、主因存在/accepted/方向/唯一性、confidence 检查已经通过；随后在 202 > 180 处拒绝。**理由语言与数字 grounding 的后续检查没有执行，仍 UNKNOWN。** 原始 reason 未留存，不伪造或重建它。审计中的 5 / 60 / 35 仅是被拒绝响应的结构，未作为产品预测发布。
 
-**当前 first bad layer 是模型 reason 超出现有 180 字符合同。** 原提示只说“简短中文”，未写明确上限。`ac591497...` 仅补非空、不换行、纯文本、最多 180 Unicode 字符及简短概括提示。原 validator/schema 上限不变，无截断、自动改写、补概率或真实重试。新提示尚未真实复验。
+**当前 first bad layer 是模型 reason 超出现有 180 字符合同。** 原提示只说“简短中文”，未写明确上限。`ac591497...` 仅补非空、不换行、纯文本、最多 180 Unicode 字符及简短概括提示。原 validator 的 180 字符上限不变，schema 未改（reason 仍只声明 string 类型），无截断、自动改写、补概率或真实重试。新提示尚未真实复验。
 
 ## 4. Responsiveness 与本地回放
 
