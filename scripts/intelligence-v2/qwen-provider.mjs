@@ -7,6 +7,7 @@ import { evidenceHashFor } from './history.mjs';
 import { PROMPT_VERSION, SYSTEM_PROMPT } from './prompts/qwen-forecast-v1.mjs';
 import { PROMPT_VERSION as NEWS_PROMPT_VERSION, SYSTEM_PROMPT as NEWS_SYSTEM_PROMPT } from './prompts/qwen-forecast-core-v1.mjs';
 import { createHash } from 'node:crypto';
+import { DOMESTIC_FUEL_INPUT_CONTRACT, domesticInputGate, createDomesticQwenRequest, normalizeDomesticForecast } from './domestic-fuel.mjs';
 
 export const QWEN_MODEL = 'qwen3.8-flash';
 export const DEFAULT_BASE_URL = 'https://dashscope.aliyuncs.com/compatible-mode/v1';
@@ -167,11 +168,12 @@ export function createQwenProvider(options={}) {
   const mock=options.mock===true && typeof options.fetchImpl==='function' && options.fetchImpl!==globalThis.fetch;
   let used=false, lastRun=null;
   return {name:'QWEN',get lastRun(){return lastRun?structuredClone(lastRun):null;},
-    async generateForecast({evidencePack,evidenceHash,now=clock()}) {
+    async generateForecast({evidencePack,evidenceHash,acceptedCollection=null,now=clock()}) {
       if(used)fail('QWEN_RUN_CALL_BUDGET_EXCEEDED');used=true;
       const pack=structuredClone(evidencePack);
-      if(coreEvidenceGate(pack,{now}).gate!=='PASS')fail('EVIDENCE_GATE_FAILED');
-      const external=externalSignalsGate(pack,{now});
+      const domestic=pack.schemaVersion===DOMESTIC_FUEL_INPUT_CONTRACT;
+      if((domestic?domesticInputGate(pack,{now}):coreEvidenceGate(pack,{now})).gate!=='PASS')fail('EVIDENCE_GATE_FAILED');
+      const external=domestic?{gate:'PASS',signals:[]}:externalSignalsGate(pack,{now});
       if(external.gate!=='PASS')fail(external.errors[0]);
       if(external.signals.some(s=>s.evidenceId!==externalEvidenceId(s.eventKey)))fail('EXTERNAL_IDENTITY_INVALID');
       if(evidenceHashFor(pack)!==evidenceHash)fail('EVIDENCE_HASH_MISMATCH');
@@ -179,15 +181,16 @@ export function createQwenProvider(options={}) {
       if(typeof key!=='string'||!key.trim())fail('DASHSCOPE_API_KEY_REQUIRED');
       if(!mock&&options.activationAuthorized!==true)fail('QWEN_API_ACTIVATION_NEEDS_USER_AUTHORIZATION');
       const url=endpoint(environment.DASHSCOPE_BASE_URL||DEFAULT_BASE_URL);
-      const input=canonicalJson(projectEvidence(pack));
+      const input=canonicalJson(domestic?pack:projectEvidence(pack));
       const inputPackHash=createHash('sha256').update(input).digest('hex');
       const newsContract=pack.inputContractVersion===NEWS_INPUT_CONTRACT;
       const baseVersion=external.signals.length?EXTERNAL_PROMPT_VERSION:newsContract?NEWS_PROMPT_VERSION:PROMPT_VERSION;
-      const promptVersion=`${baseVersion}-${REASON_CONTRACT_VERSION}`;
+      const domesticRequest=domestic?createDomesticQwenRequest(pack):null;
+      const promptVersion=domestic?domesticRequest.promptVersion:`${baseVersion}-${REASON_CONTRACT_VERSION}`;
       const basePrompt=external.signals.length?EXTERNAL_SYSTEM_PROMPT:newsContract?NEWS_SYSTEM_PROMPT:SYSTEM_PROMPT;
-      const groups=reasonSelectionHints(pack);
+      const groups=domestic?null:reasonSelectionHints(pack);
       const systemPrompt=basePrompt+`\n理由合同 ${REASON_CONTRACT_VERSION}：upReasonEvidenceIds 永久只选利涨结构化/外部ID，downReasonEvidenceIds 永久只选利跌ID，各0到3条，按重要性排序。可选组：${JSON.stringify(groups)}。每组只允许选择 reasonEvidenceId；relatedEvidenceIds 是该事件的其他测量，不是额外可选理由。每池数量不得超过该方向的事件组数，不需要凑满3条。同一方向每个eventKey最多一个ID，ID不得重复或跨池复用，NEUTRAL不能入池；每个有该方向结构化signal的池须优先保留结构化理由。impact/direction 是价格影响方向，不是库存或产量增减。模型只输出方向池，不输出main/counter角色；代码按UP>DOWN为UP、否则DOWN（含平票）投影，主池前3条、反池前2条。全部signals仍参与分析和strengthAssessments，代表ID只约束理由身份、不决定权重，概率按证据判断，不为选择理由改写概率。newsReasonEvidenceIds独立选择最多3个新闻segment ID，可为空，新闻角色只由已验证newsAssessment impact派生；newsAssessments展示集合不因未选理由而删除。`;
-      const body=JSON.stringify({model:QWEN_MODEL,stream:false,enable_thinking:false,
+      const body=JSON.stringify(domestic?domesticRequest.body:{model:QWEN_MODEL,stream:false,enable_thinking:false,
         messages:[{role:'system',content:systemPrompt},{role:'user',content:`Frozen Evidence Pack (${evidenceHash}); model input hash ${inputPackHash}\n${input}`}],
         response_format:{type:'json_schema',json_schema:{name:'QWEN_ANALYSIS_OUTPUT',strict:true,schema:analysisSchema(pack)}}});
       if(Buffer.byteLength(body)>MAX_INPUT_BYTES)fail('QWEN_PAYLOAD_TOO_LARGE');
@@ -213,6 +216,10 @@ export function createQwenProvider(options={}) {
         if(envelope.choices?.length!==1||choice.finish_reason!=='stop'||choice.message?.role!=='assistant'||choice.message.refusal||choice.message.tool_calls||typeof choice.message.content!=='string')fail('QWEN_RESPONSE_INVALID');
         lastRun.outputHash=createHash('sha256').update(choice.message.content).digest('hex');
         let analysis;try{analysis=JSON.parse(choice.message.content);}catch{fail('QWEN_SCHEMA_INVALID');}
+        if(domestic) {
+          const candidate=await normalizeDomesticForecast({analysis,input:pack,acceptedCollection,now:clock()});
+          lastRun.status='OK';return candidate;
+        }
         validateAnalysis(analysis,pack);
         const roles=projectReasonPools(analysis);
         const news=newsContract?newsEnrichmentGate({...analysis,...roles},pack,{mode:'MODEL'}):null;
