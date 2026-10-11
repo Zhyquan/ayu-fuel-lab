@@ -46,6 +46,7 @@ export function buildDomesticBridgeCards({pack,request,previous=[],consumedEvide
     if(row.influenceBasis==='EXTERNAL_ANALYST')row.summary=row.summary.replace(/^未核实：/,'');
     row.directionLabel=row.direction==='NEUTRAL'?'平':row.direction==='UP'?'利涨':'利跌';
   }
+  collection.acceptedEvidence.sort((a,b)=>Date.parse(b.publishedAt)-Date.parse(a.publishedAt)||a.id.localeCompare(b.id));
   const {collectionHash,...value}=collection;
   const result={...value,collectionHash:evidenceHashFor(value)};
   verifyAcceptedCollection(result,{now});

@@ -147,3 +147,27 @@ test('a previous display warning is removed without changing the analyst summary
   assert.equal(visible.type,'CLAIM');assert.equal(f.request.signalPackage.signals[0].confirmation,'UNCONFIRMED');
   verifyAcceptedCollection(result.collection,{now});
 });
+
+test('public Bridge cards sort by actual publication time before influence, with stable ties',async()=>{
+  const f=await fixture(p=>{
+    const first=p.signals[0];
+    first.publishedAt=new Date(+now-3600000).toISOString();
+    first.eventKey='synthetic-newer-low';first.strength='LOW';
+    p.signals.push({...first,eventKey:'synthetic-older-material',publishedAt:new Date(+now-7200000).toISOString(),strength:'HIGH',confirmation:'CONFIRMED',kind:'FACT'});
+    p.signals.push({...first,eventKey:'synthetic-tied-low',publishedAt:first.publishedAt.replace('Z','+00:00')});
+  });
+  const before=structuredClone(f),result=buildDomesticBridgeCards(f);
+  const rows=result.collection.acceptedEvidence;
+  for(let i=1;i<rows.length;i++) {
+    assert(Date.parse(rows[i-1].publishedAt)>=Date.parse(rows[i].publishedAt));
+    if(Date.parse(rows[i-1].publishedAt)===Date.parse(rows[i].publishedAt))assert(rows[i-1].id.localeCompare(rows[i].id)<0);
+  }
+  const newer=rows.findIndex(e=>e.eventKey==='synthetic-newer-low'),older=rows.findIndex(e=>e.eventKey==='synthetic-older-material');
+  assert(newer>=0&&older>newer);assert(rows[older].displayPriority>rows[newer].displayPriority);
+  assert.equal(rows.filter(e=>e.eventKey.startsWith('synthetic-')).length,3);
+  assert.deepEqual(f,before);verifyAcceptedCollection(result.collection,{now});
+  const signalPackage=structuredClone(f.request.signalPackage);signalPackage.signals.reverse();
+  const request=prepareDomesticBridgeRequest({signalPackage,mode:'REFRESH_CURRENT',now}).request;
+  assert.deepEqual(buildDomesticBridgeCards({...f,request}).collection.acceptedEvidence.map(e=>e.id),rows.map(e=>e.id));
+  assert.deepEqual(buildDomesticBridgeCards({...f,previous:[...rows].reverse()}).collection,result.collection);
+});
