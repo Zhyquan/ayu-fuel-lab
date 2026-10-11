@@ -5,7 +5,7 @@ import { evidenceHashFor } from './intelligence-v2/history.mjs';
 export const TEST_ENV='yuzhang-test-d6gft53cbc849114f';
 export const CORE_SHA='a141f106336714eb6790091fcd4b420b7abcfc1c';
 export const CONSUMER_SHA='1d9857b3a9c590db50c4c91b038c82c7a0fbb1dc';
-export const AUTHORIZATION='FUEL_FINAL_INTEGRATION_20261011_ONE_TEST_CALL';
+export const AUTHORIZATION='FUEL_FINAL_PACKAGE_RECOVERY_20261011_ONE_TEST_CALL';
 export const TRIGGER_NAME='fuel-domestic-test-reflight-20261011';
 export const FUNCTION_NAME='yuzhangFuelDomesticTestProducer';
 const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
@@ -63,7 +63,7 @@ export async function runFuelTestTrigger({event,context,binding,loadInput,loadCu
 
 export async function reserveFuelTestOpportunity(db,request,requestId) {
   if(request.authorization!==AUTHORIZATION||typeof requestId!=='string'||!requestId)fail('FUEL_TEST_RESERVATION_INVALID');
-  const id='fuelFinalIntegrationAuthorization20261011';
+  const id='fuelFinalPackageRecoveryAuthorization20261011';
   return db.runTransaction(async tx=>{
     const doc=tx.collection('yuzhang_fuel_forecasts').doc(id),existing=await readTestDocument(doc);
     if(existing)return {claimed:false};
