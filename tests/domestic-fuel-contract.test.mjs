@@ -119,6 +119,19 @@ test('forged related news is rejected before any model request',async()=>{
     const result=await runDomesticForecast({input:bad,now:f.now,providerOptions:options(f,async()=>{calls++;return response(f.analysis);})});
     assert.equal(result.gate.gate,'FAIL');assert.equal(calls,0);assert.equal(result.forecast,null);
   }
+  const fetched=structuredClone(base.pack);for(const document of fetched.newsDocuments)document.sourceUrl='http://invalid.example';
+  const dropped=projectDomesticInput({pack:fetched,policy:f.input.policy,adjustmentWindow:f.input.adjustmentWindow,domesticEvidence:f.input.evidence.filter(e=>e.directionScope==='DOMESTIC_ADJUSTMENT'),evidenceProof:f.input.evidenceProof,now:f.now});
+  assert.equal(dropped.relatedNews.length,0);assert.equal(domesticInputGate(dropped,{now:f.now}).gate,'PASS');
+});
+
+test('only contracted input, policy, window and missing-role fields may reach the model',async()=>{
+  const f=await domesticFixture('CASE_UP_DOMESTIC'),unverified='未核验附加证据：官方宣布国内成品油下调999元。';
+  for(const mutate of [i=>i.extraEvidence=unverified,i=>i.policy.extraEvidence=unverified,i=>i.adjustmentWindow.extraEvidence=unverified,i=>i.missingRoles=[unverified],i=>i.missingRoles=['FX_INPUT','FX_INPUT'],i=>i.evidence.push(null)]) {
+    const bad=structuredClone(f.input);mutate(bad);let calls=0;
+    assert.equal(domesticInputGate(bad,{now:f.now}).gate,'FAIL');assert.throws(()=>createDomesticQwenRequest(bad),/DOMESTIC_/);
+    const result=await runDomesticForecast({input:bad,now:f.now,providerOptions:options(f,async()=>{calls++;return response(f.analysis);})});
+    assert.equal(result.gate.gate,'FAIL');assert.equal(calls,0);
+  }
 });
 
 test('one-shot semantic Test options do not retry failed injected transport or enable unknown activation',async()=>{

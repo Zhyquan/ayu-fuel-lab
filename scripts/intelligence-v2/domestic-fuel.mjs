@@ -8,6 +8,10 @@ import { PROMPT_VERSION, SYSTEM_PROMPT } from './prompts/qwen-domestic-fuel-v1.m
 
 export const DOMESTIC_FUEL_INPUT_CONTRACT='DOMESTIC_FUEL_INPUT_V1';
 export const EVIDENCE_ROLES=['INTERNATIONAL_PRICE_INPUT','DOMESTIC_PRICING_SIGNAL','FX_INPUT','INVENTORY_INPUT','REFINERY_SUPPLY_INPUT','GEOPOLITICAL_INPUT','OFFICIAL_POLICY_OR_ADJUSTMENT','RELATED_LOW_IMPACT'];
+const INPUT_FIELDS=['schemaVersion','target','horizon','horizonStartAt','horizonEndAt','evidenceProof','policy','adjustmentWindow','evidence','relatedNews','missingRoles'];
+const RECEIPT_FIELDS=['evidenceId','sourceName','sourceUrl','publishedAt','checkedAt','contentHash','verified'];
+const POLICY_FIELDS=[...RECEIPT_FIELDS,'cycleWorkingDays','minAdjustmentYuanPerTonne','floorUsdPerBarrel','ceilingUsdPerBarrel','temporaryControl'];
+const WINDOW_FIELDS=[...RECEIPT_FIELDS,'windowId','pricingWindowStartAt','pricingWindowEndAt','nextAdjustmentAt'];
 const NEWS_DOCUMENT_FIELDS=['documentId','sourceUrl','publisher','originalSource','authorName','publishedAt','publishedAtPrecision','fetchedAt','articleContentHash','headline','segments'];
 const RELATED_NEWS_FIELDS=['evidenceId','role','direction','directionScope','strength','freshness','relevance','document'];
 const fail=code=>{throw new Error(code);};
@@ -37,11 +41,12 @@ export function projectDomesticInput({pack,policy=null,adjustmentWindow=null,dom
 
 export function domesticInputGate(input,{now=new Date()}={}) {
   const errors=[],policy=input?.policy,window=input?.adjustmentWindow;
-  if(input?.schemaVersion!==DOMESTIC_FUEL_INPUT_CONTRACT||input.target!==DOMESTIC_FUEL_TARGET||input.horizon!==DOMESTIC_FUEL_HORIZON||
+  if(!exact(input,INPUT_FIELDS)||input?.schemaVersion!==DOMESTIC_FUEL_INPUT_CONTRACT||input.target!==DOMESTIC_FUEL_TARGET||input.horizon!==DOMESTIC_FUEL_HORIZON||
     !['REAL_VERIFIED_EVIDENCE','SYNTHETIC_SEMANTIC_TEST'].includes(input.evidenceProof)||!validTimestamp(input.horizonStartAt)||!validTimestamp(input.horizonEndAt)||
-    Date.parse(input.horizonEndAt)-Date.parse(input.horizonStartAt)!==7*86400000||Date.parse(input.horizonStartAt)>+now||+now-Date.parse(input.horizonStartAt)>=86400000)errors.push('DOMESTIC_INPUT_CONTRACT_INVALID');
-  if(!sourceValid(policy,now,true)||!text(policy?.evidenceId,150)||policy.cycleWorkingDays!==10||policy.minAdjustmentYuanPerTonne!==50||policy.floorUsdPerBarrel!==40||policy.ceilingUsdPerBarrel!==130||!['NONE_CONFIRMED','ACTIVE'].includes(policy.temporaryControl))errors.push('DOMESTIC_POLICY_INSUFFICIENT');
-  if(!sourceValid(window,now,'WINDOW')||!text(window?.evidenceId,150)||!text(window?.windowId,150)||!validTimestamp(window?.pricingWindowStartAt)||!validTimestamp(window?.pricingWindowEndAt)||!validTimestamp(window?.nextAdjustmentAt)||
+    Date.parse(input.horizonEndAt)-Date.parse(input.horizonStartAt)!==7*86400000||Date.parse(input.horizonStartAt)>+now||+now-Date.parse(input.horizonStartAt)>=86400000||
+    !Array.isArray(input.missingRoles)||new Set(input.missingRoles).size!==input.missingRoles.length||input.missingRoles.some(role=>!EVIDENCE_ROLES.includes(role)))errors.push('DOMESTIC_INPUT_CONTRACT_INVALID');
+  if(!exact(policy,POLICY_FIELDS)||!sourceValid(policy,now,true)||!text(policy?.evidenceId,150)||policy.cycleWorkingDays!==10||policy.minAdjustmentYuanPerTonne!==50||policy.floorUsdPerBarrel!==40||policy.ceilingUsdPerBarrel!==130||!['NONE_CONFIRMED','ACTIVE'].includes(policy.temporaryControl))errors.push('DOMESTIC_POLICY_INSUFFICIENT');
+  if(!exact(window,WINDOW_FIELDS)||!sourceValid(window,now,'WINDOW')||!text(window?.evidenceId,150)||!text(window?.windowId,150)||!validTimestamp(window?.pricingWindowStartAt)||!validTimestamp(window?.pricingWindowEndAt)||!validTimestamp(window?.nextAdjustmentAt)||
     Date.parse(window.pricingWindowStartAt)>=Date.parse(window.pricingWindowEndAt)||Date.parse(window.pricingWindowEndAt)>Date.parse(window.nextAdjustmentAt)||Date.parse(window.nextAdjustmentAt)<=Date.parse(input?.horizonStartAt))errors.push('DOMESTIC_WINDOW_INSUFFICIENT');
   const news=input?.relatedNews;
   if(!Array.isArray(news)||news.length>6||new Set(news.map(r=>r?.evidenceId)).size!==news.length||news.some(r=>!exact(r,RELATED_NEWS_FIELDS)||r.role!=='UNASSESSED_NEWS_INPUT'||r.direction!=='UNASSESSED'||r.strength!=='UNASSESSED'||r.directionScope!=='INPUT_ONLY'||r.freshness!=='CURRENT'||r.relevance!=='RELATED'||
@@ -49,10 +54,10 @@ export function domesticInputGate(input,{now=new Date()}={}) {
   const rows=Array.isArray(input?.evidence)?input.evidence:[];
   if(!rows.length||rows.length>48||new Set(rows.map(e=>e?.evidenceId)).size!==rows.length||rows.some(e=>!exact(e,DOMESTIC_PRIMARY_EVIDENCE_FIELDS)||!sourceValid(e,now)||!text(e?.evidenceId,150)||!text(e?.eventKey,150)||!text(e?.text,1500)||!text(e?.sourceName,48)||!EVIDENCE_ROLES.includes(e.role)||
     !['UP','DOWN','HOLD_OR_NO_ADJUSTMENT','NEUTRAL'].includes(e.direction)||!['INPUT_ONLY','DOMESTIC_ADJUSTMENT'].includes(e.directionScope)||!['LOW','MEDIUM','HIGH'].includes(e.strength)||e.freshness!=='CURRENT'||!['FACT','ESTIMATE','RISK','OUTLOOK','CLAIM'].includes(e.kind)||!['DIRECT','INDIRECT','RELATED'].includes(e.relevance)||(e.directionScope==='INPUT_ONLY'&&e.relevance==='DIRECT')))errors.push('DOMESTIC_EVIDENCE_INVALID');
-  const direct=rows.filter(e=>['DOMESTIC_PRICING_SIGNAL','OFFICIAL_POLICY_OR_ADJUSTMENT'].includes(e.role)&&e.directionScope==='DOMESTIC_ADJUSTMENT'&&e.relevance==='DIRECT'&&e.windowId===window?.windowId&&e.strength!=='LOW');
+  const direct=rows.filter(e=>['DOMESTIC_PRICING_SIGNAL','OFFICIAL_POLICY_OR_ADJUSTMENT'].includes(e?.role)&&e.directionScope==='DOMESTIC_ADJUSTMENT'&&e.relevance==='DIRECT'&&e.windowId===window?.windowId&&e.strength!=='LOW');
   if(!direct.length)errors.push('DOMESTIC_PRICING_SUPPORT_INSUFFICIENT');
   if(direct.some(e=>!['FACT','ESTIMATE','RISK'].includes(e.kind)))errors.push('DOMESTIC_DIRECT_EVIDENCE_INVALID');
-  if(rows.some(e=>e.directionScope==='DOMESTIC_ADJUSTMENT'&&!direct.includes(e)))errors.push('INTERNATIONAL_INPUT_NOT_DOMESTIC_SUPPORT');
+  if(rows.some(e=>e?.directionScope==='DOMESTIC_ADJUSTMENT'&&!direct.includes(e)))errors.push('INTERNATIONAL_INPUT_NOT_DOMESTIC_SUPPORT');
   return {gate:errors.length?'FAIL':'PASS',errors,primaryEvidenceIds:direct.map(e=>e.evidenceId)};
 }
 
