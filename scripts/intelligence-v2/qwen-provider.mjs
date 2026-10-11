@@ -158,6 +158,44 @@ async function boundedText(response) {
   for await (const chunk of response.body) {bytes+=chunk.byteLength;if(bytes>65536) fail('QWEN_RESPONSE_TOO_LARGE');result+=decoder.decode(chunk,{stream:true});}
   return result+decoder.decode();
 }
+const auditType=value=>value===null?'NULL':Array.isArray(value)?'ARRAY':({object:'OBJECT',string:'STRING',number:'NUMBER',boolean:'BOOLEAN',undefined:'UNDEFINED'})[typeof value]??'OTHER';
+const safeAuditId=(value,secret)=>{
+  const type=auditType(value);
+  const filtered=reason=>({value:null,type,reason});
+  if(value===null||value===undefined)return filtered('NOT_PROVIDED');
+  if(typeof value!=='string')return filtered('NON_STRING');
+  if(value===secret||(secret?.length>=8&&value.includes(secret)))return filtered('SECRET_VALUE');
+  if(/(?:authorization|bearer|api[_-]?key|secret|password|access[_-]?token|(?:^|\b)token[:=_-]|^sk-[A-Za-z0-9_-]{16,}|^eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$)/i.test(value))return filtered('SECRET_FORMAT');
+  if(value.length>160)return filtered('TOO_LONG');
+  if(!/^[\p{L}\p{N}][\p{L}\p{N}._:-]*$/u.test(value))return filtered('UNSAFE_ID_FORMAT');
+  return {value,type,reason:null};
+};
+const safeAuditIds=(ids,secret)=>{
+  const checked=ids.map(id=>safeAuditId(id,secret));
+  return {values:checked.map(id=>id.value),redactions:checked.flatMap((id,index)=>id.reason?[{index,type:id.type,reason:id.reason}]:[])};
+};
+function domesticAttemptAudit(pack,gate,secret,{testAttemptId,requestId}) {
+  const identities={testAttemptId:safeAuditId(testAttemptId,secret),requestId:safeAuditId(requestId??testAttemptId,secret)};
+  const rows=[...pack.evidence,...pack.relatedNews],allowed=safeAuditIds(gate.primaryEvidenceIds,secret),inputs=safeAuditIds(rows.map(e=>e.evidenceId),secret);
+  return {testAttemptId:identities.testAttemptId.value,requestId:identities.requestId.value,
+    requestIdentityRedactions:Object.entries(identities).flatMap(([fieldName,id])=>id.reason?[{fieldName,type:id.type,reason:id.reason}]:[]),
+    providerResponseId:null,providerResponseIdRedaction:null,candidateId:null,candidateIdType:'AUDIT_ONLY_NOT_FORECAST_ID',candidateNotCreatedReason:'NO_SUCCESSFUL_PROVIDER_RESPONSE',evidenceRevision:evidenceHashFor(pack),
+    allowedPrimaryEvidenceIds:allowed.values,allowedPrimaryEvidenceIdRedactions:allowed.redactions,inputEvidenceIdentityRedactions:inputs.redactions,
+    inputEvidenceRoles:rows.map((e,index)=>({evidenceId:inputs.values[index],role:e.role,direction:e.direction,directionScope:e.directionScope,strength:e.strength,freshness:e.freshness,relevance:e.relevance,kind:e.kind??null,acceptedPrimary:gate.primaryEvidenceIds.includes(e.evidenceId)})),
+    inputReceiptIds:{policy:safeAuditId(pack.policy.evidenceId,secret),adjustmentWindow:safeAuditId(pack.adjustmentWindow.evidenceId,secret)},
+    selectedPrimaryEvidenceIds:null,selectedPrimaryEvidenceIdRedactions:[],selectedPrimaryEvidenceIdsOmitted:0,outputStructure:null};
+}
+function domesticOutputAudit(analysis,pack,secret) {
+  const fields=['target','horizon','probabilities','confidence','reason','primaryEvidenceIds'],object=analysis&&typeof analysis==='object'&&!Array.isArray(analysis);
+  const ids=analysis?.primaryEvidenceIds,list=Array.isArray(ids),selected=safeAuditIds(list?ids.slice(0,64):[],secret);
+  const p=analysis?.probabilities,probabilities=p&&typeof p==='object'&&!Array.isArray(p);
+  return {selectedPrimaryEvidenceIds:list?selected.values:null,selectedPrimaryEvidenceIdRedactions:selected.redactions,selectedPrimaryEvidenceIdsOmitted:list?Math.max(0,ids.length-64):0,
+    outputStructure:{type:auditType(analysis),fieldCount:object?Object.keys(analysis).length:null,presentFields:fields.filter(field=>Object.hasOwn(analysis??{},field)),uncontractedFieldCount:object?Object.keys(analysis).filter(field=>!fields.includes(field)).length:null,
+      target:{type:auditType(analysis?.target),matchesInput:analysis?.target===pack.target},horizon:{type:auditType(analysis?.horizon),matchesInput:analysis?.horizon===pack.horizon},
+      probabilities:{type:auditType(p),uncontractedFieldCount:probabilities?Object.keys(p).filter(field=>!['UP','DOWN','FLAT'].includes(field)).length:null,...Object.fromEntries(['UP','DOWN','FLAT'].map(field=>[field,{type:auditType(p?.[field]),value:typeof p?.[field]==='number'&&Number.isFinite(p[field])?p[field]:null}]))},
+      confidence:{type:auditType(analysis?.confidence),value:['LOW','MEDIUM','HIGH'].includes(analysis?.confidence)?analysis.confidence:null},reason:{type:auditType(analysis?.reason),characterCount:typeof analysis?.reason==='string'?Array.from(analysis.reason).length:null},
+      primaryEvidenceIds:{type:auditType(ids),count:list?ids.length:null,uniqueCount:list?new Set(ids).size:null,...(!list?{value:safeAuditId(ids,secret)}:{})}}};
+}
 export function createQwenProvider(options={}) {
   const maxTransportRetries=options.maxTransportRetries===undefined?MAX_TRANSPORT_RETRIES:options.maxTransportRetries;
   const maxExternalRequests=options.maxExternalRequests===undefined?MAX_TRANSPORT_RETRIES+1:options.maxExternalRequests;
@@ -168,11 +206,12 @@ export function createQwenProvider(options={}) {
   const mock=options.mock===true && typeof options.fetchImpl==='function' && options.fetchImpl!==globalThis.fetch;
   let used=false, lastRun=null;
   return {name:'QWEN',get lastRun(){return lastRun?structuredClone(lastRun):null;},
-    async generateForecast({evidencePack,evidenceHash,acceptedCollection=null,now=clock()}) {
+    async generateForecast({evidencePack,evidenceHash,acceptedCollection=null,testAttemptId=null,requestId=null,now=clock()}) {
       if(used)fail('QWEN_RUN_CALL_BUDGET_EXCEEDED');used=true;
       const pack=structuredClone(evidencePack);
       const domestic=pack.schemaVersion===DOMESTIC_FUEL_INPUT_CONTRACT;
-      if((domestic?domesticInputGate(pack,{now}):coreEvidenceGate(pack,{now})).gate!=='PASS')fail('EVIDENCE_GATE_FAILED');
+      const inputGate=domestic?domesticInputGate(pack,{now}):coreEvidenceGate(pack,{now});
+      if(inputGate.gate!=='PASS')fail('EVIDENCE_GATE_FAILED');
       const external=domestic?{gate:'PASS',signals:[]}:externalSignalsGate(pack,{now});
       if(external.gate!=='PASS')fail(external.errors[0]);
       if(external.signals.some(s=>s.evidenceId!==externalEvidenceId(s.eventKey)))fail('EXTERNAL_IDENTITY_INVALID');
@@ -194,7 +233,7 @@ export function createQwenProvider(options={}) {
         messages:[{role:'system',content:systemPrompt},{role:'user',content:`Frozen Evidence Pack (${evidenceHash}); model input hash ${inputPackHash}\n${input}`}],
         response_format:{type:'json_schema',json_schema:{name:'QWEN_ANALYSIS_OUTPUT',strict:true,schema:analysisSchema(pack)}}});
       if(Buffer.byteLength(body)>MAX_INPUT_BYTES)fail('QWEN_PAYLOAD_TOO_LARGE');
-      lastRun={provider:'QWEN',model:QWEN_MODEL,promptVersion,inputPackHash,evidenceHash,requestStartedAt:new Date(clock()).toISOString(),requestCompletedAt:null,semanticCallCount:MAX_PROVIDER_CALLS_PER_RUN,configuredTransportRetries:maxTransportRetries,maxExternalRequests,actualExternalRequestCount:0,attemptCount:0,httpStatus:null,httpStatuses:[],inputPayloadBytes:Buffer.byteLength(body),usage:{input_tokens:null,output_tokens:null},status:'FAILED',mock};
+      lastRun={provider:'QWEN',model:QWEN_MODEL,promptVersion,inputPackHash,evidenceHash,requestStartedAt:new Date(clock()).toISOString(),requestCompletedAt:null,semanticCallCount:MAX_PROVIDER_CALLS_PER_RUN,configuredTransportRetries:maxTransportRetries,maxExternalRequests,actualExternalRequestCount:0,attemptCount:0,httpStatus:null,httpStatuses:[],inputPayloadBytes:Buffer.byteLength(body),usage:{input_tokens:null,output_tokens:null},status:'FAILED',mock,...(domestic?domesticAttemptAudit(pack,inputGate,key,{testAttemptId,requestId}):{})};
       try {
         let response;
         for(let attempt=0;attempt<=maxTransportRetries;attempt++) {
@@ -209,14 +248,18 @@ export function createQwenProvider(options={}) {
           if(attempt===maxTransportRetries)fail('QWEN_TRANSPORT_FAILED');
           await wait(250*2**attempt);
         }
+        if(domestic)lastRun.candidateNotCreatedReason='INVALID_PROVIDER_ENVELOPE';
         let envelope;try {envelope=JSON.parse(await boundedText(response));}catch{fail('QWEN_RESPONSE_INVALID');}
         if(!envelope||typeof envelope!=='object'||Array.isArray(envelope))fail('QWEN_RESPONSE_INVALID');
+        if(domestic) {const id=safeAuditId(envelope.id,key);lastRun.providerResponseId=id.value;lastRun.providerResponseIdRedaction=id.reason?{type:id.type,reason:id.reason}:null;lastRun.candidateNotCreatedReason='INVALID_PROVIDER_MESSAGE';}
         for(const [target,source]of [['input_tokens','prompt_tokens'],['output_tokens','completion_tokens']]) {const n=envelope.usage?.[source];if(Number.isSafeInteger(n)&&n>=0)lastRun.usage[target]=n;}
         const choice=envelope.choices?.[0];
         if(envelope.choices?.length!==1||choice.finish_reason!=='stop'||choice.message?.role!=='assistant'||choice.message.refusal||choice.message.tool_calls||typeof choice.message.content!=='string')fail('QWEN_RESPONSE_INVALID');
         lastRun.outputHash=createHash('sha256').update(choice.message.content).digest('hex');
+        if(domestic)lastRun.candidateNotCreatedReason='INVALID_MODEL_OUTPUT_JSON';
         let analysis;try{analysis=JSON.parse(choice.message.content);}catch{fail('QWEN_SCHEMA_INVALID');}
         if(domestic) {
+          Object.assign(lastRun,domesticOutputAudit(analysis,pack,key),{candidateId:evidenceHashFor({inputPackHash,outputHash:lastRun.outputHash}),candidateNotCreatedReason:null});
           const candidate=await normalizeDomesticForecast({analysis,input:pack,acceptedCollection,now:clock()});
           lastRun.status='OK';return candidate;
         }
@@ -241,6 +284,7 @@ export function createQwenProvider(options={}) {
         if(/^[A-Z0-9_]+$/.test(error?.message??'')){
           lastRun.validationStage='CORE_FORECAST';lastRun.validationCode=error.validationCode??error.message;
           if(error.validationCode){lastRun.legacyValidationCode=error.message;lastRun.fieldName=error.fieldName;if(error.reasonIndex!==undefined)lastRun.reasonIndex=error.reasonIndex;}
+          if(domestic){lastRun.validationSubtype=error.validationSubtype??error.validationCode??error.message;lastRun.validationInvariant=error.validationInvariant??error.message;lastRun.fieldName??=null;lastRun.reasonIndex??=null;}
         }
         throw error;
       } finally {lastRun.requestCompletedAt=new Date(clock()).toISOString();await options.onAudit?.(structuredClone(lastRun));}

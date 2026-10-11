@@ -15,6 +15,9 @@ const WINDOW_FIELDS=[...RECEIPT_FIELDS,'windowId','pricingWindowStartAt','pricin
 const NEWS_DOCUMENT_FIELDS=['documentId','sourceUrl','publisher','originalSource','authorName','publishedAt','publishedAtPrecision','fetchedAt','articleContentHash','headline','segments'];
 const RELATED_NEWS_FIELDS=['evidenceId','role','direction','directionScope','strength','freshness','relevance','document'];
 const fail=code=>{throw new Error(code);};
+const analysisFail=(legacyCode,validationCode,validationInvariant,fieldName,reasonIndex=null)=>{
+  const error=new Error(legacyCode);Object.assign(error,{validationCode,validationSubtype:validationCode,validationInvariant,fieldName,reasonIndex});throw error;
+};
 const hash=value=>/^[a-f0-9]{64}$/.test(value??'');
 const text=(value,max)=>typeof value==='string'&&value.trim().length>0&&Array.from(value).length<=max&&!/[<>\u0000-\u001f]/.test(value);
 const exact=(value,keys)=>value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).sort().join()===[...keys].sort().join();
@@ -72,18 +75,40 @@ export function domesticAnalysisSchema(input) {
 
 export function validateDomesticAnalysis(analysis,input,{now=new Date(input.horizonStartAt)}={}) {
   const gate=domesticInputGate(input,{now});if(gate.gate!=='PASS')fail(gate.errors[0]);
-  if(!exact(analysis,['target','horizon','probabilities','confidence','reason','primaryEvidenceIds'])||analysis.target!==DOMESTIC_FUEL_TARGET||analysis.horizon!==DOMESTIC_FUEL_HORIZON||!exact(analysis.probabilities,['UP','DOWN','FLAT']))fail('DOMESTIC_ANALYSIS_SCHEMA_INVALID');
-  const p=analysis.probabilities;if(Object.values(p).some(v=>!Number.isInteger(v)||v<0||v>100)||p.UP+p.DOWN+p.FLAT!==100)fail('DOMESTIC_PROBABILITIES_INVALID');
-  const direction=domesticDirectionFor(p);if(!direction)fail('DOMESTIC_DIRECTION_AMBIGUOUS');
+  const schemaFail=(code,invariant,field)=>analysisFail('DOMESTIC_ANALYSIS_SCHEMA_INVALID',code,invariant,field);
+  if(!exact(analysis,['target','horizon','probabilities','confidence','reason','primaryEvidenceIds']))schemaFail('DOMESTIC_ANALYSIS_FIELDS_INVALID','EXACT_MODEL_OUTPUT_FIELDS','$');
+  if(analysis.target!==DOMESTIC_FUEL_TARGET)schemaFail('DOMESTIC_ANALYSIS_TARGET_INVALID','EXACT_DOMESTIC_TARGET','target');
+  if(analysis.horizon!==DOMESTIC_FUEL_HORIZON)schemaFail('DOMESTIC_ANALYSIS_HORIZON_INVALID','EXACT_SEVEN_DAY_HORIZON','horizon');
+  if(!exact(analysis.probabilities,['UP','DOWN','FLAT']))schemaFail('DOMESTIC_PROBABILITY_FIELDS_INVALID','EXACT_DOWN_FLAT_UP_FIELDS','probabilities');
+  const p=analysis.probabilities,invalidProbability=Object.keys(p).find(key=>!Number.isInteger(p[key])||p[key]<0||p[key]>100);
+  if(invalidProbability)analysisFail('DOMESTIC_PROBABILITIES_INVALID','DOMESTIC_PROBABILITY_VALUE_INVALID','INTEGER_ZERO_TO_100',`probabilities.${invalidProbability}`);
+  if(p.UP+p.DOWN+p.FLAT!==100)analysisFail('DOMESTIC_PROBABILITIES_INVALID','DOMESTIC_PROBABILITY_SUM_INVALID','PROBABILITIES_SUM_100','probabilities');
+  const direction=domesticDirectionFor(p);if(!direction)analysisFail('DOMESTIC_DIRECTION_AMBIGUOUS','DOMESTIC_DIRECTION_AMBIGUOUS','UNAMBIGUOUS_DOMESTIC_DIRECTION','probabilities');
   const ids=analysis.primaryEvidenceIds;
-  if(!Array.isArray(ids)||!ids.length||ids.length>3||new Set(ids).size!==ids.length||ids.some(id=>!gate.primaryEvidenceIds.includes(id)))fail('DOMESTIC_PRIMARY_EVIDENCE_INVALID');
+  const primaryFail=(code,invariant,index=null)=>analysisFail('DOMESTIC_PRIMARY_EVIDENCE_INVALID',code,invariant,'primaryEvidenceIds',index);
+  if(!Array.isArray(ids))primaryFail('PRIMARY_EVIDENCE_SCHEMA_INVALID','PRIMARY_IDS_ARE_ARRAY');
+  if(!ids.length||ids.length>3)primaryFail('PRIMARY_EVIDENCE_COUNT_INVALID','PRIMARY_COUNT_ONE_TO_THREE');
+  const duplicate=ids.findIndex((id,index)=>ids.slice(0,index).includes(id));
+  if(duplicate!==-1)primaryFail('PRIMARY_EVIDENCE_DUPLICATE_ID','UNIQUE_PRIMARY_IDS',duplicate);
+  for(const [index,id]of ids.entries())if(!gate.primaryEvidenceIds.includes(id)) {
+    if(typeof id!=='string'||!id.trim())primaryFail('PRIMARY_EVIDENCE_SCHEMA_INVALID','PRIMARY_ID_IS_NONEMPTY_STRING',index);
+    const row=input.evidence.find(e=>e.evidenceId===id),news=input.relatedNews.some(r=>r.evidenceId===id||r.document.segments.some(s=>`${r.evidenceId}:${s.segmentId}`===id));
+    if(row||news)primaryFail('PRIMARY_EVIDENCE_NOT_DOMESTIC_RELEVANT','MEMBER_OF_ACCEPTED_DOMESTIC_DIRECT_SET',index);
+    if(id===input.policy.evidenceId||id===input.adjustmentWindow.evidenceId)primaryFail('PRIMARY_EVIDENCE_NOT_ACCEPTED','MEMBER_OF_ACCEPTED_DOMESTIC_DIRECT_SET',index);
+    primaryFail('PRIMARY_EVIDENCE_NOT_FOUND','PRIMARY_ID_EXISTS_IN_FROZEN_INPUT',index);
+  }
   const selected=ids.map(id=>input.evidence.find(e=>e.evidenceId===id));
-  if(!selected.some(e=>e.direction===direction)||new Set(selected.map(e=>e.eventKey)).size!==selected.length)fail('DOMESTIC_DIRECTION_UNSUPPORTED');
-  if(!['LOW','MEDIUM','HIGH'].includes(analysis.confidence)||!text(analysis.reason,180)||!/[\u3400-\u9fff]/.test(analysis.reason))fail('DOMESTIC_REASON_INVALID');
+  if(!selected.some(e=>e.direction===direction))analysisFail('DOMESTIC_DIRECTION_UNSUPPORTED','PRIMARY_EVIDENCE_DIRECTION_MISMATCH','PRIMARY_SUPPORTS_PREDICTED_DIRECTION','primaryEvidenceIds');
+  const duplicateEvent=selected.findIndex((e,index)=>selected.findIndex(other=>other.eventKey===e.eventKey)!==index);
+  if(duplicateEvent!==-1)analysisFail('DOMESTIC_DIRECTION_UNSUPPORTED','PRIMARY_EVIDENCE_DUPLICATE_EVENT','UNIQUE_PRIMARY_EVENTS','primaryEvidenceIds',duplicateEvent);
+  if(!['LOW','MEDIUM','HIGH'].includes(analysis.confidence))analysisFail('DOMESTIC_REASON_INVALID','DOMESTIC_CONFIDENCE_INVALID','CONFIDENCE_LOW_MEDIUM_OR_HIGH','confidence');
+  if(!text(analysis.reason,180))analysisFail('DOMESTIC_REASON_INVALID','DOMESTIC_REASON_TEXT_INVALID','PLAIN_NONEMPTY_REASON_MAX_180','reason');
+  if(!/[\u3400-\u9fff]/.test(analysis.reason))analysisFail('DOMESTIC_REASON_INVALID','DOMESTIC_REASON_LANGUAGE_INVALID','CHINESE_REASON','reason');
   const source=[...selected.map(e=>e.text),canonicalJson(input.policy),canonicalJson(input.adjustmentWindow)].join(' '),numbers=new Set([...source.matchAll(/\d+(?:\.\d+)?/g)].map(m=>m[0]));
   const horizonDays=(Date.parse(input.horizonEndAt)-Date.parse(input.horizonStartAt))/86400000;
   const groundedReason=analysis.reason.replace(new RegExp(`(?:未来|接下来|今后)\\s*${horizonDays}\\s*(?:天|日)`,'g'),'');
-  if([...groundedReason.matchAll(/\d+(?:\.\d+)?/g)].some(m=>!numbers.has(m[0])))fail('DOMESTIC_REASON_NEW_NUMBER');
+  const ungroundedNumber=[...groundedReason.matchAll(/\d+(?:\.\d+)?/g)].findIndex(m=>!numbers.has(m[0]));
+  if(ungroundedNumber!==-1)analysisFail('DOMESTIC_REASON_NEW_NUMBER','DOMESTIC_REASON_NEW_NUMBER','REASON_NUMBERS_GROUNDED_IN_INPUT','reason',ungroundedNumber);
   return {direction,primaryEvidence:selected};
 }
 
@@ -107,10 +132,10 @@ export function createDomesticQwenRequest(input) {
 }
 
 // The explicit domestic dispatch uses the same provider transport; no legacy target relabeling.
-export async function runDomesticForecast({input,acceptedCollection=null,providerOptions={},now=new Date()}={}) {
+export async function runDomesticForecast({input,acceptedCollection=null,providerOptions={},testAttemptId=null,requestId=null,now=new Date()}={}) {
   const gate=domesticInputGate(input,{now});if(gate.gate!=='PASS')return {gate,forecast:null,providerAudit:null};
   const provider=createQwenProvider(providerOptions);
-  const forecast=await provider.generateForecast({evidencePack:input,evidenceHash:evidenceHashFor(input),acceptedCollection,now});
+  const forecast=await provider.generateForecast({evidencePack:input,evidenceHash:evidenceHashFor(input),acceptedCollection,testAttemptId,requestId,now});
   return {gate:await domesticForecastGate(forecast,{now:providerOptions.clock?.()??new Date(),evidencePack:input}),forecast,evidencePack:structuredClone(input),providerAudit:provider.lastRun};
 }
 
