@@ -1,0 +1,93 @@
+{
+  "sourceSHA": "b85e990c62a74231320b3382482a5537a9375018",
+  "proof": "REAL_QWEN_SYNTHETIC_INPUT_NOT_CURRENT_FORECAST",
+  "maxCalls": 3,
+  "maxCallsPerCase": 1,
+  "retries": 0,
+  "createdAt": "2026-10-11T02:57:43.916Z",
+  "cases": [
+    {
+      "name": "CASE_UP_DOMESTIC",
+      "expectedDirection": "UP",
+      "status": "FAIL",
+      "reservedAt": "2026-10-11T02:57:43.939Z",
+      "actualRequests": 1,
+      "validationCode": "DOMESTIC_PRIMARY_EVIDENCE_INVALID",
+      "provider": "QWEN",
+      "model": "qwen3.8-flash",
+      "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+      "inputPackHash": "6adc506e389506b27926adcef39d4587a70b4aa26590afcab97a847a775eec0a",
+      "outputHash": "01afc9e41921227a8a6b2ab2357b72db613d7496557f4cb373925cac9ca2b30b",
+      "httpStatus": 200,
+      "attemptCount": 1,
+      "usage": {
+        "input_tokens": 3012,
+        "output_tokens": 184
+      },
+      "providerValidationCode": "DOMESTIC_PRIMARY_EVIDENCE_INVALID",
+      "latencyMs": 5065,
+      "completedAt": "2026-10-11T02:57:49.006Z"
+    },
+    {
+      "name": "CASE_DOWN_DOMESTIC",
+      "expectedDirection": "DOWN",
+      "status": "FAIL",
+      "reservedAt": "2026-10-11T02:57:49.018Z",
+      "actualRequests": 1,
+      "validationCode": "DOMESTIC_PRIMARY_EVIDENCE_INVALID",
+      "provider": "QWEN",
+      "model": "qwen3.8-flash",
+      "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+      "inputPackHash": "1d9b77521f56bfa96f7ce14d8622a2ed4cbbcf373e10d885437c9bd02f5cc7b5",
+      "outputHash": "bfd61c83580b5c400bcfb5facc97a1fe9f3005bbd14b67104df2d6235d48e72a",
+      "httpStatus": 200,
+      "attemptCount": 1,
+      "usage": {
+        "input_tokens": 3023,
+        "output_tokens": 201
+      },
+      "providerValidationCode": "DOMESTIC_PRIMARY_EVIDENCE_INVALID",
+      "latencyMs": 4155,
+      "completedAt": "2026-10-11T02:57:53.173Z"
+    },
+    {
+      "name": "CASE_HOLD",
+      "expectedDirection": "HOLD_OR_NO_ADJUSTMENT",
+      "status": "FAIL",
+      "reservedAt": "2026-10-11T02:57:53.192Z",
+      "actualRequests": 1,
+      "validationCode": "DOMESTIC_PRIMARY_EVIDENCE_INVALID",
+      "provider": "QWEN",
+      "model": "qwen3.8-flash",
+      "promptVersion": "qwen-domestic-fuel-v1-integer-1pct",
+      "inputPackHash": "de35c2e6a5f17c1d35deefc35dca514a001ee199d40e866ecdd26b4fc91ee96d",
+      "outputHash": "e2050e83bcf7a2d86f0cedb84e87992da79e2dab78378ab13b183d58c957da6b",
+      "httpStatus": 200,
+      "attemptCount": 1,
+      "usage": {
+        "input_tokens": 3031,
+        "output_tokens": 169
+      },
+      "providerValidationCode": "DOMESTIC_PRIMARY_EVIDENCE_INVALID",
+      "latencyMs": 3468,
+      "completedAt": "2026-10-11T02:57:56.661Z"
+    }
+  ],
+  "productionReservationsChanged": 0,
+  "forecastPublications": 0,
+  "cloudWrites": 0,
+  "internationalOnly": {
+    "gate": "PASS",
+    "inputGate": "FAIL",
+    "rejectionCodes": [
+      "DOMESTIC_POLICY_INSUFFICIENT",
+      "DOMESTIC_WINDOW_INSUFFICIENT",
+      "DOMESTIC_PRICING_SUPPORT_INSUFFICIENT"
+    ],
+    "actualRequests": 0
+  },
+  "realQwenTestRequests": 3,
+  "semanticGate": "FAIL",
+  "responsiveness": "FAIL",
+  "completedAt": "2026-10-11T02:57:56.661Z"
+}

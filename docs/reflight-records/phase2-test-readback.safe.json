@@ -1,0 +1,40 @@
+{
+  "queriedAt": "2026-10-11T03:01:04.436Z",
+  "proof": "READ_ONLY_FUEL_DOCUMENTS_NOT_AUTHENTICATED_CUSTOMER_READ",
+  "environment": "TEST",
+  "writes": 0,
+  "rows": [
+    {
+      "_id": "currentFuelForecast",
+      "deliveryContract": "FUEL_PRIVATE_DELIVERY_V1",
+      "sourceCommit": "59c30087207954db347ee1a05e2f5a2d0b380643",
+      "sourceArtifactHash": "2d228fdcb178bbdd6fabe1745c0e15f9d593b6db897df03d97ec19d0d6667118",
+      "forecastHash": "0f378ceb9dafa8ba59b1467bf35cb1b7903fcd26aa006aac42a73bf75a12615a",
+      "syncedAt": 1791546477621,
+      "generatedAt": "2026-10-09T02:59:23.116Z",
+      "validUntil": "2026-10-10T02:59:23.116Z",
+      "target": null,
+      "probabilities": {
+        "DOWN": 25,
+        "FLAT": 15,
+        "UP": 60
+      },
+      "acceptedEvidenceCount": null,
+      "serializedHash": "d473bd2754aab5beb5acbe25508d6303bd94f1818460f5bcf2f0873359011d3f"
+    },
+    {
+      "_id": "currentFuelNews",
+      "deliveryContract": "FUEL_ACCEPTED_NEWS_DELIVERY_V2",
+      "sourceCommit": "25c3872e399edd2ca3bf0f8bb06a868ec8a68dc2",
+      "sourceArtifactHash": "6004aa3e3b63a5b5a3ec9e316685a093fb17c302dc78c030c3e43aa90c33ebe0",
+      "forecastHash": null,
+      "syncedAt": 1791547674599,
+      "generatedAt": "2026-10-09T12:05:36.457Z",
+      "validUntil": null,
+      "target": null,
+      "probabilities": null,
+      "acceptedEvidenceCount": 1,
+      "serializedHash": "043a33f5f30b3364b1b2b1a0ef696242690910dc561c3e2e233f32929774fa59"
+    }
+  ]
+}

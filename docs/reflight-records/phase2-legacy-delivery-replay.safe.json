@@ -1,0 +1,107 @@
+{
+  "gate": "PASS",
+  "proof": "ISOLATED_IN_MEMORY_REPLAY_NOT_TEST_OR_PRODUCTION",
+  "results": [
+    {
+      "name": "CASE_UP",
+      "proof": "SYNTHETIC_MODEL_NOT_SENSITIVITY",
+      "acceptedEvidenceId": "external-f03a18e08130",
+      "influence": "HIGH",
+      "inputPackHash": "23fc04c986757ccfe1cc92d6fa1f75bffef58c941d1fe0f3362a05e8609e75d5",
+      "outputHash": "3bc4b0a8170672420080eee5912b1bc91fffe26741b38516a6fdaa99e8a6b62e",
+      "probabilities": {
+        "DOWN": 21,
+        "FLAT": 16,
+        "UP": 63
+      },
+      "forecastHash": "e43ae2c9161f20bb6751fde23d4ffcd1c92fbdba4a2364da245a70bc4939c232",
+      "initialForecastHash": "da73ef8f045383cae77c050e7455aa6a54548e24597d187270c1f0fd96391a17",
+      "newsCollectionHash": "a5c5ef0661830cd25ac91d5c5d84a64532d32787e7e6babe3f987b9f4dcdcde2",
+      "modelRequestsInjected": 1,
+      "sameClientCardRendered": true,
+      "sameForecastNewNewsRevision": "PASS",
+      "lowFollowupModelRequests": 0,
+      "coldLaunchLkg": "PASS",
+      "lockedUserNoPaidLeak": "PASS",
+      "timesMs": {
+        "T0_bridgeSubmitted": 0.4,
+        "T0_bridgeAccepted": 3.68,
+        "T1_evidenceAccepted": 3.68,
+        "T2_projectionCreated": 9.35,
+        "T3_newsPublished": 9.59,
+        "T4_protectedRead": 16.08,
+        "T5_cardRenderable": 20.28
+      },
+      "acceptedToCardMs": 16.6
+    },
+    {
+      "name": "CASE_DOWN",
+      "proof": "SYNTHETIC_MODEL_NOT_SENSITIVITY",
+      "acceptedEvidenceId": "external-f03a18e08130",
+      "influence": "HIGH",
+      "inputPackHash": "c6f3bd2e8e66eeb416870a6e1595f8b4df04297e76440b8ffd1ad4f4d785cb40",
+      "outputHash": "f4d44695277da999caed4e5a8dfe67262f08b4bcaf4903ae9c562caa9a04cbed",
+      "probabilities": {
+        "DOWN": 61,
+        "FLAT": 18,
+        "UP": 21
+      },
+      "forecastHash": "553786f940f7612b98e35222f4f39f7b0ab48fe981c1e93916cf404a3f01aa72",
+      "initialForecastHash": "da73ef8f045383cae77c050e7455aa6a54548e24597d187270c1f0fd96391a17",
+      "newsCollectionHash": "9e6651db0dbfedb96a444b7b58077da96a041d35a345775c681d18e663a49377",
+      "modelRequestsInjected": 1,
+      "sameClientCardRendered": true,
+      "sameForecastNewNewsRevision": "PASS",
+      "lowFollowupModelRequests": 0,
+      "coldLaunchLkg": "PASS",
+      "lockedUserNoPaidLeak": "PASS",
+      "timesMs": {
+        "T0_bridgeSubmitted": 0.05,
+        "T0_bridgeAccepted": 0.95,
+        "T1_evidenceAccepted": 0.95,
+        "T2_projectionCreated": 4.7,
+        "T3_newsPublished": 4.86,
+        "T4_protectedRead": 9.66,
+        "T5_cardRenderable": 10.38
+      },
+      "acceptedToCardMs": 9.43
+    },
+    {
+      "name": "CASE_NEUTRAL",
+      "proof": "SYNTHETIC_MODEL_NOT_SENSITIVITY",
+      "acceptedEvidenceId": "external-f03a18e08130",
+      "influence": "LOW",
+      "inputPackHash": null,
+      "outputHash": null,
+      "probabilities": {
+        "DOWN": 35,
+        "FLAT": 25,
+        "UP": 40
+      },
+      "forecastHash": "da73ef8f045383cae77c050e7455aa6a54548e24597d187270c1f0fd96391a17",
+      "initialForecastHash": "da73ef8f045383cae77c050e7455aa6a54548e24597d187270c1f0fd96391a17",
+      "newsCollectionHash": "13856c7bf55d37a8e32922a92652809a24d7cfe11d7da577c323c18befeda232",
+      "modelRequestsInjected": 0,
+      "sameClientCardRendered": true,
+      "sameForecastNewNewsRevision": "PASS",
+      "lowFollowupModelRequests": 0,
+      "coldLaunchLkg": "PASS",
+      "lockedUserNoPaidLeak": "PASS",
+      "timesMs": {
+        "T0_bridgeSubmitted": 1.09,
+        "T0_bridgeAccepted": 1.9,
+        "T1_evidenceAccepted": 1.9,
+        "T2_projectionCreated": 1.9,
+        "T3_newsPublished": 2,
+        "T4_protectedRead": 3.66,
+        "T5_cardRenderable": 4.29
+      },
+      "acceptedToCardMs": 2.39
+    }
+  ],
+  "clientSourceHash": "1a77577bb0245f3f7855f21671938ae6d82d084a89c7004771e69d3d9d2e7681",
+  "realQwenCalls": 0,
+  "realOrdersCreated": 0,
+  "cloudWrites": 0,
+  "deployments": 0
+}

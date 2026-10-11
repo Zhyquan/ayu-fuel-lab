@@ -1,0 +1,66 @@
+{
+  "decision": "FUEL_REFLIGHT_BLOCKED_V2",
+  "coreFunctionalSHA": "f927153dc163949485a2b4f95af040aaffde3b40",
+  "consumerFinalSHA": "1d9857b3a9c590db50c4c91b038c82c7a0fbb1dc",
+  "acceptedPhase1CoreSHA": "b7f63f6e17c9062ce54d75f68c7754601558a39c",
+  "acceptedPhase1ConsumerSHA": "6b7176bcb56128d452379a3dbb695fa7a43399ab",
+  "latestOriginMainSHA": "395cb24b6345eb70741e299699fa78d3f9baa640",
+  "realSemanticTestCodeSHA": "b85e990c62a74231320b3382482a5537a9375018",
+  "domesticPublicContractSha256": "e0e358b427c84e5feb10b91719c8285af269f1a76b1872c7cf4ff13134006a5e",
+  "coreTests": {
+    "pass": 586,
+    "fail": 0
+  },
+  "consumerTests": {
+    "pass": 136,
+    "fail": 0
+  },
+  "realSemanticTests": {
+    "pass": 0,
+    "fail": 3,
+    "http200": 3,
+    "actualRequests": 3,
+    "inputTokens": 9066,
+    "outputTokens": 554,
+    "retries": 0,
+    "probabilityResponsiveness": "NOT_PROVEN",
+    "actualCost": "UNKNOWN"
+  },
+  "productionReservationsChanged": 0,
+  "cloudWrites": 0,
+  "deployments": 0,
+  "featurePushes": 0,
+  "stableIntegrationMerges": 0,
+  "productionWrites": 0,
+  "proofs": [
+    {
+      "file": "phase2-domestic-semantic-qwen.safe.json",
+      "sha256": "0d61aff2627800f645cfe79f4a6c34f529dc12afa94ec583af812a8c679f71f5"
+    },
+    {
+      "file": "phase2-test-readback.safe.json",
+      "sha256": "06a16dfbad3f39753bcf529bb7d91e7f710a43409dfc9b2c3cca282674089cb4"
+    },
+    {
+      "file": "phase2-legacy-delivery-replay.safe.json",
+      "sha256": "cb1ce421f808345358374a5f27707cacd805e1c78c22551e05e90c9f3edc2927"
+    }
+  ],
+  "independentReview": {
+    "model": "GPT-6.1 Sol",
+    "thinking": "max",
+    "localCodeAdmission": "PASS",
+    "fullCandidate": "BLOCKED",
+    "coreFocusedPass": 18,
+    "consumerPass": 136,
+    "realCalls": 0,
+    "cloudWrites": 0,
+    "edits": 0,
+    "actualCloudNode16Execution": false
+  },
+  "publicScan": {
+    "gate": "PASS",
+    "scanned": 1382,
+    "findings": 0
+  }
+}
