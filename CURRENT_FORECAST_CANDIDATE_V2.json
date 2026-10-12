@@ -4,13 +4,13 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-12T02:26:14.056Z",
-  "validUntil": "2026-10-13T02:26:14.056Z",
-  "evidenceHash": "d58c7f186c40d2947495549eedd2d0658c2182e328a10af01052a1fb357b905c",
+  "generatedAt": "2026-10-12T23:39:52.903Z",
+  "validUntil": "2026-10-13T23:39:52.903Z",
+  "evidenceHash": "a59e137ea133c853eeaf5a92e6088fd7166bd88dbba59eed5380ab477df94e61",
   "probabilities": {
-    "DOWN": 25,
-    "FLAT": 15,
-    "UP": 60
+    "DOWN": 15,
+    "FLAT": 20,
+    "UP": 65
   },
   "primaryDirection": "UP",
   "mainReasons": [
@@ -71,22 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "aa2f339f83454016d9ebac8abca8a13c82f28003f3074e765986f93eaeed9c76",
+  "inputPackHash": "ae6a714d69b0c779ebfdfe934d2ff0ea29e2a86c5abd9c98f5e96757c5b3d1c3",
   "coverageMode": "NORMAL",
-  "newsAssessments": [
-    {
-      "evidenceId": "br-40443741:s1-9e77f735a0c5",
-      "impact": "DOWN",
-      "kind": "FACT",
-      "title": "IEA建议评估柴油释放",
-      "summary": "IEA执行董事建议成员国评估是否需要增加柴油释放及其规模。",
-      "strength": "LOW",
-      "documentId": "br-40443741",
-      "segmentId": "s1-9e77f735a0c5",
-      "sourceUrl": "https://www.brecorder.com/news/40443741/iea-suggests-members-assess-need-for-more-diesel-releases",
-      "publisher": "Business Recorder",
-      "originalSource": "Reuters",
-      "publishedAt": "2026-10-11T23:45:10.000Z"
-    }
-  ]
+  "newsAssessments": []
 }
