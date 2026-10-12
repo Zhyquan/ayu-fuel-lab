@@ -4,9 +4,9 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-11T01:55:26.439Z",
-  "validUntil": "2026-10-12T01:55:26.439Z",
-  "evidenceHash": "80eaf6f012a097a28533ab98b0d437cb766557d05ec5db2625dda85b2751962a",
+  "generatedAt": "2026-10-12T02:26:14.056Z",
+  "validUntil": "2026-10-13T02:26:14.056Z",
+  "evidenceHash": "d58c7f186c40d2947495549eedd2d0658c2182e328a10af01052a1fb357b905c",
   "probabilities": {
     "DOWN": 25,
     "FLAT": 15,
@@ -34,13 +34,13 @@
       "evidenceId": "market-wti",
       "impact": "UP",
       "kind": "FACT",
-      "strength": "HIGH"
+      "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-brent",
       "impact": "UP",
       "kind": "FACT",
-      "strength": "HIGH"
+      "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-diesel",
@@ -52,7 +52,7 @@
       "evidenceId": "eia-stocks",
       "impact": "UP",
       "kind": "FACT",
-      "strength": "MEDIUM"
+      "strength": "HIGH"
     },
     {
       "evidenceId": "eia-production",
@@ -71,7 +71,22 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "86be259f20df5fdc4284a16ed825b496c32abf71a3ead2111b784c3476d25645",
+  "inputPackHash": "aa2f339f83454016d9ebac8abca8a13c82f28003f3074e765986f93eaeed9c76",
   "coverageMode": "NORMAL",
-  "newsAssessments": []
+  "newsAssessments": [
+    {
+      "evidenceId": "br-40443741:s1-9e77f735a0c5",
+      "impact": "DOWN",
+      "kind": "FACT",
+      "title": "IEA建议评估柴油释放",
+      "summary": "IEA执行董事建议成员国评估是否需要增加柴油释放及其规模。",
+      "strength": "LOW",
+      "documentId": "br-40443741",
+      "segmentId": "s1-9e77f735a0c5",
+      "sourceUrl": "https://www.brecorder.com/news/40443741/iea-suggests-members-assess-need-for-more-diesel-releases",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-10-11T23:45:10.000Z"
+    }
+  ]
 }
