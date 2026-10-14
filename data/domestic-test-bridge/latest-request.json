@@ -3,28 +3,29 @@
   "target": "CHINA_DOMESTIC_REFINED_OIL_ADJUSTMENT",
   "environment": "Test",
   "triggerKind": "EXPLICIT_BRIDGE_TEST_REFRESH",
-  "requestId": "f8513bf349d088bed740a96b08735bd8b5f41889f87533aff56ba7aeca0ebd2a",
-  "packageHash": "37e7bbf73771b59b11aa72c5086778c48e85904754dac3f25a1d3b51e5afc1cf",
-  "requestedAt": "2026-10-11T16:23:00.806Z",
-  "expiresAt": "2026-10-12T15:30:00.000Z",
+  "requestId": "f0bd47223a871ec5ce4c52d1488f47c41b1c919e0b1db423abaa0b72ba3e35a7",
+  "packageHash": "050539cb1d91ea44ef856967471d140f465f312f622a9df7284e75c1774d6373",
+  "requestedAt": "2026-10-14T21:18:38.051Z",
+  "expiresAt": "2026-10-15T09:05:30.000Z",
   "signalPackage": {
     "schemaVersion": "AYU_EXTERNAL_ANALYST_SIGNAL_V1",
-    "generatedAt": "2026-10-11T15:30:00Z",
+    "generatedAt": "2026-10-14T17:05:30+08:00",
     "signals": [
       {
-        "eventKey": "russia-ukraine-energy-ceasefire-2026-10-11",
-        "category": "SUPPLY_DISRUPTION",
-        "source": "Reuters",
+        "eventKey": "iea-october-diesel-deficit-outlook-2026-10-14",
+        "category": "DISTILLATE_FUNDAMENTALS",
+        "source": "国际能源署（IEA）",
         "eventAt": null,
-        "publishedAt": "2026-10-11T09:47:00Z",
-        "title": "特朗普称俄乌已达成能源停火",
-        "summary": "特朗普称俄乌能源停火立即生效，但莫斯科与基辅尚未正式确认；乌方称若俄方停止袭击能源设施愿同步停手。",
-        "sourceUrl": "https://www.reuters.com/world/europe/ukraine-will-halt-strikes-refineries-if-russia-stops-energy-attacks-zelenskiy-2026-10-11/",
-        "kind": "CLAIM",
-        "direction": "DOWN",
-        "strength": "MEDIUM",
-        "confirmation": "UNCONFIRMED",
-        "reason": "若停火实际落实，乌克兰暂停打击俄罗斯炼厂将降低柴油产能进一步受损风险，并可能增加未来7天全球柴油可供应量。"
+        "publishedAt": null,
+        "title": "IEA警告全球柴油供应紧张或延续至2027年",
+        "summary": "IEA最新月报显示，9月全球柴油出口同比减少约70万桶/日，预计10月炼厂检修将加剧库存下降。俄罗斯放宽柴油出口限制难以弥补实际炼油产能不足。",
+        "sourceUrl": "https://www.iea.org/reports/oil-market-report-october-2026",
+        "kind": "OUTLOOK",
+        "direction": "UP",
+        "strength": "HIGH",
+        "confirmation": "CONDITIONAL",
+        "reason": "IEA最新数据确认国际柴油供应缺口仍然显著，并预计10月季节性检修将进一步消耗库存；俄罗斯出口政策放松难以迅速转化为实际增供，可能在未来7天支撑国际柴油价格，并通过亚洲成品油市场和进口成本向中国柴油市场传导。",
+        "sourcePublishedDate": "2026-10-14"
       }
     ]
   }
