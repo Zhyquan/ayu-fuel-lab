@@ -4,47 +4,53 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-12T23:39:52.903Z",
-  "validUntil": "2026-10-13T23:39:52.903Z",
-  "evidenceHash": "a59e137ea133c853eeaf5a92e6088fd7166bd88dbba59eed5380ab477df94e61",
+  "generatedAt": "2026-10-14T15:52:09.121Z",
+  "validUntil": "2026-10-15T15:52:09.121Z",
+  "evidenceHash": "28683089a9143fc9c9dfe73062b89a052528ebc56a6fe051424325496a20084f",
   "probabilities": {
-    "DOWN": 15,
-    "FLAT": 20,
-    "UP": 65
+    "DOWN": 40,
+    "FLAT": 25,
+    "UP": 35
   },
-  "primaryDirection": "UP",
+  "primaryDirection": "DOWN",
   "mainReasons": [
     {
-      "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价上涨"
+      "evidenceId": "market-brent",
+      "text": "Brent最新日度报价回落"
     },
-    {
-      "evidenceId": "eia-stocks",
-      "text": "美国馏分油库存减少"
-    }
-  ],
-  "counterReasons": [
     {
       "evidenceId": "eia-production",
       "text": "美国馏分油产量增加"
     }
   ],
+  "counterReasons": [
+    {
+      "evidenceId": "eia-stocks",
+      "text": "美国馏分油库存减少"
+    },
+    {
+      "evidenceId": "br-40444197:s1-8a36b36f0136",
+      "text": "胡塞武装誓言袭击沙特设施",
+      "documentId": "br-40444197",
+      "segmentId": "s1-8a36b36f0136"
+    }
+  ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "UP",
+      "impact": "NEUTRAL",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-brent",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
-      "strength": "MEDIUM"
+      "strength": "HIGH"
     },
     {
       "evidenceId": "market-diesel",
-      "impact": "UP",
+      "impact": "NEUTRAL",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -71,7 +77,36 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "ae6a714d69b0c779ebfdfe934d2ff0ea29e2a86c5abd9c98f5e96757c5b3d1c3",
-  "coverageMode": "NORMAL",
-  "newsAssessments": []
+  "inputPackHash": "b44f9f907b5c1768f43756f58fdf84a5825b33e16f4b5819f3895bcb3ed305d7",
+  "coverageMode": "LIMITED",
+  "newsAssessments": [
+    {
+      "evidenceId": "br-40444197:s1-8a36b36f0136",
+      "impact": "UP",
+      "kind": "FACT",
+      "title": "胡塞武装誓言袭击沙特设施",
+      "summary": "也门胡塞武装周三誓言继续袭击沙特机场和石油设施，此前阿美总部遇袭造成火灾。",
+      "strength": "HIGH",
+      "documentId": "br-40444197",
+      "segmentId": "s1-8a36b36f0136",
+      "sourceUrl": "https://www.brecorder.com/news/40444197/yemens-houthis-vow-more-attacks-on-saudi-airports-oil-facilities-after-aramco-hq-hit",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-10-14T12:35:51.000Z"
+    },
+    {
+      "evidenceId": "br-40444182:s2-6e26e9cc6959",
+      "impact": "UP",
+      "kind": "FACT",
+      "title": "霍尔木兹海峡船只遇袭",
+      "summary": "两艘船只在霍尔木兹海峡被击中导致油价升至106美元，加剧了供应担忧。",
+      "strength": "MEDIUM",
+      "documentId": "br-40444182",
+      "segmentId": "s2-6e26e9cc6959",
+      "sourceUrl": "https://www.brecorder.com/news/40444182/indian-shares-end-lower-as-higher-oil-prices-foreign-outflows-dent-appetite",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-10-14T10:37:50.000Z"
+    }
+  ]
 }
