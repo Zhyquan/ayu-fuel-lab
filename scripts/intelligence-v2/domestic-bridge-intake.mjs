@@ -1,6 +1,6 @@
-import { EXTERNAL_SIGNAL_FIELDS, exactExternalKeys } from '../../dist/data/external-analyst-contract.js';
+import { externalSignalFields, exactExternalKeys } from '../../dist/data/external-analyst-contract.js';
 import { canonicalJson } from '../../dist/data/intelligence-v2-contract.js';
-import { validTimestamp } from '../../dist/data/validation.js';
+import { validDate, validTimestamp } from '../../dist/data/validation.js';
 import { validateExternalAnalystSignalPackage } from './external-analyst-signals.mjs';
 import { evidenceHashFor } from './history.mjs';
 
@@ -20,6 +20,10 @@ export function normalizeDomesticBridgeSignalPackage(input,{now=new Date()}={}) 
   }
   value=structuredClone(value);
   for(const signal of Array.isArray(value?.signals)?value.signals:[]) {
+    if(validDate(signal?.publishedAt)&&!Object.hasOwn(signal,'sourcePublishedDate')) {
+      signal.sourcePublishedDate=signal.publishedAt;
+      signal.publishedAt=null;
+    }
     if(typeof signal?.sourceUrl==='string') {
       const wrapped=signal.sourceUrl.match(/^\[[^\[\]\r\n]+\]\((https:\/\/[^\s()]+)\)$/);
       if(wrapped)signal.sourceUrl=wrapped[1];
@@ -27,7 +31,7 @@ export function normalizeDomesticBridgeSignalPackage(input,{now=new Date()}={}) 
   }
   const normalized=validateExternalAnalystSignalPackage(value,{now:clock(now)});
   return {schemaVersion:normalized.schemaVersion,generatedAt:normalized.generatedAt,
-    signals:normalized.signals.map(signal=>Object.fromEntries(EXTERNAL_SIGNAL_FIELDS.map(key=>[key,signal[key]])))};
+    signals:normalized.signals.map(signal=>Object.fromEntries(externalSignalFields(signal).map(key=>[key,signal[key]])))};
 }
 
 export function domesticBridgeRequestId(signalPackage) {

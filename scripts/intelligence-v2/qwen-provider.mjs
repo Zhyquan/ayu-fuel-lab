@@ -141,7 +141,7 @@ export function projectEvidence(pack) {
     ...(pack.inputContractVersion===NEWS_INPUT_CONTRACT?{inputContractVersion:NEWS_INPUT_CONTRACT,coverageMode:coreEvidenceGate(pack,{now:new Date(pack.generatedAt)}).coverageMode,
       newsDocuments:admittedNewsDocuments(pack).documents.filter(d=>!externalEvents.has(d.eventKey)).map(d=>pick(d,['documentId','sourceUrl','publisher','originalSource','authorName','publishedAt','publishedAtPrecision','fetchedAt','articleContentHash','headline','segments'])),
       missingSources:(pack.fetchLog??[]).filter(f=>f.status==='FAILED').map(f=>({url:f.url,reason:f.reason}))}:{}),
-    ...(external.length?{externalAnalystSignals:external.map(s=>pick(s,['evidenceId','eventKey','category','source','publishedAt','kind','direction','strength','confirmation','reason','title','summary']))}:{}),
+    ...(external.length?{externalAnalystSignals:external.map(s=>pick(s,['evidenceId','eventKey','category','source','publishedAt','sourcePublishedDate','kind','direction','strength','confirmation','reason','title','summary']))}:{}),
     signals:signals.map(s=>({...pick(s,signalFields),...(s.observation?{observation:pick(s.observation,['name','price','unit','change1dPercent'])}:{})})),
     eventGroups:(pack.eventGroups??[]).map(g=>({...pick(g,['eventKey','weightingRule']),evidenceIds:g.evidenceIds.filter(id=>signalIds.has(id))})).filter(g=>g.evidenceIds.length),
     categoryChecks:pack.categoryChecks.map(c=>pick(c,['category','status','reason','checkedAt','sourceUrls'])),

@@ -1,5 +1,5 @@
-import { canonicalSourceUrl } from './external-analyst-contract.js';
-import { validTimestamp } from './validation.js';
+import { canonicalSourceUrl, publicationAfter, publicationEarliestMs } from './external-analyst-contract.js';
+import { validDate, validTimestamp } from './validation.js';
 export const ACCEPTED_EVIDENCE_CONTRACT='FUEL_ACCEPTED_EVIDENCE_V2';
 const text=(v,max)=>typeof v==='string'&&v.trim().length>0&&Array.from(v).length<=max&&!/[<>\u0000-\u001f]/.test(v);
 const hash=v=>/^[a-f0-9]{64}$/.test(v??'');
@@ -13,12 +13,13 @@ export function acceptedEvidenceGate(collection,{now=new Date()}={}) {
  for(const e of rows){
   let urlOK=e?.sourceUrl===null&&e?.influenceBasis==='EXTERNAL_ANALYST';
   try{urlOK ||= canonicalSourceUrl(e?.sourceUrl)===e?.sourceUrl;}catch{}
+  const dateOK=e?.publishedAt===null?e.influenceBasis==='EXTERNAL_ANALYST'&&e.publishedAtPrecision==='DATE_ONLY'&&validDate(e.date):validTimestamp(e?.publishedAt)&&e.date===e.publishedAt.slice(0,10);
   if(!e||Object.keys(e).sort().join()!==[...fields].sort().join()||!text(e.id,150)||!text(e.evidenceId,150)||!text(e.eventKey,150)||!text(e.title,30)||!text(e.summary,90)||!text(e.source,48)||!text(e.sourceName,60)||!text(e.publisher,48)||!urlOK||
-   !validTimestamp(e.publishedAt)||Date.parse(e.publishedAt)>Date.parse(collection.generatedAt)||e.date!==e.publishedAt.slice(0,10)||!['SECOND','DATE_ONLY'].includes(e.publishedAtPrecision)||!hash(e.contentHash)||!hash(e.inputHash)||
+   !dateOK||publicationAfter(e,collection.generatedAt)||!['SECOND','DATE_ONLY'].includes(e.publishedAtPrecision)||!hash(e.contentHash)||!hash(e.inputHash)||
    !['FACT','RISK','OUTLOOK','CLAIM','REPORT'].includes(e.type)||!text(e.relevance,40)||!['LOW','MEDIUM','HIGH'].includes(e.forecastInfluence)||!['MODEL_ASSESSMENT','TRIGGER_PREASSESSMENT_ONLY','EXTERNAL_ANALYST'].includes(e.influenceBasis)||e.displayEligible!==true||!Number.isSafeInteger(e.displayPriority)||e.displayPriority<0||e.displayPriority>100||
    !['ACCEPTED_LOW_INFLUENCE','ACCEPTED_MATERIAL','FORECAST_PRIMARY_EVIDENCE'].includes(e.policy)||!['RELATED_ONLY','FORECAST_REASON'].includes(e.relationship)||!['UP','DOWN','NEUTRAL'].includes(e.direction)||!text(e.directionLabel,20)||
    (e.relationship==='FORECAST_REASON'?(!hash(e.forecastHash)||e.policy!=='FORECAST_PRIMARY_EVIDENCE'):e.forecastHash!==null))errors.push('ACCEPTED_ROW_INVALID');
   if(seen.has(e?.id))errors.push('ACCEPTED_ID_DUPLICATE');seen.add(e?.id);
  }
- return {gate:errors.length?'FAIL':'PASS',errors,acceptedEvidence:errors.length?[]:rows.filter(e=>+now-Date.parse(e.publishedAt)<=72*3600000)};
+ return {gate:errors.length?'FAIL':'PASS',errors,acceptedEvidence:errors.length?[]:rows.filter(e=>+now-publicationEarliestMs(e)<=72*3600000)};
 }

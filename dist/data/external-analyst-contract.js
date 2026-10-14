@@ -1,8 +1,20 @@
-import { validTimestamp } from './validation.js';
+import { chinaDate, validDate, validTimestamp } from './validation.js';
 
 export const EXTERNAL_SIGNAL_CONTRACT='AYU_EXTERNAL_ANALYST_SIGNAL_V1';
 export const EXTERNAL_CATEGORIES=['INTERNATIONAL_DIESEL','CRUDE','DISTILLATE_FUNDAMENTALS','OPEC_MAJOR_PRODUCERS','SUPPLY_DISRUPTION','SHIPPING','DEMAND_MACRO'];
 export const EXTERNAL_SIGNAL_FIELDS=['eventKey','category','source','eventAt','publishedAt','title','summary','sourceUrl','kind','direction','strength','confirmation','reason'];
+export const externalSignalFields=signal=>Object.hasOwn(signal??{},'sourcePublishedDate')?[...EXTERNAL_SIGNAL_FIELDS,'sourcePublishedDate']:EXTERNAL_SIGNAL_FIELDS;
+// Date-only sources have no claimed publication instant. UTC+14 is the earliest
+// possible start of that civil date; this numeric bound only limits freshness.
+export function publicationEarliestMs(value) {
+  if(validTimestamp(value?.publishedAt))return Date.parse(value.publishedAt);
+  const date=value?.sourcePublishedDate??value?.date;
+  if(value?.publishedAt!==null||!validDate(date))return NaN;
+  return Date.parse(date)-14*3600000;
+}
+export const publicationAfter=(value,time)=>value.publishedAt===null?
+  (value.sourcePublishedDate??value.date)>chinaDate(time):Date.parse(value.publishedAt)>+new Date(time);
+export const comparePublication=(a,b)=>publicationEarliestMs(b)-publicationEarliestMs(a);
 const fail=code=>{throw new Error(code);};
 const cleanText=(value,max)=>typeof value==='string'&&value===value.trim()&&value.length>0&&Array.from(value).length<=max&&!/[\u0000-\u001f<>]/.test(value);
 export const exactExternalKeys=(value,keys)=>value&&typeof value==='object'&&!Array.isArray(value)&&Object.keys(value).sort().join(',')===[...keys].sort().join(',');
@@ -24,7 +36,8 @@ export function canonicalSourceUrl(value) {
 }
 
 export function externalSignalFailure(signal,{now=new Date(),normalized=false}={}) {
-  if(!exactExternalKeys(signal,normalized?[...EXTERNAL_SIGNAL_FIELDS,'evidenceId','provenance']:EXTERNAL_SIGNAL_FIELDS))return 'EXTERNAL_SIGNAL_FIELDS_INVALID';
+  const fields=externalSignalFields(signal);
+  if(!exactExternalKeys(signal,normalized?[...fields,'evidenceId','provenance']:fields))return 'EXTERNAL_SIGNAL_FIELDS_INVALID';
   if(!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(signal.eventKey)||signal.eventKey.length<3||signal.eventKey.length>120)return 'EXTERNAL_EVENT_KEY_INVALID';
   if(!EXTERNAL_CATEGORIES.includes(signal.category))return 'EXTERNAL_CATEGORY_INVALID';
   if(!cleanText(signal.source,48))return 'EXTERNAL_SOURCE_INVALID';
@@ -35,9 +48,11 @@ export function externalSignalFailure(signal,{now=new Date(),normalized=false}={
     !['LOW','MEDIUM','HIGH'].includes(signal.strength)||!['CONFIRMED','CONDITIONAL','UNCONFIRMED'].includes(signal.confirmation))return 'EXTERNAL_ENUM_INVALID';
   if((signal.confirmation==='CONFIRMED'&&signal.kind==='CLAIM')||(signal.confirmation==='CONDITIONAL'&&signal.kind==='FACT')||
     (signal.confirmation==='UNCONFIRMED'&&(signal.kind!=='CLAIM'||signal.strength==='HIGH')))return 'EXTERNAL_CONFIRMATION_INVALID';
-  if(!validTimestamp(signal.publishedAt)||(signal.eventAt!==null&&!validTimestamp(signal.eventAt)))return 'EXTERNAL_TIME_INVALID';
-  const time=+new Date(now),published=Date.parse(signal.publishedAt),event=signal.eventAt===null?published:Date.parse(signal.eventAt);
-  if(published>time||event>time)return 'EXTERNAL_TIME_FUTURE';
+  const dateOnly=Object.hasOwn(signal,'sourcePublishedDate');
+  if((dateOnly?signal.publishedAt!==null||!validDate(signal.sourcePublishedDate):!validTimestamp(signal.publishedAt))||(signal.eventAt!==null&&!validTimestamp(signal.eventAt)))return 'EXTERNAL_TIME_INVALID';
+  const time=+new Date(now),published=publicationEarliestMs(signal),event=signal.eventAt===null?published:Date.parse(signal.eventAt);
+  if(publicationAfter(signal,now)||event>time)return 'EXTERNAL_TIME_FUTURE';
+  if(dateOnly&&time-published>72*3600000)return 'EXTERNAL_SIGNAL_STALE';
   if(time-event>72*3600000)return 'EXTERNAL_SIGNAL_STALE';
   if(signal.sourceUrl!==null) {
     let canonical;try{canonical=canonicalSourceUrl(signal.sourceUrl);}catch(error){return error.message;}

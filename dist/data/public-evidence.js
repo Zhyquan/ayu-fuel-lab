@@ -73,7 +73,7 @@ export function publicEvidenceGate({forecast,evidencePack}, {now=new Date()}={})
       const key=`${analyst.eventKey}:${analyst.direction}`;
       if(seen.has(key)){excluded.push({evidenceId:ref.evidenceId,reason:'SAME_EVENT_AND_DIRECTION'});continue;}
       seen.add(key);
-      cards.push({evidenceId:analyst.evidenceId,direction:analyst.direction,directionLabel:directionLabel({...analyst,impact:analyst.direction}),title:analyst.title,summary:analyst.summary,sourceName:analyst.source,date:chinaDate(analyst.publishedAt),sourceUrl:analyst.sourceUrl,role:ref.role});
+      cards.push({evidenceId:analyst.evidenceId,direction:analyst.direction,directionLabel:directionLabel({...analyst,impact:analyst.direction}),title:analyst.title,summary:analyst.summary,sourceName:analyst.source,date:analyst.sourcePublishedDate??chinaDate(analyst.publishedAt),sourceUrl:analyst.sourceUrl,role:ref.role});
       continue;
     }
     const signal=byId.get(ref.evidenceId);

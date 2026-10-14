@@ -2,7 +2,7 @@ import { ACCEPTED_EVIDENCE_CONTRACT, acceptedEvidenceGate } from '../../dist/dat
 import { admittedNewsDocuments, coreEvidenceGate, newsEnrichmentGate } from '../../dist/data/intelligence-v2-contract.js';
 import { validTimestamp } from '../../dist/data/validation.js';
 import { publicEvidenceGate } from '../../dist/data/public-evidence.js';
-import { externalSignalsGate } from '../../dist/data/external-analyst-contract.js';
+import { externalSignalsGate, publicationAfter, publicationEarliestMs } from '../../dist/data/external-analyst-contract.js';
 import { deduplicateNewsDocuments } from './source-adapters.mjs';
 import { evidenceHashFor } from './history.mjs';
 
@@ -69,17 +69,17 @@ export function buildAcceptedEvidence({pack,forecast=null,previous=[],now=new Da
     const primary=refs.has(signal.evidenceId), material=signal.strength!=='LOW' && signal.confirmation!=='UNCONFIRMED';
     entries.push({id:signal.evidenceId,evidenceId:signal.evidenceId,eventKey:signal.eventKey,title:signal.title,summary:signal.summary,
       source:signal.source,sourceName:`外部分析 · ${signal.source}`,publisher:signal.source,sourceUrl:signal.sourceUrl,
-      publishedAt:signal.publishedAt,date:signal.publishedAt.slice(0,10),publishedAtPrecision:'SECOND',type:signal.kind,relevance:signal.category,
+      publishedAt:signal.publishedAt,date:signal.sourcePublishedDate??signal.publishedAt.slice(0,10),publishedAtPrecision:signal.publishedAt===null?'DATE_ONLY':'SECOND',type:signal.kind,relevance:signal.category,
       forecastInfluence:signal.strength,influenceBasis:'EXTERNAL_ANALYST',displayEligible:true,displayPriority:primary?100:material?70:30,
       policy:primary?'FORECAST_PRIMARY_EVIDENCE':material?'ACCEPTED_MATERIAL':'ACCEPTED_LOW_INFLUENCE',
       contentHash:evidenceHashFor(signal),inputHash,relationship:primary?'FORECAST_REASON':'RELATED_ONLY',
       forecastHash:primary?evidenceHashFor({...forecast,evidencePack:pack}):null,direction:signal.direction,directionLabel:primary?cards.find(c=>c.evidenceId===signal.evidenceId)?.directionLabel??'外部分析':'相关分析'});
   }
   // Existing accepted rows come only from the trusted publisher receipt, never model output.
-  const fresh=previous.filter(e=>e.displayEligible===true && Date.parse(e.publishedAt)<=+now && +now-Date.parse(e.publishedAt)<=horizon);
+  const fresh=previous.filter(e=>e.displayEligible===true && !publicationAfter(e,now) && +now-publicationEarliestMs(e)<=horizon);
   const merged=new Map(fresh.map(e=>[e.id,{...e,relationship:'RELATED_ONLY',forecastHash:null,policy:e.policy==='FORECAST_PRIMARY_EVIDENCE'?'ACCEPTED_MATERIAL':e.policy,displayPriority:Math.min(e.displayPriority,70)}]));
   for(const entry of entries)merged.set(entry.id,entry);
-  const seen=new Set(), acceptedEvidence=[...merged.values()].sort((a,b)=>b.displayPriority-a.displayPriority||b.publishedAt.localeCompare(a.publishedAt)||a.id.localeCompare(b.id)).filter(e=>{
+  const seen=new Set(), acceptedEvidence=[...merged.values()].sort((a,b)=>b.displayPriority-a.displayPriority||(b.publishedAt??b.date).localeCompare(a.publishedAt??a.date)||a.id.localeCompare(b.id)).filter(e=>{
     const key=`${e.source}:${e.contentHash}`,event=e.eventKey;
     if(seen.has(key)||seen.has(event))return false;seen.add(key);seen.add(event);return true;
   });

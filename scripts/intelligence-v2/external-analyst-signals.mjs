@@ -1,6 +1,6 @@
 import { createHash } from 'node:crypto';
 import { validTimestamp } from '../../dist/data/validation.js';
-import { EXTERNAL_SIGNAL_CONTRACT, exactExternalKeys, externalSignalFailure, canonicalSourceUrl } from '../../dist/data/external-analyst-contract.js';
+import { EXTERNAL_SIGNAL_CONTRACT, exactExternalKeys, externalSignalFailure, canonicalSourceUrl, publicationAfter } from '../../dist/data/external-analyst-contract.js';
 import { deduplicateNewsDocuments } from './source-adapters.mjs';
 import { admittedNewsDocuments, signalFailure } from '../../dist/data/intelligence-v2-contract.js';
 const fail=code=>{throw new Error(code);};
@@ -20,7 +20,7 @@ export function validateExternalAnalystSignalPackage(input,{now=new Date()}={}) 
   if(new Set(value.signals.map(s=>s?.eventKey)).size!==value.signals.length)fail('EXTERNAL_DUPLICATE_EVENT');
   const signals=value.signals.map(signal=>{
     const error=externalSignalFailure(signal,{now});if(error)fail(error);
-    if(Date.parse(signal.publishedAt)>Date.parse(value.generatedAt)||(signal.eventAt!==null&&Date.parse(signal.eventAt)>Date.parse(value.generatedAt)))fail('EXTERNAL_TIME_AFTER_PACKAGE');
+    if(publicationAfter(signal,value.generatedAt)||(signal.eventAt!==null&&Date.parse(signal.eventAt)>Date.parse(value.generatedAt)))fail('EXTERNAL_TIME_AFTER_PACKAGE');
     const sourceUrl=signal.sourceUrl===null?null:canonicalSourceUrl(signal.sourceUrl);
     return {...signal,sourceUrl,evidenceId:externalEvidenceId(signal.eventKey),provenance:sourceUrl===null?'EXTERNAL_ANALYST_NO_URL':'EXTERNAL_ANALYST_WITH_URL'};
   });
