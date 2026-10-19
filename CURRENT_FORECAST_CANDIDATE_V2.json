@@ -4,13 +4,13 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-17T01:21:26.257Z",
-  "validUntil": "2026-10-18T01:21:26.257Z",
-  "evidenceHash": "fb847ac6f1fceb65356f289e5a36628fb31684dea42ad5cf079e890fc1f0c5de",
+  "generatedAt": "2026-10-19T01:18:25.610Z",
+  "validUntil": "2026-10-20T01:18:25.610Z",
+  "evidenceHash": "ced7de331c9bf4b5591d777381cde11f966c8ce13a2d60fd42228ad5d6aeb498",
   "probabilities": {
-    "DOWN": 50,
+    "DOWN": 55,
     "FLAT": 20,
-    "UP": 30
+    "UP": 25
   },
   "primaryDirection": "DOWN",
   "mainReasons": [
@@ -27,10 +27,6 @@
     {
       "evidenceId": "eia-stocks",
       "text": "美国馏分油库存减少"
-    },
-    {
-      "evidenceId": "market-wti",
-      "text": "WTI最新日度报价上涨"
     }
   ],
   "signalAssessments": [
@@ -75,7 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "d2c9281fc1a4fcb2741bd49051c161ed97887b419ba6f0f5a2d99f9d9704ca07",
+  "inputPackHash": "d70194522874faee7974774a756b20fd1c71ececa544cbc55cead22c881f5313",
   "coverageMode": "NORMAL",
   "newsAssessments": []
 }
