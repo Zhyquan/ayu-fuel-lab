@@ -4,12 +4,12 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-20T01:52:07.006Z",
-  "validUntil": "2026-10-21T01:52:07.006Z",
-  "evidenceHash": "14cd2ca305fa249b7b990637dab258413840d2affb1f7fde588570ddb9181924",
+  "generatedAt": "2026-10-21T01:37:06.568Z",
+  "validUntil": "2026-10-22T01:37:06.568Z",
+  "evidenceHash": "5a4f9b4f274c3c9104c64c88ff913c8dc1a272796d3dee7cbb928a6f3363d2cf",
   "probabilities": {
-    "DOWN": 25,
-    "FLAT": 10,
+    "DOWN": 15,
+    "FLAT": 20,
     "UP": 65
   },
   "primaryDirection": "UP",
@@ -75,7 +75,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "f045a004628236d0c5007b5e5bd73a72ab80eeb51ebaebfba03d1cc6f5315a1a",
+  "inputPackHash": "9c9885e54368525df3ad2777cfe6f5f18ac7ac13e6bfb78aa40826b28656e42f",
   "coverageMode": "NORMAL",
   "newsAssessments": []
 }
