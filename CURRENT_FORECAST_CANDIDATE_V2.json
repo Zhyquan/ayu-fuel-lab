@@ -4,39 +4,35 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-21T01:37:06.568Z",
-  "validUntil": "2026-10-22T01:37:06.568Z",
-  "evidenceHash": "5a4f9b4f274c3c9104c64c88ff913c8dc1a272796d3dee7cbb928a6f3363d2cf",
+  "generatedAt": "2026-10-22T01:33:30.135Z",
+  "validUntil": "2026-10-23T01:33:30.135Z",
+  "evidenceHash": "09776fa434d489ce131bd4bf8fc9e1bcd6c6fb45be2a0b4ea2ad26e0512f27dd",
   "probabilities": {
-    "DOWN": 15,
+    "DOWN": 45,
     "FLAT": 20,
-    "UP": 65
+    "UP": 35
   },
-  "primaryDirection": "UP",
+  "primaryDirection": "DOWN",
   "mainReasons": [
     {
-      "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价上涨"
+      "evidenceId": "eia-stocks",
+      "text": "美国馏分油库存增加"
     },
     {
-      "evidenceId": "eia-stocks",
-      "text": "美国馏分油库存减少"
+      "evidenceId": "market-brent",
+      "text": "Brent最新日度报价回落"
     }
   ],
   "counterReasons": [
     {
-      "evidenceId": "market-brent",
-      "text": "Brent最新日度报价回落"
-    },
-    {
-      "evidenceId": "eia-refinery-inputs",
-      "text": "美国炼厂原油加工量增加"
+      "evidenceId": "market-diesel",
+      "text": "纽约港低硫柴油最新日度报价上涨"
     }
   ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
@@ -44,7 +40,7 @@
       "evidenceId": "market-brent",
       "impact": "DOWN",
       "kind": "FACT",
-      "strength": "MEDIUM"
+      "strength": "HIGH"
     },
     {
       "evidenceId": "market-diesel",
@@ -54,13 +50,13 @@
     },
     {
       "evidenceId": "eia-stocks",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "HIGH"
     },
     {
       "evidenceId": "eia-production",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
@@ -75,7 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "9c9885e54368525df3ad2777cfe6f5f18ac7ac13e6bfb78aa40826b28656e42f",
-  "coverageMode": "NORMAL",
+  "inputPackHash": "f38b3b95863683b5f510af0e93b554ca5a9c29443203b04233fd9047d3b0c04a",
+  "coverageMode": "LIMITED",
   "newsAssessments": []
 }
