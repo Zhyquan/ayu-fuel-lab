@@ -4,41 +4,37 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-22T01:33:30.135Z",
-  "validUntil": "2026-10-23T01:33:30.135Z",
-  "evidenceHash": "09776fa434d489ce131bd4bf8fc9e1bcd6c6fb45be2a0b4ea2ad26e0512f27dd",
+  "generatedAt": "2026-10-24T01:37:25.175Z",
+  "validUntil": "2026-10-25T01:37:25.175Z",
+  "evidenceHash": "90ef785ba1524b702859fc0aec98da3a379762435d18852f915e66ff4d3cb68d",
   "probabilities": {
-    "DOWN": 45,
+    "DOWN": 15,
     "FLAT": 20,
-    "UP": 35
+    "UP": 65
   },
-  "primaryDirection": "DOWN",
+  "primaryDirection": "UP",
   "mainReasons": [
-    {
-      "evidenceId": "eia-stocks",
-      "text": "美国馏分油库存增加"
-    },
-    {
-      "evidenceId": "market-brent",
-      "text": "Brent最新日度报价回落"
-    }
-  ],
-  "counterReasons": [
     {
       "evidenceId": "market-diesel",
       "text": "纽约港低硫柴油最新日度报价上涨"
     }
   ],
+  "counterReasons": [
+    {
+      "evidenceId": "eia-stocks",
+      "text": "美国馏分油库存增加"
+    }
+  ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-brent",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -52,13 +48,13 @@
       "evidenceId": "eia-stocks",
       "impact": "DOWN",
       "kind": "FACT",
-      "strength": "HIGH"
+      "strength": "MEDIUM"
     },
     {
       "evidenceId": "eia-production",
       "impact": "DOWN",
       "kind": "FACT",
-      "strength": "MEDIUM"
+      "strength": "LOW"
     },
     {
       "evidenceId": "eia-refinery-inputs",
@@ -71,7 +67,22 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "f38b3b95863683b5f510af0e93b554ca5a9c29443203b04233fd9047d3b0c04a",
+  "inputPackHash": "bcb83c7b18c4a48d7e7a4984d7702c43c465ee8617ad15253e6f9115eebc2dda",
   "coverageMode": "LIMITED",
-  "newsAssessments": []
+  "newsAssessments": [
+    {
+      "evidenceId": "br-40445717:s2-3b2cd3cf455b",
+      "impact": "UP",
+      "kind": "FACT",
+      "title": "布伦特原油结算价大幅上涨",
+      "summary": "布伦特原油期货结算价为每桶116.72美元，上涨3.55美元或3.14%，创近六个月新高。",
+      "strength": "HIGH",
+      "documentId": "br-40445717",
+      "segmentId": "s2-3b2cd3cf455b",
+      "sourceUrl": "https://www.brecorder.com/news/40445717/oil-hits-usd116-mark-as-me-conflict-rages-on",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-10-24T00:32:33.000Z"
+    }
+  ]
 }
