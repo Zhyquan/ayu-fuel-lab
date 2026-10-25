@@ -4,13 +4,13 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-24T01:37:25.175Z",
-  "validUntil": "2026-10-25T01:37:25.175Z",
-  "evidenceHash": "90ef785ba1524b702859fc0aec98da3a379762435d18852f915e66ff4d3cb68d",
+  "generatedAt": "2026-10-25T01:11:47.791Z",
+  "validUntil": "2026-10-26T01:11:47.791Z",
+  "evidenceHash": "0172c3b98e2549df4626b7355d2b5db266d0978f749edd7a0c249f613b172424",
   "probabilities": {
-    "DOWN": 15,
-    "FLAT": 20,
-    "UP": 65
+    "DOWN": 20,
+    "FLAT": 35,
+    "UP": 45
   },
   "primaryDirection": "UP",
   "mainReasons": [
@@ -48,13 +48,13 @@
       "evidenceId": "eia-stocks",
       "impact": "DOWN",
       "kind": "FACT",
-      "strength": "MEDIUM"
+      "strength": "HIGH"
     },
     {
       "evidenceId": "eia-production",
       "impact": "DOWN",
       "kind": "FACT",
-      "strength": "LOW"
+      "strength": "MEDIUM"
     },
     {
       "evidenceId": "eia-refinery-inputs",
@@ -67,22 +67,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "bcb83c7b18c4a48d7e7a4984d7702c43c465ee8617ad15253e6f9115eebc2dda",
-  "coverageMode": "LIMITED",
-  "newsAssessments": [
-    {
-      "evidenceId": "br-40445717:s2-3b2cd3cf455b",
-      "impact": "UP",
-      "kind": "FACT",
-      "title": "布伦特原油结算价大幅上涨",
-      "summary": "布伦特原油期货结算价为每桶116.72美元，上涨3.55美元或3.14%，创近六个月新高。",
-      "strength": "HIGH",
-      "documentId": "br-40445717",
-      "segmentId": "s2-3b2cd3cf455b",
-      "sourceUrl": "https://www.brecorder.com/news/40445717/oil-hits-usd116-mark-as-me-conflict-rages-on",
-      "publisher": "Business Recorder",
-      "originalSource": "Reuters",
-      "publishedAt": "2026-10-24T00:32:33.000Z"
-    }
-  ]
+  "inputPackHash": "94114aaf003ce9032f97201adb811ba1d9b9d5505712a74a6fa9452c172e9c1d",
+  "coverageMode": "NORMAL",
+  "newsAssessments": []
 }
