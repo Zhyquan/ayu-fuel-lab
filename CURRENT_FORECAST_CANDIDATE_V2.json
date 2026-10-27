@@ -4,37 +4,29 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-26T05:01:47.177Z",
-  "validUntil": "2026-10-27T05:01:47.177Z",
-  "evidenceHash": "6950c6206215c1b839dd07de82008b2f6649880792935b32521d154d226bcb2b",
+  "generatedAt": "2026-10-27T05:18:28.187Z",
+  "validUntil": "2026-10-28T05:18:28.187Z",
+  "evidenceHash": "35258af32255f7b749c718d6e0b15931ce40e47cad3c2f54482edab6c460a6ab",
   "probabilities": {
-    "DOWN": 35,
-    "FLAT": 10,
-    "UP": 55
+    "DOWN": 60,
+    "FLAT": 25,
+    "UP": 15
   },
-  "primaryDirection": "UP",
+  "primaryDirection": "DOWN",
   "mainReasons": [
     {
       "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价上涨"
+      "text": "纽约港低硫柴油最新日度报价回落"
     },
     {
-      "evidenceId": "br-40445875:s1-68b4ae21a207",
-      "text": "布伦特周五收高",
-      "documentId": "br-40445875",
-      "segmentId": "s1-68b4ae21a207"
+      "evidenceId": "eia-stocks",
+      "text": "美国馏分油库存增加"
     }
   ],
   "counterReasons": [
     {
-      "evidenceId": "eia-stocks",
-      "text": "美国馏分油库存增加"
-    },
-    {
-      "evidenceId": "br-40445943:s2-1baae34b2047",
-      "text": "WTI期货周一下跌",
-      "documentId": "br-40445943",
-      "segmentId": "s2-1baae34b2047"
+      "evidenceId": "market-brent",
+      "text": "Brent最新日度报价上涨"
     }
   ],
   "signalAssessments": [
@@ -48,11 +40,11 @@
       "evidenceId": "market-brent",
       "impact": "UP",
       "kind": "FACT",
-      "strength": "HIGH"
+      "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-diesel",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -79,36 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "4e8b09e19d0d636450ceb7a223a0a88d6fb9b31863a609d17d4c2ed0ccbb9155",
-  "coverageMode": "LIMITED",
-  "newsAssessments": [
-    {
-      "evidenceId": "br-40445943:s2-1baae34b2047",
-      "impact": "DOWN",
-      "kind": "FACT",
-      "title": "WTI期货周一下跌",
-      "summary": "美国原油期货在0018 GMT时下跌1.60美元至每桶101.67美元。",
-      "strength": "MEDIUM",
-      "documentId": "br-40445943",
-      "segmentId": "s2-1baae34b2047",
-      "sourceUrl": "https://www.brecorder.com/news/40445943/oil-slips-from-near-six-months-highs-despite-supply-concerns",
-      "publisher": "Business Recorder",
-      "originalSource": "Reuters",
-      "publishedAt": "2026-10-26T02:49:26.000Z"
-    },
-    {
-      "evidenceId": "br-40445875:s1-68b4ae21a207",
-      "impact": "UP",
-      "kind": "FACT",
-      "title": "布伦特周五收高",
-      "summary": "布伦特原油价格曾短暂突破117美元，周五收于约116.75美元。",
-      "strength": "LOW",
-      "documentId": "br-40445875",
-      "segmentId": "s1-68b4ae21a207",
-      "sourceUrl": "https://www.brecorder.com/news/40445875/oil-price-hike-poses-challenges-for-fed-policymakers",
-      "publisher": "Business Recorder",
-      "originalSource": "Business Recorder",
-      "publishedAt": "2026-10-25T23:07:33.000Z"
-    }
-  ]
+  "inputPackHash": "deea5c73024178d1021e9d56f508cb218a81f8ae96e77f01e99f8d32ef8be41b",
+  "coverageMode": "NORMAL",
+  "newsAssessments": []
 }
