@@ -4,9 +4,9 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-27T05:18:28.187Z",
-  "validUntil": "2026-10-28T05:18:28.187Z",
-  "evidenceHash": "35258af32255f7b749c718d6e0b15931ce40e47cad3c2f54482edab6c460a6ab",
+  "generatedAt": "2026-10-28T05:57:51.272Z",
+  "validUntil": "2026-10-29T05:57:51.272Z",
+  "evidenceHash": "0d0ccf3a9286a378577e5fb1f5608ce4d404dd5d1be116c65f2b70aa959678a8",
   "probabilities": {
     "DOWN": 60,
     "FLAT": 25,
@@ -23,22 +23,17 @@
       "text": "美国馏分油库存增加"
     }
   ],
-  "counterReasons": [
-    {
-      "evidenceId": "market-brent",
-      "text": "Brent最新日度报价上涨"
-    }
-  ],
+  "counterReasons": [],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-brent",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
@@ -71,7 +66,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "deea5c73024178d1021e9d56f508cb218a81f8ae96e77f01e99f8d32ef8be41b",
-  "coverageMode": "NORMAL",
+  "inputPackHash": "c1890a6e774f25d29e04fdffddec7f39ef846b16ed6d1e38d3181574e2d2539e",
+  "coverageMode": "LIMITED",
   "newsAssessments": []
 }
