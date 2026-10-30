@@ -4,30 +4,35 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-28T05:57:51.272Z",
-  "validUntil": "2026-10-29T05:57:51.272Z",
-  "evidenceHash": "0d0ccf3a9286a378577e5fb1f5608ce4d404dd5d1be116c65f2b70aa959678a8",
+  "generatedAt": "2026-10-30T06:03:55.910Z",
+  "validUntil": "2026-10-31T06:03:55.910Z",
+  "evidenceHash": "e26109b030a5351bb72e8af5d088eabf77d791193a8eb9a7d0cb6b80da92c31f",
   "probabilities": {
-    "DOWN": 60,
-    "FLAT": 25,
-    "UP": 15
+    "DOWN": 25,
+    "FLAT": 15,
+    "UP": 60
   },
-  "primaryDirection": "DOWN",
+  "primaryDirection": "UP",
   "mainReasons": [
     {
       "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价回落"
+      "text": "纽约港低硫柴油最新日度报价上涨"
     },
     {
       "evidenceId": "eia-stocks",
-      "text": "美国馏分油库存增加"
+      "text": "美国馏分油库存减少"
     }
   ],
-  "counterReasons": [],
+  "counterReasons": [
+    {
+      "evidenceId": "market-brent",
+      "text": "Brent最新日度报价回落"
+    }
+  ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
@@ -39,25 +44,25 @@
     },
     {
       "evidenceId": "market-diesel",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "HIGH"
     },
     {
       "evidenceId": "eia-stocks",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "HIGH"
     },
     {
       "evidenceId": "eia-production",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "eia-refinery-inputs",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "LOW"
     }
@@ -66,7 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "c1890a6e774f25d29e04fdffddec7f39ef846b16ed6d1e38d3181574e2d2539e",
-  "coverageMode": "LIMITED",
+  "inputPackHash": "ecba80d010b89bd6f947698ee4bb89d7f37084b31841afae5941c5bba1729a2c",
+  "coverageMode": "NORMAL",
   "newsAssessments": []
 }
