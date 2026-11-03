@@ -4,9 +4,9 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-10-30T06:03:55.910Z",
-  "validUntil": "2026-10-31T06:03:55.910Z",
-  "evidenceHash": "e26109b030a5351bb72e8af5d088eabf77d791193a8eb9a7d0cb6b80da92c31f",
+  "generatedAt": "2026-11-03T07:01:15.546Z",
+  "validUntil": "2026-11-04T07:01:15.546Z",
+  "evidenceHash": "ef933dc43f7771ec6327b61df3d859dc394a3cb391c4cc86ef0b37a076725799",
   "probabilities": {
     "DOWN": 25,
     "FLAT": 15,
@@ -23,12 +23,7 @@
       "text": "美国馏分油库存减少"
     }
   ],
-  "counterReasons": [
-    {
-      "evidenceId": "market-brent",
-      "text": "Brent最新日度报价回落"
-    }
-  ],
+  "counterReasons": [],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
@@ -38,7 +33,7 @@
     },
     {
       "evidenceId": "market-brent",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
@@ -71,7 +66,36 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "ecba80d010b89bd6f947698ee4bb89d7f37084b31841afae5941c5bba1729a2c",
-  "coverageMode": "NORMAL",
-  "newsAssessments": []
+  "inputPackHash": "acc66217e686fc5628482bf1a1842275c13b1d4c9630f484d35513eb813abbc8",
+  "coverageMode": "LIMITED",
+  "newsAssessments": [
+    {
+      "evidenceId": "br-40447167:s1-64e1dc54d768",
+      "impact": "UP",
+      "kind": "FACT",
+      "title": "油价上涨因报道美军打击伊朗格什姆岛",
+      "summary": "有报道称美国袭击了伊朗格什姆岛，引发对冲突升级及中东石油供应中断的担忧。",
+      "strength": "HIGH",
+      "documentId": "br-40447167",
+      "segmentId": "s1-64e1dc54d768",
+      "sourceUrl": "https://www.brecorder.com/news/40447167/oil-edges-up-after-report-of-us-strike-on-irans-qeshm-island",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-11-03T02:40:49.000Z"
+    },
+    {
+      "evidenceId": "br-40447165:s1-0987463dc079",
+      "impact": "DOWN",
+      "kind": "FACT",
+      "title": "伊朗释放谈判信号致油价暴跌逾7%",
+      "summary": "伊朗与卡塔尔官员会谈提振结束战争希望，导致布伦特原油和WTI原油价格大幅下跌。",
+      "strength": "HIGH",
+      "documentId": "br-40447165",
+      "segmentId": "s1-0987463dc079",
+      "sourceUrl": "https://www.brecorder.com/news/40447165/oil-drops-7pc-as-iran-signals-openness-to-talks",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-11-03T00:12:27.000Z"
+    }
+  ]
 }
