@@ -4,33 +4,29 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-05T07:02:56.992Z",
-  "validUntil": "2026-11-06T07:02:56.992Z",
-  "evidenceHash": "dd434fc71c7a02423b2825dc1fe759d9daaabfbd013d212728cb5651ba0d079d",
+  "generatedAt": "2026-11-06T07:02:55.494Z",
+  "validUntil": "2026-11-07T07:02:55.494Z",
+  "evidenceHash": "b1e7334f1e2038930eeb28d74f80d9dafcbb7d49194b40b4092ef0ad2125992a",
   "probabilities": {
-    "DOWN": 20,
-    "FLAT": 15,
-    "UP": 65
+    "DOWN": 55,
+    "FLAT": 20,
+    "UP": 25
   },
-  "primaryDirection": "UP",
+  "primaryDirection": "DOWN",
   "mainReasons": [
     {
       "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价上涨"
-    },
-    {
-      "evidenceId": "eia-stocks",
-      "text": "美国馏分油库存减少"
-    }
-  ],
-  "counterReasons": [
-    {
-      "evidenceId": "market-brent",
-      "text": "Brent最新日度报价回落"
+      "text": "纽约港低硫柴油最新日度报价回落"
     },
     {
       "evidenceId": "eia-refinery-inputs",
       "text": "美国炼厂原油加工量增加"
+    }
+  ],
+  "counterReasons": [
+    {
+      "evidenceId": "eia-stocks",
+      "text": "美国馏分油库存减少"
     }
   ],
   "signalAssessments": [
@@ -48,7 +44,7 @@
     },
     {
       "evidenceId": "market-diesel",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -75,7 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "8ab93adbe2983f1addee68659d3de4c9473ca17cdf7b40cd8209ae4fd079afda",
+  "inputPackHash": "e39e9d013fb472dc76b116dd44a7ea2295d6e924eacd4c9c90c96844de2b22b5",
   "coverageMode": "NORMAL",
   "newsAssessments": []
 }
