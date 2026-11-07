@@ -4,47 +4,47 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-06T07:02:55.494Z",
-  "validUntil": "2026-11-07T07:02:55.494Z",
-  "evidenceHash": "b1e7334f1e2038930eeb28d74f80d9dafcbb7d49194b40b4092ef0ad2125992a",
+  "generatedAt": "2026-11-07T06:16:14.520Z",
+  "validUntil": "2026-11-08T06:16:14.520Z",
+  "evidenceHash": "100a4e902d05378cd52217c3f975fee7e0bf073fb1fcf423045c5364cc7efc9d",
   "probabilities": {
-    "DOWN": 55,
-    "FLAT": 20,
-    "UP": 25
+    "DOWN": 25,
+    "FLAT": 10,
+    "UP": 65
   },
-  "primaryDirection": "DOWN",
+  "primaryDirection": "UP",
   "mainReasons": [
     {
       "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价回落"
+      "text": "纽约港低硫柴油最新日度报价上涨"
     },
-    {
-      "evidenceId": "eia-refinery-inputs",
-      "text": "美国炼厂原油加工量增加"
-    }
-  ],
-  "counterReasons": [
     {
       "evidenceId": "eia-stocks",
       "text": "美国馏分油库存减少"
     }
   ],
+  "counterReasons": [
+    {
+      "evidenceId": "eia-refinery-inputs",
+      "text": "美国炼厂原油加工量增加"
+    }
+  ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-brent",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-diesel",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -71,7 +71,22 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "e39e9d013fb472dc76b116dd44a7ea2295d6e924eacd4c9c90c96844de2b22b5",
-  "coverageMode": "NORMAL",
-  "newsAssessments": []
+  "inputPackHash": "48f9c92b2473607949110ffb936c26f99c4121cbd32bbaf16649be486f23d8a3",
+  "coverageMode": "LIMITED",
+  "newsAssessments": [
+    {
+      "evidenceId": "br-40447875:s2-cdc2c8911c30",
+      "impact": "NEUTRAL",
+      "kind": "FACT",
+      "title": "Brent与WTI周五小幅波动",
+      "summary": "周五交易中，布伦特原油下跌0.46%至97.84美元，WTI上涨0.17%至90.67美元。",
+      "strength": "LOW",
+      "documentId": "br-40447875",
+      "segmentId": "s2-cdc2c8911c30",
+      "sourceUrl": "https://www.brecorder.com/news/40447875/brent-oil-price-benchmark-set-for-biggest-weekly-drop-since-2020",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-11-06T23:51:42.000Z"
+    }
+  ]
 }

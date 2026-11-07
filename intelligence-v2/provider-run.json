@@ -2,10 +2,10 @@
   "provider": "QWEN",
   "model": "qwen3.8-flash",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "e39e9d013fb472dc76b116dd44a7ea2295d6e924eacd4c9c90c96844de2b22b5",
-  "evidenceHash": "b1e7334f1e2038930eeb28d74f80d9dafcbb7d49194b40b4092ef0ad2125992a",
-  "requestStartedAt": "2026-11-06T07:02:50.677Z",
-  "requestCompletedAt": "2026-11-06T07:02:55.497Z",
+  "inputPackHash": "48f9c92b2473607949110ffb936c26f99c4121cbd32bbaf16649be486f23d8a3",
+  "evidenceHash": "100a4e902d05378cd52217c3f975fee7e0bf073fb1fcf423045c5364cc7efc9d",
+  "requestStartedAt": "2026-11-07T06:16:06.059Z",
+  "requestCompletedAt": "2026-11-07T06:16:14.522Z",
   "semanticCallCount": 1,
   "configuredTransportRetries": 2,
   "maxExternalRequests": 3,
@@ -15,19 +15,27 @@
   "httpStatuses": [
     200
   ],
-  "inputPayloadBytes": 20653,
+  "inputPayloadBytes": 18058,
   "usage": {
-    "input_tokens": 5084,
-    "output_tokens": 283
+    "input_tokens": 4433,
+    "output_tokens": 515
   },
   "status": "OK",
   "mock": false,
-  "outputHash": "e04c142c781d2de02a4e1936b934f03d8e9d457bc5ca1c087885ecb51cbe2f81",
+  "outputHash": "d2cf53d8ad30ef8feb045ca59a4747da71700aaff806b5af5db52a1c0c51bc06",
   "newsEnrichment": {
-    "gate": "PASS",
-    "acceptedCount": 0,
-    "droppedCount": 0,
-    "codes": [],
-    "diagnostics": []
+    "gate": "FAIL",
+    "acceptedCount": 1,
+    "droppedCount": 1,
+    "codes": [
+      "NEWS_NEW_NUMBER"
+    ],
+    "diagnostics": [
+      {
+        "validationCode": "NEWS_NEW_NUMBER",
+        "assessmentIndex": 1,
+        "fieldName": "summary"
+      }
+    ]
   }
 }
