@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-07T06:15:50.313Z",
+  "generatedAt": "2026-11-08T06:20:51.474Z",
   "gate": {
     "gate": "PASS",
     "status": "READY",
@@ -7,10 +7,10 @@
     "coverageMode": "NORMAL",
     "errors": [],
     "signalCount": 6,
-    "newsDocumentCount": 2,
-    "independentSourceCount": 3,
+    "newsDocumentCount": 1,
+    "independentSourceCount": 2,
     "independentEventCount": 2,
-    "checkedAt": "2026-11-07T06:15:50.313Z",
+    "checkedAt": "2026-11-08T06:20:51.474Z",
     "newsExclusions": []
   },
   "weeklyRelease": {
@@ -22,7 +22,7 @@
       "releaseDate": "2026-11-04",
       "periodEndDate": "2026-10-30",
       "previousPeriodEndDate": "2026-10-23",
-      "authorityCheckedAt": "2026-11-07T06:15:50.313Z"
+      "authorityCheckedAt": "2026-11-08T06:20:51.474Z"
     },
     "diagnostics": [
       {
@@ -39,357 +39,340 @@
     {
       "url": "https://www.eia.gov/todayinenergy/prices.php",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
+      "checkedAt": "2026-11-08T06:20:51.474Z",
       "bodySha256": "8bed2e7c59eb45d55e637574d5480e81dfde0984bf5fd93c015e15dd522bf900",
       "bytes": 74416
     },
     {
       "url": "https://ir.eia.gov/wpsr/psw00.json",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
+      "checkedAt": "2026-11-08T06:20:51.474Z",
       "bodySha256": "5d834f811a84c451cfae06c218273da997eec3b6a730f14fcba3294fc885acf1",
       "bytes": 246860
     },
     {
       "url": "https://ir.eia.gov/wpsr/table1.csv",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
+      "checkedAt": "2026-11-08T06:20:51.474Z",
       "bodySha256": "3fca4fa478a80e7f6e43fc0a15acf65d3e7815e2454fc639ac111a73a587ffa8",
       "bytes": 6652
     },
     {
       "url": "https://ir.eia.gov/wpsr/table2.csv",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
+      "checkedAt": "2026-11-08T06:20:51.474Z",
       "bodySha256": "0bd34e2e6a873345bea73b8628042e0e85e75588f3625bd48122a6dc2ba19217",
       "bytes": 8459
     },
     {
       "url": "https://www.eia.gov/petroleum/supply/weekly/schedule.php",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
+      "checkedAt": "2026-11-08T06:20:51.474Z",
       "bodySha256": "fc541adcac23e9856c45ae35c3b15b71b301eec3dc51494eb5649280fdc498f6",
       "bytes": 52109
     },
     {
       "url": "https://ir.eia.gov/wpsr/summary.txt",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
+      "checkedAt": "2026-11-08T06:20:51.474Z",
       "bodySha256": "efea4e898102ab983cd8371480b339ca5eafb0ef4a3611e092169abf4feb5806",
       "bytes": 1396
     },
     {
       "url": "https://www.eia.gov/petroleum/supply/weekly/",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
+      "checkedAt": "2026-11-08T06:20:51.474Z",
       "bodySha256": "42d6dc71d16dd3c0157121fb280ca73083ddc1e7c376c8c8b80d1712ffa758d5",
       "bytes": 82995
     },
     {
       "url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DCOILBRENTEU,DCOILWTICO,DDFUELNYH",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
+      "checkedAt": "2026-11-08T06:20:51.474Z",
       "bodySha256": "f83380921f0278d474682f558c3dd5de126d9f88c278d21e667218e7394bed16",
       "bytes": 269867
     },
     {
       "url": "https://www.opec.org/press-releases.html",
       "status": "FAILED",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
+      "checkedAt": "2026-11-08T06:20:51.474Z",
       "reason": "HTTP_403"
     },
     {
       "url": "https://api.gdeltproject.org/api/v2/doc/doc",
       "status": "FAILED",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
+      "checkedAt": "2026-11-08T06:20:51.474Z",
       "reason": "FETCH_FAILED"
     },
     {
       "url": "https://www.brecorder.com/feeds/latest-news",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
-      "bodySha256": "c8981977177ca9fba397b442af5c78a967231e48b6311306c40aaa4d6b6b0677",
-      "bytes": 206339
+      "checkedAt": "2026-11-08T06:20:51.474Z",
+      "bodySha256": "ce468b405ac7bb4b37d75cc4e38f3b17a7c3ea3c4bac91c98ad735f2563c2243",
+      "bytes": 192887
     },
     {
       "url": "https://www.brecorder.com/feeds/sitemap",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
-      "bodySha256": "1774a2b4f1c348ef0a0ef0c0d42fd67c7ca7a2b7f4a1b770c57abfb88b786113",
-      "bytes": 47954
+      "checkedAt": "2026-11-08T06:20:51.474Z",
+      "bodySha256": "c2127b67fa57e1e64e8a876a143ed5a87ff0613c6f0eede9dbb2f21ffadd14d8",
+      "bytes": 48673
     },
     {
-      "url": "https://www.brecorder.com/news/40447875/brent-oil-price-benchmark-set-for-biggest-weekly-drop-since-2020",
+      "url": "https://www.brecorder.com/news/40447912/record-oil-exports-lifts-brazil-trade-surplus-above-forecasts-in-oct",
       "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
-      "bodySha256": "64c112df01ac2683b25a34687c16fe876c425845d2e201fa937a2fadd4e23155",
-      "bytes": 279274
-    },
-    {
-      "url": "https://www.brecorder.com/news/40447791/govt-cuts-petrol-price-by-rs659-diesel-by-rs425-per-litre",
-      "status": "OK",
-      "checkedAt": "2026-11-07T06:15:50.313Z",
-      "bodySha256": "80b50b272c1910921cfaf7975384188ac8957b44b78d3e64398eee9df15954ec",
-      "bytes": 288837
+      "checkedAt": "2026-11-08T06:20:51.474Z",
+      "bodySha256": "f903aaa30ae6faa71d95337ac634b2a117a3c3f2a8154fdc1f7903ffcbd9db05",
+      "bytes": 275074
     }
   ],
   "candidates": [
     {
-      "headline": "Brent oil price benchmark set for biggest weekly drop since 2020",
-      "url": "https://www.brecorder.com/news/40447875/brent-oil-price-benchmark-set-for-biggest-weekly-drop-since-2020",
-      "discoveredAt": "2026-11-07",
+      "headline": "Record oil exports lifts Brazil trade surplus above forecasts in Oct",
+      "url": "https://www.brecorder.com/news/40447912/record-oil-exports-lifts-brazil-trade-surplus-above-forecasts-in-oct",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "status": "CONTENT_VERIFIED",
-      "documentId": "br-40447875",
+      "documentId": "br-40447912",
       "publisher": "Business Recorder",
       "originalSource": "Reuters",
-      "publishedAt": "2026-11-06T23:51:42.000Z",
-      "articleContentHash": "fcdcf1c16f1d86195689f0e0b470a296af2773a43eb14499d96951a54e149298",
+      "publishedAt": "2026-11-07T21:33:12.000Z",
+      "articleContentHash": "c6d08ce6362325710b36cd842b1ed5cc20cf67751242a3b125c9a96f972835f5",
       "segmentIds": [
-        "s1-1f8d71d305c3",
-        "s2-cdc2c8911c30",
-        "s3-72f128cec54f"
+        "s1-7e7174548cee",
+        "s2-1287dc5aa023",
+        "s3-ae632304786b"
       ],
       "legacyRuleDisposition": "NEEDS_REVIEW_UNSUPPORTED_EVENT"
     },
     {
-      "headline": "Govt cuts petrol price by Rs6.59, diesel by Rs4.25 per litre",
-      "url": "https://www.brecorder.com/news/40447791/govt-cuts-petrol-price-by-rs659-diesel-by-rs425-per-litre",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "status": "CONTENT_VERIFIED",
-      "documentId": "br-40447791",
-      "publisher": "Business Recorder",
-      "originalSource": "Business Recorder",
-      "publishedAt": "2026-11-06T19:00:53.000Z",
-      "articleContentHash": "1e1d2b1bf1d9cea1f70f96cc05726bd9fc31a8e1b6f700990d64ddbd850b8ce0",
-      "segmentIds": [
-        "s1-d64c8f7b1407",
-        "s2-cedc63e196c8",
-        "s3-81bf49973752"
-      ],
-      "legacyRuleDisposition": "REUTERS_AUTHOR_NOT_VERIFIED"
-    },
-    {
-      "headline": "Endeavor Pakistan appoints Mubariz Siddiqui as managing director",
-      "url": "https://www.brecorder.com/news/40447886/endeavor-pakistan-appoints-mubariz-siddiqui-as-managing-director",
-      "discoveredAt": "Sat, 07 Nov 2026 11:03:00 +0500",
+      "headline": "England's cricketers ready to counter Perth bounce, says McCullum",
+      "url": "https://www.brecorder.com/news/40447992/englands-cricketers-ready-to-counter-perth-bounce-says-mccullum",
+      "discoveredAt": "Sun, 08 Nov 2026 11:16:57 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "NEPRA raises incremental power tariff to Rs25.30 per unit for industrial, agricultural consumers",
-      "url": "https://www.brecorder.com/news/40447885/nepra-raises-incremental-power-tariff-to-rs2530-per-unit-for-industrial-agricultural-consumers",
-      "discoveredAt": "Sat, 07 Nov 2026 10:24:07 +0500",
+      "headline": "Khawaja denies throwing 'anyone under the bus' with comments about ball-tampering scandal",
+      "url": "https://www.brecorder.com/news/40447991/khawaja-denies-throwing-anyone-under-the-bus-with-comments-about-ball-tampering-scandal",
+      "discoveredAt": "Sun, 08 Nov 2026 11:12:46 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "NEPRA approves Rs2.3673 per unit FCA for September",
-      "url": "https://www.brecorder.com/news/40447884/nepra-approves-rs23673-per-unit-fca-for-september",
-      "discoveredAt": "Sat, 07 Nov 2026 10:23:09 +0500",
+      "headline": "Houthi-run health ministry says airstrikes kill 33 near Yemen capital",
+      "url": "https://www.brecorder.com/news/40447990/houthi-run-health-ministry-says-airstrikes-kill-33-near-yemen-capital",
+      "discoveredAt": "Sun, 08 Nov 2026 11:08:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Azma pays surprise visit to PIC, praises CM Maryam",
-      "url": "https://www.brecorder.com/news/40447858/azma-pays-surprise-visit-to-pic-praises-cm-maryam",
-      "discoveredAt": "Sat, 07 Nov 2026 06:56:38 +0500",
+      "headline": "US military says it disabled cargo vessel in Gulf of Oman",
+      "url": "https://www.brecorder.com/news/40447989/us-military-says-it-disabled-cargo-vessel-in-gulf-of-oman",
+      "discoveredAt": "Sun, 08 Nov 2026 10:47:57 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Forgery of court fee stamps: CM lauds CJ LHC for action against mafia",
-      "url": "https://www.brecorder.com/news/40447859/forgery-of-court-fee-stamps-cm-lauds-cj-lhc-for-action-against-mafia",
-      "discoveredAt": "Sat, 07 Nov 2026 06:55:16 +0500",
+      "headline": "Loud booms heard in Saudi capital Riyadh after early warning alert issued",
+      "url": "https://www.brecorder.com/news/40447988/loud-booms-heard-in-saudi-capital-riyadh-after-early-warning-alert-issued",
+      "discoveredAt": "Sun, 08 Nov 2026 10:41:41 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "JazzCash records 67.6pc increase in revenue",
-      "url": "https://www.brecorder.com/news/40447860/jazzcash-records-676pc-increase-in-revenue",
-      "discoveredAt": "Sat, 07 Nov 2026 06:53:11 +0500",
+      "headline": "After close vote, New Zealand must wait weeks for new government",
+      "url": "https://www.brecorder.com/news/40447987/after-close-vote-new-zealand-must-wait-weeks-for-new-government",
+      "discoveredAt": "Sun, 08 Nov 2026 10:38:56 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Media asked to play proactive role in strengthening public accountability",
-      "url": "https://www.brecorder.com/news/40447861/media-asked-to-play-proactive-role-in-strengthening-public-accountability",
-      "discoveredAt": "Sat, 07 Nov 2026 06:51:56 +0500",
+      "headline": "Poland in shock after six die in Krakow mass shooting",
+      "url": "https://www.brecorder.com/news/40447986/poland-in-shock-after-six-die-in-krakow-mass-shooting",
+      "discoveredAt": "Sun, 08 Nov 2026 10:33:51 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Nestlé receives two sustainability awards at 29th SDC",
-      "url": "https://www.brecorder.com/news/40447862/nestle-receives-two-sustainability-awards-at-29th-sdc",
-      "discoveredAt": "Sat, 07 Nov 2026 06:50:27 +0500",
+      "headline": "Tesla to add Cybertruck shift to clear orders before dismantling line next year",
+      "url": "https://www.brecorder.com/news/40447985/tesla-to-add-cybertruck-shift-to-clear-orders-before-dismantling-line-next-year",
+      "discoveredAt": "Sun, 08 Nov 2026 10:25:25 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Cotton production: PARC, CCRI agree to boost cooperation",
-      "url": "https://www.brecorder.com/news/40447863/cotton-production-parc-ccri-agree-to-boost-cooperation",
-      "discoveredAt": "Sat, 07 Nov 2026 06:48:50 +0500",
+      "headline": "Astellas employee imprisoned in China to be released in December, Japanese media report",
+      "url": "https://www.brecorder.com/news/40447984/astellas-employee-imprisoned-in-china-to-be-released-in-december-japanese-media-report",
+      "discoveredAt": "Sun, 08 Nov 2026 10:17:43 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "PPCBL set to accelerate digital transformation",
-      "url": "https://www.brecorder.com/news/40447864/ppcbl-set-to-accelerate-digital-transformation",
-      "discoveredAt": "Sat, 07 Nov 2026 06:46:30 +0500",
+      "headline": "Iran executes three men over armed unrest during January protests",
+      "url": "https://www.brecorder.com/news/40447983/iran-executes-three-men-over-armed-unrest-during-january-protests",
+      "discoveredAt": "Sun, 08 Nov 2026 10:05:44 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "PRA’s directive to hotel owners",
-      "url": "https://www.brecorder.com/news/40447865/pras-directive-to-hotel-owners",
-      "discoveredAt": "Sat, 07 Nov 2026 06:44:35 +0500",
+      "headline": "Saudi civil defence gives all-clear after alerts in Eastern Province",
+      "url": "https://www.brecorder.com/news/40447982/saudi-civil-defence-gives-all-clear-after-alerts-in-eastern-province",
+      "discoveredAt": "Sun, 08 Nov 2026 09:45:15 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Rare sperm whale spotted off Karachi",
-      "url": "https://www.brecorder.com/news/40447866/rare-sperm-whale-spotted-off-karachi",
-      "discoveredAt": "Sat, 07 Nov 2026 06:41:39 +0500",
+      "headline": "Production monitoring mechanism: IHC reserves judgment on pleas of industrial units",
+      "url": "https://www.brecorder.com/news/40447944/production-monitoring-mechanism-ihc-reserves-judgment-on-pleas-of-industrial-units",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Digital invoicing requirements: RTO Hyderabad begins enforcement drive",
-      "url": "https://www.brecorder.com/news/40447867/digital-invoicing-requirements-rto-hyderabad-begins-enforcement-drive",
-      "discoveredAt": "Sat, 07 Nov 2026 06:37:37 +0500",
+      "headline": "PHDEC, GPI explore export opportunities for Balochistan’s horticultural produce",
+      "url": "https://www.brecorder.com/news/40447945/phdec-gpi-explore-export-opportunities-for-balochistans-horticultural-produce",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "RUDA validates Pak’s first methane mitigation project",
-      "url": "https://www.brecorder.com/news/40447868/ruda-validates-paks-first-methane-mitigation-project",
-      "discoveredAt": "Sat, 07 Nov 2026 06:32:47 +0500",
+      "headline": "UN Women Pakistan honours 17 award recipients for advancing gender equality",
+      "url": "https://www.brecorder.com/news/40447946/un-women-pakistan-honours-17-award-recipients-for-advancing-gender-equality",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "SMEDA partners with ICMA, DigiKhata",
-      "url": "https://www.brecorder.com/news/40447869/smeda-partners-with-icma-digikhata",
-      "discoveredAt": "Sat, 07 Nov 2026 06:28:55 +0500",
+      "headline": "SFA fines Rs200,000 for food safety violations",
+      "url": "https://www.brecorder.com/news/40447947/sfa-fines-rs200000-for-food-safety-violations",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "FBR mandates sales tax invoices for advance payments",
-      "url": "https://www.brecorder.com/news/40447871/fbr-mandates-sales-tax-invoices-for-advance-payments",
-      "discoveredAt": "Sat, 07 Nov 2026 06:27:03 +0500",
+      "headline": "Street crimes continue unabated in Islamabad",
+      "url": "https://www.brecorder.com/news/40447948/street-crimes-continue-unabated-in-islamabad",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Weekly SPI inflation up 0.29pc",
-      "url": "https://www.brecorder.com/news/40447872/weekly-spi-inflation-up-029pc",
-      "discoveredAt": "Sat, 07 Nov 2026 06:22:25 +0500",
+      "headline": "CCP approves Nestlé–Platinum Equity’s joint venture",
+      "url": "https://www.brecorder.com/news/40447950/ccp-approves-nestle-platinum-equitys-joint-venture",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Turkish parliament ratifies Makkah defence pact",
-      "url": "https://www.brecorder.com/news/40447873/turkish-parliament-ratifies-makkah-defence-pact",
-      "discoveredAt": "Sat, 07 Nov 2026 06:16:26 +0500",
+      "headline": "Petroleum companies highlight their CSR contributions",
+      "url": "https://www.brecorder.com/news/40447951/petroleum-companies-highlight-their-csr-contributions",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "DWP Technologies and GNEXT explore ‘Working Beyond the Desktop’",
-      "url": "https://www.brecorder.com/news/40447849/dwp-technologies-and-gnext-explore-working-beyond-the-desktop",
-      "discoveredAt": "Sat, 07 Nov 2026 06:12:37 +0500",
+      "headline": "Anti-encroachment drive: Over 950 shops, illegal constructions demolished across Peshawar",
+      "url": "https://www.brecorder.com/news/40447952/anti-encroachment-drive-over-950-shops-illegal-constructions-demolished-across-peshawar",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "HBL launches Visa Infinite CreditCard",
-      "url": "https://www.brecorder.com/news/40447848/hbl-launches-visa-infinite-creditcard",
-      "discoveredAt": "Sat, 07 Nov 2026 06:09:51 +0500",
+      "headline": "Health risks warned of due to wide swings in temperatures",
+      "url": "https://www.brecorder.com/news/40447953/health-risks-warned-of-due-to-wide-swings-in-temperatures",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "SNGPL posts highest-ever profit before levy, income tax of Rs34,656m",
-      "url": "https://www.brecorder.com/news/40447847/sngpl-posts-highest-ever-profit-before-levy-income-tax-of-rs34656m",
-      "discoveredAt": "Sat, 07 Nov 2026 06:06:24 +0500",
+      "headline": "Successful sporting events improving Pakistan’s image: Tarar",
+      "url": "https://www.brecorder.com/news/40447954/successful-sporting-events-improving-pakistans-image-tarar",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Petrol price cut by Rs6.59, HSD’s by Rs4.25",
-      "url": "https://www.brecorder.com/news/40447870/petrol-price-cut-by-rs659-hsds-by-rs425",
-      "discoveredAt": "Sat, 07 Nov 2026 06:04:39 +0500",
+      "headline": "JazzWorld reports revenue of PKR144.9bn for third quarter of 2026",
+      "url": "https://www.brecorder.com/news/40447955/jazzworld-reports-revenue-of-pkr1449bn-for-third-quarter-of-2026",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Govt to expand access to primary eye care for up to 60m people",
-      "url": "https://www.brecorder.com/news/40447813/govt-to-expand-access-to-primary-eye-care-for-up-to-60m-people",
-      "discoveredAt": "Sat, 07 Nov 2026 04:51:42 +0500",
+      "headline": "Industrialists urged to create jobs for Balochistan’s youth",
+      "url": "https://www.brecorder.com/news/40447956/industrialists-urged-to-create-jobs-for-balochistans-youth",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Dar reviews preparations for ECO meeting",
-      "url": "https://www.brecorder.com/news/40447814/dar-reviews-preparations-for-eco-meeting",
-      "discoveredAt": "Sat, 07 Nov 2026 04:51:42 +0500",
+      "headline": "FCCI president calls for Chinese investment in truck assembly and manufacturing",
+      "url": "https://www.brecorder.com/news/40447958/fcci-president-calls-for-chinese-investment-in-truck-assembly-and-manufacturing",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Thar coal being developed beyond power generation: Sharjeel",
-      "url": "https://www.brecorder.com/news/40447815/thar-coal-being-developed-beyond-power-generation-sharjeel",
-      "discoveredAt": "Sat, 07 Nov 2026 06:34:43 +0500",
+      "headline": "Polio teams ensure robust coverage in targeted areas",
+      "url": "https://www.brecorder.com/news/40447959/polio-teams-ensure-robust-coverage-in-targeted-areas",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Higher temperatures may prolong dengue season",
-      "url": "https://www.brecorder.com/news/40447816/higher-temperatures-may-prolong-dengue-season",
-      "discoveredAt": "Sat, 07 Nov 2026 04:51:42 +0500",
+      "headline": "Export Finance Scheme: Govt allocates Rs300bn for SMEs",
+      "url": "https://www.brecorder.com/news/40447960/export-finance-scheme-govt-allocates-rs300bn-for-smes",
+      "discoveredAt": "Sun, 08 Nov 2026 09:08:21 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Devsinc, PRG partner to strengthen digital infrastructure",
-      "url": "https://www.brecorder.com/news/40447817/devsinc-prg-partner-to-strengthen-digital-infrastructure",
-      "discoveredAt": "Sat, 07 Nov 2026 04:51:42 +0500",
+      "headline": "PM approves final draft of auto policy",
+      "url": "https://www.brecorder.com/news/40447961/pm-approves-final-draft-of-auto-policy",
+      "discoveredAt": "Sun, 08 Nov 2026 10:03:07 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
     },
     {
-      "headline": "Mazari, Chattha approach IHC against sentences in security breach case",
-      "url": "https://www.brecorder.com/news/40447820/mazari-chattha-approach-ihc-against-sentences-in-security-breach-case",
-      "discoveredAt": "Sat, 07 Nov 2026 04:51:42 +0500",
+      "headline": "LPG committee discusses auction mechanism",
+      "url": "https://www.brecorder.com/news/40447962/lpg-committee-discusses-auction-mechanism",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
+      "discoverySource": "Business Recorder RSS",
+      "status": "IRRELEVANT",
+      "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
+    },
+    {
+      "headline": "WB downgrades Sindh project implementation progress",
+      "url": "https://www.brecorder.com/news/40447963/wb-downgrades-sindh-project-implementation-progress",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "status": "IRRELEVANT",
       "reason": "NO_ENERGY_RELEVANCE_IN_HEADLINE"
@@ -397,227 +380,591 @@
   ],
   "exclusions": [
     {
-      "headline": "Endeavor Pakistan appoints Mubariz Siddiqui as managing director",
-      "url": "https://www.brecorder.com/news/40447886/endeavor-pakistan-appoints-mubariz-siddiqui-as-managing-director",
-      "discoveredAt": "2026-11-07",
+      "headline": "England's cricketers ready to counter Perth bounce, says McCullum",
+      "url": "https://www.brecorder.com/news/40447992/englands-cricketers-ready-to-counter-perth-bounce-says-mccullum",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "NEPRA raises incremental power tariff to Rs25.30 per unit for industrial, agricultural consumers",
-      "url": "https://www.brecorder.com/news/40447885/nepra-raises-incremental-power-tariff-to-rs2530-per-unit-for-industrial-agricultural-consumers",
-      "discoveredAt": "2026-11-07",
+      "headline": "Khawaja denies throwing 'anyone under the bus' with comments about ball-tampering scandal",
+      "url": "https://www.brecorder.com/news/40447991/khawaja-denies-throwing-anyone-under-the-bus-with-comments-about-ball-tampering-scandal",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "NEPRA approves Rs2.3673 per unit FCA for September",
-      "url": "https://www.brecorder.com/news/40447884/nepra-approves-rs23673-per-unit-fca-for-september",
-      "discoveredAt": "2026-11-07",
+      "headline": "Houthi-run health ministry says airstrikes kill 33 near Yemen capital",
+      "url": "https://www.brecorder.com/news/40447990/houthi-run-health-ministry-says-airstrikes-kill-33-near-yemen-capital",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Azma pays surprise visit to PIC, praises CM Maryam",
-      "url": "https://www.brecorder.com/news/40447858/azma-pays-surprise-visit-to-pic-praises-cm-maryam",
-      "discoveredAt": "2026-11-07",
+      "headline": "US military says it disabled cargo vessel in Gulf of Oman",
+      "url": "https://www.brecorder.com/news/40447989/us-military-says-it-disabled-cargo-vessel-in-gulf-of-oman",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Forgery of court fee stamps: CM lauds CJ LHC for action against mafia",
-      "url": "https://www.brecorder.com/news/40447859/forgery-of-court-fee-stamps-cm-lauds-cj-lhc-for-action-against-mafia",
-      "discoveredAt": "2026-11-07",
+      "headline": "Loud booms heard in Saudi capital Riyadh after early warning alert issued",
+      "url": "https://www.brecorder.com/news/40447988/loud-booms-heard-in-saudi-capital-riyadh-after-early-warning-alert-issued",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "JazzCash records 67.6pc increase in revenue",
-      "url": "https://www.brecorder.com/news/40447860/jazzcash-records-676pc-increase-in-revenue",
-      "discoveredAt": "2026-11-07",
+      "headline": "After close vote, New Zealand must wait weeks for new government",
+      "url": "https://www.brecorder.com/news/40447987/after-close-vote-new-zealand-must-wait-weeks-for-new-government",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Media asked to play proactive role in strengthening public accountability",
-      "url": "https://www.brecorder.com/news/40447861/media-asked-to-play-proactive-role-in-strengthening-public-accountability",
-      "discoveredAt": "2026-11-07",
+      "headline": "Poland in shock after six die in Krakow mass shooting",
+      "url": "https://www.brecorder.com/news/40447986/poland-in-shock-after-six-die-in-krakow-mass-shooting",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Nestlé receives two sustainability awards at 29th SDC",
-      "url": "https://www.brecorder.com/news/40447862/nestle-receives-two-sustainability-awards-at-29th-sdc",
-      "discoveredAt": "2026-11-07",
+      "headline": "Tesla to add Cybertruck shift to clear orders before dismantling line next year",
+      "url": "https://www.brecorder.com/news/40447985/tesla-to-add-cybertruck-shift-to-clear-orders-before-dismantling-line-next-year",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Cotton production: PARC, CCRI agree to boost cooperation",
-      "url": "https://www.brecorder.com/news/40447863/cotton-production-parc-ccri-agree-to-boost-cooperation",
-      "discoveredAt": "2026-11-07",
+      "headline": "Astellas employee imprisoned in China to be released in December, Japanese media report",
+      "url": "https://www.brecorder.com/news/40447984/astellas-employee-imprisoned-in-china-to-be-released-in-december-japanese-media-report",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "PPCBL set to accelerate digital transformation",
-      "url": "https://www.brecorder.com/news/40447864/ppcbl-set-to-accelerate-digital-transformation",
-      "discoveredAt": "2026-11-07",
+      "headline": "Iran executes three men over armed unrest during January protests",
+      "url": "https://www.brecorder.com/news/40447983/iran-executes-three-men-over-armed-unrest-during-january-protests",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "PRA’s directive to hotel owners",
-      "url": "https://www.brecorder.com/news/40447865/pras-directive-to-hotel-owners",
-      "discoveredAt": "2026-11-07",
+      "headline": "PM approves final draft of auto policy",
+      "url": "https://www.brecorder.com/news/40447961/pm-approves-final-draft-of-auto-policy",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Rare sperm whale spotted off Karachi",
-      "url": "https://www.brecorder.com/news/40447866/rare-sperm-whale-spotted-off-karachi",
-      "discoveredAt": "2026-11-07",
+      "headline": "Saudi civil defence gives all-clear after alerts in Eastern Province",
+      "url": "https://www.brecorder.com/news/40447982/saudi-civil-defence-gives-all-clear-after-alerts-in-eastern-province",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Digital invoicing requirements: RTO Hyderabad begins enforcement drive",
-      "url": "https://www.brecorder.com/news/40447867/digital-invoicing-requirements-rto-hyderabad-begins-enforcement-drive",
-      "discoveredAt": "2026-11-07",
+      "headline": "Export Finance Scheme: Govt allocates Rs300bn for SMEs",
+      "url": "https://www.brecorder.com/news/40447960/export-finance-scheme-govt-allocates-rs300bn-for-smes",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Thar coal being developed beyond power generation: Sharjeel",
-      "url": "https://www.brecorder.com/news/40447815/thar-coal-being-developed-beyond-power-generation-sharjeel",
-      "discoveredAt": "2026-11-07",
+      "headline": "Pakistan, Sudan sign visa-free entry agreement for officials",
+      "url": "https://www.brecorder.com/news/40447964/pakistan-sudan-sign-visa-free-entry-agreement-for-officials",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "RUDA validates Pak’s first methane mitigation project",
-      "url": "https://www.brecorder.com/news/40447868/ruda-validates-paks-first-methane-mitigation-project",
-      "discoveredAt": "2026-11-07",
+      "headline": "WB downgrades Sindh project implementation progress",
+      "url": "https://www.brecorder.com/news/40447963/wb-downgrades-sindh-project-implementation-progress",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "SMEDA partners with ICMA, DigiKhata",
-      "url": "https://www.brecorder.com/news/40447869/smeda-partners-with-icma-digikhata",
-      "discoveredAt": "2026-11-07",
+      "headline": "LPG committee discusses auction mechanism",
+      "url": "https://www.brecorder.com/news/40447962/lpg-committee-discusses-auction-mechanism",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "FBR mandates sales tax invoices for advance payments",
-      "url": "https://www.brecorder.com/news/40447871/fbr-mandates-sales-tax-invoices-for-advance-payments",
-      "discoveredAt": "2026-11-07",
+      "headline": "Polio teams ensure robust coverage in targeted areas",
+      "url": "https://www.brecorder.com/news/40447959/polio-teams-ensure-robust-coverage-in-targeted-areas",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Weekly SPI inflation up 0.29pc",
-      "url": "https://www.brecorder.com/news/40447872/weekly-spi-inflation-up-029pc",
-      "discoveredAt": "2026-11-07",
+      "headline": "FCCI president calls for Chinese investment in truck assembly and manufacturing",
+      "url": "https://www.brecorder.com/news/40447958/fcci-president-calls-for-chinese-investment-in-truck-assembly-and-manufacturing",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Turkish parliament ratifies Makkah defence pact",
-      "url": "https://www.brecorder.com/news/40447873/turkish-parliament-ratifies-makkah-defence-pact",
-      "discoveredAt": "2026-11-07",
+      "headline": "Industrialists urged to create jobs for Balochistan’s youth",
+      "url": "https://www.brecorder.com/news/40447956/industrialists-urged-to-create-jobs-for-balochistans-youth",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "DWP Technologies and GNEXT explore ‘Working Beyond the Desktop’",
-      "url": "https://www.brecorder.com/news/40447849/dwp-technologies-and-gnext-explore-working-beyond-the-desktop",
-      "discoveredAt": "2026-11-07",
+      "headline": "JazzWorld reports revenue of PKR144.9bn for third quarter of 2026",
+      "url": "https://www.brecorder.com/news/40447955/jazzworld-reports-revenue-of-pkr1449bn-for-third-quarter-of-2026",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "HBL launches Visa Infinite CreditCard",
-      "url": "https://www.brecorder.com/news/40447848/hbl-launches-visa-infinite-creditcard",
-      "discoveredAt": "2026-11-07",
+      "headline": "Successful sporting events improving Pakistan’s image: Tarar",
+      "url": "https://www.brecorder.com/news/40447954/successful-sporting-events-improving-pakistans-image-tarar",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "SNGPL posts highest-ever profit before levy, income tax of Rs34,656m",
-      "url": "https://www.brecorder.com/news/40447847/sngpl-posts-highest-ever-profit-before-levy-income-tax-of-rs34656m",
-      "discoveredAt": "2026-11-07",
+      "headline": "Health risks warned of due to wide swings in temperatures",
+      "url": "https://www.brecorder.com/news/40447953/health-risks-warned-of-due-to-wide-swings-in-temperatures",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Petrol price cut by Rs6.59, HSD’s by Rs4.25",
-      "url": "https://www.brecorder.com/news/40447870/petrol-price-cut-by-rs659-hsds-by-rs425",
-      "discoveredAt": "2026-11-07",
+      "headline": "Anti-encroachment drive: Over 950 shops, illegal constructions demolished across Peshawar",
+      "url": "https://www.brecorder.com/news/40447952/anti-encroachment-drive-over-950-shops-illegal-constructions-demolished-across-peshawar",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Gohar demands immediate medical examination of IK",
-      "url": "https://www.brecorder.com/news/40447822/gohar-demands-immediate-medical-examination-of-ik",
-      "discoveredAt": "2026-11-07",
+      "headline": "Petroleum companies highlight their CSR contributions",
+      "url": "https://www.brecorder.com/news/40447951/petroleum-companies-highlight-their-csr-contributions",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Pakistan Tourism, Culture Festival inaugurated",
-      "url": "https://www.brecorder.com/news/40447821/pakistan-tourism-culture-festival-inaugurated",
-      "discoveredAt": "2026-11-07",
+      "headline": "CCP approves Nestlé–Platinum Equity’s joint venture",
+      "url": "https://www.brecorder.com/news/40447950/ccp-approves-nestle-platinum-equitys-joint-venture",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Mazari, Chattha approach IHC against sentences in security breach case",
-      "url": "https://www.brecorder.com/news/40447820/mazari-chattha-approach-ihc-against-sentences-in-security-breach-case",
-      "discoveredAt": "2026-11-07",
+      "headline": "Street crimes continue unabated in Islamabad",
+      "url": "https://www.brecorder.com/news/40447948/street-crimes-continue-unabated-in-islamabad",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Devsinc, PRG partner to strengthen digital infrastructure",
-      "url": "https://www.brecorder.com/news/40447817/devsinc-prg-partner-to-strengthen-digital-infrastructure",
-      "discoveredAt": "2026-11-07",
+      "headline": "SFA fines Rs200,000 for food safety violations",
+      "url": "https://www.brecorder.com/news/40447947/sfa-fines-rs200000-for-food-safety-violations",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Higher temperatures may prolong dengue season",
-      "url": "https://www.brecorder.com/news/40447816/higher-temperatures-may-prolong-dengue-season",
-      "discoveredAt": "2026-11-07",
+      "headline": "UN Women Pakistan honours 17 award recipients for advancing gender equality",
+      "url": "https://www.brecorder.com/news/40447946/un-women-pakistan-honours-17-award-recipients-for-advancing-gender-equality",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Dar reviews preparations for ECO meeting",
-      "url": "https://www.brecorder.com/news/40447814/dar-reviews-preparations-for-eco-meeting",
-      "discoveredAt": "2026-11-07",
+      "headline": "PHDEC, GPI explore export opportunities for Balochistan’s horticultural produce",
+      "url": "https://www.brecorder.com/news/40447945/phdec-gpi-explore-export-opportunities-for-balochistans-horticultural-produce",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Govt to expand access to primary eye care for up to 60m people",
-      "url": "https://www.brecorder.com/news/40447813/govt-to-expand-access-to-primary-eye-care-for-up-to-60m-people",
-      "discoveredAt": "2026-11-07",
+      "headline": "Production monitoring mechanism: IHC reserves judgment on pleas of industrial units",
+      "url": "https://www.brecorder.com/news/40447944/production-monitoring-mechanism-ihc-reserves-judgment-on-pleas-of-industrial-units",
+      "discoveredAt": "2026-11-08",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DUPLICATE_DISCOVERY_ARTICLE"
     },
     {
-      "headline": "Pakistan Tourism, Culture Festival inaugurated",
-      "url": "https://www.brecorder.com/news/40447821/pakistan-tourism-culture-festival-inaugurated",
-      "discoveredAt": "Sat, 07 Nov 2026 04:51:42 +0500",
+      "headline": "Pakistan, Sudan sign visa-free entry agreement for officials",
+      "url": "https://www.brecorder.com/news/40447964/pakistan-sudan-sign-visa-free-entry-agreement-for-officials",
+      "discoveredAt": "Sun, 08 Nov 2026 02:33:13 +0500",
       "discoverySource": "Business Recorder RSS",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Gohar demands immediate medical examination of IK",
-      "url": "https://www.brecorder.com/news/40447822/gohar-demands-immediate-medical-examination-of-ik",
-      "discoveredAt": "Sat, 07 Nov 2026 04:51:42 +0500",
-      "discoverySource": "Business Recorder RSS",
+      "headline": "Lost in jurisdiction: How Karachi police’s colonial mindset works",
+      "url": "https://www.brecorder.com/news/40447929/lost-in-jurisdiction-how-karachi-polices-colonial-mindset-works",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "‘Mineral Corridor’: The new energy vulnerability—IV",
+      "url": "https://www.brecorder.com/news/40447928/mineral-corridor-the-new-energy-vulnerability-iv",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Punjab taking effective action against corruption: Azma",
+      "url": "https://www.brecorder.com/news/40447981/punjab-taking-effective-action-against-corruption-azma",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "GTR Tyres to showcase Pakistani products at Automechanika Dubai",
+      "url": "https://www.brecorder.com/news/40447980/gtr-tyres-to-showcase-pakistani-products-at-automechanika-dubai",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Astronomers spot white dwarf star with two rings of planetary debris",
+      "url": "https://www.brecorder.com/news/40447979/astronomers-spot-white-dwarf-star-with-two-rings-of-planetary-debris",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Poland says six killed in shooting in central Krakow",
+      "url": "https://www.brecorder.com/news/40447978/poland-says-six-killed-in-shooting-in-central-krakow",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Paraguay ex-president under questioning in banking scandal",
+      "url": "https://www.brecorder.com/news/40447977/paraguay-ex-president-under-questioning-in-banking-scandal",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "At least 12 killed in Chile highway collision",
+      "url": "https://www.brecorder.com/news/40447976/at-least-12-killed-in-chile-highway-collision",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Former AJK President Raja Zulqarnain Khan passes away",
+      "url": "https://www.brecorder.com/news/40447975/former-ajk-president-raja-zulqarnain-khan-passes-away",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Indian media acknowledges Pak’s rising forex reserves",
+      "url": "https://www.brecorder.com/news/40447974/indian-media-acknowledges-paks-rising-forex-reserves",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "NA-77 by-election: Tarar summoned over electoral code violation",
+      "url": "https://www.brecorder.com/news/40447973/na-77-by-election-tarar-summoned-over-electoral-code-violation",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Power Division denies hike in industrial tariff",
+      "url": "https://www.brecorder.com/news/40447972/power-division-denies-hike-in-industrial-tariff",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "LHC rules daily wagers permanent after 9 months of service",
+      "url": "https://www.brecorder.com/news/40447971/lhc-rules-daily-wagers-permanent-after-9-months-of-service",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Pakistani astronaut to join China’s next space-station mission",
+      "url": "https://www.brecorder.com/news/40447970/pakistani-astronaut-to-join-chinas-next-space-station-mission",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Qatar says its mediation efforts continue to prevent escalation",
+      "url": "https://www.brecorder.com/news/40447969/qatar-says-its-mediation-efforts-continue-to-prevent-escalation",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Iran says forces ‘stronger’ than at beginning of war",
+      "url": "https://www.brecorder.com/news/40447968/iran-says-forces-stronger-than-at-beginning-of-war",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "‘Iran’s nuclear programme’: US offers USD20m reward for info: Centcom",
+      "url": "https://www.brecorder.com/news/40447967/irans-nuclear-programme-us-offers-usd20m-reward-for-info-centcom",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Top US, China officials raise trade ‘concerns’ as APEC approaches",
+      "url": "https://www.brecorder.com/news/40447966/top-us-china-officials-raise-trade-concerns-as-apec-approaches",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Nepra seen divided over ICP’s upward revision",
+      "url": "https://www.brecorder.com/news/40447965/nepra-seen-divided-over-icps-upward-revision",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Save our youth, save our future",
+      "url": "https://www.brecorder.com/news/40447949/save-our-youth-save-our-future",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "‘FBR’s masterclass in policy uncertainty’: a rejoinder by Pakistan Customs",
+      "url": "https://www.brecorder.com/news/40447943/fbrs-masterclass-in-policy-uncertainty-a-rejoinder-by-pakistan-customs",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "The return of the kitchen-table mandate",
+      "url": "https://www.brecorder.com/news/40447942/the-return-of-the-kitchen-table-mandate",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Pakistan calls for reforms to strengthen UN",
+      "url": "https://www.brecorder.com/news/40447941/pakistan-calls-for-reforms-to-strengthen-un",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Prices of essential kitchen items decline due to cut in fuel prices",
+      "url": "https://www.brecorder.com/news/40447940/prices-of-essential-kitchen-items-decline-due-to-cut-in-fuel-prices",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "US-funded project strengthens Mehrgarh Museum’s role in preserving Balochistan’s heritage",
+      "url": "https://www.brecorder.com/news/40447939/us-funded-project-strengthens-mehrgarh-museums-role-in-preserving-balochistans-heritage",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Work on commercial units at CBD Walk completed",
+      "url": "https://www.brecorder.com/news/40447938/work-on-commercial-units-at-cbd-walk-completed",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Punjab to replace first-time offences with graduated fines in dengue cases",
+      "url": "https://www.brecorder.com/news/40447937/punjab-to-replace-first-time-offences-with-graduated-fines-in-dengue-cases",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Lahore airport expansion projects reviewed",
+      "url": "https://www.brecorder.com/news/40447936/lahore-airport-expansion-projects-reviewed",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Crop-residue burning: EPA intensifies operations across Punjab",
+      "url": "https://www.brecorder.com/news/40447935/crop-residue-burning-epa-intensifies-operations-across-punjab",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Maryam inaugurates Pakistan’s first fully electric sweeper truck",
+      "url": "https://www.brecorder.com/news/40447934/maryam-inaugurates-pakistans-first-fully-electric-sweeper-truck",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Euronext to launch Black Sea wheat, corn futures with Romania delivery in 2027",
+      "url": "https://www.brecorder.com/news/40447933/euronext-to-launch-black-sea-wheat-corn-futures-with-romania-delivery-in-2027",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Canada’s unemployment rate edges up",
+      "url": "https://www.brecorder.com/news/40447932/canadas-unemployment-rate-edges-up",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "China’s services growth slows",
+      "url": "https://www.brecorder.com/news/40447931/chinas-services-growth-slows",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "US job growth surges in Oct; unemployment rate falls to 4.1pc",
+      "url": "https://www.brecorder.com/news/40447930/us-job-growth-surges-in-oct-unemployment-rate-falls-to-41pc",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "A continent in crisis",
+      "url": "https://www.brecorder.com/news/40447927/a-continent-in-crisis",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Crypto, crooks, and credibility",
+      "url": "https://www.brecorder.com/news/40447926/crypto-crooks-and-credibility",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Asia rice: Vietnam, Thai rice prices hit near two-year highs",
+      "url": "https://www.brecorder.com/news/40447925/asia-rice-vietnam-thai-rice-prices-hit-near-two-year-highs",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Chicago soybeans rise on short-covering",
+      "url": "https://www.brecorder.com/news/40447924/chicago-soybeans-rise-on-short-covering",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Malaysian palm oil tumbles, posts steepest weekly fall in nearly 2 years",
+      "url": "https://www.brecorder.com/news/40447923/malaysian-palm-oil-tumbles-posts-steepest-weekly-fall-in-nearly-2-years",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Copper falls, heads for worst week since March on AI rout",
+      "url": "https://www.brecorder.com/news/40447922/copper-falls-heads-for-worst-week-since-march-on-ai-rout",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Fall in the euro supports EU wheat",
+      "url": "https://www.brecorder.com/news/40447921/fall-in-the-euro-supports-eu-wheat",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Iron ore futures end steady",
+      "url": "https://www.brecorder.com/news/40447920/iron-ore-futures-end-steady",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "PMEX daily trading report",
+      "url": "https://www.brecorder.com/news/40447919/pmex-daily-trading-report",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "US natural gas prices make gains",
+      "url": "https://www.brecorder.com/news/40447918/us-natural-gas-prices-make-gains",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Japanese rubber futures plunge",
+      "url": "https://www.brecorder.com/news/40447917/japanese-rubber-futures-plunge",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Gold drops as strong US payrolls boost dollar, yields",
+      "url": "https://www.brecorder.com/news/40447916/gold-drops-as-strong-us-payrolls-boost-dollar-yields",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Cotton spot rates",
+      "url": "https://www.brecorder.com/news/40447915/cotton-spot-rates",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Stable trend witnessed on cotton market",
+      "url": "https://www.brecorder.com/news/40447914/stable-trend-witnessed-on-cotton-market",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Cocoa gains after hitting fresh one month low amid stocks overhang",
+      "url": "https://www.brecorder.com/news/40447913/cocoa-gains-after-hitting-fresh-one-month-low-amid-stocks-overhang",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "The Weather",
+      "url": "https://www.brecorder.com/news/40447911/the-weather",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Israeli president picks Gadi Eisenkot, Netanyahu rival, to try to form government",
+      "url": "https://www.brecorder.com/news/40447957/israeli-president-picks-gadi-eisenkot-netanyahu-rival-to-try-to-form-government",
+      "discoveredAt": "2026-11-08",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Rubio warns top staff against conflicts of interest as Republicans look to 2028",
+      "url": "https://www.brecorder.com/news/40447910/rubio-warns-top-staff-against-conflicts-of-interest-as-republicans-look-to-2028",
+      "discoveredAt": "2026-11-07",
+      "discoverySource": "Business Recorder news sitemap",
+      "reason": "DISCOVERY_CANDIDATE_LIMIT"
+    },
+    {
+      "headline": "Pakistan, Sudan agree to boost cooperation in security, cybercrime, police training",
+      "url": "https://www.brecorder.com/news/40447898/pakistan-sudan-agree-to-boost-cooperation-in-security-cybercrime-police-training",
+      "discoveredAt": "2026-11-07",
+      "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
@@ -628,471 +975,107 @@
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Arrangements for Turkish vessel’s arrival reviewed",
-      "url": "https://www.brecorder.com/news/40447840/arrangements-for-turkish-vessels-arrival-reviewed",
+      "headline": "PM approves final draft of auto policy; focus on localisation, EVs, and consumer protection",
+      "url": "https://www.brecorder.com/news/40447908/pm-approves-final-draft-of-auto-policy-focus-on-localisation-evs-and-consumer-protection",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Pakistan’s middle-income aspiration: from economic mobility to survival",
-      "url": "https://www.brecorder.com/news/40447812/pakistans-middle-income-aspiration-from-economic-mobility-to-survival",
+      "headline": "3rd HR Pinnacle Awards set to champion excellence at Avari Towers Karachi on Nov 26",
+      "url": "https://www.brecorder.com/news/40447909/3rd-hr-pinnacle-awards-set-to-champion-excellence-at-avari-towers-karachi-on-nov-26",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Nikkei logs worst week as market rout deepens on AI worries",
-      "url": "https://www.brecorder.com/news/40447850/nikkei-logs-worst-week-as-market-rout-deepens-on-ai-worries",
+      "headline": "Expanding on naval blockade, US military looks to restrict Iranian land commerce",
+      "url": "https://www.brecorder.com/news/40447907/expanding-on-naval-blockade-us-military-looks-to-restrict-iranian-land-commerce",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "China, HK stocks tumble as global tech selloff deepens",
-      "url": "https://www.brecorder.com/news/40447851/china-hk-stocks-tumble-as-global-tech-selloff-deepens",
+      "headline": "India says landed heavy-lift military aircraft at highest altitude",
+      "url": "https://www.brecorder.com/news/40447906/india-says-landed-heavy-lift-military-aircraft-at-highest-altitude",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Risk-off mood sweeps European stocks as AI concerns deepen",
-      "url": "https://www.brecorder.com/news/40447852/risk-off-mood-sweeps-european-stocks-as-ai-concerns-deepen",
+      "headline": "Govt to auction 90% of indigenous LPG production under new mechanism",
+      "url": "https://www.brecorder.com/news/40447888/govt-to-auction-90-of-indigenous-lpg-production-under-new-mechanism",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Nasdaq rebounds as chip stocks recover from steep losses",
-      "url": "https://www.brecorder.com/news/40447853/nasdaq-rebounds-as-chip-stocks-recover-from-steep-losses",
+      "headline": "Beyond extraction: turning Pakistan's mineral wealth into national prosperity",
+      "url": "https://www.brecorder.com/news/40447902/beyond-extraction-turning-pakistans-mineral-wealth-into-national-prosperity",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Taipei, Seoul reel under chipmaker rout as AI frenzy unwinds",
-      "url": "https://www.brecorder.com/news/40447854/taipei-seoul-reel-under-chipmaker-rout-as-ai-frenzy-unwinds",
+      "headline": "Heavy rain floods tents housing Gaza displaced people, aid shortages hamper response",
+      "url": "https://www.brecorder.com/news/40447905/heavy-rain-floods-tents-housing-gaza-displaced-people-aid-shortages-hamper-response",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "UAE shares fall as geopolitical uncertainty keeps traders cautious",
-      "url": "https://www.brecorder.com/news/40447855/uae-shares-fall-as-geopolitical-uncertainty-keeps-traders-cautious",
+      "headline": "PCB adds four players to Pakistan Test squad for Sri Lanka series",
+      "url": "https://www.brecorder.com/news/40447904/pcb-adds-four-players-to-pakistan-test-squad-for-sri-lanka-series",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Dollar index jumps after US payrolls data",
-      "url": "https://www.brecorder.com/news/40447856/dollar-index-jumps-after-us-payrolls-data",
+      "headline": "India win rain-hit second ODI against New Zealand by four runs",
+      "url": "https://www.brecorder.com/news/40447903/india-win-rain-hit-second-odi-against-new-zealand-by-four-runs",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Australia shares fade at weekly finish, miners drag",
-      "url": "https://www.brecorder.com/news/40447857/australia-shares-fade-at-weekly-finish-miners-drag",
+      "headline": "Gold price per tola experiences no change in Pakistan",
+      "url": "https://www.brecorder.com/news/40447901/gold-price-per-tola-experiences-no-change-in-pakistan",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "FDI: credibility deficit",
-      "url": "https://www.brecorder.com/news/40447801/fdi-credibility-deficit",
+      "headline": "CCP approves Nestlé–Platinum equity joint venture",
+      "url": "https://www.brecorder.com/news/40447900/ccp-approves-nestle-platinum-equity-joint-venture",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Creating an avenue for a five-star hotel",
-      "url": "https://www.brecorder.com/news/40447798/creating-an-avenue-for-a-five-star-hotel",
+      "headline": "Development for whom? Rethinking Pakistan’s development priorities",
+      "url": "https://www.brecorder.com/news/40447899/development-for-whom-rethinking-pakistans-development-priorities",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Dr Javed’s approach is vastly different from the Chicago Boys-styled economists’",
-      "url": "https://www.brecorder.com/news/40447819/dr-javeds-approach-is-vastly-different-from-the-chicago-boys-styled-economists",
+      "headline": "Iran executes militant over armed attack on police station",
+      "url": "https://www.brecorder.com/news/40447897/iran-executes-militant-over-armed-attack-on-police-station",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "PM approves TDAP overhaul to boost exports",
-      "url": "https://www.brecorder.com/news/40447883/pm-approves-tdap-overhaul-to-boost-exports",
+      "headline": "Australian cricketer Usman Khawaja disputes findings in 2018 ball-tampering probe",
+      "url": "https://www.brecorder.com/news/40447896/australian-cricketer-usman-khawaja-disputes-findings-in-2018-ball-tampering-probe",
       "discoveredAt": "2026-11-07",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     },
     {
-      "headline": "Banks, financial institutions: National CERT warns of rising AI-powered cyberattacks",
-      "url": "https://www.brecorder.com/news/40447882/banks-financial-institutions-national-cert-warns-of-rising-ai-powered-cyberattacks",
+      "headline": "Qatar says its mediation efforts between US and Iran continue to prevent escalation",
+      "url": "https://www.brecorder.com/news/40447895/qatar-says-its-mediation-efforts-between-us-and-iran-continue-to-prevent-escalation",
       "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Use of cheques will be stopped: All AAA payments only via Raast from 16th",
-      "url": "https://www.brecorder.com/news/40447881/use-of-cheques-will-be-stopped-all-aaa-payments-only-via-raast-from-16th",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "4MFY27 trade deficit widens 15.97pc YoY",
-      "url": "https://www.brecorder.com/news/40447880/4mfy27-trade-deficit-widens-1597pc-yoy",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "PSX: profit-taking pares gains",
-      "url": "https://www.brecorder.com/news/40447879/psx-profit-taking-pares-gains",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Investors wipe USD2.5trn off Nasdaq as blue tsunami prompts AI fears",
-      "url": "https://www.brecorder.com/news/40447878/investors-wipe-usd25trn-off-nasdaq-as-blue-tsunami-prompts-ai-fears",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "‘Nepra &amp; CCP rules essential’: A strong regulatory ecosystem needed to win investor trust: PC",
-      "url": "https://www.brecorder.com/news/40447877/nepra-amp-ccp-rules-essential-a-strong-regulatory-ecosystem-needed-to-win-investor-trust-pc",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "KE says 72pc of 11kV feeders exempt from loadshedding",
-      "url": "https://www.brecorder.com/news/40447876/ke-says-72pc-of-11kv-feeders-exempt-from-loadshedding",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Sailor killed in Gulf as Iran says tankers on fire",
-      "url": "https://www.brecorder.com/news/40447874/sailor-killed-in-gulf-as-iran-says-tankers-on-fire",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Customs Act, 1969: SC sets aside PHC order in seized vehicle case",
-      "url": "https://www.brecorder.com/news/40447846/customs-act-1969-sc-sets-aside-phc-order-in-seized-vehicle-case",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Meghan Markle’s father held in US over child sex abuse images",
-      "url": "https://www.brecorder.com/news/40447845/meghan-markles-father-held-in-us-over-child-sex-abuse-images",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Mass starvation murders of children: Kenyan leader sentenced to 200 years in prison",
-      "url": "https://www.brecorder.com/news/40447844/mass-starvation-murders-of-children-kenyan-leader-sentenced-to-200-years-in-prison",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Air quality worsens: India orders Delhi schools to offer online classes",
-      "url": "https://www.brecorder.com/news/40447843/air-quality-worsens-india-orders-delhi-schools-to-offer-online-classes",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Baker marks multimillion-dollar Cisco network deployment at SBP",
-      "url": "https://www.brecorder.com/news/40447842/baker-marks-multimillion-dollar-cisco-network-deployment-at-sbp",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Political shifts from the US midterms will not affect ties: FO",
-      "url": "https://www.brecorder.com/news/40447841/political-shifts-from-the-us-midterms-will-not-affect-ties-fo",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Newsroom bomb threats follow escalating European flight hoaxes",
-      "url": "https://www.brecorder.com/news/40447839/newsroom-bomb-threats-follow-escalating-european-flight-hoaxes",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Economic crisis: Bilawal urges political dialogue",
-      "url": "https://www.brecorder.com/news/40447838/economic-crisis-bilawal-urges-political-dialogue",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Mustafa Ramday made PSO board chairman",
-      "url": "https://www.brecorder.com/news/40447837/mustafa-ramday-made-pso-board-chairman",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "SDPI conference: Pro-people reforms, empowered LGs, progressive tax structures urged",
-      "url": "https://www.brecorder.com/news/40447836/sdpi-conference-pro-people-reforms-empowered-lgs-progressive-tax-structures-urged",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Dar reaffirms support for Sudan’s sovereignty",
-      "url": "https://www.brecorder.com/news/40447835/dar-reaffirms-support-for-sudans-sovereignty",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "PepsiCo receives Sustainability Award",
-      "url": "https://www.brecorder.com/news/40447834/pepsico-receives-sustainability-award",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "All six legislative houses: ECP seeks FY2025-26 financial statements from lawmakers",
-      "url": "https://www.brecorder.com/news/40447833/all-six-legislative-houses-ecp-seeks-fy2025-26-financial-statements-from-lawmakers",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Railways targets 14 freight trains by January",
-      "url": "https://www.brecorder.com/news/40447832/railways-targets-14-freight-trains-by-january",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "FTO clarifies proceedings against senior FBR Member",
-      "url": "https://www.brecorder.com/news/40447831/fto-clarifies-proceedings-against-senior-fbr-member",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Federal minister urges new bureaucrats to prepare for USD1trn economy by 2035",
-      "url": "https://www.brecorder.com/news/40447830/federal-minister-urges-new-bureaucrats-to-prepare-for-usd1trn-economy-by-2035",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Abbottabad, Bhakkar: At least 11 killed, 30 injured in road accidents",
-      "url": "https://www.brecorder.com/news/40447829/abbottabad-bhakkar-at-least-11-killed-30-injured-in-road-accidents",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Pakistan, UK agree to finalise MoU to curb drug trafficking",
-      "url": "https://www.brecorder.com/news/40447828/pakistan-uk-agree-to-finalise-mou-to-curb-drug-trafficking",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Punjab targets Rs1.995trn investment under agri transformation: official",
-      "url": "https://www.brecorder.com/news/40447827/punjab-targets-rs1995trn-investment-under-agri-transformation-official",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Trump’s second term: Pakistan-US ties entered a productive phase: Experts",
-      "url": "https://www.brecorder.com/news/40447826/trumps-second-term-pakistan-us-ties-entered-a-productive-phase-experts",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Punjab awards prizes to timely Kissan Card payers",
-      "url": "https://www.brecorder.com/news/40447825/punjab-awards-prizes-to-timely-kissan-card-payers",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Media asked to play proactive role in strengthening public accountability",
-      "url": "https://www.brecorder.com/news/40447824/media-asked-to-play-proactive-role-in-strengthening-public-accountability",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Sindh Ombudsman calls for swift disposal of pending complaints",
-      "url": "https://www.brecorder.com/news/40447823/sindh-ombudsman-calls-for-swift-disposal-of-pending-complaints",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "PARTLY FACETIOUS: Who would be the most appropriate scapegoat?",
-      "url": "https://www.brecorder.com/news/40447818/partly-facetious-who-would-be-the-most-appropriate-scapegoat",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "PIA commences aircraft cabin cleanliness drive",
-      "url": "https://www.brecorder.com/news/40447811/pia-commences-aircraft-cabin-cleanliness-drive",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "PMIF26: Pakistan urges global investors to explore its mineral potential",
-      "url": "https://www.brecorder.com/news/40447810/pmif26-pakistan-urges-global-investors-to-explore-its-mineral-potential",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "First national conference on menstrual health, dignity held",
-      "url": "https://www.brecorder.com/news/40447809/first-national-conference-on-menstrual-health-dignity-held",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "WEPL recognises Pakistan’s emerging innovators at 13th Tameer Awards",
-      "url": "https://www.brecorder.com/news/40447808/wepl-recognises-pakistans-emerging-innovators-at-13th-tameer-awards",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "CM grieved",
-      "url": "https://www.brecorder.com/news/40447807/cm-grieved",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "VC calls for adopting innovative water management technologies",
-      "url": "https://www.brecorder.com/news/40447806/vc-calls-for-adopting-innovative-water-management-technologies",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Maryam inaugurates ‘CM Crime Surveillance Unit’",
-      "url": "https://www.brecorder.com/news/40447805/maryam-inaugurates-cm-crime-surveillance-unit",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Managing through crisis",
-      "url": "https://www.brecorder.com/news/40447802/managing-through-crisis",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "The Election Day gambit",
-      "url": "https://www.brecorder.com/news/40447800/the-election-day-gambit",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "The blue wave backlash",
-      "url": "https://www.brecorder.com/news/40447799/the-blue-wave-backlash",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "The Weather",
-      "url": "https://www.brecorder.com/news/40447797/the-weather",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Dollar's rate in interbank market",
-      "url": "https://www.brecorder.com/news/40447796/dollars-rate-in-interbank-market",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Kerb buying and selling rate of US dollar",
-      "url": "https://www.brecorder.com/news/40447795/kerb-buying-and-selling-rate-of-us-dollar",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "BRIndex100 and BR Sectoral Indices",
-      "url": "https://www.brecorder.com/news/40447794/brindex100-and-br-sectoral-indices",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "IBA Karachi organizes sixth Annual International Cbercon 2026",
-      "url": "https://www.brecorder.com/news/40447804/iba-karachi-organizes-sixth-annual-international-cbercon-2026",
-      "discoveredAt": "2026-11-07",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Thomas Markle, father of Meghan, arrested for child pornography possession",
-      "url": "https://www.brecorder.com/news/40447793/thomas-markle-father-of-meghan-arrested-for-child-pornography-possession",
-      "discoveredAt": "2026-11-06",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "ABHI raises Rs2.046bn through IPO at Rs15.50/share",
-      "url": "https://www.brecorder.com/news/40447792/abhi-raises-rs2046bn-through-ipo-at-rs1550share",
-      "discoveredAt": "2026-11-06",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Syria aids Saudi Arabia with military advice and training amid Houthi attacks, sources say",
-      "url": "https://www.brecorder.com/news/40447790/syria-aids-saudi-arabia-with-military-advice-and-training-amid-houthi-attacks-sources-say",
-      "discoveredAt": "2026-11-06",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "IMF's Georgieva says any slowdown in AI-driven growth would be factor for central banks",
-      "url": "https://www.brecorder.com/news/40447789/imfs-georgieva-says-any-slowdown-in-ai-driven-growth-would-be-factor-for-central-banks",
-      "discoveredAt": "2026-11-06",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "EPADS 2.0: where procurement meets digital governance",
-      "url": "https://www.brecorder.com/news/40447787/epads-20-where-procurement-meets-digital-governance",
-      "discoveredAt": "2026-11-06",
-      "discoverySource": "Business Recorder news sitemap",
-      "reason": "DISCOVERY_CANDIDATE_LIMIT"
-    },
-    {
-      "headline": "Fed seen sticking to December rate hike after jobs data",
-      "url": "https://www.brecorder.com/news/40447788/fed-seen-sticking-to-december-rate-hike-after-jobs-data",
-      "discoveredAt": "2026-11-06",
       "discoverySource": "Business Recorder news sitemap",
       "reason": "DISCOVERY_CANDIDATE_LIMIT"
     }

@@ -4,12 +4,12 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-07T06:16:14.520Z",
-  "validUntil": "2026-11-08T06:16:14.520Z",
-  "evidenceHash": "100a4e902d05378cd52217c3f975fee7e0bf073fb1fcf423045c5364cc7efc9d",
+  "generatedAt": "2026-11-08T06:21:14.624Z",
+  "validUntil": "2026-11-09T06:21:14.624Z",
+  "evidenceHash": "95f374f45aea694fc4609427e6ab04fb7b6a3fb667c60355ef2a9dd06a4e7db4",
   "probabilities": {
-    "DOWN": 25,
-    "FLAT": 10,
+    "DOWN": 20,
+    "FLAT": 15,
     "UP": 65
   },
   "primaryDirection": "UP",
@@ -71,22 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "48f9c92b2473607949110ffb936c26f99c4121cbd32bbaf16649be486f23d8a3",
-  "coverageMode": "LIMITED",
-  "newsAssessments": [
-    {
-      "evidenceId": "br-40447875:s2-cdc2c8911c30",
-      "impact": "NEUTRAL",
-      "kind": "FACT",
-      "title": "Brent与WTI周五小幅波动",
-      "summary": "周五交易中，布伦特原油下跌0.46%至97.84美元，WTI上涨0.17%至90.67美元。",
-      "strength": "LOW",
-      "documentId": "br-40447875",
-      "segmentId": "s2-cdc2c8911c30",
-      "sourceUrl": "https://www.brecorder.com/news/40447875/brent-oil-price-benchmark-set-for-biggest-weekly-drop-since-2020",
-      "publisher": "Business Recorder",
-      "originalSource": "Reuters",
-      "publishedAt": "2026-11-06T23:51:42.000Z"
-    }
-  ]
+  "inputPackHash": "0365a3ef2afefcbaaaac5f86a45ffafda7e4faa5c4166a65153f67a4680f1a0a",
+  "coverageMode": "NORMAL",
+  "newsAssessments": []
 }
