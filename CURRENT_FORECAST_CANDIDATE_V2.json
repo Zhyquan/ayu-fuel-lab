@@ -4,12 +4,12 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-08T06:21:14.624Z",
-  "validUntil": "2026-11-09T06:21:14.624Z",
-  "evidenceHash": "95f374f45aea694fc4609427e6ab04fb7b6a3fb667c60355ef2a9dd06a4e7db4",
+  "generatedAt": "2026-11-09T06:55:09.510Z",
+  "validUntil": "2026-11-10T06:55:09.510Z",
+  "evidenceHash": "b25f4417f2491e50b433ec2e1f3dfb753cb05bdeda4046fe9d41118164b7cd48",
   "probabilities": {
-    "DOWN": 20,
-    "FLAT": 15,
+    "DOWN": 15,
+    "FLAT": 20,
     "UP": 65
   },
   "primaryDirection": "UP",
@@ -21,12 +21,24 @@
     {
       "evidenceId": "eia-stocks",
       "text": "美国馏分油库存减少"
+    },
+    {
+      "evidenceId": "br-40448096:s1-8a68058047aa",
+      "text": "伊朗称霍尔木兹海峡导航设施被毁",
+      "documentId": "br-40448096",
+      "segmentId": "s1-8a68058047aa"
     }
   ],
   "counterReasons": [
     {
       "evidenceId": "eia-refinery-inputs",
       "text": "美国炼厂原油加工量增加"
+    },
+    {
+      "evidenceId": "br-40448086:s3-e4eb36cdf9a3",
+      "text": "特朗普暗示对伊保持克制",
+      "documentId": "br-40448086",
+      "segmentId": "s3-e4eb36cdf9a3"
     }
   ],
   "signalAssessments": [
@@ -71,7 +83,36 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "0365a3ef2afefcbaaaac5f86a45ffafda7e4faa5c4166a65153f67a4680f1a0a",
-  "coverageMode": "NORMAL",
-  "newsAssessments": []
+  "inputPackHash": "8c1c290cb93aa979c20107d0228cd5c83de5bba9bb741f62d152a887ab96409f",
+  "coverageMode": "LIMITED",
+  "newsAssessments": [
+    {
+      "evidenceId": "br-40448096:s1-8a68058047aa",
+      "impact": "UP",
+      "kind": "FACT",
+      "title": "伊朗称霍尔木兹海峡导航设施被毁",
+      "summary": "伊朗革命卫队海军官员称，霍尔木兹海峡南部导航辅助系统被摧毁，夜间无未经授权船只通行。",
+      "strength": "MEDIUM",
+      "documentId": "br-40448096",
+      "segmentId": "s1-8a68058047aa",
+      "sourceUrl": "https://www.brecorder.com/news/40448096/iran-says-no-unauthorised-vessels-transited-strait-of-hormuz-overnight-after-navigation-aids-destroyed",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-11-09T05:58:21.000Z"
+    },
+    {
+      "evidenceId": "br-40448086:s3-e4eb36cdf9a3",
+      "impact": "DOWN",
+      "kind": "FACT",
+      "title": "特朗普暗示对伊保持克制",
+      "summary": "特朗普表示只要谈判进展顺利，极不可能下令对伊朗发动新袭击，缓解了供应中断担忧。",
+      "strength": "MEDIUM",
+      "documentId": "br-40448086",
+      "segmentId": "s3-e4eb36cdf9a3",
+      "sourceUrl": "https://www.brecorder.com/news/40448086/oil-steadies-after-trump-signals-restraint-on-iran-hormuz-risks-persist",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-11-09T04:58:05.000Z"
+    }
+  ]
 }
