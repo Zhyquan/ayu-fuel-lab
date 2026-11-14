@@ -4,53 +4,53 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-12T07:27:12.583Z",
-  "validUntil": "2026-11-13T07:27:12.583Z",
-  "evidenceHash": "d46e18ecf95ece37e7438985e83dca7fcc29512a2275f063cd30e222227c030e",
+  "generatedAt": "2026-11-14T06:46:17.884Z",
+  "validUntil": "2026-11-15T06:46:17.884Z",
+  "evidenceHash": "1cbf88a3ef11cdfa0de07f32db1af0b9262afd9544b06ec5696c4e6d536ed588",
   "probabilities": {
-    "DOWN": 60,
-    "FLAT": 25,
-    "UP": 15
+    "DOWN": 45,
+    "FLAT": 30,
+    "UP": 25
   },
   "primaryDirection": "DOWN",
   "mainReasons": [
     {
-      "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价回落"
-    },
-    {
-      "evidenceId": "eia-refinery-inputs",
-      "text": "美国炼厂原油加工量增加"
+      "evidenceId": "eia-stocks",
+      "text": "美国馏分油库存增加"
     }
   ],
   "counterReasons": [
     {
-      "evidenceId": "eia-stocks",
-      "text": "美国馏分油库存减少"
+      "evidenceId": "market-brent",
+      "text": "Brent最新日度报价上涨"
+    },
+    {
+      "evidenceId": "eia-production",
+      "text": "美国馏分油产量减少"
     }
   ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "DOWN",
+      "impact": "NEUTRAL",
       "kind": "FACT",
-      "strength": "MEDIUM"
+      "strength": "LOW"
     },
     {
       "evidenceId": "market-brent",
-      "impact": "DOWN",
-      "kind": "FACT",
-      "strength": "MEDIUM"
-    },
-    {
-      "evidenceId": "market-diesel",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "HIGH"
     },
     {
+      "evidenceId": "market-diesel",
+      "impact": "NEUTRAL",
+      "kind": "FACT",
+      "strength": "MEDIUM"
+    },
+    {
       "evidenceId": "eia-stocks",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -71,7 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "4a10fb7455979b45abebc57db6e5133bffa2550c4c2bee2fad75ab589ebbd905",
+  "inputPackHash": "680b1fbf4a896f84d77406b90c7b54e6e4ac7f6ae62ba02d28d90cafade08fd3",
   "coverageMode": "NORMAL",
   "newsAssessments": []
 }
