@@ -4,19 +4,31 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-14T06:46:17.884Z",
-  "validUntil": "2026-11-15T06:46:17.884Z",
-  "evidenceHash": "1cbf88a3ef11cdfa0de07f32db1af0b9262afd9544b06ec5696c4e6d536ed588",
+  "generatedAt": "2026-11-15T06:51:21.439Z",
+  "validUntil": "2026-11-16T06:51:21.439Z",
+  "evidenceHash": "334176808660659b3936abccbf2e2c6d577aa72cfbf7f7118f862f7cb33c8579",
   "probabilities": {
-    "DOWN": 45,
+    "DOWN": 50,
     "FLAT": 30,
-    "UP": 25
+    "UP": 20
   },
   "primaryDirection": "DOWN",
   "mainReasons": [
     {
       "evidenceId": "eia-stocks",
       "text": "美国馏分油库存增加"
+    },
+    {
+      "evidenceId": "br-40449004:s1-d99af19c807b",
+      "text": "美柴油跌破6美元创两月新低",
+      "documentId": "br-40449004",
+      "segmentId": "s1-d99af19c807b"
+    },
+    {
+      "evidenceId": "br-40448954:s1-77290937ce32",
+      "text": "IEA称全球石油市场回归过剩",
+      "documentId": "br-40448954",
+      "segmentId": "s1-77290937ce32"
     }
   ],
   "counterReasons": [
@@ -40,13 +52,13 @@
       "evidenceId": "market-brent",
       "impact": "UP",
       "kind": "FACT",
-      "strength": "HIGH"
+      "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-diesel",
       "impact": "NEUTRAL",
       "kind": "FACT",
-      "strength": "MEDIUM"
+      "strength": "HIGH"
     },
     {
       "evidenceId": "eia-stocks",
@@ -71,7 +83,50 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "680b1fbf4a896f84d77406b90c7b54e6e4ac7f6ae62ba02d28d90cafade08fd3",
-  "coverageMode": "NORMAL",
-  "newsAssessments": []
+  "inputPackHash": "eb268e5406f5cba1dbaea21131ba3e3cfa0a63eeba7e9d70290a8e741bdf81cd",
+  "coverageMode": "LIMITED",
+  "newsAssessments": [
+    {
+      "evidenceId": "br-40449004:s1-d99af19c807b",
+      "impact": "DOWN",
+      "kind": "FACT",
+      "title": "美柴油跌破6美元创两月新低",
+      "summary": "地缘紧张缓解及需求季节性走弱致价格回落。",
+      "strength": "HIGH",
+      "documentId": "br-40449004",
+      "segmentId": "s1-d99af19c807b",
+      "sourceUrl": "https://www.brecorder.com/news/40449004/us-diesel-below-6-a-gallon-at-2-month-low-on-easing-tensions-weaker-demand",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-11-15T05:21:54.000Z"
+    },
+    {
+      "evidenceId": "br-40448954:s1-77290937ce32",
+      "impact": "DOWN",
+      "kind": "FACT",
+      "title": "IEA称全球石油市场回归过剩",
+      "summary": "中东出口恢复快于需求，四季度供应盈余。",
+      "strength": "MEDIUM",
+      "documentId": "br-40448954",
+      "segmentId": "s1-77290937ce32",
+      "sourceUrl": "https://www.brecorder.com/news/40448954/world-oil-market-is-returning-to-surplus-as-gulf-exports-recover",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-11-14T21:35:32.000Z"
+    },
+    {
+      "evidenceId": "br-40448966:s1-cddab1ba2ca7",
+      "impact": "DOWN",
+      "kind": "FACT",
+      "title": "油价连跌两周因供应过剩迹象",
+      "summary": "市场权衡全球供应盈余扩大及地缘风险降低。",
+      "strength": "MEDIUM",
+      "documentId": "br-40448966",
+      "segmentId": "s1-cddab1ba2ca7",
+      "sourceUrl": "https://www.brecorder.com/news/40448966/oil-prices-set-for-second-straight-weekly-drop-on-signs-of-growing-supply-surplus",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-11-14T21:35:32.000Z"
+    }
+  ]
 }
