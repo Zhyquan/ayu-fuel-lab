@@ -4,13 +4,13 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-15T06:51:21.439Z",
-  "validUntil": "2026-11-16T06:51:21.439Z",
-  "evidenceHash": "334176808660659b3936abccbf2e2c6d577aa72cfbf7f7118f862f7cb33c8579",
+  "generatedAt": "2026-11-17T08:10:47.875Z",
+  "validUntil": "2026-11-18T08:10:47.875Z",
+  "evidenceHash": "0c59a15542488b483d06e690092a431629f9e3f95da4ad9219ff4f1f26b20f06",
   "probabilities": {
-    "DOWN": 50,
-    "FLAT": 30,
-    "UP": 20
+    "DOWN": 45,
+    "FLAT": 20,
+    "UP": 35
   },
   "primaryDirection": "DOWN",
   "mainReasons": [
@@ -19,22 +19,20 @@
       "text": "美国馏分油库存增加"
     },
     {
-      "evidenceId": "br-40449004:s1-d99af19c807b",
-      "text": "美柴油跌破6美元创两月新低",
-      "documentId": "br-40449004",
-      "segmentId": "s1-d99af19c807b"
+      "evidenceId": "market-brent",
+      "text": "Brent最新日度报价回落"
     },
     {
-      "evidenceId": "br-40448954:s1-77290937ce32",
-      "text": "IEA称全球石油市场回归过剩",
-      "documentId": "br-40448954",
-      "segmentId": "s1-77290937ce32"
+      "evidenceId": "br-40449308:s1-de0cb01da5a8",
+      "text": "中东出口恢复致油价下跌",
+      "documentId": "br-40449308",
+      "segmentId": "s1-de0cb01da5a8"
     }
   ],
   "counterReasons": [
     {
-      "evidenceId": "market-brent",
-      "text": "Brent最新日度报价上涨"
+      "evidenceId": "market-diesel",
+      "text": "纽约港低硫柴油最新日度报价上涨"
     },
     {
       "evidenceId": "eia-production",
@@ -44,19 +42,19 @@
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "NEUTRAL",
+      "impact": "DOWN",
       "kind": "FACT",
-      "strength": "LOW"
+      "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-brent",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-diesel",
-      "impact": "NEUTRAL",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -83,50 +81,36 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "eb268e5406f5cba1dbaea21131ba3e3cfa0a63eeba7e9d70290a8e741bdf81cd",
+  "inputPackHash": "101fa9764dcfca1564d86d8f3ab28a836ebfc66ffe0d0323100eda86c05d23b6",
   "coverageMode": "LIMITED",
   "newsAssessments": [
     {
-      "evidenceId": "br-40449004:s1-d99af19c807b",
+      "evidenceId": "br-40449308:s1-de0cb01da5a8",
       "impact": "DOWN",
       "kind": "FACT",
-      "title": "美柴油跌破6美元创两月新低",
-      "summary": "地缘紧张缓解及需求季节性走弱致价格回落。",
-      "strength": "HIGH",
-      "documentId": "br-40449004",
-      "segmentId": "s1-d99af19c807b",
-      "sourceUrl": "https://www.brecorder.com/news/40449004/us-diesel-below-6-a-gallon-at-2-month-low-on-easing-tensions-weaker-demand",
+      "title": "中东出口恢复致油价下跌",
+      "summary": "周二油价下跌，因中东出口恢复导致供应过剩预期盖过地缘紧张担忧。",
+      "strength": "MEDIUM",
+      "documentId": "br-40449308",
+      "segmentId": "s1-de0cb01da5a8",
+      "sourceUrl": "https://www.brecorder.com/news/40449308/oil-slips-as-recovering-mideast-exports-blunt-gulf-tensions",
       "publisher": "Business Recorder",
       "originalSource": "Reuters",
-      "publishedAt": "2026-11-15T05:21:54.000Z"
+      "publishedAt": "2026-11-17T02:37:52.000Z"
     },
     {
-      "evidenceId": "br-40448954:s1-77290937ce32",
+      "evidenceId": "br-40449327:s3-fa1ce03e646f",
       "impact": "DOWN",
       "kind": "FACT",
-      "title": "IEA称全球石油市场回归过剩",
-      "summary": "中东出口恢复快于需求，四季度供应盈余。",
+      "title": "霍尔木兹海峡运输恢复",
+      "summary": "布伦特原油周一跌3.5%，因霍尔木兹海峡运输恢复迹象强化全球供应过剩预期。",
       "strength": "MEDIUM",
-      "documentId": "br-40448954",
-      "segmentId": "s1-77290937ce32",
-      "sourceUrl": "https://www.brecorder.com/news/40448954/world-oil-market-is-returning-to-surplus-as-gulf-exports-recover",
+      "documentId": "br-40449327",
+      "segmentId": "s3-fa1ce03e646f",
+      "sourceUrl": "https://www.brecorder.com/news/40449327/indian-bonds-gain-as-oil-slide-eases-rate-hike-concerns",
       "publisher": "Business Recorder",
       "originalSource": "Reuters",
-      "publishedAt": "2026-11-14T21:35:32.000Z"
-    },
-    {
-      "evidenceId": "br-40448966:s1-cddab1ba2ca7",
-      "impact": "DOWN",
-      "kind": "FACT",
-      "title": "油价连跌两周因供应过剩迹象",
-      "summary": "市场权衡全球供应盈余扩大及地缘风险降低。",
-      "strength": "MEDIUM",
-      "documentId": "br-40448966",
-      "segmentId": "s1-cddab1ba2ca7",
-      "sourceUrl": "https://www.brecorder.com/news/40448966/oil-prices-set-for-second-straight-weekly-drop-on-signs-of-growing-supply-surplus",
-      "publisher": "Business Recorder",
-      "originalSource": "Reuters",
-      "publishedAt": "2026-11-14T21:35:32.000Z"
+      "publishedAt": "2026-11-17T06:26:57.000Z"
     }
   ]
 }
