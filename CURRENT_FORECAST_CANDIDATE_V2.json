@@ -4,36 +4,26 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-17T08:10:47.875Z",
-  "validUntil": "2026-11-18T08:10:47.875Z",
-  "evidenceHash": "0c59a15542488b483d06e690092a431629f9e3f95da4ad9219ff4f1f26b20f06",
+  "generatedAt": "2026-11-18T07:44:13.939Z",
+  "validUntil": "2026-11-19T07:44:13.939Z",
+  "evidenceHash": "fae6b9a10e5a0300de3e810759ef72b88c1f8bbc7bd72bb1b9d1e78e4d653002",
   "probabilities": {
-    "DOWN": 45,
-    "FLAT": 20,
-    "UP": 35
+    "DOWN": 65,
+    "FLAT": 25,
+    "UP": 10
   },
   "primaryDirection": "DOWN",
   "mainReasons": [
     {
+      "evidenceId": "market-diesel",
+      "text": "纽约港低硫柴油最新日度报价回落"
+    },
+    {
       "evidenceId": "eia-stocks",
       "text": "美国馏分油库存增加"
-    },
-    {
-      "evidenceId": "market-brent",
-      "text": "Brent最新日度报价回落"
-    },
-    {
-      "evidenceId": "br-40449308:s1-de0cb01da5a8",
-      "text": "中东出口恢复致油价下跌",
-      "documentId": "br-40449308",
-      "segmentId": "s1-de0cb01da5a8"
     }
   ],
   "counterReasons": [
-    {
-      "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价上涨"
-    },
     {
       "evidenceId": "eia-production",
       "text": "美国馏分油产量减少"
@@ -54,7 +44,7 @@
     },
     {
       "evidenceId": "market-diesel",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -81,36 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "101fa9764dcfca1564d86d8f3ab28a836ebfc66ffe0d0323100eda86c05d23b6",
-  "coverageMode": "LIMITED",
-  "newsAssessments": [
-    {
-      "evidenceId": "br-40449308:s1-de0cb01da5a8",
-      "impact": "DOWN",
-      "kind": "FACT",
-      "title": "中东出口恢复致油价下跌",
-      "summary": "周二油价下跌，因中东出口恢复导致供应过剩预期盖过地缘紧张担忧。",
-      "strength": "MEDIUM",
-      "documentId": "br-40449308",
-      "segmentId": "s1-de0cb01da5a8",
-      "sourceUrl": "https://www.brecorder.com/news/40449308/oil-slips-as-recovering-mideast-exports-blunt-gulf-tensions",
-      "publisher": "Business Recorder",
-      "originalSource": "Reuters",
-      "publishedAt": "2026-11-17T02:37:52.000Z"
-    },
-    {
-      "evidenceId": "br-40449327:s3-fa1ce03e646f",
-      "impact": "DOWN",
-      "kind": "FACT",
-      "title": "霍尔木兹海峡运输恢复",
-      "summary": "布伦特原油周一跌3.5%，因霍尔木兹海峡运输恢复迹象强化全球供应过剩预期。",
-      "strength": "MEDIUM",
-      "documentId": "br-40449327",
-      "segmentId": "s3-fa1ce03e646f",
-      "sourceUrl": "https://www.brecorder.com/news/40449327/indian-bonds-gain-as-oil-slide-eases-rate-hike-concerns",
-      "publisher": "Business Recorder",
-      "originalSource": "Reuters",
-      "publishedAt": "2026-11-17T06:26:57.000Z"
-    }
-  ]
+  "inputPackHash": "12164a3ef8e38ff8efdf958971066743959c02195e8182e92fe0fbf01042fe10",
+  "coverageMode": "NORMAL",
+  "newsAssessments": []
 }
