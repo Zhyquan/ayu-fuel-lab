@@ -4,13 +4,13 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-18T07:44:13.939Z",
-  "validUntil": "2026-11-19T07:44:13.939Z",
-  "evidenceHash": "fae6b9a10e5a0300de3e810759ef72b88c1f8bbc7bd72bb1b9d1e78e4d653002",
+  "generatedAt": "2026-11-19T07:40:40.298Z",
+  "validUntil": "2026-11-20T07:40:40.298Z",
+  "evidenceHash": "3b1cd3555dfe76ad7228c5692119a93432200418513e75fe61a3d4051c4b6ad6",
   "probabilities": {
-    "DOWN": 65,
-    "FLAT": 25,
-    "UP": 10
+    "DOWN": 55,
+    "FLAT": 30,
+    "UP": 15
   },
   "primaryDirection": "DOWN",
   "mainReasons": [
@@ -25,22 +25,26 @@
   ],
   "counterReasons": [
     {
-      "evidenceId": "eia-production",
-      "text": "美国馏分油产量减少"
+      "evidenceId": "market-wti",
+      "text": "WTI最新日度报价上涨"
+    },
+    {
+      "evidenceId": "eia-refinery-inputs",
+      "text": "美国炼厂原油加工量减少"
     }
   ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-brent",
-      "impact": "DOWN",
+      "impact": "NEUTRAL",
       "kind": "FACT",
-      "strength": "MEDIUM"
+      "strength": "LOW"
     },
     {
       "evidenceId": "market-diesel",
@@ -56,13 +60,13 @@
     },
     {
       "evidenceId": "eia-production",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "eia-refinery-inputs",
-      "impact": "DOWN",
+      "impact": "UP",
       "kind": "FACT",
       "strength": "LOW"
     }
@@ -71,7 +75,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "12164a3ef8e38ff8efdf958971066743959c02195e8182e92fe0fbf01042fe10",
+  "inputPackHash": "176c3692dcbc8b7057f1353380006127e53590b0f0a4fe311dd11802c694bb15",
   "coverageMode": "NORMAL",
   "newsAssessments": []
 }
