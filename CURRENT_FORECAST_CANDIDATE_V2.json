@@ -4,13 +4,13 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-19T07:40:40.298Z",
-  "validUntil": "2026-11-20T07:40:40.298Z",
-  "evidenceHash": "3b1cd3555dfe76ad7228c5692119a93432200418513e75fe61a3d4051c4b6ad6",
+  "generatedAt": "2026-11-20T07:31:49.855Z",
+  "validUntil": "2026-11-21T07:31:49.855Z",
+  "evidenceHash": "44f484a22c105fe4591cfa110d222a648aa7fd39ef2c6b94c912c0246745bf35",
   "probabilities": {
-    "DOWN": 55,
-    "FLAT": 30,
-    "UP": 15
+    "DOWN": 75,
+    "FLAT": 15,
+    "UP": 10
   },
   "primaryDirection": "DOWN",
   "mainReasons": [
@@ -25,10 +25,6 @@
   ],
   "counterReasons": [
     {
-      "evidenceId": "market-wti",
-      "text": "WTI最新日度报价上涨"
-    },
-    {
       "evidenceId": "eia-refinery-inputs",
       "text": "美国炼厂原油加工量减少"
     }
@@ -36,13 +32,13 @@
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
       "evidenceId": "market-brent",
-      "impact": "NEUTRAL",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "LOW"
     },
@@ -75,7 +71,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "176c3692dcbc8b7057f1353380006127e53590b0f0a4fe311dd11802c694bb15",
+  "inputPackHash": "5aa1cafb5ca7388800b623c378d1c1c21c4176cf3349ee3aef3803b0bcbcc543",
   "coverageMode": "NORMAL",
   "newsAssessments": []
 }
