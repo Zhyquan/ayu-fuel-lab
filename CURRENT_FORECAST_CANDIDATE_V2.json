@@ -4,16 +4,20 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-21T07:27:40.219Z",
-  "validUntil": "2026-11-22T07:27:40.219Z",
-  "evidenceHash": "52a50403a10786994872b8f027cb16b212b6f1a1e373be76e565e50dbb04a15b",
+  "generatedAt": "2026-11-24T10:08:28.646Z",
+  "validUntil": "2026-11-25T10:08:28.646Z",
+  "evidenceHash": "626b82503e0ce0c35200357bf50164cd06d3fe24ef40bd7d5cd84d6d1de4efc6",
   "probabilities": {
-    "DOWN": 40,
-    "FLAT": 35,
-    "UP": 25
+    "DOWN": 65,
+    "FLAT": 20,
+    "UP": 15
   },
   "primaryDirection": "DOWN",
   "mainReasons": [
+    {
+      "evidenceId": "market-diesel",
+      "text": "纽约港低硫柴油最新日度报价回落"
+    },
     {
       "evidenceId": "eia-stocks",
       "text": "美国馏分油库存增加"
@@ -21,8 +25,8 @@
   ],
   "counterReasons": [
     {
-      "evidenceId": "market-diesel",
-      "text": "纽约港低硫柴油最新日度报价上涨"
+      "evidenceId": "market-wti",
+      "text": "WTI最新日度报价上涨"
     },
     {
       "evidenceId": "eia-refinery-inputs",
@@ -32,19 +36,19 @@
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "NEUTRAL",
-      "kind": "FACT",
-      "strength": "LOW"
-    },
-    {
-      "evidenceId": "market-brent",
       "impact": "UP",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
     {
+      "evidenceId": "market-brent",
+      "impact": "DOWN",
+      "kind": "FACT",
+      "strength": "MEDIUM"
+    },
+    {
       "evidenceId": "market-diesel",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "HIGH"
     },
@@ -71,7 +75,7 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "594dc2af50cbfd9355e8c760c17a59d1adbd9d53507b9c1bd064e1dba981e8fc",
+  "inputPackHash": "b906b4ab3bdf99fb88459e5e00e446fa8c2b03068a714f943133cfcb48c5f017",
   "coverageMode": "NORMAL",
   "newsAssessments": []
 }
