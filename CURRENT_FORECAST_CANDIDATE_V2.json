@@ -4,13 +4,13 @@
   "probabilityType": "AI_SUBJECTIVE_ESTIMATE",
   "forecastHorizonDays": 7,
   "provider": "QWEN",
-  "generatedAt": "2026-11-24T10:08:28.646Z",
-  "validUntil": "2026-11-25T10:08:28.646Z",
-  "evidenceHash": "626b82503e0ce0c35200357bf50164cd06d3fe24ef40bd7d5cd84d6d1de4efc6",
+  "generatedAt": "2026-11-25T08:53:41.898Z",
+  "validUntil": "2026-11-26T08:53:41.898Z",
+  "evidenceHash": "0d30ef573b0601f22cb364920a1c5bbaca0b7ef31d720aff5c7945ccb136d154",
   "probabilities": {
     "DOWN": 65,
-    "FLAT": 20,
-    "UP": 15
+    "FLAT": 25,
+    "UP": 10
   },
   "primaryDirection": "DOWN",
   "mainReasons": [
@@ -21,22 +21,30 @@
     {
       "evidenceId": "eia-stocks",
       "text": "美国馏分油库存增加"
+    },
+    {
+      "evidenceId": "br-40450653:s2-0f04031b8e11",
+      "text": "布伦特原油因供应过剩下跌",
+      "documentId": "br-40450653",
+      "segmentId": "s2-0f04031b8e11"
     }
   ],
   "counterReasons": [
     {
-      "evidenceId": "market-wti",
-      "text": "WTI最新日度报价上涨"
-    },
-    {
       "evidenceId": "eia-refinery-inputs",
       "text": "美国炼厂原油加工量减少"
+    },
+    {
+      "evidenceId": "br-40450613:s1-9279f6dd19da",
+      "text": "霍尔木兹袭击推升油价",
+      "documentId": "br-40450613",
+      "segmentId": "s1-9279f6dd19da"
     }
   ],
   "signalAssessments": [
     {
       "evidenceId": "market-wti",
-      "impact": "UP",
+      "impact": "DOWN",
       "kind": "FACT",
       "strength": "MEDIUM"
     },
@@ -75,7 +83,36 @@
   "forecastContract": "CORE_FORECAST_V1",
   "newsAssessmentContract": "NEWS_ASSESSMENT_V2",
   "promptVersion": "qwen-forecast-core-v1-integer-1pct-direction-pools-v2-event-safe-v1",
-  "inputPackHash": "b906b4ab3bdf99fb88459e5e00e446fa8c2b03068a714f943133cfcb48c5f017",
+  "inputPackHash": "cba82ee3e6153c68b81a5e9a581d3c1661a6942ea3761e48623b6fe978a2bc80",
   "coverageMode": "NORMAL",
-  "newsAssessments": []
+  "newsAssessments": [
+    {
+      "evidenceId": "br-40450613:s1-9279f6dd19da",
+      "impact": "UP",
+      "kind": "FACT",
+      "title": "霍尔木兹袭击推升油价",
+      "summary": "霍尔木兹海峡船只遇袭导致周二油价小幅上涨，但供应过剩预期限制了涨幅。",
+      "strength": "MEDIUM",
+      "documentId": "br-40450613",
+      "segmentId": "s1-9279f6dd19da",
+      "sourceUrl": "https://www.brecorder.com/news/40450613/oil-rises-on-hormuz-ship-attacks-surplus-supply-outlook-curbs-gains",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-11-24T23:45:58.000Z"
+    },
+    {
+      "evidenceId": "br-40450653:s2-0f04031b8e11",
+      "impact": "DOWN",
+      "kind": "FACT",
+      "title": "布伦特原油因供应过剩下跌",
+      "summary": "受供应增加及市场过剩前景影响，布伦特原油期货下跌0.7%至每桶90.8美元。",
+      "strength": "MEDIUM",
+      "documentId": "br-40450653",
+      "segmentId": "s2-0f04031b8e11",
+      "sourceUrl": "https://www.brecorder.com/news/40450653/indian-shares-may-open-higher-as-foreign-inflows-lower-oil-prices-aid-sentiment",
+      "publisher": "Business Recorder",
+      "originalSource": "Reuters",
+      "publishedAt": "2026-11-25T02:55:20.000Z"
+    }
+  ]
 }
